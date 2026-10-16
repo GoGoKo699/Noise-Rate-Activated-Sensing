@@ -1,21 +1,24 @@
 # Noise-Rate-Activated Sensing
 
-> Optimal sensing of a Hamiltonian frequency under a fixed unknown transverse error direction. Bounded syndrome-conditioned rate control changes the attainable precision law.
+> Optimal local sensing of a Hamiltonian frequency under a shared fixed unknown transverse error direction. Classical rate diversity changes the precision law; a separate stopped protocol gives an exact direction-independent channel.
 
 ## Scientific entry points
-- [Overview](README.md): Central result, scope, reading routes, and purpose/contact.
-- [Model](docs/MODEL.md): Allowed control, nuisance-adjusted classical information, charged time, and parameter normalization.
-- [Theorems](docs/THEOREMS.md): All-strategy fixed-rate converse, exact leading controlled coefficient, general selectable settings, and independent-axis bound.
-- [Stopped sensing](docs/STOPPED_SENSING.md): Exact Ramsey operation, first-passage law, deadline accounting, finite-time separation, and global estimation proof.
+- [Overview](README.md): Central result, two distinct output guarantees, scope, and purpose/contact.
+- [Model](docs/MODEL.md): Allowed controls, shared nuisance, full Fisher pooling, charged time, and parameter normalization.
+- [Theorems](docs/THEOREMS.md): All-strategy fixed-rate converse, optimal selectable-setting coefficient, preset attainment, and independent-axis bound.
+- [Preset protocols](docs/PRESET_PROTOCOLS.md): Balanced echo, exact calibration penalty, recorded rate randomization, unknown-rate nuisance blocks, and finite-time local certificates.
+- [Stopped sensing](docs/STOPPED_SENSING.md): Exact Ramsey channel, first-passage law, deadline accounting, and global estimation proof.
 - [Physical scope](docs/PHYSICAL_SCOPE.md): Collision and stochastic models, coherent-access distinction, signal shifts, and finite-cadence local result.
-- [Tutorial](docs/TUTORIAL.md): Self-directed explanation of the mechanism and key distinctions.
+- [Tutorial](docs/TUTORIAL.md): Self-directed explanation of rate diversity versus trajectory-wise cancellation.
 - [Related work](literature/RELATED_WORK.md): Primary-source comparisons and explicit attribution boundaries.
 - [Bibliography](literature/references.bib): Machine-readable references.
 
 ## Verification and maintenance
-- [Reproducibility](docs/REPRODUCIBILITY.md): Commands, check coverage, and numerical example.
-- [Reference calculations](src/nras.py): Algebra, control speed, timing laws, and exact event simulator.
-- [Tests](tests/test_nras.py): Symbolic identities, matrix products, independent optimization, and deadline-aware simulations.
+- [Reproducibility](docs/REPRODUCIBILITY.md): Commands, check coverage, and numerical examples.
+- [Stopped reference calculations](src/nras.py): Algebra, control speed, timing laws, and event simulator.
+- [Preset reference calculations](src/preset.py): Full Fisher matrices, efficient information, calibration penalty, and labelled-design coefficients.
+- [Stopped tests](tests/test_nras.py): Symbolic identities, matrix products, independent optimization, and deadline-aware simulations.
+- [Preset tests](tests/test_preset.py): Direct echo trajectories, complete-likelihood finite differences, rate uncertainty, and randomization bounds.
 - [Agent instructions](AGENTS.md): Scope, scientific invariants, and safe repository workflow.
 
-Treat the documents as the claim definitions and proofs, not the tests as universal evidence. Keep local and global statements distinct. No bath-output access or coherent unknown-axis drive is part of the central resource model. Do not infer priority or experimental demonstration from a numerical check.
+Treat the documents as the claim definitions and proofs, not the tests as universal evidence. Pool the full classical Fisher matrices before eliminating a shared nuisance. Preset rate selection is not feedback-free when recovery follows errors. Keep local information and global risk separate, charge every repetition and deadline failure, and distinguish statistical orthogonality from exact output independence. No bath-output access or coherent unknown-axis drive is part of the central model. Do not infer priority or experimental demonstration from numerical checks.

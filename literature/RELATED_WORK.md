@@ -10,6 +10,8 @@ The source comparison below uses primary papers, with preprints identified as su
 
 Section V.B.2, p. 16, uses the fixed continuously unknown transverse direction and explicitly distinguishes it from a finite-set promise. Appendix A.3 and A.4 analyze calibration-based and fixed-recovery protocols. The paper leaves the general-strategy scaling question open. The present fixed-rate converse applies to all operations in the stated continuous-time resource model; the positive theorem adds a rate-control resource. Their Hamiltonian convention is $H=\theta Z$, whereas this repository uses $H=\omega Z/2$. The two sensing tasks should be compared with $\omega=2\theta$.
 
+The fixed recovery $X$, count-conditioned phase, and complete-record single-rate information $T^2/(1+\gamma T)$ are explicitly inherited from Appendix A.4(a), Eqs. (A19)–(A29), pp. 26–27. They already establish an attaining protocol for the linear coefficient once the universal converse is supplied. The [preset protocols](../docs/PRESET_PROTOCOLS.md) combine that building block with distinct rates: a balanced echo or a recorded random choice attains the new leading coefficient. The latter also avoids the echo's precise balancing requirement. Averaging full Fisher matrices before eliminating a shared nuisance is ordinary statistical design, not an independently novel metrological formalism. These local statements do not replace the stopped channel's separate global-risk proof.
+
 ## Bound and estimation foundations
 
 **Das, Górecki, and Demkowicz-Dobrzański, “Universal time scalings of sensitivity in Markovian quantum metrology,” Physical Review A 111, L020403 (2025).** [Paper](https://doi.org/10.1103/PhysRevA.111.L020403) · [Equations](https://arxiv.org/html/2404.03954v2)
