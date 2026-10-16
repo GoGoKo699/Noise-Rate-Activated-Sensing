@@ -25,7 +25,7 @@ The [stopped-sensing example](../results/example.json) records parameters, seeds
 
 ## Coverage
 
-The scientific suite contains 73 tests: 33 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, and 20 in `tests/test_risk.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
+The scientific suite contains 80 tests: 33 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, 20 in `tests/test_risk.py`, and 7 in `tests/test_learning.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
 
 | Calculation | Check |
 |---|---|
@@ -46,9 +46,12 @@ The scientific suite contains 73 tests: 33 in `tests/test_nras.py`, 20 in `tests
 | Parallel-dephasing readout | Angular quadrature, mixed-state likelihood finite differences, and exact superoperator factorization |
 | Parallel-noise converse and finite advantage | Gauge cancellation and exact tolerance-boundary calculation |
 | Physical resource identities | Simultaneous transformation of signal and noise under a known pulse; unidentifiability with free setting offsets |
+| Tutorial examples | Ramsey readout, parity encoding, nuisance projection, the worked rate mixture and echo, charged repetitions, a two-error path, and the generator-to-contrast convention |
 | Evidence regeneration | Deterministic table regenerated and compared with numerical tolerances |
 
 The likelihood checks use Poisson cutoffs with tail probability below $10^{-14}$ at their tested parameters. They finite-difference actual outcome probabilities rather than substituting analytical scores into an information formula. Seeded checks use stated tolerances instead of requiring identical floating-point results across all package versions.
+
+The [worked tutorial](TUTORIAL.md) uses the same physical and statistical conventions. Its seven finite checks run as part of the suite; passing them validates those calculations, not a reader's understanding or the source PDF. The selected-source normalization note is in the [learning guide](LEARNING_GUIDE.md#rate-normalization-when-using-the-source).
 
 ## Reading the numerical examples
 

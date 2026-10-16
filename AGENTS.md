@@ -18,4 +18,8 @@ Present the repository as a scientific record, not a development diary. Keep ass
 
 Use GitHub-native Markdown with supported dollar-delimited mathematics. Keep equations out of headings and complicated tables, avoid undefined macros, and inspect rendered pages when changing mathematical display. Source checks alone do not establish correct hosting-renderer output.
 
-For an explicitly requested coaching session, anchor it in the [tutorial](docs/TUTORIAL.md). Use Revise → Learn → Test, one selection-only question at a time, targeted revision after mistakes, and evidence-based readiness. Prefer actual clickable answer controls when available; never describe plain-text options as interactive. Do not start unsolicited quizzes during repository maintenance.
+## Learning and coaching
+
+The settled educational anchor is **Haase et al., arXiv:1807.11882v4**. Read the [learning guide](docs/LEARNING_GUIDE.md) for the source map, notation hazards, project-specific bridges, and readiness domains. Keep one educational anchor; primary research citations do not become additional assigned textbooks. Do not reopen the source choice without a substantive reason. Preserve the project's rate normalization rather than copying inconsistent source formulas, and do not replace time resources by probe-number resources.
+
+For an explicitly requested coaching session, teach directly from the [worked tutorial](docs/TUTORIAL.md) and its linked proofs, without making prior reading a condition. Use Revise → Learn → Test, one selection-only question at a time, targeted revision after mistakes, and evidence-based readiness. Prefer actual clickable answer controls when available; never describe plain-text options as interactive. Do not start unsolicited quizzes during repository maintenance.

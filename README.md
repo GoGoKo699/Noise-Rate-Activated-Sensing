@@ -50,12 +50,16 @@ The [global-risk proof](docs/GLOBAL_RISK.md) does not infer this result from a l
 
 Both constructions use one noiseless ancilla. The stopped channel supports the global upper scaling by resolving phase ambiguity at several prescribed effective times. That theorem is separate from the preset protocols' local-information coefficients. A repetition of duration $T$ costs $T$ each time; repetitions are never free resources.
 
+## Learning anchor
+
+The single educational anchor is **Haase et al., _Precision Limits in Quantum Metrology with Open Quantum Systems_, arXiv:1807.11882v4**. The [learning guide](docs/LEARNING_GUIDE.md) maps its sections and notation to the project; the [worked tutorial](docs/TUTORIAL.md) supplies the bridge from Ramsey likelihoods to nuisance elimination, rate diversity, stopped channels, and global precision. No whole-book prerequisite is imposed. Primary research citations remain separate from this educational anchor.
+
 ## Reading routes
 
 | Purpose | Start here |
 |---|---|
 | See the complete scientific claim and proof map | [Scientific synthesis](docs/SCIENTIFIC_SYNTHESIS.md) |
-| Understand the mechanism and the two guarantees | [Tutorial](docs/TUTORIAL.md) |
+| Learn from the selected anchor | [Section and notation map](docs/LEARNING_GUIDE.md) → [Worked tutorial](docs/TUTORIAL.md) |
 | Check the statistical task and physical resources | [Model](docs/MODEL.md) |
 | Verify local optimality and the selectable-setting criterion | [Theorems and proofs](docs/THEOREMS.md) |
 | Compare the same global error criterion | [Global precision](docs/GLOBAL_RISK.md) |
