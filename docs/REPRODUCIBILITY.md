@@ -76,7 +76,7 @@ python -m playwright install chromium
 python scripts/check_rendering.py --ref "$(git rev-parse HEAD)" --output /tmp/nras-rendering
 ```
 
-These browser packages are optional and are not prerequisites for the scientific checks. The output directory contains the report, hosted HTML, screenshots, and (in CI) an archive of the exact inspected sources; CI retains its artifact for 14 days. Network failure, missing formulas, or uninitialized mathematics is not a successful rendering check. Screenshots still require visual inspection for clipping, bra–ket notation, table layout, and unintended emphasis: automated DOM checks do not establish visual quality or scientific correctness.
+The CI browser installs Latin Modern Math and STIX fonts for native MathML. On Debian/Ubuntu, the equivalent setup is `sudo apt-get install fonts-lmodern fonts-stix`; other systems can use the [MathML font guidance](https://developer.mozilla.org/en-US/docs/Web/MathML/Guides/Fonts). No stylesheet or formula replacement is injected into GitHub. These fonts and browser packages are optional for the scientific checks; they support the separate visual audit. The output directory contains the report, hosted HTML, screenshots, and (in CI) an archive of the exact inspected sources; CI retains its artifact for 14 days. Network failure, missing formulas, or uninitialized mathematics is not a successful rendering check. Screenshots still require visual inspection for clipping, bra–ket notation, table layout, and unintended emphasis: automated DOM checks do not establish visual quality or scientific correctness.
 
 ## Interpretation and implementation boundaries
 
