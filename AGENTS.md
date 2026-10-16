@@ -16,7 +16,7 @@ Inspect the current default-branch head and relevant open pull requests before w
 
 Present the repository as a scientific record, not a development diary. Keep assumptions, attribution, claim scope, and reproducibility visible. Avoid progress dashboards, speculative task catalogues, duplicate derivations, and publication-target messaging. Do not add a manuscript, public release, or visibility change as routine maintenance.
 
-Use GitHub-native Markdown with supported dollar-delimited mathematics. Keep equations out of headings and complicated tables, avoid undefined macros, and inspect rendered pages when changing mathematical display. Source checks alone do not establish correct hosting-renderer output.
+Use GitHub-native math fences for display equations and protected dollar/backtick spans for inline equations. Bare dollar delimiters have corrupted escapes, stars, and matrix rows in this repository’s hosted output; do not reintroduce them. Use the checked upright named-function notation rather than the rejected operatorname macro. Keep equations out of headings and complicated tables, avoid undefined macros, and inspect rendered pages when changing mathematical display. Source checks alone do not establish correct hosting-renderer output.
 
 ## Learning and coaching
 

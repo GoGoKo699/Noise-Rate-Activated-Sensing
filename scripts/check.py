@@ -5,6 +5,8 @@ import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
 
+from check_rendering import source_math_issues
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -22,10 +24,11 @@ def check_docs():
         if {'.git', '.venv', 'venv', '__pycache__', '.pytest_cache'} & set(path.parts):
             continue
         text = path.read_text(encoding='utf-8')
-        if text.count('$$') % 2:
-            raise ValueError(f'unbalanced display math in {path.relative_to(ROOT)}')
+        issues = source_math_issues(text)
+        if issues:
+            raise ValueError(f'{path.relative_to(ROOT)}: {issues[0]}')
         if '\\(' in text or '\\[' in text:
-            raise ValueError(f'use dollar-delimited GitHub math in {path.relative_to(ROOT)}')
+            raise ValueError(f'use protected inline or fenced GitHub math in {path.relative_to(ROOT)}')
         for target in re.findall(r'\]\(([^\s)]+)\)', text):
             parsed = urlsplit(target)
             if parsed.scheme or parsed.netloc:
