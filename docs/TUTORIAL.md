@@ -1,71 +1,223 @@
-# Understanding the sensing mechanism
+# From Ramsey sensing to noise-rate activation
 
-[Overview](../README.md) · [Precise model](MODEL.md) · [Proofs](THEOREMS.md)
+[Anchor and reading map](LEARNING_GUIDE.md) · [Overview](../README.md) · [Scientific synthesis](SCIENTIFIC_SYNTHESIS.md)
 
-## The starting question
+This tutorial bridges the single educational anchor, [Haase et al., arXiv:1807.11882v4](https://arxiv.org/abs/1807.11882v4), to the research. Basic qubit states, tensor products, and the Born rule are the starting language. Estimation notation is introduced as it is used. The source locations and normalization translations are in the [learning guide](LEARNING_GUIDE.md); the project derivations below are not attributed to the anchor.
 
-A qubit accumulates a phase proportional to an unknown frequency. Noise occasionally flips it about some axis in the transverse plane. The axis is stable, but its angle is unknown. Detecting that an error occurred does not automatically tell us which coherent recovery to apply.
+## 1. One qubit, one likelihood, one clock
 
-Knowing the angle and learning it during the experiment are different resources. At a single fixed rate, the angle's uncertainty can imitate a change of signal frequency. The fixed-rate theorem bounds all allowed adaptive strategies, including those trying to learn and correct simultaneously. The [model](MODEL.md) defines the statistical task.
-
-Access to two rates changes the conclusion. There are two distinct ways to use it: separate the signal and nuisance statistically, or cancel the nuisance from each completed sensing operation.
-
-## Detect the sector without reading the phase
-
-Store the logical amplitudes in $|00\rangle$ and $|11\rangle$, with the sensor first. A transverse sensor error moves them to the odd-parity sector. A parity measurement distinguishes even from odd without distinguishing the two logical amplitudes. It reveals an error without measuring the unknown phase.
-
-The protocols assume ideal fast parity measurements and one noiseless ancilla. They do not receive a free measurement of the bath.
-
-## Separate the two unknowns using rate diversity
-
-First consider applying a fixed sensor $X$ after every detected error. This returns the state to the code but leaves an unknown logical phase because $XN_\phi=e^{i\phi Z}$. After a duration $T$ and $n$ errors, the phase is
+Prepare $|+\rangle=(|0\rangle+|1\rangle)/\sqrt2$. A frequency $\omega$ acts through $H=\omega Z/2$ for physical time $t$. In units with $\hbar=1$, the rotation is $U_\omega(t)=e^{-i\omega tZ/2}$. Read out in an equatorial basis with a known angle $\chi$. The two outcome probabilities are
 
 $$
-\Theta=\omega T-2\phi n.
+p_\pm(\omega\mid t,\chi)=\frac{1\pm\cos(\omega t-\chi)}2.
 $$
 
-Keeping the count matters. At one rate, the typical count is close to $\gamma T$, so changing $\phi$ closely imitates changing $\omega$. This is the statistical obstruction behind the linear-information law.
+These probabilities, together with the chosen controls, form the **likelihood**: a rule assigning a probability to each possible data record for each candidate frequency. The phase $\vartheta=\omega t$ is dimensionless. Throughout this repository, $\phi$ is reserved for the unknown *noise direction*, not for $\vartheta$.
 
-Choose rate $a$ or $b$ before each interrogation and retain which was used. The target accumulates for the same duration, but the typical error counts differ. Combining the two labelled kinds of data helps separate the two unknowns. A suitable randomization probability attains the optimal leading local coefficient
+The classical Fisher information of this measurement is
 
 $$
-r^2=\left(\frac{b-a}{b+a}\right)^2.
+F_{\rm cl}(t)=\sum_{y\in\{+,-\}}\frac{(\partial_\omega p_y)^2}{p_y}=t^2
 $$
 
-Even an equal-probability choice retains at least half of this coefficient without knowing the numerical rates. At $a=1$, $b=3$, its coefficient is $1/5$, compared with the optimum $1/4$.
+at regular readout points. It measures local distinguishability of nearby frequencies, not the amount by which one experimental outcome determines the frequency. Drawing and retaining a uniform angle $\chi$ avoids exceptional zero-probability points for any fixed phase. The qubit's quantum Fisher information also equals $t^2$ here; for a general state a particular measurement need not attain the quantum bound.
 
-This is not a statement that the output phase no longer contains $\phi$. It is a statement about the full local Fisher information after treating $\phi$ as a nuisance. Repetitions cost their full durations, and their direction must remain shared and stable. The preset rate choice also does not eliminate syndrome-triggered recovery pulses.
+For $\nu$ independent repetitions of duration $t$, information adds to $\nu t^2$ and time adds to $\nu t$. With a total budget $T=\nu t$, this is $Tt$. One cannot simultaneously claim a single coherent interrogation of duration $T$ and $\nu$ free copies of its output. The ideal costs of preparation and readout are specified in the [model](MODEL.md).
 
-## A preset echo and its calibration requirement
+## 2. Detect an error without reading the signal
 
-Another construction uses a longer low-rate block and a shorter high-rate block, with a logical echo between them. Their durations satisfy $at_a=bt_b$. Expected error counts then cancel in the target–nuisance cross-information while the signal retains time $t_a-t_b=rT$.
+Our sensor also experiences transverse errors
 
-This gives $r^2T^2$ local information exactly at finite $T$. However, a fixed mismatch between the expected counts eventually changes the scaling back to linear. It is a balancing requirement of this particular echo, not a universal limitation: the recorded random-rate construction above avoids it. [Preset protocols](PRESET_PROTOCOLS.md) gives the exact mismatch law and also treats the numerical rates as unknown.
+$$
+N_\phi=\cos\phi\,X+\sin\phi\,Y,
+\qquad
+\dot\rho=-i\frac\omega2[Z,\rho]+\gamma(N_\phi\rho N_\phi-\rho).
+$$
 
-## Let two errors cancel instead
+The rate $\gamma>0$ has units of inverse time. The angle $\phi$ is fixed but unknown. Since $N_\phi^\dagger N_\phi=I$, errors in the ideal jump description occur with rate $\gamma$, independent of the sensor's logical state. This does not give the controller direct bath access.
 
-There is a different construction that leaves the errors uncorrected. We know $N_\phi^2=I$ even without knowing $\phi$. Two occurrences of the same error therefore cancel.
+Add a noiseless ancilla and encode a logical state as
 
-The signal changes sign between them because $N_\phi ZN_\phi=-Z$. If the first waiting interval lasts $\tau_+$ and the second lasts $\tau_-$, the phase is $\omega(\tau_+-\tau_-)$ rather than $\omega(\tau_++\tau_-)$. Keep a signed clock, positive in the code and negative in the error sector. Use rate $a$ while it runs forward and rate $b>a$ while it runs backward. The backward intervals are shorter on average.
+$$
+|\psi_L\rangle=c_0|00\rangle+c_1|11\rangle,
+\qquad |c_0|^2+|c_1|^2=1.
+$$
 
-Choose a desired effective time $d$ and stop when the signed clock first reaches it. At that instant the sensor is in the code and the output is exactly the ordinary Ramsey operation of duration $d$, independently of $\phi$. No estimate of the angle or numerical rates enters the stopping rule.
+The sensor is the first qubit. Both basis states have even parity, measured by $Z\otimes Z$. The signal preserves this parity. An error gives
 
-The physical duration is random, with mean $d/r$. At equal rates it eventually succeeds but has infinite mean duration. This is why a perfect postselected output alone is not a precision claim. The stopped protocol's deadline analysis charges every failed or long run.
+$$
+(N_\phi\otimes I)|\psi_L\rangle
+=c_0e^{i\phi}|10\rangle+c_1e^{-i\phi}|01\rangle,
+$$
 
-For $a=1$, $b=3$, and $d=4$ in consistent units, the mean duration is 8 and the duration variance is 12. Each completed Ramsey experiment has local information 16. Using multiple prescribed effective times also resolves phase ambiguity, giving the separate global-estimation theorem.
+which has odd parity. Projecting onto either parity sector does not distinguish $c_0$ from $c_1$. Thus the measurement can detect an error without measuring the unknown signal phase. Arbitrarily fast ideal parity extraction supplies the syndrome record used below; finite-rate and faulty measurements are different assumptions.
 
-## What each guarantee means
+If $\phi$ were known, applying $N_\phi$ after an error would undo it. A fixed sensor recovery $X$ also returns the state to the code, but leaves
 
-**Statistical separation:** preset designs preserve local information despite a shared nuisance. The nuisance can remain in each output state.
+$$
+XN_\phi=e^{i\phi Z}.
+$$
 
-**Exact channel cancellation:** stopped sensing produces a direction-independent Ramsey operation on every completed trajectory. Its physical duration and failures must be charged.
+After duration $t$ and $n$ detected errors, the logical phase is therefore
 
-**Rate knowledge:** a balanced echo needs the ratio; a fair random choice does not. Stopped-output correctness is independent of the numerical rates, while throughput guarantees need rate bounds.
+$$
+\Theta=\omega t-2\phi n.
+$$
 
-**Shared axis:** two independently unknown error directions define a different nuisance model and obey a linear-information converse. Rate diversity does not correct arbitrary uncharacterized noise.
+The state is back in the code, but its phase is not independent of the error direction. This fixed-recovery building block is attributed to the primary predecessor in [preset protocols](PRESET_PROTOCOLS.md); it is not a new general correction method.
 
-**Local and global estimation:** a large Fisher matrix does not alone resolve Ramsey phase ambiguity. The global theorem is proved using the exact stopped channel, not inferred from a random-rate local coefficient.
+## 3. Why a nuisance parameter costs information
 
-## Specialist reading path
+A **nuisance parameter** is unknown and affects the observations, although it is not the quantity we want to report. Here it is $\phi$. For the complete record $x$, define the two scores and their Fisher matrix by
 
-Continue with [the model](MODEL.md), the converse in [theorems](THEOREMS.md), and [preset protocols](PRESET_PROTOCOLS.md). Then read [stopped sensing](STOPPED_SENSING.md) for the first-passage and global-risk arguments. [Physical scope](PHYSICAL_SCOPE.md) and [related work](../literature/RELATED_WORK.md) specify the physical and attribution boundaries. [Reproducibility](REPRODUCIBILITY.md) maps calculations to executable checks.
+$$
+\ell_\omega=\partial_\omega\log p(x\mid\omega,\phi),
+\qquad \ell_\phi=\partial_\phi\log p(x\mid\omega,\phi),
+\qquad J_{ij}=\mathbb E[\ell_i\ell_j].
+$$
+
+Scores say how the likelihood changes under small parameter shifts. If a target shift can be imitated by a nuisance shift, part of the apparent target information is not usable without knowing the nuisance. Removing that part gives
+
+$$
+\mathcal I_\omega
+=\min_c\mathbb E[(\ell_\omega+c\ell_\phi)^2]
+=J_{\omega\omega}-\frac{J_{\omega\phi}^2}{J_{\phi\phi}}
+$$
+
+when $J_{\phi\phi}>0$. The minimizing coefficient is $c=-J_{\omega\phi}/J_{\phi\phi}$. The first expression also covers a singular nuisance block. This is the ordinary projection of the target score away from the nuisance score, not a new definition of quantum Fisher information.
+
+For the fixed-recovery phase $\Theta=\omega t-2\phi n$, the derivative vector is $(t,-2n)$. Averaging its outer product over $n\sim\operatorname{Poisson}(\gamma t)$ gives
+
+$$
+J=\begin{pmatrix}
+t^2&-2\gamma t^2\\
+-2\gamma t^2&4(\gamma^2t^2+\gamma t)
+\end{pmatrix},
+\qquad
+\mathcal I_\omega=\frac{t^2}{1+\gamma t}.
+$$
+
+The entry $J_{\omega\omega}=t^2$ treats the direction as known. With the direction unknown, this protocol has only linear leading information. Typical counts are near $\gamma t$, so the phase is nearly $(\omega-2\gamma\phi)t$: that is the ambiguity the subtraction captures.
+
+This calculation evaluates one protocol. Only the separate [converse](THEOREMS.md) shows that no allowed fixed-rate strategy escapes a linear ceiling. Also, inverse Fisher information is a bound for a local estimation task, not automatically the mean-square error of a globally usable estimator.
+
+## 4. A complete rate-diversity example
+
+Set $a=1$ and $b=3$ in inverse-time units and use an interrogation of duration $t=10$. Choose rate $a$ with probability $3/4$ and rate $b$ with probability $1/4$. Keep that rate fixed within the interrogation. Prepare $|+_L\rangle$, monitor parity, apply sensor $X$ after each detected error, and record the count $n$. At the end, draw and record $\chi$ and measure the equatorial logical basis.
+
+The complete data are the setting label $j$, count $n$, readout angle $\chi$, and outcome $y$. Conditional on $j$, the count is Poisson with mean $\gamma_jt$ and the phase remains $\omega t-2\phi n$. For this example,
+
+$$
+\mathbb E[n]=15,\qquad
+\mathbb E[n^2]=315,
+\qquad
+J=\begin{pmatrix}100&-300\\-300&1260\end{pmatrix}.
+$$
+
+The efficient information is
+
+$$
+\mathcal I_\omega=100-\frac{300^2}{1260}=\frac{200}{7}\approx28.5714.
+$$
+
+The universal fixed-rate-$a$ bound at the same physical duration is $t/a=10$; the particular fixed-recovery baseline has $100/11\approx9.0909$. The rate-diverse experiment exceeds the first bound in **local information**, not necessarily in the actual error of a single-shot global estimator. The states in its individual branches still contain the nuisance.
+
+The shared direction allows the two types of labelled data to constrain the same nuisance. Form their full Fisher matrices and combine them **before** eliminating that nuisance. Eliminating an independent direction in each branch would be a different experiment. A label supplies no target information on its own; it identifies which likelihood generated the observation.
+
+For any two distinct positive rates, the optimal leading coefficient is $r^2$, where $r=(b-a)/(b+a)$. A fair recorded choice needs no numerical rate calibration in the design and has coefficient $(b-a)^2/[2(a^2+b^2)]$, at least half the optimum. For $a=1,b=3$, these coefficients are $1/5$ and $1/4$. Treating the rates as additional unknowns does not change the phase-information block when the complete counts are used; [preset protocols](PRESET_PROTOCOLS.md) derives that statement.
+
+Three repetitions of the example cost 30 time units and have information $3(200/7)=600/7$, not three free interrogations at total cost 10. The direction must stay shared across the pooled data. No within-run rate feedback is used, but the recovery pulses still follow detected errors.
+
+## 5. What the preset echo trades for balance
+
+An alternative uses two timed blocks and a logical echo between them. With fixed recovery after each error, its phase is
+
+$$
+\Theta=\omega(t_a-t_b)-2\phi(n_a-n_b).
+$$
+
+For $a=1,b=3,T=10$, choose $t_a=7.5$ and $t_b=2.5$. The expected counts are equal, so the mean signed count vanishes. With signed time $D=5$ and signed-count variance $V=15$, the Fisher matrix is $\operatorname{diag}(25,60)$ and the efficient information is 25.
+
+This is statistical orthogonality: $J_{\omega\phi}=0$. It does not say that $n_a=n_b$ on each run or that its output is direction-independent. For general durations the exact information is
+
+$$
+\mathcal I_{\rm echo}=\frac{D^2V}{V+\mu^2},
+\quad D=t_a-t_b,\quad V=at_a+bt_b,\quad\mu=at_a-bt_b.
+$$
+
+With a fixed fractional timing imbalance, $D$ and $\mu$ grow as $T$ while $V$ grows as $T$. The denominator then eventually loses the quadratic advantage. Common rescaling of both rates preserves balance; differential errors need not. That sensitivity belongs to the echo, not to the recorded random-rate protocol. Neither protocol requires learning $\phi$ in order to choose the recovery pulse.
+
+## 6. Let the error supply its own recovery
+
+Now leave detected errors uncorrected. The identities
+
+$$
+N_\phi^2=I,\qquad N_\phi ZN_\phi=-Z
+$$
+
+mean that two errors cancel, while the signal accumulates with reversed sign between them. On an even-count trajectory, the logical rotation depends only on
+
+$$
+D(t)=\int_0^t(-1)^{n(u)}du,
+\qquad U_L(t)=e^{-i\omega D(t)Z_L/2}.
+$$
+
+For a concrete path, suppose the sensor spends 0.9 time units in the even sector, jumps, spends 0.25 in the odd sector, jumps again, and spends another 0.85 in the even sector. Its physical duration is 2, but its signed time is $0.9-0.25+0.85=1.5$. Direct multiplication gives the Ramsey operation of duration 1.5 for every noise angle. Neither the two error times nor the resulting phase require an estimate of $\phi$.
+
+Use the lower rate $a$ in the even sector and the higher rate $b$ in the odd sector. The negative intervals are shorter on average. Stop at the first time $\tau_d$ when $D(t)=d>0$. The first upward crossing is in the even sector, so each completed run gives the same exact channel $e^{-i\omega dZ_L/2}$, independently of $\phi$.
+
+The first-passage law, derived in [stopped sensing](STOPPED_SENSING.md), gives
+
+$$
+\mathbb E[\tau_d]=\frac{d}{r},\qquad
+\operatorname{Var}(\tau_d)=\frac{8ab\,d}{(b-a)^3}.
+$$
+
+For $a=1,b=3,d=4$, the mean physical duration is 8 and the variance is 12. The exact effective time 4 does not mean physical completion at time 8 on every run. A hard deadline must retain unfinished trials. At equal rates, eventual completion has infinite mean duration; a perfect eventual output alone is not a precision advantage.
+
+This construction uses syndrome-conditioned **rate** feedback but no recovery pulse after an error. Its channel guarantee is stronger than the preset protocols' local statistical separation. Predicting throughput needs rate information, but the signed-clock stopping rule does not.
+
+## 7. From a protocol to an all-strategy bound
+
+A failed protocol cannot rule out every adaptive alternative. To prove a universal restriction, consider the physical parameter family along
+
+$$
+\omega(u)=\omega_c+u,\qquad\phi(u)=\phi_c+cu.
+$$
+
+Any estimator that works with an unknown direction must also handle these joint parameter changes. For a fixed protocol, its efficient target information is at most the information along any such path, which is bounded by that path's output quantum Fisher information $F_u$. The path is a proof device; the physical bath is not assumed to carry the target frequency.
+
+The [theorem proof](THEOREMS.md) imports the adaptive channel-growth inequality from Das and colleagues. In the gauge used here it reads
+
+$$
+\frac{dF_u}{dt}\le4(\|A\|+\|B\|\sqrt{F_u}),
+\qquad
+A=c^2\gamma I,\qquad B=(1/2-c\gamma)Z.
+$$
+
+$A$ and $B$ are operators built from **parameter** derivatives of the generator; their norms constrain the **time** growth of information. They are not additional controls. At a fixed rate, choosing $c=1/(2\gamma)$ makes $B=0$. Integrating from a parameter-independent initial state gives $F_u(T)\le T/\gamma$ and therefore the universal nuisance-adjusted bound.
+
+At two rates one common slope cannot cancel $B$ at both. The minimax choice yields leading coefficient at most $r^2$; the constructions attain it. The proof covers arbitrary permitted ancillary controls, not merely the parity protocols used to explain attainment. The anchor motivates channel bounds, but this adaptive inequality and its precise assumptions must still be read as a research-level imported premise, not as a consequence of replacing its probe number by time.
+
+## 8. Global precision is a separate statement
+
+A single Ramsey likelihood is periodic. Frequencies separated by $2\pi/t$ can produce the same phase. Large local Fisher information does not resolve that ambiguity or certify a globally accurate estimator.
+
+The repository's global task fixes a frequency interval independently of $T$, permits biased estimators, and maximizes the mean-square error over the unknown frequency and direction. The [global proof](GLOBAL_RISK.md) applies the uniform nuisance-path bound to a smooth prior using the van Trees argument. It proves a fixed-rate lower scaling $\Omega(T^{-1})$; paid, short no-error trials provide the matching upper scaling.
+
+For rate access, several prescribed effective times of the exact stopped channel resolve the phase ambiguity. Their physical durations and deadline failures are all counted. Together with a global lower bound this gives
+
+$$
+R_{\rm fixed}(T;\Omega)=\Theta(T^{-1}),\qquad
+R_{[a,b]}(T;\Omega)=\Theta(T^{-2}).
+$$
+
+Here $\Omega$ inside $R$ denotes the fixed frequency interval; $\Omega(T^{-1})$ in a scaling statement denotes an asymptotic lower bound. The exact optimal global constant is not supplied by the local coefficient $r^2$. The preset random-rate calculation is not substituted for the stopped-channel global proof.
+
+## 9. Carry the assumptions with the result
+
+The shared, stable direction matters: separate unknown axes for the settings have a linear-information converse. A scalar rate change must preserve the specified signal response. Ordinary known pulses do not give independent reversal of an unknown signal while leaving every unknown noise direction unchanged.
+
+Ideal syndrome extraction and noiseless ancillary storage are shared resources in the main comparison. Fixed-interval ideal measurements have only the separately stated compensated **local** result. A fixed positive unobserved parallel dephasing rate $\kappa$ restores the ceiling $\mathcal I_\omega^*(T)\le T/(4\kappa)$, although a quantified finite-time advantage remains. Use the project's contrast convention $e^{-2\kappa t}$; see the [source normalization note](LEARNING_GUIDE.md#rate-normalization-when-using-the-source).
+
+The [physical scope](PHYSICAL_SCOPE.md), [residual-noise calculation](RESIDUAL_DEPHASING.md), and [attribution](../literature/RELATED_WORK.md) explain those boundaries. The [scientific synthesis](SCIENTIFIC_SYNTHESIS.md) is the expert route through the full claims. The [learning guide](LEARNING_GUIDE.md#coaching-and-readiness) specifies how a chat course can test understanding without mistaking repository completion for mastery.
