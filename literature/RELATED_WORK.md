@@ -8,9 +8,9 @@ This comparison uses primary papers and identifies preprints as such. It separat
 
 **Tanggara, Conlon, Gorshkov, and Bharti, “Optimal noisy sequential multiparameter quantum sensing,” arXiv:2609.30398v1 (2026).** [Paper](https://arxiv.org/abs/2609.30398v1)
 
-Section V.B.2, p. 16, uses the fixed continuously unknown transverse direction and explicitly distinguishes it from a finite-set promise. Appendix A.3 and A.4 analyze calibration-based and fixed-recovery protocols. The paper leaves the general-strategy scaling question open. The present fixed-rate converse applies to all operations in the stated continuous-time resource model; the positive theorem adds a rate-control resource. Their Hamiltonian convention is $H=\theta Z$, whereas this repository uses $H=\omega Z/2$, so comparisons use $\omega=2\theta$.
+Section V.B.2, p. 16, uses the fixed continuously unknown transverse direction and explicitly distinguishes it from a finite-set promise. Appendix A.3 and A.4 analyze calibration-based and fixed-recovery protocols. The paper leaves the general-strategy scaling question open. The present fixed-rate converse applies to all operations in the stated continuous-time resource model; the positive theorem adds a rate-control resource. Their Hamiltonian convention is $`H=\theta Z`$, whereas this repository uses $`H=\omega Z/2`$, so comparisons use $`\omega=2\theta`$.
 
-The fixed recovery $X$, count-conditioned phase, and complete-record single-rate information $T^2/(1+\gamma T)$ are inherited from Appendix A.4(a), Eqs. (A19)–(A29), pp. 26–27. They supply an attaining protocol for the linear coefficient once the universal converse is established. The [preset protocols](../docs/PRESET_PROTOCOLS.md) combine that building block with distinct rates. Averaging full Fisher matrices before eliminating a shared nuisance is ordinary statistical design, not a new metrological formalism. The [global-risk proof](../docs/GLOBAL_RISK.md) extends the fixed-rate limitation to biased estimators in a worst-case task and compares it with the stopped-channel upper bound in the same metric.
+The fixed recovery $`X`$, count-conditioned phase, and complete-record single-rate information $`T^2/(1+\gamma T)`$ are inherited from Appendix A.4(a), Eqs. (A19)–(A29), pp. 26–27. They supply an attaining protocol for the linear coefficient once the universal converse is established. The [preset protocols](../docs/PRESET_PROTOCOLS.md) combine that building block with distinct rates. Averaging full Fisher matrices before eliminating a shared nuisance is ordinary statistical design, not a new metrological formalism. The [global-risk proof](../docs/GLOBAL_RISK.md) extends the fixed-rate limitation to biased estimators in a worst-case task and compares it with the stopped-channel upper bound in the same metric.
 
 ## Bound and estimation foundations
 
@@ -48,7 +48,7 @@ Their sufficient-condition framework uses engineered autonomous correction, with
 
 **Chen, Chen, Liu, Miao, and Yuan, “Quantum Metrology Enhanced by Leveraging Informative Noise with Error Correction,” Physical Review Letters 133, 190801 (2024).** [Paper](https://doi.org/10.1103/PhysRevLett.133.190801)
 
-This work exploits noise carrying information about the estimated parameter. In the physical model here, $L_j$ and $\gamma_j$ do not encode the target $\omega$; the target is in the Hamiltonian. The artificial joint parameter path used for a converse does not change that physical distinction.
+This work exploits noise carrying information about the estimated parameter. In the physical model here, $`L_j`$ and $`\gamma_j`$ do not encode the target $`\omega`$; the target is in the Hamiltonian. The artificial joint parameter path used for a converse does not change that physical distinction.
 
 ## Environmental and higher-order access
 

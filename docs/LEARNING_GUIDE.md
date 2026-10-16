@@ -28,29 +28,29 @@ Use §II.C, p. 5, only to compare probe-number scaling with time scaling. Use §
 
 | Anchor notation | Repository meaning |
 |---|---|
-| Frequency $\omega_0$, Pauli matrices $\sigma_x,\sigma_y,\sigma_z$ | $\omega$ and $X,Y,Z$ |
-| Phase $\phi$ in early Ramsey examples | $\vartheta=\omega t$, **not** our noise angle $\phi$ |
-| Probe number $N$ | Fixed at one exposed sensor here; the ancilla does not sense |
-| Interrogation time $t$, repetitions $\nu$, total $T$ | Equal-duration repeats cost $\nu t$; stopped times must be added explicitly |
-| Classical $F_{\rm cl}$ and quantum $F_Q$ | Complete classical matrix $J$; efficient scalar $\mathcal I_\omega$; path QFI $F_u$ |
-| $L_{\omega_0,t}$ in §IV.A | Symmetric logarithmic derivative, **not** a jump operator $L_j$ |
-| $\kappa$ in §VI.B | An effective Hamiltonian operator, **not** our scalar parallel-noise rate |
+| Frequency $`\omega_0`$, Pauli matrices $`\sigma_x,\sigma_y,\sigma_z`$ | $`\omega`$ and $`X,Y,Z`$ |
+| Phase $`\phi`$ in early Ramsey examples | $`\vartheta=\omega t`$, **not** our noise angle $`\phi`$ |
+| Probe number $`N`$ | Fixed at one exposed sensor here; the ancilla does not sense |
+| Interrogation time $`t`$, repetitions $`\nu`$, total $`T`$ | Equal-duration repeats cost $`\nu t`$; stopped times must be added explicitly |
+| Classical $`F_{\rm cl}`$ and quantum $`F_Q`$ | Complete classical matrix $`J`$; efficient scalar $`\mathcal I_\omega`$; path QFI $`F_u`$ |
+| $`L_{\omega_0,t}`$ in §IV.A | Symmetric logarithmic derivative, **not** a jump operator $`L_j`$ |
+| $`\kappa`$ in §VI.B | An effective Hamiltonian operator, **not** our scalar parallel-noise rate |
 
 The central comparison changes the physical time available to one sensor, not the number of exposed probes. A noiseless ancilla can store information but contributes no extra signal generator. Preparation, ideal controls, and readout have the same idealized cost convention on both sides. The [model](MODEL.md) defines the actual optimization; the anchor's parallel-channel bound is not silently substituted for the adaptive continuous-time theorem used here.
 
-The comparison parameter $u$ in the converse is also not physical time. Dots on Lindblad operators there mean differentiation with respect to $u$. A derivative $dF_u/dt$ in the information-growth inequality is instead a time derivative. The [tutorial](TUTORIAL.md#7-from-a-protocol-to-an-all-strategy-bound) explains why these two derivatives appear together.
+The comparison parameter $`u`$ in the converse is also not physical time. Dots on Lindblad operators there mean differentiation with respect to $`u`$. A derivative $`dF_u/dt`$ in the information-growth inequality is instead a time derivative. The [tutorial](TUTORIAL.md#7-from-a-protocol-to-an-all-strategy-bound) explains why these two derivatives appear together.
 
 ### Rate normalization when using the source
 
-In v4, p. 6, Eq. (17) prints $\gamma(\sigma_z\rho\sigma_z-\rho)$, while Eq. (18) uses contrast $e^{-\gamma t}$. Under Pauli eigenvalues $\pm1$, those expressions differ by a factor of two. Directly,
+In v4, p. 6, Eq. (17) prints $`\gamma(\sigma_z\rho\sigma_z-\rho)`$, while Eq. (18) uses contrast $`e^{-\gamma t}`$. Under Pauli eigenvalues $`\pm1`$, those expressions differ by a factor of two. Directly,
 
-$$
+```math
 \frac{d\rho_{01}}{dt}=-2\kappa\rho_{01}
 \quad\Longrightarrow\quad
 \rho_{01}(t)=e^{-2\kappa t}\rho_{01}(0)
-$$
+```
 
-for this project's generator $\kappa(Z\rho Z-\rho)$. Match a *contrast decay rate* by setting it to $2\kappa$; match a *coefficient of the dissipator* to $\kappa$. Do not equate rates merely because they use the same letter. This is a local normalization check, not an assertion about an author-issued erratum. The project's [residual-dephasing formulas](RESIDUAL_DEPHASING.md) retain their existing convention.
+for this project's generator $`\kappa(Z\rho Z-\rho)`$. Match a *contrast decay rate* by setting it to $`2\kappa`$; match a *coefficient of the dissipator* to $`\kappa`$. Do not equate rates merely because they use the same letter. This is a local normalization check, not an assertion about an author-issued erratum. The project's [residual-dephasing formulas](RESIDUAL_DEPHASING.md) retain their existing convention.
 
 ## The bridge supplied locally
 
@@ -60,7 +60,7 @@ The anchor teaches the general estimation and open-system framework. The followi
 |---|---|---|
 | Ramsey experiment and cost | What is measured, and what does each repetition cost? | [Tutorial 1](TUTORIAL.md#1-one-qubit-one-likelihood-one-clock) |
 | Logical code and error record | Why does parity reveal an error without revealing the phase? | [Tutorial 2](TUTORIAL.md#2-detect-an-error-without-reading-the-signal) |
-| Shared nuisance and statistics | Why is $J_{\omega\omega}$ not the usable information when $\phi$ is unknown? | [Tutorial 3](TUTORIAL.md#3-why-a-nuisance-parameter-costs-information) → [model](MODEL.md) |
+| Shared nuisance and statistics | Why is $`J_{\omega\omega}`$ not the usable information when $`\phi`$ is unknown? | [Tutorial 3](TUTORIAL.md#3-why-a-nuisance-parameter-costs-information) → [model](MODEL.md) |
 | Rate-diverse designs | How can labelled data separate two unknowns, and which design needs balancing? | [Tutorial 4–5](TUTORIAL.md#4-a-complete-rate-diversity-example) → [preset protocols](PRESET_PROTOCOLS.md) |
 | Exact stopped output | What cancels on every completed path, and what is the physical cost? | [Tutorial 6](TUTORIAL.md#6-let-the-error-supply-its-own-recovery) → [stopped sensing](STOPPED_SENSING.md) |
 | Universal converse | How does one parameter path constrain every allowed strategy? | [Tutorial 7](TUTORIAL.md#7-from-a-protocol-to-an-all-strategy-bound) → [theorems](THEOREMS.md) |
