@@ -1,0 +1,136 @@
+{
+  "scope": "Exact formula evaluations, not global-risk estimates or finite-time optimality claims.",
+  "parameters": {
+    "a": 1,
+    "b": 3,
+    "kappa": 0.01,
+    "shared_unknown_direction": true
+  },
+  "local_information": [
+    {
+      "time": 0.5,
+      "fixed_rate_information_upper": 0.25,
+      "fixed_recovery_information": 0.16666666666666669,
+      "balanced_echo_information": 0.0625,
+      "optimal_leading_design_information": 0.15625,
+      "fair_design_information": 0.1388888888888889,
+      "fixed_imbalance_echo_information": 0.06756347920043221,
+      "parallel_dephasing_information": 0.13426293954454588
+    },
+    {
+      "time": 1.0,
+      "fixed_rate_information_upper": 1.0,
+      "fixed_recovery_information": 0.5,
+      "balanced_echo_information": 0.25,
+      "optimal_leading_design_information": 0.5,
+      "fair_design_information": 0.4285714285714286,
+      "fixed_imbalance_echo_information": 0.2701079913606912,
+      "parallel_dephasing_information": 0.4009917164479699
+    },
+    {
+      "time": 2.0,
+      "fixed_rate_information_upper": 2.0,
+      "fixed_recovery_information": 1.3333333333333335,
+      "balanced_echo_information": 1.0,
+      "optimal_leading_design_information": 1.6,
+      "fair_design_information": 1.3333333333333335,
+      "fixed_imbalance_echo_information": 1.0792664509169365,
+      "parallel_dephasing_information": 1.1563535718049651
+    },
+    {
+      "time": 3.0,
+      "fixed_rate_information_upper": 3.0,
+      "fixed_recovery_information": 2.25,
+      "balanced_echo_information": 2.25,
+      "optimal_leading_design_information": 3.214285714285714,
+      "fair_design_information": 2.6470588235294117,
+      "fixed_imbalance_echo_information": 2.4257327586206903,
+      "parallel_dephasing_information": 2.133408057745938
+    },
+    {
+      "time": 4.0,
+      "fixed_rate_information_upper": 4.0,
+      "fixed_recovery_information": 3.2,
+      "balanced_echo_information": 4.0,
+      "optimal_leading_design_information": 5.333333333333334,
+      "fair_design_information": 4.363636363636363,
+      "fixed_imbalance_echo_information": 4.307771797631863,
+      "parallel_dephasing_information": 3.2825559732777236
+    },
+    {
+      "time": 10.0,
+      "fixed_rate_information_upper": 10.0,
+      "fixed_recovery_information": 9.090909090909092,
+      "balanced_echo_information": 25.0,
+      "optimal_leading_design_information": 28.571428571428566,
+      "fair_design_information": 23.076923076923077,
+      "fixed_imbalance_echo_information": 26.75080213903742,
+      "parallel_dephasing_information": 12.166353349652502
+    },
+    {
+      "time": 100.0,
+      "fixed_rate_information_upper": 100.0,
+      "fixed_recovery_information": 99.00990099009901,
+      "balanced_echo_information": 2500.0,
+      "optimal_leading_design_information": 2537.3134328358205,
+      "fair_design_information": 2031.872509960159,
+      "fixed_imbalance_echo_information": 2440.1951219512193,
+      "parallel_dephasing_information": 23.343640681494964
+    },
+    {
+      "time": 1000.0,
+      "fixed_rate_information_upper": 1000.0,
+      "fixed_recovery_information": 999.0009990009992,
+      "balanced_echo_information": 250000.0,
+      "optimal_leading_design_information": 250374.8125937032,
+      "fair_design_information": 200319.8720511796,
+      "fixed_imbalance_echo_information": 129932.46753246753,
+      "parallel_dephasing_information": 5.318404502501464e-13
+    }
+  ],
+  "finite_certificate": {
+    "a_times_T": 10,
+    "kappa_over_a": 0.01,
+    "information": 12.166353349652502,
+    "ideal_fixed_rate_upper": 10,
+    "sufficient_kappa_over_a_threshold": 0.013726170914654712,
+    "threshold_expression": "log(400/231)/40"
+  },
+  "global_risk_bounds": {
+    "scope": "Lower and upper bounds, not exact or simulated minimax risks.",
+    "frequency_interval": [
+      -1,
+      1
+    ],
+    "prior_half_width": 0.5,
+    "rows": [
+      {
+        "time": 10.0,
+        "fixed_lower": 0.02021083228643781,
+        "fixed_upper": 1.0,
+        "controlled_lower": 0.010063951836876727
+      },
+      {
+        "time": 100.0,
+        "fixed_lower": 0.007169568003248977,
+        "fixed_upper": 0.1111128653999512,
+        "controlled_lower": 0.00028731472548735156
+      },
+      {
+        "time": 1000.0,
+        "fixed_lower": 0.0009620209357541625,
+        "fixed_upper": 0.011163615989948,
+        "controlled_lower": 3.5948515160139603e-06
+      },
+      {
+        "time": 10000.0,
+        "fixed_lower": 9.960676824071725e-05,
+        "fixed_upper": 0.0011169753216990301,
+        "controlled_lower": 3.864948663057566e-08
+      }
+    ]
+  },
+  "rate_contrast": 0.5,
+  "fair_to_optimal_leading_information_ratio": 0.8,
+  "preset_finite_separation_threshold": 2.732050807568877
+}
