@@ -11,17 +11,20 @@ python -m venv .venv
 . .venv/bin/activate
 python -m pip install -r requirements.txt
 python scripts/check.py
+python scripts/check_reproducibility.py
 python scripts/reproduce.py
 python scripts/reproduce_evidence.py
 ```
 
-Package installation needs the package index. The checks and examples run offline afterward, with no external dataset or credentials. Both example commands print JSON without modifying tracked files. Supplying `--output` explicitly writes a separate result:
+Package installation needs the package index. The scientific checks and examples run offline afterward, with no external dataset or credentials. Both example commands print JSON without modifying tracked files. Supplying `--output` explicitly writes a separate result:
 
 ```bash
 python scripts/reproduce_evidence.py --output /tmp/nras-evidence.json
 ```
 
 The [stopped-sensing example](../results/example.json) records parameters, seeds, sample counts, and dependency versions. Sampling output can depend on library versions. The [evidence table](../results/evidence.json) evaluates exact analytical expressions for the local protocols, global-risk bounds, and residual-dephasing certificate; it is not a table of simulated global errors or finite-time optima. Its generator is `scripts/reproduce_evidence.py`.
+
+The [regeneration check](../scripts/check_reproducibility.py) runs both producers and compares the complete result structures and numbers, with relative tolerance `1e-10` and absolute tolerance `1e-14`. Runtime-version metadata is allowed to report the actual installed versions rather than reproduce an earlier environment label. The [verification workflow](../.github/workflows/check.yml) runs the suite and regeneration on Python 3.11 and 3.13, then checks that no tracked files were modified.
 
 ## Coverage
 
@@ -47,7 +50,7 @@ The scientific suite contains 80 tests: 33 in `tests/test_nras.py`, 20 in `tests
 | Parallel-noise converse and finite advantage | Gauge cancellation and exact tolerance-boundary calculation |
 | Physical resource identities | Simultaneous transformation of signal and noise under a known pulse; unidentifiability with free setting offsets |
 | Tutorial examples | Ramsey readout, parity encoding, nuisance projection, the worked rate mixture and echo, charged repetitions, a two-error path, and the generator-to-contrast convention |
-| Evidence regeneration | Deterministic table regenerated and compared with numerical tolerances |
+| Evidence regeneration | Both recorded examples regenerated and compared with numerical tolerances |
 
 The likelihood checks use Poisson cutoffs with tail probability below $10^{-14}$ at their tested parameters. They finite-difference actual outcome probabilities rather than substituting analytical scores into an information formula. Seeded checks use stated tolerances instead of requiring identical floating-point results across all package versions.
 
@@ -61,10 +64,24 @@ The residual-dephasing example has $\kappa/a=0.01$ and $aT=10$. The specified im
 
 The global table uses $\Omega=[-1,1]$ and prior half-width $h=1/2$. Its lower and upper columns are analytical bounds, not equalities. The full minimax proof is in [global precision](GLOBAL_RISK.md); the optimal global constant is not inferred from the table.
 
+## Hosted mathematical rendering
+
+The separate [hosted-rendering workflow](../.github/workflows/render.yml) opens the actual public GitHub pages in Chromium at the inspected commit. It compares formula counts with the source, checks that the mathematics has rendered, reports parser errors, and captures full-page screenshots of the README and nine learning/proof pages. It runs on same-repository documentation pull requests or by manual dispatch. It neither uses a substitute local Markdown renderer nor publishes a release.
+
+For the same check from a complete checkout, with network access:
+
+```bash
+python -m pip install 'playwright>=1.49,<2' 'Pillow>=10,<13'
+python -m playwright install chromium
+python scripts/check_rendering.py --ref "$(git rev-parse HEAD)" --output /tmp/nras-rendering
+```
+
+These browser packages are optional and are not prerequisites for the scientific checks. The output directory contains the report and screenshots; CI retains its artifact for 14 days. Network failure, missing formulas, or uninitialized mathematics is not a successful rendering check. Screenshots still require visual inspection for clipping, bra–ket notation, table layout, and unintended emphasis: automated DOM checks do not establish visual quality or scientific correctness.
+
 ## Interpretation and implementation boundaries
 
 The stopped simulator samples exact alternating exponential waits. An unfinished run returns `completed=False` and physical time equal to the deadline. The event-count guard raises instead of discarding long trajectories. Equal-rate sampling requires a deadline because the untruncated first-passage mean is infinite.
 
 All implementations retain the resource assumptions of their documents. Finite-cadence signed drift is a local compensated result, not a faulty-readout simulation or a global theorem. Residual dephasing describes one unobserved parallel channel with otherwise ideal operations. The global upper scaling follows from the stopped-channel and multiscale proofs, not from a preset Fisher matrix or the sampled no-jump baseline.
 
-Tests establish their documented finite identities and implementation properties. They do not substitute for the universal proofs, independent scientific review, or a priority assessment. Source-level syntax checks also do not certify GitHub's hosted mathematical rendering; that requires a separate rendered-page inspection.
+Tests establish their documented finite identities and implementation properties. They do not substitute for the universal proofs, independent scientific review, or a priority assessment. Source-level syntax checks also do not certify GitHub's hosted mathematical rendering; use the separate browser check and screenshot inspection above.
