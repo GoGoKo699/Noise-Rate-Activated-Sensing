@@ -1,6 +1,6 @@
 # Precision bounds and their attainment
 
-[Model](MODEL.md) · [Stopped protocol](STOPPED_SENSING.md) · [Attribution](../literature/RELATED_WORK.md)
+[Model](MODEL.md) · [Preset protocols](PRESET_PROTOCOLS.md) · [Stopped protocol](STOPPED_SENSING.md) · [Attribution](../literature/RELATED_WORK.md)
 
 All information statements use the nuisance-adjusted classical-information definition in the model. Results are for one sensor and the stated ideal controls, not for direct bath access.
 
@@ -25,7 +25,7 @@ $$
 \qquad r=\frac{b-a}{b+a}.
 $$
 
-The endpoints suffice. One noiseless ancilla, ideal syndrome measurements, and syndrome-conditioned selection of the rate attain the coefficient. No estimate of $\phi$ is needed.
+The endpoints suffice. Preset protocols with a fixed $X$ recovery after each detected error attain this leading local coefficient; syndrome-conditioned bath-rate selection is not necessary. A separate stopped protocol uses rate feedback but no error-recovery pulses and gives an exact direction-independent Ramsey channel on success. The different output and calibration guarantees are compared in [preset protocols](PRESET_PROTOCOLS.md#relation-to-stopped-sensing).
 
 ## Theorem 3 — Selectable signal and noise strengths
 
@@ -68,7 +68,7 @@ $$
 
 A dot here is a parameter derivative, not a time derivative. For several Lindblad operators, sum the corresponding terms. A permissible gauge suffices for an upper bound; optimality of that gauge is not assumed.
 
-Parameter-independent controls preserve this upper bound. For an adaptively selected setting, include the classical controller and record as orthogonal blocks. Taking the largest operator norms over settings gives a uniform bound, including all recorded outcomes. Ideal measurements and resets are parameter-independent channels and cannot create information along the comparison path.
+Parameter-independent controls preserve this upper bound. For an adaptively selected setting, include the classical controller and record as orthogonal blocks. The controlled Hamiltonian is block diagonal, and jump operators can be taken as the setting projectors tensored with the corresponding $L_j$. Thus $A$ and $B$ are block diagonal with blocks $A_j,B_j$. Taking the largest operator norms over settings gives a uniform bound, including all recorded outcomes. The policy is held fixed along the parameter path; parameter dependence of the outcomes does not give the policy an oracle. Ideal measurements, feedback operations, and resets are parameter-independent channels. This argument applies to time-discretized protocols and their ideal fast-control limit with fixed bounded rates.
 
 ### The common nuisance path
 
@@ -131,9 +131,38 @@ $$
 
 Taking both orderings proves $\min_c v(c)=v_*$. If every ratio is the same $k$, choose $c=k/2$ to obtain the stated linear bound.
 
+## Attainment with preset controls
+
+For a single rate, fixed recovery $X$ and the retained count give
+
+$$
+\mathcal I_\omega(T)=\frac{T^2}{1+\gamma T}.
+$$
+
+This particular protocol and formula are inherited from Tanggara et al., Eq. (A29), after converting their Hamiltonian normalization. Together with the converse, it proves the tight linear coefficient in Theorem 1. The protocol is reconstructed from its complete classical likelihood in [preset protocols](PRESET_PROTOCOLS.md).
+
+For settings $i,j$, select one at the beginning of an interrogation with probabilities
+
+$$
+p_i=\frac{\gamma_j}{\gamma_i+\gamma_j},
+\qquad p_j=\frac{\gamma_i}{\gamma_i+\gamma_j},
+$$
+
+retain the label, and use that setting for the entire duration $T$. Fixed recovery and a recorded equatorial readout have efficient information
+
+$$
+\frac{\mathcal I_\omega(T)}{T^2}
+=\mathbb E[s^2]
+-\frac{\mathbb E[s\gamma]^2}{\mathbb E[\gamma^2]+\mathbb E[\gamma]/T}
+\longrightarrow
+\left(\frac{s_i\gamma_j-s_j\gamma_i}{\gamma_i+\gamma_j}\right)^2.
+$$
+
+The expectations are over the retained setting label. The formula follows by averaging the full Fisher matrix before eliminating the common nuisance. Its derivation, unknown-rate extension, and local-versus-global boundary are in [preset protocols](PRESET_PROTOCOLS.md#general-selectable-settings). Choosing a maximizing pair proves Theorems 2 and 3. In the rate-only case, the balanced two-block echo additionally gives $r^2T^2$ exactly at finite $T$.
+
 ## Attainment by leaving the errors uncorrected
 
-Encode a logical qubit as $|0_L\rangle=|00\rangle$, $|1_L\rangle=|11\rangle$, with the sensor first. Measure parity ideally, but do not apply a recovery after an error.
+The stopped construction has a stronger channel guarantee than the preset local-information protocols. Encode a logical qubit as $|0_L\rangle=|00\rangle$, $|1_L\rangle=|11\rangle$, with the sensor first. Measure parity ideally, but do not apply a recovery after an error.
 
 Let $n(t)$ count detected jumps. For any trajectory define the signal-weighted signed time
 
@@ -149,49 +178,7 @@ $$
 
 Because $L_j^\dagger L_j=\gamma_j I$, the jump likelihoods are state-, $\omega$-, and $\phi$-independent for this protocol. Normalized no-jump propagation contains only the signal rotation. At an even count the unknown operator disappears, giving an exact logical Ramsey output with known $D_s$.
 
-Use setting $i$ in the even sector and $j$ in the odd sector. One complete pair has independent waiting times $W_i\sim\operatorname{Exp}(\gamma_i)$ and $W_j\sim\operatorname{Exp}(\gamma_j)$, with physical duration and reward
-
-$$
-C=W_i+W_j,
-\qquad R=s_iW_i-s_jW_j.
-$$
-
-The long-time reward rate is
-
-$$
-v_{ij}=\frac{\mathbb E R}{\mathbb E C}
-=\frac{s_i\gamma_j-s_j\gamma_i}{\gamma_i+\gamma_j}.
-$$
-
-The alternating two-state Markov chain is irreducible, with finite exponential holding-time moments. Its additive reward obeys $D_s(t)/t\to v_{ij}$ in mean square. This can also be seen from exponential decay of two-state correlations, which makes the reward variance $O(t)$.
-
-For a hard deadline, run until $t_0=T-h(T)$, where $h(T)$ is a sufficiently large multiple of $\log T$ in fixed rate units. If parity is even, decode immediately. If it is odd, keep setting $j$ until the next jump or until $T$. The return failure probability is at most $e^{-\gamma_j h(T)}$. The added reward is bounded by $\max|s_j|h(T)$ on success, and successful $|D_s|\le\max|s_j|T$. Therefore failures and the finishing interval do not change the leading second moment:
-
-$$
-\mathbb E[\mathbf 1_{\mathrm{success}}D_s^2]/T^2\longrightarrow v_{ij}^2.
-$$
-
-Read out the resulting pure Ramsey state, keeping both its timing record and its success flag. Its efficient information is this success-weighted second moment. Choosing a maximizing pair proves Theorems 2 and 3. The [stopped protocol](STOPPED_SENSING.md) gives an alternative attainment with deterministic effective time.
-
-### Tight linear coefficient at equal rates
-
-For rate $\gamma$ in both sectors and $s=1$, start in the even sector and write $D(t)=\int_0^t(-1)^{n(u)}du$. The telegraph correlations give
-
-$$
-\mathbb E D(t)=\frac{1-e^{-2\gamma t}}{2\gamma},
-\qquad
-\mathbb E D(t)^2=\frac t\gamma-\frac{1-e^{-2\gamma t}}{2\gamma^2}.
-$$
-
-At time $t$, complete the next return only when parity is odd. If $J$ indicates odd parity and $W\sim\operatorname{Exp}(\gamma)$ is the independent additional wait, then $D_f=D(t)-JW$. Here
-
-$$
-\mathbb E[D(t)J]=0,
-\qquad
-\mathbb E D_f^2=\frac t\gamma+\frac{1-e^{-2\gamma t}}{2\gamma^2}.
-$$
-
-To impose $T$, take $t=T-h$, $h=4\log(1+\gamma T)/\gamma$, for sufficiently large $T$. Exponential-tail moments bound the discarded contribution by $o(T)$: for example $\mathbb E[(t+W)^2\mathbf1_{W>h}]=O((t+h+1/\gamma)^2e^{-\gamma h})$. The successful information is $T/\gamma-o(T)$, proving the remaining part of Theorem 1.
+For unit signal strength, using $a$ in the even sector and $b$ in the odd sector gives a signed-time drift $r$. Stopping at a prescribed signed time implements an exact Ramsey channel. Its duration law, hard-deadline attainment of $r^2$, and global-estimation guarantee are proved in [stopped sensing](STOPPED_SENSING.md). The unknown angle cancels on every completed trajectory, unlike in the preset protocols.
 
 ## Independent setting-dependent directions
 
@@ -211,4 +198,4 @@ This converse explains why a shared unknown interaction is essential. It does no
 
 ## What the checks establish
 
-The code verifies the Pauli identities, path cancellation, direct trajectory products, minimax formula against a separate linear program, and timing formulas. The proofs above establish universal and asymptotic statements; a finite numerical sample does not.
+The code verifies the Pauli identities, nuisance-path cancellation, continuous coefficients from exactly trace-preserving short steps, direct trajectory products, complete classical likelihoods, minimax formula against a separate linear program, and timing formulas. These are checks of specified finite identities. The proofs above establish universal and asymptotic statements; a finite numerical sample does not.
