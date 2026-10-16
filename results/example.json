@@ -1,0 +1,42 @@
+{
+  "scope": "Seeded numerical examples for the ideal model; not independent proof validation.",
+  "environment": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "sympy": "1.14.0"
+  },
+  "first_passage": {
+    "a": 1,
+    "b": 3,
+    "d": 4,
+    "samples": 30000,
+    "seed": 1101,
+    "mean_exact": 8.0,
+    "mean_sample": 8.030166998472025,
+    "variance_exact": 12.0,
+    "variance_sample": 11.91983341127285,
+    "laplace_q": 0.1,
+    "laplace_exact": 0.47249087953069957,
+    "laplace_sample": 0.47104647060045207
+  },
+  "deadline": {
+    "a": 1,
+    "b": 3,
+    "d": 5,
+    "T": 20,
+    "samples": 20000,
+    "seed": 1102,
+    "failures_retained": 474,
+    "success_fraction": 0.9763,
+    "information_sample": 24.4075,
+    "information_certified_lower": 21.25,
+    "fixed_rate_information_upper": 20
+  },
+  "rate_contrast": 0.5,
+  "finite_cadence_speeds": {
+    "0.01": 0.49256231139634854,
+    "0.1": 0.43105168127732246,
+    "1.0": 0.15439228297947225
+  }
+}
