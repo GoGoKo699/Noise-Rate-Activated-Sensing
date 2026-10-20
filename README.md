@@ -40,7 +40,7 @@ R_{\mathrm{fixed}}(T;\Omega)=\Theta(T^{-1}),
 \qquad R_{[a,b]}(T;\Omega)=\Theta(T^{-2}).
 ```
 
-The [global-risk proof](docs/GLOBAL_RISK.md) does not infer this result from a local Cramér–Rao bound. It supplies lower bounds valid for biased estimators and matching upper scalings. Optimal global constants are not asserted.
+The [global-risk proof](science/global_precision.md) does not infer this result from a local Cramér–Rao bound. It supplies lower bounds valid for biased estimators and matching upper scalings. Optimal global constants are not asserted.
 
 ## Local precision and exact sensing are different guarantees
 
@@ -50,36 +50,41 @@ The [global-risk proof](docs/GLOBAL_RISK.md) does not infer this result from a l
 
 Both constructions use one noiseless ancilla. The stopped channel supports the global upper scaling by resolving phase ambiguity at several prescribed effective times. That theorem is separate from the preset protocols' local-information coefficients. A repetition of duration $`T`$ costs $`T`$ each time; repetitions are never free resources.
 
-## Learning anchor
+## Learn the project
 
-The single educational anchor is **Haase et al., _Precision Limits in Quantum Metrology with Open Quantum Systems_, arXiv:1807.11882v4**. The [learning guide](docs/LEARNING_GUIDE.md) maps its sections and notation to the project; the [worked tutorial](docs/TUTORIAL.md) supplies the bridge from Ramsey likelihoods to nuisance elimination, rate diversity, stopped channels, and global precision. No whole-book prerequisite is imposed. Primary research citations remain separate from this educational anchor.
+The single educational anchor is **Haase et al., _Precision Limits in Quantum Metrology with Open Quantum Systems_, arXiv:1807.11882v4**. The [Haase bridge](learning/HAASE_BRIDGE.md) maps its sections and notation to the project; the [worked tutorial](learning/TUTORIAL.md) supplies the bridge from Ramsey likelihoods to nuisance elimination, rate diversity, stopped channels, and global precision. No whole-book prerequisite is imposed. Primary research citations remain separate from this educational anchor.
 
-## Reading routes
+The [30-milestone map](learning/MILESTONES.md) is common to every reader. Its **13 background/preliminaries milestones** connect the qubit experiment, noise, statistics, and time budget into the complete operational task. Its **17 narrative/innovation milestones** connect the fixed-rate obstruction, rate-diverse protocols, exact stopped channel, global precision, and physical boundaries. Each milestone gives a central question, an understanding target, earlier dependencies, a conceptual connection, and source pointers.
+
+## Read the science
+
+The [scientific entrypoint](science/README.md) maps the topic-based proof account.
 
 | Purpose | Start here |
 |---|---|
-| See the complete scientific claim and proof map | [Scientific synthesis](docs/SCIENTIFIC_SYNTHESIS.md) |
-| Learn from the selected anchor | [Section and notation map](docs/LEARNING_GUIDE.md) → [Worked tutorial](docs/TUTORIAL.md) |
-| Check the statistical task and physical resources | [Model](docs/MODEL.md) |
-| Verify local optimality and the selectable-setting criterion | [Theorems and proofs](docs/THEOREMS.md) |
-| Compare the same global error criterion | [Global precision](docs/GLOBAL_RISK.md) |
-| Compare preset controls and calibration requirements | [Preset protocols](docs/PRESET_PROTOCOLS.md) |
-| Check exact channels, stopping costs, and global achievability | [Stopped sensing](docs/STOPPED_SENSING.md) |
-| Check physical assumptions and a quantitative imperfection | [Physical scope](docs/PHYSICAL_SCOPE.md) · [Residual dephasing](docs/RESIDUAL_DEPHASING.md) |
-| Compare with prior work | [Related work and attribution](literature/RELATED_WORK.md) |
-| Execute the checks and reproduce the examples | [Reproducibility](docs/REPRODUCIBILITY.md) |
+| See the complete scientific claim and proof map | [Scientific synthesis](science/interpretation.md) |
+| Learn the project | [30 milestones](learning/MILESTONES.md) → [Haase bridge](learning/HAASE_BRIDGE.md) → [Worked tutorial](learning/TUTORIAL.md) |
+| Check the statistical task and physical resources | [Model](science/model.md) |
+| Verify local optimality and the selectable-setting criterion | [Theorems and proofs](science/precision_bounds.md) |
+| Compare the same global error criterion | [Global precision](science/global_precision.md) |
+| Compare preset controls and calibration requirements | [Preset protocols](science/preset_protocols.md) |
+| Check exact channels, stopping costs, and global achievability | [Stopped sensing](science/stopped_sensing.md) |
+| Check physical assumptions and a quantitative imperfection | [Physical scope](science/physical_scope.md) · [Residual dephasing](science/residual_dephasing.md) |
+| Compare with prior work | [Related work and attribution](references/RELATED_WORK.md) |
+| Execute the checks and reproduce the examples | [Reproducibility](verification/README.md) |
 
 ## Scope
 
 The principal theorem assumes Markovian noise with one shared, stable transverse axis, rate selection that preserves the signal Hamiltonian, ideal fast syndrome extraction, and noiseless ancillary storage. Rate bounds are fixed independently of $`T`$; the noise is never turned off. The converse does not grant bath-output access, indefinite causal order, or coherent application of the unknown error operator. Finite-interval syndrome measurements have a separate **local**, compensated-operating-point result.
 
-An additional unobserved parallel dephasing rate $`\kappa>0`$ changes the asymptotic bound to $`\mathcal I_\omega^*(T)\le T/(4\kappa)`$. The [quantified finite-time example](docs/RESIDUAL_DEPHASING.md#a-certified-finite-time-advantage-with-nonzero-dephasing) retains an advantage at nonzero $`\kappa`$; it is not a fault-tolerance theorem. The physical examples motivate the resource model rather than demonstrate the full protocol. The literature comparison distinguishes these results from established fixed-recovery sensing, noise-assisted correction, and informative-noise metrology.
+An additional unobserved parallel dephasing rate $`\kappa>0`$ changes the asymptotic bound to $`\mathcal I_\omega^*(T)\le T/(4\kappa)`$. The [quantified finite-time example](science/residual_dephasing.md#a-certified-finite-time-advantage-with-nonzero-dephasing) retains an advantage at nonzero $`\kappa`$; it is not a fault-tolerance theorem. The physical examples motivate the resource model rather than demonstrate the full protocol. The literature comparison distinguishes these results from established fixed-recovery sensing, noise-assisted correction, and informative-noise metrology.
 
 ## Reproduce
 
 ```bash
 python -m pip install -r requirements.txt
 python scripts/check.py
+python scripts/check_reproducibility.py
 python scripts/reproduce.py
 python scripts/reproduce_evidence.py
 ```

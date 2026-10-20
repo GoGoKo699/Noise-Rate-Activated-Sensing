@@ -1,6 +1,6 @@
 # Precision bounds and their attainment
 
-[Model](MODEL.md) · [Preset protocols](PRESET_PROTOCOLS.md) · [Stopped protocol](STOPPED_SENSING.md) · [Attribution](../literature/RELATED_WORK.md)
+[Model](model.md) · [Preset protocols](preset_protocols.md) · [Stopped protocol](stopped_sensing.md) · [Attribution](../references/RELATED_WORK.md)
 
 All information statements use the nuisance-adjusted classical-information definition in the model. Results are for one sensor and the stated ideal controls, not for direct bath access.
 
@@ -25,7 +25,7 @@ If the same unknown error operator is available at any classically selected rate
 \qquad r=\frac{b-a}{b+a}.
 ```
 
-The endpoints suffice. Preset protocols with a fixed $`X`$ recovery after each detected error attain this leading local coefficient; syndrome-conditioned bath-rate selection is not necessary. A separate stopped protocol uses rate feedback but no error-recovery pulses and gives an exact direction-independent Ramsey channel on success. The different output and calibration guarantees are compared in [preset protocols](PRESET_PROTOCOLS.md#relation-to-stopped-sensing).
+The endpoints suffice. Preset protocols with a fixed $`X`$ recovery after each detected error attain this leading local coefficient; syndrome-conditioned bath-rate selection is not necessary. A separate stopped protocol uses rate feedback but no error-recovery pulses and gives an exact direction-independent Ramsey channel on success. The different output and calibration guarantees are compared in [preset protocols](preset_protocols.md#relation-to-stopped-sensing).
 
 ## Theorem 3 — Selectable signal and noise strengths
 
@@ -88,7 +88,7 @@ A_j=c^2\gamma_j I,
 B_j=\left(\frac{s_j}{2}-c\gamma_j\right)Z.
 ```
 
-For a single unit-strength setting, choose $`c=1/(2\gamma)`$. Then $`B=0`$, $`A=I/(4\gamma)`$, and $`F_u(T)\le T/\gamma`$. The [nuisance-path argument](MODEL.md#the-nuisance-path-argument) bounds efficient target information by this quantity. Choosing $`c=0`$ instead gives $`F_u(T)\le T^2`$.
+For a single unit-strength setting, choose $`c=1/(2\gamma)`$. Then $`B=0`$, $`A=I/(4\gamma)`$, and $`F_u(T)\le T/\gamma`$. The [nuisance-path argument](model.md#the-nuisance-path-argument) bounds efficient target information by this quantity. Choosing $`c=0`$ instead gives $`F_u(T)\le T^2`$.
 
 For rates in $`[a,b]`$, choose $`c=1/(a+b)`$. Uniformly in the selected rate,
 
@@ -139,7 +139,7 @@ For a single rate, fixed recovery $`X`$ and the retained count give
 \mathcal I_\omega(T)=\frac{T^2}{1+\gamma T}.
 ```
 
-This particular protocol and formula are inherited from Tanggara et al., Eq. (A29), after converting their Hamiltonian normalization. Together with the converse, it proves the tight linear coefficient in Theorem 1. The protocol is reconstructed from its complete classical likelihood in [preset protocols](PRESET_PROTOCOLS.md).
+This particular protocol and formula are inherited from Tanggara et al., Eq. (A29), after converting their Hamiltonian normalization. Together with the converse, it proves the tight linear coefficient in Theorem 1. The protocol is reconstructed from its complete classical likelihood in [preset protocols](preset_protocols.md).
 
 For settings $`i,j`$, select one at the beginning of an interrogation with probabilities
 
@@ -158,7 +158,7 @@ retain the label, and use that setting for the entire duration $`T`$. Fixed reco
 \left(\frac{s_i\gamma_j-s_j\gamma_i}{\gamma_i+\gamma_j}\right)^2.
 ```
 
-The expectations are over the retained setting label. The formula follows by averaging the full Fisher matrix before eliminating the common nuisance. Its derivation, unknown-rate extension, and local-versus-global boundary are in [preset protocols](PRESET_PROTOCOLS.md#general-selectable-settings). Choosing a maximizing pair proves Theorems 2 and 3. In the rate-only case, the balanced two-block echo additionally gives $`r^2T^2`$ exactly at finite $`T`$.
+The expectations are over the retained setting label. The formula follows by averaging the full Fisher matrix before eliminating the common nuisance. Its derivation, unknown-rate extension, and local-versus-global boundary are in [preset protocols](preset_protocols.md#general-selectable-settings). Choosing a maximizing pair proves Theorems 2 and 3. In the rate-only case, the balanced two-block echo additionally gives $`r^2T^2`$ exactly at finite $`T`$.
 
 ## Attainment by leaving the errors uncorrected
 
@@ -178,7 +178,7 @@ U(t)=N_\phi^{n(t)}\exp[-i\omega D_s(t)Z/2].
 
 Because $`L_j^\dagger L_j=\gamma_j I`$, the jump likelihoods are state-, $`\omega`$-, and $`\phi`$-independent for this protocol. Normalized no-jump propagation contains only the signal rotation. At an even count the unknown operator disappears, giving an exact logical Ramsey output with known $`D_s`$.
 
-For unit signal strength, using $`a`$ in the even sector and $`b`$ in the odd sector gives a signed-time drift $`r`$. Stopping at a prescribed signed time implements an exact Ramsey channel. Its duration law, hard-deadline attainment of $`r^2`$, and global-estimation guarantee are proved in [stopped sensing](STOPPED_SENSING.md). The unknown angle cancels on every completed trajectory, unlike in the preset protocols.
+For unit signal strength, using $`a`$ in the even sector and $`b`$ in the odd sector gives a signed-time drift $`r`$. Stopping at a prescribed signed time implements an exact Ramsey channel. Its duration law, hard-deadline attainment of $`r^2`$, and global-estimation guarantee are proved in [stopped sensing](stopped_sensing.md). The unknown angle cancels on every completed trajectory, unlike in the preset protocols.
 
 ## Independent setting-dependent directions
 

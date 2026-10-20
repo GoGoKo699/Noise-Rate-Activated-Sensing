@@ -1,8 +1,12 @@
 # From Ramsey sensing to noise-rate activation
 
-[Anchor and reading map](LEARNING_GUIDE.md) · [Overview](../README.md) · [Scientific synthesis](SCIENTIFIC_SYNTHESIS.md)
+[30 milestones](MILESTONES.md) · [Anchor and reading map](HAASE_BRIDGE.md) · [Overview](../README.md) · [Scientific synthesis](../science/interpretation.md)
 
-This tutorial bridges the single educational anchor, [Haase et al., arXiv:1807.11882v4](https://arxiv.org/abs/1807.11882v4), to the research. Basic qubit states, tensor products, and the Born rule are the starting language. Estimation notation is introduced as it is used. The source locations and normalization translations are in the [learning guide](LEARNING_GUIDE.md); the project derivations below are not attributed to the anchor.
+This tutorial bridges the single educational anchor, [Haase et al., arXiv:1807.11882v4](https://arxiv.org/abs/1807.11882v4), to the research. Basic qubit states, tensor products, and the Born rule are the starting language. Estimation notation is introduced as it is used. The source locations and normalization translations are in the [learning guide](HAASE_BRIDGE.md); the project derivations below are not attributed to the anchor.
+
+## How this tutorial connects to the milestones
+
+The [30-milestone map](MILESTONES.md) is the dependency-ordered route; this tutorial groups its calculations by mechanism. Sections 1–3 develop the experimental and statistical background. Sections 4–7 explain the two constructions and the universal bound. Sections 8–9 join local precision, global risk, and physical scope. The map supplies direct source pointers for material whose full treatment lives in the scientific pages.
 
 ## 1. One qubit, one likelihood, one clock
 
@@ -22,7 +26,7 @@ F_{\rm cl}(t)=\sum_{y\in\{+,-\}}\frac{(\partial_\omega p_y)^2}{p_y}=t^2
 
 at regular readout points. It measures local distinguishability of nearby frequencies, not the amount by which one experimental outcome determines the frequency. Drawing and retaining a uniform angle $`\chi`$ avoids exceptional zero-probability points for any fixed phase. The qubit's quantum Fisher information also equals $`t^2`$ here; for a general state a particular measurement need not attain the quantum bound.
 
-For $`\nu`$ independent repetitions of duration $`t`$, information adds to $`\nu t^2`$ and time adds to $`\nu t`$. With a total budget $`T=\nu t`$, this is $`Tt`$. One cannot simultaneously claim a single coherent interrogation of duration $`T`$ and $`\nu`$ free copies of its output. The ideal costs of preparation and readout are specified in the [model](MODEL.md).
+For $`\nu`$ independent repetitions of duration $`t`$, information adds to $`\nu t^2`$ and time adds to $`\nu t`$. With a total budget $`T=\nu t`$, this is $`Tt`$. One cannot simultaneously claim a single coherent interrogation of duration $`T`$ and $`\nu`$ free copies of its output. The ideal costs of preparation and readout are specified in the [model](../science/model.md).
 
 ## 2. Detect an error without reading the signal
 
@@ -64,7 +68,7 @@ After duration $`t`$ and $`n`$ detected errors, the logical phase is therefore
 \Theta=\omega t-2\phi n.
 ```
 
-The state is back in the code, but its phase is not independent of the error direction. This fixed-recovery building block is attributed to the primary predecessor in [preset protocols](PRESET_PROTOCOLS.md); it is not a new general correction method.
+The state is back in the code, but its phase is not independent of the error direction. This fixed-recovery building block is attributed to the primary predecessor in [preset protocols](../science/preset_protocols.md); it is not a new general correction method.
 
 ## 3. Why a nuisance parameter costs information
 
@@ -99,7 +103,7 @@ t^2&-2\gamma t^2\\
 
 The entry $`J_{\omega\omega}=t^2`$ treats the direction as known. With the direction unknown, this protocol has only linear leading information. Typical counts are near $`\gamma t`$, so the phase is nearly $`(\omega-2\gamma\phi)t`$: that is the ambiguity the subtraction captures.
 
-This calculation evaluates one protocol. Only the separate [converse](THEOREMS.md) shows that no allowed fixed-rate strategy escapes a linear ceiling. Also, inverse Fisher information is a bound for a local estimation task, not automatically the mean-square error of a globally usable estimator.
+This calculation evaluates one protocol. Only the separate [converse](../science/precision_bounds.md) shows that no allowed fixed-rate strategy escapes a linear ceiling. Also, inverse Fisher information is a bound for a local estimation task, not automatically the mean-square error of a globally usable estimator.
 
 ## 4. A complete rate-diversity example
 
@@ -124,7 +128,7 @@ The universal fixed-rate $`a`$ bound at the same physical duration is $`t/a=10`$
 
 The shared direction allows the two types of labelled data to constrain the same nuisance. Form their full Fisher matrices and combine them **before** eliminating that nuisance. Eliminating an independent direction in each branch would be a different experiment. A label supplies no target information on its own; it identifies which likelihood generated the observation.
 
-For any two distinct positive rates, the optimal leading coefficient is $`r^2`$, where $`r=(b-a)/(b+a)`$. A fair recorded choice needs no numerical rate calibration in the design and has coefficient $`(b-a)^2/[2(a^2+b^2)]`$, at least half the optimum. For $`a=1,b=3`$, these coefficients are $`1/5`$ and $`1/4`$. Treating the rates as additional unknowns does not change the phase-information block when the complete counts are used; [preset protocols](PRESET_PROTOCOLS.md) derives that statement.
+For any two distinct positive rates, the optimal leading coefficient is $`r^2`$, where $`r=(b-a)/(b+a)`$. A fair recorded choice needs no numerical rate calibration in the design and has coefficient $`(b-a)^2/[2(a^2+b^2)]`$, at least half the optimum. For $`a=1,b=3`$, these coefficients are $`1/5`$ and $`1/4`$. Treating the rates as additional unknowns does not change the phase-information block when the complete counts are used; [preset protocols](../science/preset_protocols.md) derives that statement.
 
 Three repetitions of the example cost 30 time units and have information $`3(200/7)=600/7`$, not three free interrogations at total cost 10. The direction must remain shared across the pooled data. No within-run rate feedback is used, but the recovery pulses still follow detected errors.
 
@@ -166,7 +170,7 @@ For a concrete path, suppose the sensor spends 0.9 time units in the even sector
 
 Use the lower rate $`a`$ in the even sector and the higher rate $`b`$ in the odd sector. The negative intervals are shorter on average. Stop at the first time $`\tau_d`$ when $`D(t)=d>0`$. The first upward crossing is in the even sector, so each completed run gives the same exact channel $`e^{-i\omega dZ_L/2}`$, independently of $`\phi`$.
 
-The first-passage law, derived in [stopped sensing](STOPPED_SENSING.md), gives
+The first-passage law, derived in [stopped sensing](../science/stopped_sensing.md), gives
 
 ```math
 \mathbb E[\tau_d]=\frac{d}{r},\qquad
@@ -187,7 +191,7 @@ A failed protocol cannot rule out every adaptive alternative. To prove a univers
 
 Any estimator that works with an unknown direction must also handle these joint parameter changes. For a fixed protocol, its efficient target information is at most the information along any such path, which is bounded by that path's output quantum Fisher information $`F_u`$. The path is a proof device; the physical bath is not assumed to carry the target frequency.
 
-The [theorem proof](THEOREMS.md) imports the adaptive channel-growth inequality from Das and colleagues. In the gauge used here it reads
+The [theorem proof](../science/precision_bounds.md) imports the adaptive channel-growth inequality from Das and colleagues. In the gauge used here it reads
 
 ```math
 \frac{dF_u}{dt}\le4(\|A\|+\|B\|\sqrt{F_u}),
@@ -203,7 +207,7 @@ At two rates one common slope cannot cancel $`B`$ at both. The minimax choice yi
 
 A single Ramsey likelihood is periodic. Frequencies separated by $`2\pi/t`$ can produce the same phase. Large local Fisher information does not resolve that ambiguity or certify a globally accurate estimator.
 
-The repository's global task fixes a frequency interval independently of $`T`$, permits biased estimators, and maximizes the mean-square error over the unknown frequency and direction. The [global proof](GLOBAL_RISK.md) applies the uniform nuisance-path bound to a smooth prior using the van Trees argument. It proves a fixed-rate lower scaling $`\Omega(T^{-1})`$; paid, short no-error trials provide the matching upper scaling.
+The repository's global task fixes a frequency interval independently of $`T`$, permits biased estimators, and maximizes the mean-square error over the unknown frequency and direction. The [global proof](../science/global_precision.md) applies the uniform nuisance-path bound to a smooth prior using the van Trees argument. It proves a fixed-rate lower scaling $`\Omega(T^{-1})`$; paid, short no-error trials provide the matching upper scaling.
 
 For rate access, several prescribed effective times of the exact stopped channel resolve the phase ambiguity. Their physical durations and deadline failures are all counted. Together with a global lower bound this gives
 
@@ -218,6 +222,6 @@ Here $`\Omega`$ inside $`R`$ denotes the fixed frequency interval; $`\Omega(T^{-
 
 The shared, stable direction matters: separate unknown axes for the settings have a linear-information converse. A scalar rate change must preserve the specified signal response. Ordinary known pulses do not give independent reversal of an unknown signal while leaving every unknown noise direction unchanged.
 
-Ideal syndrome extraction and noiseless ancillary storage are shared resources in the main comparison. Fixed-interval ideal measurements have only the separately stated compensated **local** result. A fixed positive unobserved parallel dephasing rate $`\kappa`$ restores the ceiling $`\mathcal I_\omega^*(T)\le T/(4\kappa)`$, although a quantified finite-time advantage remains. Use the project's contrast convention $`e^{-2\kappa t}`$; see the [source normalization note](LEARNING_GUIDE.md#rate-normalization-when-using-the-source).
+Ideal syndrome extraction and noiseless ancillary storage are shared resources in the main comparison. Fixed-interval ideal measurements have only the separately stated compensated **local** result. A fixed positive unobserved parallel dephasing rate $`\kappa`$ restores the ceiling $`\mathcal I_\omega^*(T)\le T/(4\kappa)`$, although a quantified finite-time advantage remains. Use the project's contrast convention $`e^{-2\kappa t}`$; see the [source normalization note](HAASE_BRIDGE.md#rate-normalization-when-using-the-source).
 
-The [physical scope](PHYSICAL_SCOPE.md), [residual-noise calculation](RESIDUAL_DEPHASING.md), and [attribution](../literature/RELATED_WORK.md) explain those boundaries. The [scientific synthesis](SCIENTIFIC_SYNTHESIS.md) is the expert route through the full claims. The [learning guide](LEARNING_GUIDE.md#coaching-and-readiness) specifies how a chat course can test understanding without mistaking repository completion for mastery.
+The [physical scope](../science/physical_scope.md), [residual-noise calculation](../science/residual_dephasing.md), and [attribution](../references/RELATED_WORK.md) explain those boundaries. The [scientific synthesis](../science/interpretation.md) is the expert route through the full claims. The [milestone map](MILESTONES.md) connects these distinctions into one shared route through the project.

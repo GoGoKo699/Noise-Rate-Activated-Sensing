@@ -1,6 +1,6 @@
 # Physical interpretation and controlled variations
 
-[Model](MODEL.md) · [Proofs](THEOREMS.md) · [Related work](../literature/RELATED_WORK.md)
+[Model](model.md) · [Proofs](precision_bounds.md) · [Related work](../references/RELATED_WORK.md)
 
 ## A scalar control of one interaction
 
@@ -88,6 +88,6 @@ This is an attainable **local** coefficient at a compensated operating point, no
 
 ## The load-bearing boundaries
 
-The exact cancellation requires successive errors to share an involutory operator anticommuting with the signal. The independent-axis converse in [the proofs](THEOREMS.md#independent-setting-dependent-directions) shows that this restriction changes the ultimate precision law, rather than being a cosmetic simplification.
+The exact cancellation requires successive errors to share an involutory operator anticommuting with the signal. The independent-axis converse in [the proofs](precision_bounds.md#independent-setting-dependent-directions) shows that this restriction changes the ultimate precision law, rather than being a cosmetic simplification.
 
 The theorem concerns sensor exposure with ideal control and storage. It does not include a bound on control energy, bath-engineering expense, error in the classical timing record, or readout infidelity. These define a different physical resource model. Noise-assisted correction is established prior work; the attributed contribution here is the unknown-axis obstruction, its controlled-rate removal, and the matching precision coefficient.

@@ -4,7 +4,10 @@ on:
   pull_request:
     paths:
       - 'README.md'
-      - 'docs/**'
+      - 'science/**'
+      - 'learning/**'
+      - 'references/**'
+      - 'verification/**'
       - 'scripts/check_rendering.py'
       - '.github/workflows/render.yml'
 permissions:

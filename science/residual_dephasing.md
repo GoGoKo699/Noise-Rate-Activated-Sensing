@@ -1,6 +1,6 @@
 # Residual parallel dephasing: asymptotics and finite advantage
 
-[Physical scope](PHYSICAL_SCOPE.md) · [Preset protocols](PRESET_PROTOCOLS.md) · [Local theorems](THEOREMS.md)
+[Physical scope](physical_scope.md) · [Preset protocols](preset_protocols.md) · [Local theorems](precision_bounds.md)
 
 The ideal scaling theorem is not a fault-tolerance claim. This controlled variation makes one important imperfection quantitative: add the independent, unobserved Lindblad operator
 
@@ -12,7 +12,7 @@ while keeping the original shared transverse direction, ideal syndrome detection
 
 ## Every fixed positive parallel rate restores a linear ceiling
 
-The established Lindblad-span obstruction applies because the signal generator is in the span of $`I,L_z`$. To obtain its constant directly from the [inherited channel bound](THEOREMS.md#the-inherited-channel-bound), vary $`\omega`$ with all nuisance parameters fixed and choose the gauge entry connecting the identity to $`L_z`$ as
+The established Lindblad-span obstruction applies because the signal generator is in the span of $`I,L_z`$. To obtain its constant directly from the [inherited channel bound](precision_bounds.md#the-inherited-channel-bound), vary $`\omega`$ with all nuisance parameters fixed and choose the gauge entry connecting the identity to $`L_z`$ as
 
 ```math
 h_{0z}=h_{z0}=-\frac1{4\sqrt\kappa},
@@ -55,7 +55,7 @@ w(\eta)=1-\sqrt{1-\eta^2}.
 
 For example, write the integrand as $`1-(1-\eta^2)/(1-\eta^2\cos^2\chi)`$ and use the elementary integral of the second denominator. At $`\eta=1`$, the pure-state null set of readout angles is handled by the continuous extension.
 
-Every entry in the $`(\omega,\phi)`$ Fisher block is multiplied by the same $`w`$. Its Schur complement is therefore multiplied by $`w`$ as well. For the [recorded random-rate protocol](PRESET_PROTOCOLS.md#a-recorded-random-choice-of-one-rate),
+Every entry in the $`(\omega,\phi)`$ Fisher block is multiplied by the same $`w`$. Its Schur complement is therefore multiplied by $`w`$ as well. For the [recorded random-rate protocol](preset_protocols.md#a-recorded-random-choice-of-one-rate),
 
 ```math
 \boxed{\mathcal I_p^{(\kappa)}(T)
@@ -87,4 +87,4 @@ The two statements coexist: finite advantage persists in a nonzero imperfection 
 
 ## Verification and attribution
 
-`src/risk.py` evaluates the exact formulas with stable handling of very small contrast. `tests/test_risk.py` compares the angular integral with quadrature, the mixed-state likelihood with finite differences, the channel factorization with superoperator matrices, and the gauge and finite-advantage thresholds with direct calculations. The general obstruction is attributed to the channel-bound and known-noise foundations in [related work](../literature/RELATED_WORK.md).
+`src/risk.py` evaluates the exact formulas with stable handling of very small contrast. `tests/test_risk.py` compares the angular integral with quadrature, the mixed-state likelihood with finite differences, the channel factorization with superoperator matrices, and the gauge and finite-advantage thresholds with direct calculations. The general obstruction is attributed to the channel-bound and known-noise foundations in [related work](../references/RELATED_WORK.md).

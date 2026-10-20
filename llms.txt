@@ -2,27 +2,30 @@
 
 > Rate diversity changes the optimal precision law of quantum sensing under a shared fixed unknown transverse error direction. The scientific account distinguishes local information, global minimax risk, and exact stopped-channel guarantees.
 
-## Educational entry point
-- [Learning guide](docs/LEARNING_GUIDE.md): The sole selected anchor is Haase et al., arXiv:1807.11882v4; source sections, notation and normalization, local bridges, and evidence-based coaching readiness.
-- [Worked tutorial](docs/TUTORIAL.md): Ramsey likelihood, logical code, nuisance projection, a complete numerical rate-diversity example, stopped channel, and the route to universal and global bounds.
+## Shared learning route
+- [Learning entrypoint](learning/README.md): One reader-independent route through the project.
+- [30 milestones](learning/MILESTONES.md): M01–M13 develop the background; M14–M30 connect the research mechanisms and complete scientific meaning. Each target includes dependencies and sources.
+- [Haase bridge](learning/HAASE_BRIDGE.md): The sole selected anchor, arXiv:1807.11882v4; source sections, notation, rate normalization, and locally supplied connections.
+- [Worked tutorial](learning/TUTORIAL.md): Ramsey likelihood, logical code, nuisance projection, a complete rate-diversity example, stopped channel, and the route to universal and global bounds.
 
-One educational anchor does not replace primary-source attribution. Teach in chat when requested, use selection-only checks and genuine clickable controls when supported, and do not treat static Markdown as an interactive quiz.
+Use the milestones for dependency order and the bridge for source translation. One educational anchor does not replace primary-source attribution. These shared pages contain no personal assessment history or coaching contract.
 
 ## Scientific entry points
+- [Scientific route](science/README.md): Dependency-ordered topic map of the full scientific account.
 - [Overview](README.md): Central results, scope, reading routes, and purpose/contact.
-- [Scientific synthesis](docs/SCIENTIFIC_SYNTHESIS.md): Unified contribution, claim-to-proof map, resource distinctions, and manuscript-relevant scientific scope.
-- [Model](docs/MODEL.md): Allowed controls, shared nuisance, full Fisher pooling, charged time, and parameter normalization.
-- [Local theorems](docs/THEOREMS.md): All-strategy fixed-rate converse, optimal selectable-setting coefficient, preset attainment, and independent-axis bound.
-- [Global precision](docs/GLOBAL_RISK.md): Same-metric minimax comparison, van Trees lower bounds valid for biased estimators, and matching global scalings.
-- [Preset protocols](docs/PRESET_PROTOCOLS.md): Balanced echo, calibration penalty, recorded rate randomization, unknown-rate blocks, and finite-time local certificates.
-- [Stopped sensing](docs/STOPPED_SENSING.md): Exact Ramsey channel, first-passage law, deadline accounting, and global achievability.
-- [Physical scope](docs/PHYSICAL_SCOPE.md): Collision and stochastic models, coherent-access distinction, signal shifts, and finite-cadence local result.
-- [Residual dephasing](docs/RESIDUAL_DEPHASING.md): Linear asymptotic ceiling from parallel noise and an exact finite-time advantage window for the specified readout.
-- [Related work](literature/RELATED_WORK.md): Primary-source comparisons and explicit attribution, including global-risk foundations and stronger access models.
-- [Bibliography](literature/references.bib): Machine-readable references.
+- [Scientific synthesis](science/interpretation.md): Unified contribution, claim-to-proof map, resource distinctions, and scientific scope.
+- [Model](science/model.md): Allowed controls, shared nuisance, full Fisher pooling, charged time, and parameter normalization.
+- [Local theorems](science/precision_bounds.md): All-strategy fixed-rate converse, optimal selectable-setting coefficient, preset attainment, and independent-axis bound.
+- [Global precision](science/global_precision.md): Same-metric minimax comparison, van Trees lower bounds valid for biased estimators, and matching global scalings.
+- [Preset protocols](science/preset_protocols.md): Balanced echo, calibration penalty, recorded rate randomization, unknown-rate blocks, and finite-time local certificates.
+- [Stopped sensing](science/stopped_sensing.md): Exact Ramsey channel, first-passage law, deadline accounting, and global achievability.
+- [Physical scope](science/physical_scope.md): Collision and stochastic models, coherent-access distinction, signal shifts, and finite-cadence local result.
+- [Residual dephasing](science/residual_dephasing.md): Linear asymptotic ceiling from parallel noise and an exact finite-time advantage window for the specified readout.
+- [Related work](references/RELATED_WORK.md): Primary-source comparisons and explicit attribution, including global-risk foundations and stronger access models.
+- [Bibliography](references/references.bib): Machine-readable references.
 
 ## Verification and maintenance
-- [Reproducibility](docs/REPRODUCIBILITY.md): Commands, check coverage, numerical examples, and evidence-table definitions.
+- [Reproducibility](verification/README.md): Commands, check coverage, numerical examples, and evidence-table definitions.
 - [Stopped calculations](src/nras.py): Algebra, control speed, timing laws, and event simulator.
 - [Preset calculations](src/preset.py): Complete Fisher matrices, calibration laws, and labelled-design coefficients.
 - [Risk and dephasing calculations](src/risk.py): Global lower bounds, fixed-rate upper scaling, and dephased preset information.
