@@ -1,10 +1,10 @@
 # Preset protocols and rate calibration
 
-[Model](MODEL.md) · [Optimality](THEOREMS.md) · [Exact stopped sensing](STOPPED_SENSING.md)
+[Model](model.md) · [Optimality](precision_bounds.md) · [Exact stopped sensing](stopped_sensing.md)
 
 Two positive rates suffice to attain the optimal leading **local** information without syndrome-conditioned bath-rate changes. The protocols here still detect errors and apply a fixed sensor recovery $`X`$. They retain the setting, count record, and final measurement outcome. They do not produce a direction-independent channel on every trajectory.
 
-The fixed-recovery building block and the single-rate formula below are inherited from Tanggara et al., Appendix A.4(a), Eqs. (A19)–(A29), with $`\omega=2\theta`$. The additions are the rate-diverse designs, their exact information, and their calibration dependence. Pooling Fisher matrices and eliminating a common nuisance are statistical operations, not new formalisms. See [attribution](../literature/RELATED_WORK.md).
+The fixed-recovery building block and the single-rate formula below are inherited from Tanggara et al., Appendix A.4(a), Eqs. (A19)–(A29), with $`\omega=2\theta`$. The additions are the rate-diverse designs, their exact information, and their calibration dependence. Pooling Fisher matrices and eliminating a common nuisance are statistical operations, not new formalisms. See [attribution](../references/RELATED_WORK.md).
 
 ## Common readout and the order of nuisance elimination
 
@@ -207,7 +207,7 @@ For a pair $`i,j`$, choose probabilities $`p_i=\gamma_j/(\gamma_i+\gamma_j)`$ an
 =\left(\frac{s_i\gamma_j-s_j\gamma_i}{\gamma_i+\gamma_j}\right)^2.
 ```
 
-A maximizing pair therefore attains [Theorem 3](THEOREMS.md#theorem-3--selectable-signal-and-noise-strengths) without syndrome-conditioned rate control.
+A maximizing pair therefore attains [Theorem 3](precision_bounds.md#theorem-3--selectable-signal-and-noise-strengths) without syndrome-conditioned rate control.
 
 ## Relation to stopped sensing
 
@@ -217,6 +217,6 @@ A maximizing pair therefore attains [Theorem 3](THEOREMS.md#theorem-3--selectabl
 | Recorded random rate | Once at the start | Fixed $`X`$ after each error | None for the fair design; ratio optimizes the coefficient | Quadratic local information; no trajectory-wise cancellation |
 | Stopped sensing | Conditioned on measured parity | None after errors | Not needed for output correctness; throughput bounds require rate information | Exact direction-independent Ramsey channel on success |
 
-Every construction still uses ideal syndrome monitoring and noiseless ancillary support. For the random design, $`T`$ is the duration of **each** complete interrogation; $`\nu`$ repetitions cost $`\nu T`$ and have Fisher matrix $`\nu J`$. Its local statement must not be reinterpreted as an $`O(T^{-2})`$ global risk guarantee for one random branch. The [stopped protocol](STOPPED_SENSING.md) supplies the separate bounded-interval global theorem with every duration and failure charged.
+Every construction still uses ideal syndrome monitoring and noiseless ancillary support. For the random design, $`T`$ is the duration of **each** complete interrogation; $`\nu`$ repetitions cost $`\nu T`$ and have Fisher matrix $`\nu J`$. Its local statement must not be reinterpreted as an $`O(T^{-2})`$ global risk guarantee for one random branch. The [stopped protocol](stopped_sensing.md) supplies the separate bounded-interval global theorem with every duration and failure charged.
 
-If different settings have independently unknown directions, the Fisher matrices have separate nuisance columns. The rate-mixing gain then disappears, consistent with the [independent-axis converse](THEOREMS.md#independent-setting-dependent-directions). A retained label and a shared stable nuisance are load-bearing resources.
+If different settings have independently unknown directions, the Fisher matrices have separate nuisance columns. The rate-mixing gain then disappears, consistent with the [independent-axis converse](precision_bounds.md#independent-setting-dependent-directions). A retained label and a shared stable nuisance are load-bearing resources.

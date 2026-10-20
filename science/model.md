@@ -1,6 +1,6 @@
 # Model and statistical task
 
-[Overview](../README.md) · [Proofs](THEOREMS.md) · [Preset protocols](PRESET_PROTOCOLS.md) · [Stopped sensing](STOPPED_SENSING.md)
+[Overview](../README.md) · [Proofs](precision_bounds.md) · [Preset protocols](preset_protocols.md) · [Stopped sensing](stopped_sensing.md)
 
 ## Parameters and normalization
 
@@ -28,7 +28,7 @@ The ideal monitored construction is the continuous-syndrome limit of system–an
 
 Control, readout, and storage are ideal resources, rather than thermodynamic or hardware-cost models. Their common idealization is used in both sides of the precision comparison. The extra resource on the constructive side is bounded rate selection. A preset rate schedule is not a feedback-free protocol when its recovery pulses follow detected errors.
 
-The principal optimization treats the numerical rates as known. The [preset calibration analysis](PRESET_PROTOCOLS.md#also-treating-the-numerical-rates-as-unknown) separately includes them as additional nuisance parameters, while holding durations and randomization probabilities fixed under differentiation. A fair recorded rate choice requires no numerical rate estimate in its design, but inference still uses the complete likelihood and count records.
+The principal optimization treats the numerical rates as known. The [preset calibration analysis](preset_protocols.md#also-treating-the-numerical-rates-as-unknown) separately includes them as additional nuisance parameters, while holding durations and randomization probabilities fixed under differentiation. A fair recorded rate choice requires no numerical rate estimate in its design, but inference still uses the complete likelihood and count records.
 
 ## Charged time and failures
 
@@ -36,7 +36,7 @@ $`T`$ is a hard physical exposure budget for one sensor, including calibration, 
 
 When a logical output is ready, a parameter-independent decoding transfers it to the noiseless ancilla. Remaining noise on the now-discarded sensor is irrelevant. An unfinished run at the deadline is retained as an explicit failure. Assigning it a parameter-independent output can only reduce information and is legitimate for a lower bound.
 
-A stopping time and its mean are not interchangeable with a hard deadline. The [stopped protocol](STOPPED_SENSING.md) first solves the exact duration law and then imposes a deadline. For a preset randomized interrogation, every branch lasts $`T`$; $`\nu`$ repetitions cost $`\nu T`$, rather than providing $`\nu`$ samples for the price of one.
+A stopping time and its mean are not interchangeable with a hard deadline. The [stopped protocol](stopped_sensing.md) first solves the exact duration law and then imposes a deadline. For a preset randomized interrogation, every branch lasts $`T`$; $`\nu`$ repetitions cost $`\nu T`$, rather than providing $`\nu`$ samples for the price of one.
 
 ## Information in the presence of a nuisance
 
@@ -86,4 +86,4 @@ For every chosen $`c`$, efficient target information is no greater than the clas
 
 The noise is not physically assumed to encode the target frequency. The path is a mathematical comparison submodel of a two-parameter experiment. This distinction is important when comparing with informative-noise metrology.
 
-The foundations and closest noise model are attributed in [related work](../literature/RELATED_WORK.md).
+The foundations and closest noise model are attributed in [related work](../references/RELATED_WORK.md).

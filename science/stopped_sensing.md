@@ -1,6 +1,6 @@
 # Exact stopped sensing and its physical cost
 
-[Model](MODEL.md) · [Optimality proof](THEOREMS.md) · [Physical scope](PHYSICAL_SCOPE.md)
+[Model](model.md) · [Optimality proof](precision_bounds.md) · [Physical scope](physical_scope.md)
 
 This construction uses rates $`0<a<b`$, unit signal strength, a shared fixed unknown $`N_\phi`$, and ideal syndrome timing. A completed operation is exact for every input logical state and every $`\omega,\phi`$, not just at a local operating point.
 
@@ -18,7 +18,7 @@ For a prescribed $`d>0`$, stop at
 \tau_d=\inf\{t\ge0:D(t)=d\}.
 ```
 
-An upward crossing has even parity. The [trajectory identity](THEOREMS.md#attainment-by-leaving-the-errors-uncorrected) therefore gives the exact logical channel
+An upward crossing has even parity. The [trajectory identity](precision_bounds.md#attainment-by-leaving-the-errors-uncorrected) therefore gives the exact logical channel
 
 ```math
 \rho_L\longmapsto U_\omega(d)\rho_LU_\omega(d)^\dagger,
@@ -121,7 +121,7 @@ For $`aT>19`$, this lower bound strictly exceeds the fixed-rate upper bound $`T/
 
 The exact stopped channel permits a separate global statement. For any fixed bounded frequency interval of width $`W>0`$, there is an estimation procedure, using a hard total budget $`T`$, whose worst-case mean-square error is $`O(T^{-2})`$ uniformly in the shared direction. The constant depends on the fixed interval and rates. This is not a claim that the local coefficient $`r^2`$ is the optimal global risk constant.
 
-Here is an explicit reduction, using the established multiscale phase-estimation idea attributed in [related work](../literature/RELATED_WORK.md#phase-estimation-and-stopping-background).
+Here is an explicit reduction, using the established multiscale phase-estimation idea attributed in [related work](../references/RELATED_WORK.md#phase-estimation-and-stopping-background).
 
 ### A noiseless schedule with quadratic global precision
 

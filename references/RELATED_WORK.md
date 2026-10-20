@@ -1,6 +1,6 @@
 # Related work and attribution
 
-[Overview](../README.md) · [Scientific synthesis](../docs/SCIENTIFIC_SYNTHESIS.md) · [Bibliography](references.bib)
+[Overview](../README.md) · [Scientific synthesis](../science/interpretation.md) · [Bibliography](references.bib)
 
 This comparison uses primary papers and identifies preprints as such. It separates inherited methods from the precision statements proved here. The core unknown-direction pages, channel-bound coefficients, and the additional global-risk and access-model references were checked on 16 October 2026. It is a targeted comparison, not an exhaustive priority guarantee.
 
@@ -10,7 +10,7 @@ This comparison uses primary papers and identifies preprints as such. It separat
 
 Section V.B.2, p. 16, uses the fixed continuously unknown transverse direction and explicitly distinguishes it from a finite-set promise. Appendix A.3 and A.4 analyze calibration-based and fixed-recovery protocols. The paper leaves the general-strategy scaling question open. The present fixed-rate converse applies to all operations in the stated continuous-time resource model; the positive theorem adds a rate-control resource. Their Hamiltonian convention is $`H=\theta Z`$, whereas this repository uses $`H=\omega Z/2`$, so comparisons use $`\omega=2\theta`$.
 
-The fixed recovery $`X`$, count-conditioned phase, and complete-record single-rate information $`T^2/(1+\gamma T)`$ are inherited from Appendix A.4(a), Eqs. (A19)–(A29), pp. 26–27. They supply an attaining protocol for the linear coefficient once the universal converse is established. The [preset protocols](../docs/PRESET_PROTOCOLS.md) combine that building block with distinct rates. Averaging full Fisher matrices before eliminating a shared nuisance is ordinary statistical design, not a new metrological formalism. The [global-risk proof](../docs/GLOBAL_RISK.md) extends the fixed-rate limitation to biased estimators in a worst-case task and compares it with the stopped-channel upper bound in the same metric.
+The fixed recovery $`X`$, count-conditioned phase, and complete-record single-rate information $`T^2/(1+\gamma T)`$ are inherited from Appendix A.4(a), Eqs. (A19)–(A29), pp. 26–27. They supply an attaining protocol for the linear coefficient once the universal converse is established. The [preset protocols](../science/preset_protocols.md) combine that building block with distinct rates. Averaging full Fisher matrices before eliminating a shared nuisance is ordinary statistical design, not a new metrological formalism. The [global-risk proof](../science/global_precision.md) extends the fixed-rate limitation to biased estimators in a worst-case task and compares it with the stopped-channel upper bound in the same metric.
 
 ## Bound and estimation foundations
 

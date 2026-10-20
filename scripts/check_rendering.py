@@ -103,6 +103,21 @@ INSPECT = r'''root => {
 }'''
 
 
+
+def hosted_paths(root: Path = ROOT) -> list[str]:
+    """All shared reader pages; missing sections are failures, not skipped audits."""
+    paths = ['README.md']
+    for directory in ('science', 'learning', 'references', 'verification'):
+        folder = root / directory
+        if not folder.is_dir():
+            raise FileNotFoundError(f'Missing reader section: {directory}')
+        paths.extend(p.relative_to(root).as_posix() for p in sorted(folder.rglob('*.md')))
+    if not (root / 'README.md').is_file():
+        raise FileNotFoundError('Missing reader entrypoint: README.md')
+    return paths
+
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--ref', required=True, help='Full commit SHA, never a moving branch')
@@ -112,8 +127,7 @@ def main() -> int:
         parser.error('--ref must be a full lowercase commit SHA')
     from playwright.sync_api import sync_playwright
 
-    paths = ['README.md'] + [p.relative_to(ROOT).as_posix() for p in sorted((ROOT/'docs').glob('*.md'))]
-    paths += ['literature/RELATED_WORK.md']
+    paths = hosted_paths()
     args.output.mkdir(parents=True, exist_ok=True)
     report = {'repository': REPOSITORY, 'commit': args.ref, 'pages': [],
               'scope': 'Actual hosted DOM and screenshots; visual and scientific review are separate.'}

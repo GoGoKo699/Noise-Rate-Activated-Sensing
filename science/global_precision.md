@@ -1,6 +1,6 @@
 # Global precision at a hard time budget
 
-[Model](MODEL.md) · [Local theorems](THEOREMS.md) · [Stopped-channel construction](STOPPED_SENSING.md)
+[Model](model.md) · [Local theorems](precision_bounds.md) · [Stopped-channel construction](stopped_sensing.md)
 
 This comparison uses the same global squared-error criterion on both sides. It does not assume an unbiased estimator, a known noise angle, or prior frequency localization on a scale that shrinks with the available time.
 
@@ -73,7 +73,7 @@ Cauchy–Schwarz supplies the last inequality without any unbiasedness condition
 
 ## Fixed-rate lower bound
 
-Choose $`c=1/(2\gamma)`$. The [nuisance-path channel bound](THEOREMS.md#the-common-nuisance-path) gives $`J_u\le F_u\le T/\gamma`$ at every point on the path, uniformly over the allowed strategies. Therefore
+Choose $`c=1/(2\gamma)`$. The [nuisance-path channel bound](precision_bounds.md#the-common-nuisance-path) gives $`J_u\le F_u\le T/\gamma`$ at every point on the path, uniformly over the allowed strategies. Therefore
 
 ```math
 \boxed{R_{\mathrm{fixed}}(T;\Omega)
@@ -151,7 +151,7 @@ These two lower bounds use different path priors. Their maximum is valid for min
 
 ## Controlled-rate upper scaling
 
-The [stopped-channel proof](STOPPED_SENSING.md#global-estimation-on-a-bounded-interval) supplies the matching uniform $`O(T^{-2})`$ estimator. Its essential ingredients are an exact Ramsey operation at each prescribed effective time, a multiscale schedule resolving the phase ambiguity, and a hard-deadline bound for the sum of random physical durations.
+The [stopped-channel proof](stopped_sensing.md#global-estimation-on-a-bounded-interval) supplies the matching uniform $`O(T^{-2})`$ estimator. Its essential ingredients are an exact Ramsey operation at each prescribed effective time, a multiscale schedule resolving the phase ambiguity, and a hard-deadline bound for the sum of random physical durations.
 
 For total prescribed effective exposure $`S`$, that sum has Laplace transform $`e^{-S k(q)}`$ with the stated first-passage exponent. Choosing $`S\le\alpha rT`$, $`0<\alpha<1`$, leaves an exponentially small deadline-failure probability. A bounded fallback on failure adds exponentially small risk, while successful multiscale estimation costs $`O(T^{-2})`$ in risk. The schedule is independent of the unknown angle, and all physical times are included.
 

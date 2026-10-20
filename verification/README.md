@@ -1,6 +1,6 @@
 # Reproducibility
 
-[Scientific synthesis](SCIENTIFIC_SYNTHESIS.md) · [Stopped calculations](../src/nras.py) · [Preset calculations](../src/preset.py) · [Risk calculations](../src/risk.py)
+[Scientific synthesis](../science/interpretation.md) · [Stopped calculations](../src/nras.py) · [Preset calculations](../src/preset.py) · [Risk calculations](../src/risk.py)
 
 ## Commands
 
@@ -28,7 +28,7 @@ The [regeneration check](../scripts/check_reproducibility.py) runs both producer
 
 ## Coverage
 
-The suite contains 88 tests: 33 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, 20 in `tests/test_risk.py`, 7 in `tests/test_learning.py`, and 8 offline serialization/regeneration checks in `tests/test_rendering.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
+The suite contains 96 tests: 33 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, 20 in `tests/test_risk.py`, 7 in `tests/test_learning.py`, 8 offline serialization/regeneration checks in `tests/test_rendering.py`, and 8 shared-structure checks in `tests/test_structure.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
 
 | Calculation | Check |
 |---|---|
@@ -51,10 +51,14 @@ The suite contains 88 tests: 33 in `tests/test_nras.py`, 20 in `tests/test_prese
 | Physical resource identities | Simultaneous transformation of signal and noise under a known pulse; unidentifiability with free setting offsets |
 | Tutorial examples | Ramsey readout, parity encoding, nuisance projection, the worked rate mixture and echo, charged repetitions, a two-error path, and the generator-to-contrast convention |
 | Evidence regeneration | Both recorded examples regenerated and compared with numerical tolerances |
+| Shared learning structure | Exactly 30 ordered milestones, 13/17 allocation, fields, earlier dependencies, source links, and final integration |
+| Reader routes and boundaries | Canonical topic paths, retained anchor, absence of personal coaching procedures, and complete hosted-page selection |
 
 The likelihood checks use Poisson cutoffs with tail probability below $`10^{-14}`$ at their tested parameters. They finite-difference actual outcome probabilities rather than substituting analytical scores into an information formula. Seeded checks use stated tolerances instead of requiring identical floating-point results across all package versions.
 
-The [worked tutorial](TUTORIAL.md) uses the same physical and statistical conventions. Its seven finite checks run as part of the suite; passing them validates those calculations, not a reader's understanding or the source PDF. The selected-source normalization note is in the [learning guide](LEARNING_GUIDE.md#rate-normalization-when-using-the-source).
+The [worked tutorial](../learning/TUTORIAL.md) uses the same physical and statistical conventions. Its seven finite checks run as part of the suite; passing them validates those calculations, not a reader's understanding or the source PDF. The selected-source normalization note is in the [learning guide](../learning/HAASE_BRIDGE.md#rate-normalization-when-using-the-source).
+
+The shared-structure checks validate the milestone count, declared dependencies, required fields, navigation, and separation from personal coaching records. They do not establish teaching effectiveness, comprehension, or scientific truth. The scientific implementations and their existing example tests use the same executable paths as before.
 
 ## Reading the numerical examples
 
@@ -62,11 +66,11 @@ In the preset table, rate units set $`a=1`$, $`b=3`$. A balanced echo has local 
 
 The residual-dephasing example has $`\kappa/a=0.01`$ and $`aT=10`$. The specified imperfect protocol has information approximately $`12.16635/a^2`$, exceeding the ideal fixed-rate upper bound $`10/a^2`$. The threshold $`\log(400/231)/40`$ belongs to this finite-time local comparison, not to a general hardware or fault-tolerance specification.
 
-The global table uses $`\Omega=[-1,1]`$ and prior half-width $`h=1/2`$. Its lower and upper columns are analytical bounds, not equalities. The full minimax proof is in [global precision](GLOBAL_RISK.md); the optimal global constant is not inferred from the table.
+The global table uses $`\Omega=[-1,1]`$ and prior half-width $`h=1/2`$. Its lower and upper columns are analytical bounds, not equalities. The full minimax proof is in [global precision](../science/global_precision.md); the optimal global constant is not inferred from the table.
 
 ## Hosted mathematical rendering
 
-The separate [hosted-rendering workflow](../.github/workflows/render.yml) opens the actual public GitHub pages in Chromium at the inspected commit. It compares formula counts with the source, checks that the mathematics has rendered, reports parser errors, checks matrix row counts and unparsed delimiters, and captures full-page screenshots of the README, every document in `docs/`, and the related-work page. It runs on same-repository documentation pull requests or by manual dispatch. It neither uses a substitute local Markdown renderer nor publishes a release.
+The separate [hosted-rendering workflow](../.github/workflows/render.yml) opens the actual public GitHub pages in Chromium at the inspected commit. It compares formula counts with the source, checks that the mathematics has rendered, reports parser errors, checks matrix row counts and unparsed delimiters, and captures full-page screenshots of the README, all Markdown pages in `science/`, `learning/`, `references/`, and `verification/`. It runs on same-repository documentation pull requests or by manual dispatch. It neither uses a substitute local Markdown renderer nor publishes a release.
 
 For the same check from a complete checkout, with network access:
 

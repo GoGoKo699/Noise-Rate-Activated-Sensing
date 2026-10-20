@@ -1,6 +1,6 @@
 # Scientific synthesis
 
-[Overview](../README.md) · [Model](MODEL.md) · [Attribution](../literature/RELATED_WORK.md)
+[Overview](../README.md) · [Model](model.md) · [Attribution](../references/RELATED_WORK.md)
 
 ## The question and the contribution
 
@@ -14,16 +14,16 @@ The central scientific statement is a change in the optimal precision law. It is
 
 | Result | Precise statement | Authoritative derivation |
 |---|---|---|
-| Fixed-rate limitation | Local information is at most $`T/\gamma`$, with tight leading coefficient $`1/\gamma`$ | [Theorems 1 and converse](THEOREMS.md) |
-| Rate-diverse local optimum | Leading coefficient is $`r^2`$, with $`r=(b-a)/(b+a)`$ | [Theorem 2](THEOREMS.md) and [preset likelihoods](PRESET_PROTOCOLS.md) |
-| Selectable-setting criterion | A positive quadratic coefficient exists exactly when the known ratios $`s_j/\gamma_j`$ differ | [Theorem 3](THEOREMS.md) |
-| Global precision separation | Minimax risk is $`\Theta(T^{-1})`$ at fixed rate and $`\Theta(T^{-2})`$ with rate access | [Global-risk theorem](GLOBAL_RISK.md) |
-| Exact sensing operation | Each completed stop at signed time $`d`$ realizes $`e^{-i\omega dZ_L/2}`$ independently of $`\phi`$ | [Stopped sensing](STOPPED_SENSING.md) |
-| Charged timing | Exact first-passage transform, finite mean $`d/r`$, exponential tails, and hard-deadline accounting | [Stopped sensing](STOPPED_SENSING.md) |
-| Calibration distinction | A balanced echo is sensitive to differential imbalance; a fair recorded rate choice retains at least half the optimal local coefficient without numerical rate calibration | [Preset protocols](PRESET_PROTOCOLS.md) |
-| Shared-direction boundary | Independently unknown setting directions obey a linear-information converse | [Independent-axis bound](THEOREMS.md#independent-setting-dependent-directions) |
-| Finite-cadence result | Ideal measurements at fixed intervals retain a positive quadratic local coefficient at a compensated operating point | [Physical scope](PHYSICAL_SCOPE.md#finite-interval-ideal-parity-measurements) |
-| Residual parallel noise | A positive parallel rate restores a linear ceiling, while a quantified finite-time rate-diversity advantage remains | [Residual dephasing](RESIDUAL_DEPHASING.md) |
+| Fixed-rate limitation | Local information is at most $`T/\gamma`$, with tight leading coefficient $`1/\gamma`$ | [Theorems 1 and converse](precision_bounds.md) |
+| Rate-diverse local optimum | Leading coefficient is $`r^2`$, with $`r=(b-a)/(b+a)`$ | [Theorem 2](precision_bounds.md) and [preset likelihoods](preset_protocols.md) |
+| Selectable-setting criterion | A positive quadratic coefficient exists exactly when the known ratios $`s_j/\gamma_j`$ differ | [Theorem 3](precision_bounds.md) |
+| Global precision separation | Minimax risk is $`\Theta(T^{-1})`$ at fixed rate and $`\Theta(T^{-2})`$ with rate access | [Global-risk theorem](global_precision.md) |
+| Exact sensing operation | Each completed stop at signed time $`d`$ realizes $`e^{-i\omega dZ_L/2}`$ independently of $`\phi`$ | [Stopped sensing](stopped_sensing.md) |
+| Charged timing | Exact first-passage transform, finite mean $`d/r`$, exponential tails, and hard-deadline accounting | [Stopped sensing](stopped_sensing.md) |
+| Calibration distinction | A balanced echo is sensitive to differential imbalance; a fair recorded rate choice retains at least half the optimal local coefficient without numerical rate calibration | [Preset protocols](preset_protocols.md) |
+| Shared-direction boundary | Independently unknown setting directions obey a linear-information converse | [Independent-axis bound](precision_bounds.md#independent-setting-dependent-directions) |
+| Finite-cadence result | Ideal measurements at fixed intervals retain a positive quadratic local coefficient at a compensated operating point | [Physical scope](physical_scope.md#finite-interval-ideal-parity-measurements) |
+| Residual parallel noise | A positive parallel rate restores a linear ceiling, while a quantified finite-time rate-diversity advantage remains | [Residual dephasing](residual_dephasing.md) |
 
 ## Two mechanisms, not two versions of the same guarantee
 
@@ -44,7 +44,7 @@ A_j=c^2\gamma_j I,
 
 At one rate, a single $`c`$ cancels every coherent contribution. With a common direction and distinct signal-to-rate ratios, no such cancellation is possible across the settings. Minimizing the worst residual gives the pairwise optimum proved in Theorem 3. The explicit local constructions attain it. Applying the uniform path bounds to a compact smooth prior gives the global minimax lower bounds without assuming unbiasedness. The multiscale stopped-channel schedule gives the global upper scaling.
 
-The channel inequality, nuisance-parameter projection, statistical design, van Trees argument, and multiscale phase-estimation technique are inherited tools. The particular obstruction, controlled removal, matching coefficient, and fully costed stopped operation are the combined results proved here. The [primary-source comparison](../literature/RELATED_WORK.md) makes those attribution boundaries explicit.
+The channel inequality, nuisance-parameter projection, statistical design, van Trees argument, and multiscale phase-estimation technique are inherited tools. The particular obstruction, controlled removal, matching coefficient, and fully costed stopped operation are the combined results proved here. The [primary-source comparison](../references/RELATED_WORK.md) makes those attribution boundaries explicit.
 
 ## Physical interpretation and assumptions
 
@@ -58,4 +58,4 @@ Strict asymptotic quadratic scaling also excludes an uncorrectable parallel erro
 
 ## Evidence and use
 
-The proof files contain the complete analytic chain. The [reproducibility guide](REPRODUCIBILITY.md) maps finite identities and numerical cross-checks to executable tests; the [deterministic evidence table](../results/evidence.json) supplies reproducible examples without external data. This synthesis is a map of scientific results and their scope, not a substitute for those proofs or an independent expert endorsement.
+The proof files contain the complete analytic chain. The [reproducibility guide](../verification/README.md) maps finite identities and numerical cross-checks to executable tests; the [deterministic evidence table](../results/evidence.json) supplies reproducible examples without external data. This synthesis is a map of scientific results and their scope, not a substitute for those proofs or an independent expert endorsement.

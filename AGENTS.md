@@ -4,7 +4,7 @@ The authorized project is `GoGoKo699/Noise-Rate-Activated-Sensing`. Modify only 
 
 ## Read the science first
 
-Start with [README](README.md), [model](docs/MODEL.md), and [theorems](docs/THEOREMS.md). Read [stopped sensing](docs/STOPPED_SENSING.md) for timing and global estimation, [physical scope](docs/PHYSICAL_SCOPE.md) for resource assumptions, and [attribution](literature/RELATED_WORK.md) before describing novelty. Use [llms.txt](llms.txt) as a question-to-file map.
+Start with [README](README.md), [model](science/model.md), and [theorems](science/precision_bounds.md). Read [stopped sensing](science/stopped_sensing.md) for timing and global estimation, [physical scope](science/physical_scope.md) for resource assumptions, and [attribution](references/RELATED_WORK.md) before describing novelty. Use [llms.txt](llms.txt) as a question-to-file map.
 
 Keep the main distinctions intact: continuous unknown direction versus a finite promise; efficient nuisance-adjusted information versus a target-only matrix entry; hard physical time versus effective signed time; local precision versus global risk; shared-axis incoherent rate selection versus bath access or coherent application of the unknown error. Retain failures in all time-budget comparisons. Treat finite-interval syndrome extraction as the local compensated result actually proved.
 
@@ -18,8 +18,14 @@ Present the repository as a scientific record, not a development diary. Keep ass
 
 Use GitHub-native math fences for display equations and protected dollar/backtick spans for inline equations. Bare dollar delimiters have corrupted escapes, stars, and matrix rows in this repository’s hosted output; do not reintroduce them. Use the checked upright named-function notation rather than the rejected operatorname macro. Keep equations out of headings and complicated tables, avoid undefined macros, and inspect rendered pages when changing mathematical display. Source checks alone do not establish correct hosting-renderer output.
 
-## Learning and coaching
+## Shared learning material
 
-The settled educational anchor is **Haase et al., arXiv:1807.11882v4**. Read the [learning guide](docs/LEARNING_GUIDE.md) for the source map, notation hazards, project-specific bridges, and readiness domains. Keep one educational anchor; primary research citations do not become additional assigned textbooks. Do not reopen the source choice without a substantive reason. Preserve the project's rate normalization rather than copying inconsistent source formulas, and do not replace time resources by probe-number resources.
+The settled educational anchor is **Haase et al., arXiv:1807.11882v4**. The [Haase bridge](learning/HAASE_BRIDGE.md) owns its source map and notation translations. The [30-milestone map](learning/MILESTONES.md) has 13 background and 17 narrative targets, defined by the project and shared by every reader. Preserve one educational anchor; primary research citations are not additional assigned textbooks. Do not replace physical time by probe number or change the established rate normalization.
 
-For an explicitly requested coaching session, teach directly from the [worked tutorial](docs/TUTORIAL.md) and its linked proofs, without making prior reading a condition. Use Revise → Learn → Test, one selection-only question at a time, targeted revision after mistakes, and evidence-based readiness. Prefer actual clickable answer controls when available; never describe plain-text options as interactive. Do not start unsolicited quizzes during repository maintenance.
+Keep the common milestones, source bridge, and scientific examples in `learning/`. Personal coaching procedures, answer keys, assessments, and learner progress stay outside this repository. Maintenance does not start lessons or certify anyone's understanding.
+
+## Repository structure
+
+`science/` holds the connected topic-based account, `learning/` the shared learning route, `references/` the primary-source comparison and bibliography, and `verification/` the verification guide. Preserve the established executable paths in `src/`, `scripts/`, `tests/`, and `results/`. Give each scientific result one authoritative home and update every incoming link when moving it. Do not recreate the superseded `docs/` or `literature/` entrypoints as duplicate accounts.
+
+Run `python scripts/check.py` and `python scripts/check_reproducibility.py`. The first includes the 30-milestone dependency and shared-content checks. When public pages change, run the hosted browser audit on the immutable proposed commit and inspect its screenshots before making a rendering-readiness claim. Record the actual checked revision and scope in the pull request, not a scientific progress dashboard.
