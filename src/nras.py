@@ -98,15 +98,19 @@ def first_passage_exponent(q: float, a: float, b: float) -> float:
     """k(q) with E exp(-q*tau_d) = exp(-d*k(q)), including the finite MGF domain."""
     a, b = _positive(a, "a"), _positive(b, "b")
     rate_contrast(a, b)
-    critical = (math.sqrt(b) - math.sqrt(a)) ** 2 / 2
+    square_root_sum = math.sqrt(a) + math.sqrt(b)
+    # The direct difference of square roots can vanish for distinct rates.
+    critical = ((b - a) / square_root_sum) ** 2 / 2
     if not math.isfinite(q) or q < -critical:
         raise ValueError("q lies outside the real finite moment-generating domain")
     delta = (b - a) / 2
     if q == 0:
         return 0.0
-    root = math.sqrt(max(0.0, delta * delta + q * (a + b + q)))
-    # Rationalize to avoid cancellation near q=0 when b>a.
-    return q * (a + b + q) / (root + delta) if root + delta else root - delta
+    other_root = square_root_sum ** 2 / 2
+    # Factor the discriminant to avoid subtraction near the MGF boundary.
+    root = math.sqrt(q + critical) * math.sqrt(q + other_root)
+    # Rationalize near q=0, dividing first to avoid an unnecessary q**2 overflow.
+    return q * ((a + b + q) / (root + delta)) if root + delta else root - delta
 
 
 def first_passage_laplace(d: float, a: float, b: float, q: float) -> float:
@@ -137,11 +141,22 @@ def threefold_information_lower_bound(a: float, total_time: float) -> float:
 
 
 def symmetric_signed_moments(rate: float, time: float):
+    """Return E[D] and E[D**2], including the short-exposure ballistic limit."""
     rate = _positive(rate, "rate")
     if not math.isfinite(time) or time < 0:
         raise ValueError("time must be finite and nonnegative")
-    transient = -math.expm1(-2 * rate * time)
-    return transient / (2 * rate), time / rate - transient / (2 * rate * rate)
+    scaled_time = 2 * (rate * time)
+    if scaled_time == 0:
+        return time, time * time
+    transient = -math.expm1(-scaled_time)
+    if scaled_time < 1e-3:
+        # 2*(x + expm1(-x))/x**2 loses all significant digits as x -> 0.
+        second_factor = 1 + scaled_time * (-1 / 3 + scaled_time * (
+            1 / 12 + scaled_time * (-1 / 60 + scaled_time * (
+                1 / 360 + scaled_time * (-1 / 2520 + scaled_time / 20160)))))
+        return time * (transient / scaled_time), time * time * second_factor
+    mean = (0.5 * transient) / rate
+    return mean, (time - mean) / rate
 
 
 @dataclass(frozen=True)

@@ -1,5 +1,6 @@
 """Algebraic and numerical checks; not an independent proof review."""
 from pathlib import Path
+from decimal import Decimal, localcontext
 import math
 import sys
 import unittest
@@ -164,6 +165,23 @@ class TimingTests(unittest.TestCase):
             nras.first_passage_exponent(-1, 1, 3)
         self.assertAlmostEqual(nras.first_passage_exponent(1e-12, 1, 3)/1e-12, 2, places=9)
 
+    def test_mgf_nearly_equal_rates_against_high_precision(self):
+        a, b, q = 1., math.nextafter(1., math.inf), -1e-34
+        with localcontext() as context:
+            context.prec = 80
+            da, db, dq = map(Decimal, (a, b, q))
+            delta = (db - da) / 2
+            expected = float((delta * delta + dq * (da + db + dq)).sqrt() - delta)
+        actual = nras.first_passage_exponent(q, a, b)
+        self.assertTrue(math.isclose(actual, expected, rel_tol=2e-15))
+        with self.assertRaises(ValueError):
+            nras.first_passage_exponent(-1e-32, a, b)
+
+    def test_mgf_large_positive_laplace_parameter(self):
+        # k(q) / q -> 1; the intermediate discriminant need not fit in a float.
+        self.assertTrue(math.isclose(nras.first_passage_exponent(1e200, 1, 3),
+                                     1e200, rel_tol=2e-15))
+
     def test_threefold_finite_time_threshold(self):
         for t in [10, 18, 19, 20, 100]:
             lhs = nras.threefold_information_lower_bound(1, t)
@@ -178,6 +196,20 @@ class TimingTests(unittest.TestCase):
         mean, second = nras.symmetric_signed_moments(g, t)
         self.assertAlmostEqual((mgf(eps)-mgf(-eps))/(2*eps), mean, places=7)
         self.assertAlmostEqual((mgf(eps)-2*mgf(0)+mgf(-eps))/eps**2, second, places=6)
+
+    def test_symmetric_telegraph_short_exposure_against_high_precision(self):
+        for rate, time in [(1e-18, 1.), (1., 1e-18), (1., 4e-4), (1., 6e-4)]:
+            with self.subTest(rate=rate, time=time), localcontext() as context:
+                context.prec = 80
+                g, t = Decimal(rate), Decimal(time)
+                transient = 1 - (-2 * g * t).exp()
+                expected_mean = float(transient / (2 * g))
+                expected_second = float(t / g - transient / (2 * g * g))
+                mean, second = nras.symmetric_signed_moments(rate, time)
+                self.assertTrue(math.isclose(mean, expected_mean, rel_tol=2e-15))
+                self.assertTrue(math.isclose(second, expected_second, rel_tol=5e-13))
+                self.assertGreater(second, 0.)
+        self.assertEqual(nras.symmetric_signed_moments(1., 0.), (0., 0.))
 
     def test_invalid_rates_and_times(self):
         for a, b in [(0, 2), (2, 1), (1, math.inf)]:
