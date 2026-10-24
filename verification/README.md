@@ -28,7 +28,7 @@ The [regeneration check](../scripts/check_reproducibility.py) runs both producer
 
 ## Coverage
 
-The suite contains 96 tests: 33 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, 20 in `tests/test_risk.py`, 7 in `tests/test_learning.py`, 8 offline serialization/regeneration checks in `tests/test_rendering.py`, and 8 shared-structure checks in `tests/test_structure.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
+The suite contains 99 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, 20 in `tests/test_risk.py`, 7 in `tests/test_learning.py`, 8 offline serialization/regeneration checks in `tests/test_rendering.py`, and 8 shared-structure checks in `tests/test_structure.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
 
 | Calculation | Check |
 |---|---|
@@ -38,6 +38,7 @@ The suite contains 96 tests: 33 in `tests/test_nras.py`, 20 in `tests/test_prese
 | Optimal selectable-setting coefficient | 500 random setting families compared with an independent linear program |
 | Collision-induced channel | Explicit environment trace versus the analytical channel |
 | First-passage distribution | Backward equations, symbolic moments, and 30,000 event samples |
+| Timing at numerical limits | High-precision comparisons for nearly equal rates and short exposures; large positive Laplace parameters |
 | Hard-deadline accounting | 20,000 samples retaining every failed run at full deadline cost |
 | Symmetric signed time and finite-cadence drift | Independent tilted and augmented generator calculations |
 | Preset echo | 300 direct two-qubit trajectories with recovery and logical echo |

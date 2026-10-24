@@ -1,6 +1,6 @@
 """Global-risk bounds and a scoped residual-dephasing calculation.
 
-The global bounds apply to the hard-deadline task in docs/GLOBAL_RISK.md.
+The global bounds apply to the hard-deadline task in science/global_precision.md.
 The dephasing formula is attainable local information for the specified
 recorded random-rate and random-angle readout, not a global risk or optimum.
 """
