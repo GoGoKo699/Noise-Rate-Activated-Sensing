@@ -1,0 +1,2907 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=25mm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{booktabs,array,longtable,enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\definecolor{ink}{HTML}{143C53}
+\definecolor{accent}{HTML}{267A88}
+\hypersetup{colorlinks=true,linkcolor=ink,urlcolor=accent,pdftitle={Noise-Rate-Activated Sensing: Explanatory Report},pdfauthor={},pdfsubject={Global frequency estimation with a shared unknown noise direction},pdfkeywords={},bookmarksnumbered=true}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{ink}Noise-Rate-Activated Sensing}
+\fancyhead[R]{\small Explanatory report}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em plus 0.1em minus 0.1em}
+\setlength{\emergencystretch}{2em}
+\setlist{topsep=0.3em,itemsep=0.2em,parsep=0pt,leftmargin=1.6em}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\dd}{\mathrm d}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\allowdisplaybreaks[1]
+\begin{document}
+\begin{center}
+  {\color{ink}\LARGE\bfseries Noise-Rate-Activated Sensing\par}
+  \vspace{0.45em}
+  {\large How changing noise strength changes the precision of an unknown frequency\par}
+  \vspace{0.65em}
+  {\small Explanatory report}
+\end{center}
+\vspace{0.4em}
+
+How accurately can we read a clock when both its speed and the action of its
+errors are unknown? In this report the clock is a quantum sensor. Its
+\emph{phase} plays the role of a hand moving around a circle, and the frequency
+is the speed we want to measure. Noise interrupts that motion. We know the
+family of possible errors, but not which member of that family the device
+has. The same unknown error acts throughout the experiment.
+
+The main result compares two versions of one specified device. The first
+has one fixed positive coupling to its noisy environment. The second may
+choose between two fixed positive couplings to that same environment.
+Neither setting turns the noise off. With only one coupling, the smallest
+achievable worst-case mean-square error has order $1/n$, where $n$ is the
+number of interaction cells. With the two-setting menu it has order $1/n^2$.
+The clock interval, physical compensation and available boundary operations
+are otherwise the same. The frequency is initially unknown on a fixed
+nonzero interval, and the claim holds for every allowed error direction.
+
+There are two different obligations in such a statement. To show that a
+precision is \emph{attainable}, we must give a complete estimation procedure.
+To show that it is \emph{optimal in order}, we must also rule out a better
+order for every permitted procedure, including clever feedback schemes.
+The report does both. Calibration, repeated trials, ambiguous phase readings
+and unsuccessful outcomes all count toward the same physical duration.
+
+\paragraph{The mechanism in ordinary language.}
+A protected reference lets us detect when an error flips the sensor without
+reading the phase we are trying to preserve. Two flips about the same unknown
+axis cancel each other. The signal accumulates with opposite signs between
+successive flips. Choosing the stronger coupling while the sensor is in the
+flipped sector makes its return more likely; choosing the weaker one in the
+unflipped sector helps retain a useful net signal. The complete error record
+then tells us how each possible frequency would have affected the surviving
+phase. Several progressively longer experiments locate the correct frequency.
+This is a description of the construction; a separate bound is needed to show
+why a single fixed coupling cannot achieve the same global precision order.
+
+\paragraph{How to read the report.}
+Section~\ref{intro:task} introduces the language through small examples.
+Sections~\ref{micro:device} and \ref{phase:section} establish the main
+finite-strength result. Sections~\ref{markov:continuous} and
+\ref{markov:global} explain a separately proved continuous-time counterpart.
+Sections~\ref{time:access} and \ref{time:timing} ask what changes if a pulse
+can be applied during an interaction, and distinguish a known timing error
+from hidden random jitter. The final sections state the limitations and
+reassemble the physical conclusion. The prose explains the purpose of each
+calculation; the equations specify exactly what is being claimed and why it
+follows. No prior quantum mechanics or statistical estimation vocabulary is
+assumed. Basic algebra is useful; slopes, averages and accumulated changes
+are explained where their mathematical notation first appears.
+
+\section{The estimation problem}
+\label{intro:task}
+
+\subsection{A two-level system can carry a phase}
+
+A qubit is a system with two distinguished basis states, written
+$|0\rangle$ and $|1\rangle$. The vertical bracket notation, called a ket,
+denotes a column vector:
+\begin{equation}
+ |0\rangle=\begin{pmatrix}1\\0\end{pmatrix},\qquad
+ |1\rangle=\begin{pmatrix}0\\1\end{pmatrix},\qquad
+ |\psi\rangle=c_0|0\rangle+c_1|1\rangle,\qquad
+ |c_0|^2+|c_1|^2=1.
+ \label{intro:state}
+\end{equation}
+The coefficients $c_0,c_1$ are complex numbers called amplitudes.
+A measurement in this basis returns 0 with probability $|c_0|^2$ and 1
+with probability $|c_1|^2$. The last equation says that these probabilities
+sum to one; this is what \emph{normalized} means. The basis states are
+orthogonal: their inner product is zero, so this measurement can distinguish
+them perfectly.
+
+A complex amplitude has a magnitude and an angle. We write an angle factor
+as $e^{i\vartheta}=\cos\vartheta+i\sin\vartheta$, where $i^2=-1$.
+Multiplying the whole state by the same angle factor changes no measurement
+probability. Changing the angle of one amplitude relative to the other,
+however, changes what other measurements can reveal. That relative angle
+is the phase used for sensing. For example,
+\begin{equation}
+ |\psi_\vartheta\rangle
+ =\frac{|0\rangle+e^{i\vartheta}|1\rangle}{\sqrt2}
+ \label{intro:phasestate}
+\end{equation}
+always gives equal probabilities in the 0/1 measurement, whatever
+$\vartheta$ is. A suitable different measurement can distinguish its phases.
+
+Operations on these vectors are represented by matrices. The three Pauli
+matrices used throughout the report are
+\begin{equation}
+ X=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+ Y=\begin{pmatrix}0&-i\\i&0\end{pmatrix},\qquad
+ Z=\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+ \label{intro:pauli}
+\end{equation}
+Thus $X$ swaps the two basis states, $Z$ leaves $|0\rangle$ unchanged and
+changes the sign of $|1\rangle$, and $Y$ swaps them with the phases $i$
+and $-i$. The symbol $I$ is the identity matrix, which changes nothing.
+A dagger means transpose followed by complex conjugation; conjugation
+replaces $i$ by $-i$. A bra $\langle\psi|$ is the row vector
+$|\psi\rangle^\dagger$. Hence $\langle\psi|\psi\rangle$ is the sum of the
+squared amplitude magnitudes.
+
+For measurements, $X,Y,Z$ also denote observables with outcomes $+1$ and
+$-1$. An observable is a Hermitian matrix, meaning $O^\dagger=O$; its
+eigenvalues are its possible outcomes. An eigenvector obeys
+$O|v\rangle=\lambda|v\rangle$ and gives outcome $\lambda$ with certainty.
+For the state in Eq.~\eqref{intro:phasestate},
+\begin{equation}
+ \langle X\rangle=\cos\vartheta,\qquad
+ \langle Y\rangle=\sin\vartheta,\qquad
+ \langle Z\rangle=0.
+ \label{intro:quadratures}
+\end{equation}
+Angle brackets here denote the average measured outcome. Since the outcomes
+are $\pm1$, a mean $m$ means probabilities $(1+m)/2$ and $(1-m)/2$.
+The $X$ and $Y$ measurements are therefore two ways of reading the cosine
+and sine of a phase. These are often called its two \emph{quadratures}.
+They are performed on separately prepared systems; a single qubit does not
+give both readouts for free.
+
+\subsection{A density matrix keeps both phase and uncertainty}
+
+The density matrix of a pure state is
+$\rho=|\psi\rangle\langle\psi|$, a column times a row.
+If different states are prepared with ordinary probabilities $p_j$, the
+density matrix is their weighted average
+$\rho=\sum_jp_j|\psi_j\rangle\langle\psi_j|$.
+It has trace one, where $\Tr$ means the sum of the diagonal entries, and
+is positive: $\langle v|\rho|v\rangle\ge0$ for every vector $|v\rangle$.
+These properties ensure nonnegative measurement probabilities summing to one.
+
+The difference between a quantum phase and an unrecorded random choice is
+visible in a simple example:
+\begin{equation}
+ \rho_+=\frac12\begin{pmatrix}1&1\\1&1\end{pmatrix},
+ \qquad
+ \rho_{\mathrm{mix}}=\frac12\begin{pmatrix}1&0\\0&1\end{pmatrix}.
+ \label{intro:mixture}
+\end{equation}
+The first is the state $|+\rangle=(|0\rangle+|1\rangle)/\sqrt2$.
+The second is an equal random mixture of $|0\rangle$ and $|1\rangle$.
+Both give 0 and 1 equally often in the basis measurement. An $X$ measurement
+always gives $+1$ for $\rho_+$, but gives both signs equally often for
+$\rho_{\mathrm{mix}}$. The off-diagonal entries preserve the phase
+information that the mixture lacks.
+
+In this notation, the mean outcome of observable $O$ is $\Tr(\rho O)$.
+The probability of one outcome is $\Tr(\rho P)$, where $P$ is the projector
+onto its outcome subspace. A projector keeps the component in that subspace
+and removes the perpendicular component. These statements are the
+\emph{Born rule}. They let us calculate the probabilities of every
+experiment below, including experiments with partially lost phase information.
+
+\subsection{Frequency turns the phase, and long turns can be ambiguous}
+
+A Hamiltonian specifies how a quantum state changes in time. In units with
+$\hbar=1$, evolution for time $t$ under a constant Hamiltonian $H$ is
+$U(t)=e^{-iHt}$. The matrix exponential is defined by the same power series
+as the ordinary exponential; it is a unitary matrix,
+$U^\dagger U=I$, so evolution preserves normalization.
+For $H=\omega Z/2$, its action on $|+\rangle$ is
+\begin{equation}
+ e^{-i\omega tZ/2}|+\rangle
+ =\frac{e^{-i\omega t/2}|0\rangle+e^{i\omega t/2}|1\rangle}{\sqrt2}
+ \ \sim\ \frac{|0\rangle+e^{i\omega t}|1\rangle}{\sqrt2}.
+ \label{intro:clock}
+\end{equation}
+The symbol $\sim$ here means equality up to an unobservable overall phase.
+The relative phase advances by $\omega t$. Frequency and coupling strength
+have units of inverse time; phases are dimensionless and measured in radians.
+
+A readout at known angle $\zeta$ uses
+$O_\zeta=\cos\zeta\,X+\sin\zeta\,Y$. Its two outcome probabilities are
+\begin{equation}
+ \Pr\{y=\pm1\mid\omega,t,\zeta\}
+ =\frac{1\pm\cos(\omega t-\zeta)}2.
+ \label{intro:ramsey}
+\end{equation}
+This adjustable phase-sensitive readout is called an equatorial measurement.
+An \emph{interrogation} means allowing the sensor to evolve and then
+reading it. The displayed preparation, evolution and readout form a
+Ramsey experiment; no further meaning of that name is needed here.
+
+A long interrogation makes small frequency changes produce large phase
+changes. But a full turn is $2\pi$: at a fixed duration $t$, frequencies
+separated by $2\pi/t$ give exactly the same probabilities in
+Eq.~\eqref{intro:ramsey}, even if the readout angle is varied.
+The repeated oscillations of this probability are called fringes.
+A long experiment can therefore resolve a small shift within one fringe
+without identifying which fringe contains the true frequency.
+Shorter measurements must first remove that ambiguity.
+
+The device below includes a fixed compensating frequency $\omega_0$,
+leaving the residual frequency $\epsilon=\omega-\omega_0$. This is the
+known rotation already subtracted physically from the sensor's evolution.
+Updating a classical estimate of $\epsilon$ changes what we know. Choosing
+a different final readout angle changes what we measure. Neither action
+changes the compensating Hamiltonian.
+
+\subsection{Detect an error without reading the stored phase}
+
+The sensor $S$ feels the signal and the noise. A protected ancillary qubit
+$A$ acts as a reference and memory; it does not acquire an additional signal
+phase. Environmental qubits $E$ interact with the sensor but are inaccessible.
+The symbol $\otimes$ combines system spaces: $|0_S1_A\rangle$ means sensor
+state 0 and ancilla state 1. Operators with different subscripts act on the
+named systems. A partial trace removes one system from the mathematical
+description while preserving every measurement probability on those remaining.
+It does not make the removed system available to the controller.
+
+The error family is
+\begin{equation}
+ N_\phi=\cos\phi\,X+\sin\phi\,Y,\qquad
+ N_\phi|0\rangle=e^{i\phi}|1\rangle,\quad
+ N_\phi|1\rangle=e^{-i\phi}|0\rangle.
+ \label{intro:error}
+\end{equation}
+Every member swaps the two basis states, but leaves a different pair of
+phases. The angle $\phi$ specifies which error occurs; it is fixed but
+unknown throughout the experiment. We call it a transverse direction
+because it reverses the signal generator:
+\begin{equation}
+ N_\phi^2=I,\qquad N_\phi ZN_\phi=-Z.
+ \label{intro:erroralgebra}
+\end{equation}
+Two identical flips cancel. The reduced error channel is unchanged by
+$\phi\mapsto\phi+\pi$, which changes only the sign of $N_\phi$; its
+direction can therefore be taken modulo $\pi$.
+
+Store a logical qubit in two physical qubits:
+\begin{equation}
+ |0_L\rangle=|0_S0_A\rangle,\quad
+ |1_L\rangle=|1_S1_A\rangle,\quad
+ |\psi_L\rangle=c_0|0_L\rangle+c_1|1_L\rangle.
+ \label{intro:code}
+\end{equation}
+The subscript $L$ denotes this encoded two-dimensional space. Both states
+have even parity, meaning that the two basis bits agree. The product
+observable $Z_S\otimes Z_A$ then gives $+1$. A sensor error produces
+\begin{equation}
+ (N_\phi\otimes I_A)|\psi_L\rangle
+ =c_0e^{i\phi}|1_S0_A\rangle+c_1e^{-i\phi}|0_S1_A\rangle,
+ \label{intro:parity}
+\end{equation}
+which has odd parity: the bits disagree and the product observable gives
+$-1$. Measuring parity distinguishes agreement from disagreement without
+distinguishing the two amplitudes within either sector. It can reveal an
+error without reading the signal phase. This error indication is called a
+syndrome. It is obtained from the sensor and its reference, not from the bath.
+
+A quantum \emph{channel} is the rule taking an input density matrix to the
+accessible output. It can be written using Kraus operators as
+\begin{equation}
+ \rho\longmapsto\sum_rK_r\rho K_r^\dagger,\qquad
+ \sum_rK_r^\dagger K_r=I.
+ \label{intro:channel}
+\end{equation}
+The individual terms describe possible alternatives. Their traces are their
+probabilities; the sum preserves total probability one. If a permitted
+measurement also identifies the alternative $r$, we have an \emph{instrument}:
+keep that label, and divide $K_r\rho K_r^\dagger$ by its trace to obtain
+the conditional state. A Kraus label is not automatically observable.
+Below, parity makes the relevant alternatives observable. An unrecorded
+mixture and a collection of labelled conditional states are different
+experimental resources.
+
+\subsection{Error, probability and the resources we count}
+
+A strategy specifies preparation, allowed operations, decisions based on
+earlier observations, and the rule for turning the final record into an
+estimate $\widehat\omega$. Adaptivity means applying one prescribed rule to
+different observed histories. It does not give the controller the true
+parameters. The complete record includes chosen settings, parity results,
+terminal measurements and failure flags.
+
+For a random number $W$, its expectation $\E W$ is its probability-weighted
+average. Its variance is $\Var(W)=\E[(W-\E W)^2]$, the average squared
+fluctuation around that mean. For independent observations with the same
+variance, averaging $N$ of them divides that variance by $N$.
+A conditional expectation $\E[W\mid R]$ uses only trials with the specified
+record $R$, or equivalently holds that record fixed in the probability model.
+
+The mean-square frequency error of a strategy $\mathcal P$ is
+\begin{equation}
+ \E_{\omega,\phi}^{\mathcal P}[(\widehat\omega-\omega)^2].
+ \label{intro:mse}
+\end{equation}
+It averages \emph{all} its possible records, not only successful ones, and
+has units of inverse time squared. To require a guarantee across an interval,
+take the largest such error over its frequencies and all unknown directions.
+Then choose the permitted strategy with the smallest possible guarantee.
+This is the \emph{minimax risk}, written $R^*$. In the formal definition,
+$\sup$ means the least upper bound (the largest value when one exists), and
+$\inf$ means the greatest lower bound. Estimates may be biased: their
+average need not equal the true frequency.
+
+A fixed interval does not narrow as the experiment grows. A bound that is
+\emph{uniform} over the interval and direction uses the same constant for
+all those unknown values. The order statement $R^*(n)=\Theta(n^{-a})$
+means that positive constants bound $n^aR^*(n)$ above and below for
+sufficiently large $n$. $O(n^{-a})$ gives only an upper order bound, and
+$o(n^{-a})$ denotes a term whose ratio to $n^{-a}$ tends to zero.
+The hardware is held fixed in these limits.
+
+For orientation, a pure $C/n$ mean-square law halves when the cell count
+doubles, while $C/n^2$ quarters. The corresponding root-mean-square orders
+are $n^{-1/2}$ and $n^{-1}$. Our theorem establishes these orders with
+hardware-dependent constants, not these exact finite-budget ratios or a
+particular numerical crossover between the two devices.
+
+The cell duration is $h>0$ and the full physical duration is $T=nh$.
+Ideal instruments have zero duration in this model, but their placement and
+number are constrained. Initial preparation and readout exactly at the
+deadline are free contacts. Earlier readouts, resets and interventions must
+fit the contact budget. Calibration cells, failed trials and repetitions
+all consume time. Storing an early estimate until the deadline creates no
+additional sensing time. These are assumptions of the comparison, not a
+claim that real laboratory control has no overhead.
+
+\subsection{Local sensitivity and an unknown nuisance}
+
+For a complete recorded outcome $x$, the likelihood $p(x\mid\omega,\phi)$
+is the probability rule predicted at a candidate parameter pair.
+A derivative is a local slope: $f'(u)$ tells how much $f$ changes per small
+change in $u$. A partial derivative $\partial_\omega$ varies $\omega$
+while holding the other parameter fixed. An integral later sums a continuously
+changing contribution, such as elapsed signed time or an average over a
+frequency interval.
+
+The logarithmic derivatives
+\begin{equation}
+ \ell_\omega=\partial_\omega\log p,\qquad
+ \ell_\phi=\partial_\phi\log p,\qquad
+ J_{ij}=\E[\ell_i\ell_j]
+ \label{intro:scores}
+\end{equation}
+are called scores and their Fisher information matrix. The logarithm is
+natural throughout the report. A score measures the fractional change in an
+outcome's probability. The matrix collects the size of those changes and
+how similarly the two unknowns change the data.
+
+The direction $\phi$ is a nuisance parameter: it affects the observations
+but is not the quantity we wish to report. If a frequency change can be
+imitated by changing $\phi$, its apparent sensitivity is not all useful.
+The remaining local information is
+\begin{equation}
+ \mathcal I_\omega
+ =\min_c\E[(\ell_\omega+c\ell_\phi)^2]
+ =J_{\omega\omega}-\frac{J_{\omega\phi}^2}{J_{\phi\phi}}
+ \quad\text{if }J_{\phi\phi}>0.
+ \label{intro:efficient}
+\end{equation}
+The minimization asks how small the observable change can be made by
+combining the frequency change with a direction change. It is a comparison
+of possible unknown parameters, not a controller action. The coefficient
+$c$ has units of time. The minimization form remains meaningful when the
+division formula is unavailable. Trials sharing one direction must combine
+their full matrices before eliminating that same unknown direction.
+
+Quantum Fisher information bounds the information obtainable by any
+measurement of a quantum state. This helps prove an impossibility result for
+all readouts. Both forms of Fisher information describe \emph{local}
+distinguishability near a parameter value. The repeated-fringe example
+explains why large local information does not itself give a globally accurate
+estimate. The lower bounds below turn uniform information bounds into error
+bounds using a carefully chosen average over possible frequencies. The upper
+bounds instead construct actual estimators and charge every part of their
+operation.
+
+
+\section{A finite interaction device and its precision limit}
+\label{micro:device}
+
+The central comparison can be made without taking a weak-coupling or
+infinitely fast measurement limit. A sensor meets a sequence of fresh bath
+qubits. Each encounter lasts the same positive time $h$, and the coupling
+strength remains finite as the experiment grows. The controller may act
+between encounters. Its additional option in the more powerful design is to
+select one of two positive strengths for the next encounter.
+
+The target frequency is $\omega$, measured in inverse time. A fixed nominal
+compensation $\omega_0$ leaves the residual frequency
+$\epsilon=\omega-\omega_0$. The unknown transverse direction is described by
+an angle $\phi$, shared by every encounter, setting and repeated trial.
+On a sensor qubit, let $X_S,Y_S,Z_S$ denote the Pauli matrices, and put
+\begin{equation}
+ N_\phi=\cos\phi\,X_S+\sin\phi\,Y_S.
+ \label{micro:axis}
+\end{equation}
+This operator obeys $N_\phi^2=I$ and $N_\phi Z_SN_\phi=-Z_S$.
+An error about this direction reverses the sign of the signal generator;
+two such errors cancel. The difficulty is that the direction itself is
+unknown and continuously valued. For the reduced experiment, $\phi$ and
+$\phi+\pi$ describe the same noise axis.
+
+\subsection{What is fixed, what is controlled, and what is counted}
+
+During a cell with chosen coupling $g>0$, the joint Hamiltonian is
+\begin{equation}
+ H_g(\epsilon,\phi)
+ =\frac{\epsilon}{2}Z_S\otimes I_E+gN_\phi\otimes X_E.
+ \label{micro:hamiltonian}
+\end{equation}
+The subscript $E$ denotes that cell's environmental qubit. Units are chosen
+so that $\hbar=1$: $H_g$, $g$ and $\epsilon$ have units of inverse time,
+whereas $gh$ is dimensionless. All bath qubits start in $|0\rangle$ at time
+zero. Each is used once and retained afterward. The controller cannot
+measure or manipulate them. Thus a finite experiment uses a finite bath,
+whose size grows with the number of cells.
+
+The controller has protected ancillary storage and ideal, instantaneous
+instruments at the boundaries. An instrument is an operation that can both
+change the quantum state and produce a classical outcome. Its subsequent
+choices may depend on the outcomes already recorded. The control rule is
+fixed independently of the unknown parameters: learning from data is
+allowed, but the controller is not given the true values of $\omega$ or
+$\phi$.
+
+A budget of $n$ cells has hard duration $T=nh$. Initial preparation and
+readout at $T$ are free. There are at most $n-1$ nonterminal boundary
+contacts. Several consecutive operations at the same boundary count as
+one combined instrument: a parity measurement, a completed trial's
+readout, a fresh preparation and a choice of the next coupling can be
+combined there. A readout before $T$ is a counted contact. Calibration,
+repetitions, rejected records and unsuccessful trials all consume their
+cells and contacts. An estimate obtained early can be held in protected
+storage until the deadline, but the charged duration remains $nh$.
+
+There are no controls inside a cell, changes of cell duration, resets of
+the collision clock, or noise-free signal-bearing waiting periods. The
+physical compensation $\omega_0$ stays fixed. A frequency estimate may
+change a later measurement basis; it does not change the Hamiltonian in
+Eq.~\eqref{micro:hamiltonian}.
+
+Choose two specified couplings satisfying
+\begin{equation}
+ 0<g_a<g_b,\qquad g_bh<\frac{\pi}{4}.
+ \label{micro:couplings}
+\end{equation}
+The fixed-device benchmark uses one specified $g\in\{g_a,g_b\}$ in every
+cell of every pooled trial. The two-setting device may choose $g_a$ or
+$g_b$ before each cell through classical recorded control. A recorded
+random choice between strengths is already access to the two-setting
+menu. Both classes have the same boundary-control and storage resources.
+Neither coupling decreases as $n$ grows, and neither is zero.
+
+\subsection{The global statement}
+
+The frequency is promised to lie in a fixed interval
+$\Omega=[\omega_0-E,\omega_0+E]$, with $E>0$ independent of $n$.
+Its sufficient size will be specified below. For a control protocol
+$\mathcal P$ and estimator $\widehat\omega$, the risk is the mean squared
+error, averaged over every recorded outcome. The optimal worst-case risk
+at one coupling is
+\begin{equation}
+ R_g^*(n;\Omega)
+ =\inf_{\mathcal P,\widehat\omega}
+   \sup_{\omega\in\Omega,\,\phi}
+   \mathbb E_{\omega,\phi}^{\mathcal P}
+       [ (\widehat\omega-\omega)^2 ].
+ \label{micro:risk}
+\end{equation}
+The same definition with the two-setting control class gives
+$R_{\{g_a,g_b\}}^*(n;\Omega)$. The infimum includes biased estimators and
+all permitted adaptive strategies, not just the constructions described
+in this report. Squared frequency error has units of inverse time squared.
+Clipping any estimate to $\Omega$ cannot increase its risk.
+
+\begin{theorem}[Global finite-strength separation]
+\label{micro:theorem}
+For every fixed pair in Eq.~\eqref{micro:couplings}, there is a fixed,
+nonzero bandwidth $E$ on which, uniformly over the shared unknown
+transverse direction,
+\begin{equation}
+ \boxed{\quad
+ R_g^*(n;\Omega)=\Theta(n^{-1})\quad(g=g_a\text{ or }g_b),
+ \qquad
+ R_{\{g_a,g_b\}}^*(n;\Omega)=\Theta(n^{-2}).\quad}
+ \label{micro:separation}
+\end{equation}
+The clock, strengths and compensation remain fixed throughout this
+comparison.
+\end{theorem}
+Here $\Theta(n^{-k})$ means that positive, finite constants bound the risk
+above and below by multiples of $n^{-k}$ for all sufficiently large $n$.
+The constants may depend on the fixed hardware and interval. As $h$ is
+fixed, the corresponding laws are inverse physical time and inverse
+physical time squared. This theorem establishes orders of risk; it does
+not identify the optimal global constants or the largest possible band.
+
+Three ingredients establish the comparison. An exact one-cell experiment
+gives the inverse-$n$ upper bound and provides paid coarse localization.
+A direction-changing comparison curve proves that every fixed-device
+strategy faces the inverse-$n$ obstruction. Finally, the two-strength
+construction retains records whose accumulated phase is uniformly
+sensitive to frequency and resolves their ambiguity across several
+scales. The latter construction is developed in the next part of the
+report.
+
+\subsection{The exact instrument of one cell}
+
+We need both parts of a cell's output: what the parity measurement reports,
+and what happens to the stored phase after that report. An average noise
+channel alone would discard this distinction. The following calculation
+provides the probabilities and the conditional operations together.
+
+The two terms in Eq.~\eqref{micro:hamiltonian} anticommute: multiplying them
+in opposite orders changes the sign, so their cross terms cancel when the
+Hamiltonian is squared. Therefore
+$H_g^2=R_g(\epsilon)^2I$, where
+\begin{equation}
+ R_g(\epsilon)=\sqrt{g^2+\epsilon^2/4},\qquad r_g=R_g(\epsilon)h.
+\end{equation}
+The symbol $R_g(\epsilon)$ here is a frequency scale, distinguished by
+its argument and absence of a star from the risk $R_g^*(n;\Omega)$.
+Exponentiating the Hamiltonian gives the exact unitary
+\begin{equation}
+ U_g=\cos r_g\,I
+     -i\frac{\sin r_g}{R_g}
+       \left(\frac{\epsilon}{2}Z_S\otimes I_E
+                        +gN_\phi\otimes X_E\right).
+ \label{micro:unitary}
+\end{equation}
+The operator norm, meaning the largest factor by which a matrix can stretch
+a vector, is
+$\|H_g\|=R_g(\epsilon)$. No short-time expansion has entered this formula.
+
+Tracing out a bath input $|0\rangle$ produces a quantum channel
+$\rho\mapsto\sum_{r=0}^1K_r\rho K_r^\dagger$ with operators
+\begin{equation}
+ K_0=aI-ibZ_S,\qquad K_1=-icN_\phi,
+ \qquad
+ a=\cos r_g,\quad
+ b=\frac{\epsilon}{2R_g}\sin r_g,\quad
+ c=\frac{g}{R_g}\sin r_g.
+ \label{micro:kraus}
+\end{equation}
+These real coefficient functions satisfy $a^2+b^2+c^2=1$. The term
+``Kraus operators'' denotes this representation of an unobserved
+system--environment interaction; it does not imply environmental access.
+
+One protected ancillary qubit makes the alternatives observable without
+reading out the stored phase. Encode
+$|0_L\rangle=|00\rangle$ and $|1_L\rangle=|11\rangle$, with the first
+qubit the sensor. The subscript $L$ denotes this two-dimensional logical
+space. The first operator preserves the parity of the two qubits, while
+the second reverses it. A parity measurement distinguishes these cases
+without distinguishing $|0_L\rangle$ from $|1_L\rangle$. Because
+\begin{equation}
+ K_1^\dagger K_1=p_gI,\qquad K_0^\dagger K_0=q_gI,
+ \qquad
+ p_g(\epsilon)=\frac{g^2}{R_g^2}\sin^2(R_gh),\quad q_g=1-p_g,
+ \label{micro:probabilities}
+\end{equation}
+the flip and no-flip probabilities are independent of the logical state.
+They are also independent of $\phi$, although generally dependent on
+$\epsilon$.
+
+On the band used below, the normalized no-flip branch is a phase rotation:
+\begin{equation}
+ \frac{K_0}{\sqrt{q_g}}
+  =\exp[-i\theta_g(\epsilon)Z_S/2],\qquad
+ \theta_g(\epsilon)
+  =2\arctan\left[\frac{\epsilon}{2R_g}\tan(R_gh)\right].
+ \label{micro:theta}
+\end{equation}
+Here $\arctan$ is the inverse tangent taking values between $-\pi/2$ and
+$\pi/2$. This is the continuous phase branch with $\theta_g(0)=0$.
+The flip branch is $N_\phi$ up to an irrelevant scalar phase.
+A phase is dimensionless; its derivative with respect to frequency has
+units of time. In particular,
+\begin{equation}
+ d_j=\theta_{g_j}'(0)=\frac{\tan(g_jh)}{g_j},\qquad j\in\{a,b\}.
+ \label{micro:derivative}
+\end{equation}
+A prime denotes differentiation with respect to residual frequency, not
+time. Although $d_j>h$, this conditional derivative is not a gain obtained
+without paying for failure: at compensation,
+$q_jd_j^2=h^2\sin^2(g_jh)/(g_jh)^2\le h^2$.
+
+\subsection{One fixed band for calibration and coherent accumulation}
+\label{micro:band}
+
+The frequency promise must do three jobs. It must keep the one-cell response
+invertible, keep the flip probabilities positive and separated, and preserve the
+useful slope of long recorded phases. We now impose sufficient margins for
+all three jobs on the same interval. Their precise fractions are convenient
+proof choices; the physical point is that one positive-width interval works
+for every later budget. Choosing this interval does not require knowing
+the actual frequency within it.
+
+Write $\chi_j=g_jh$ and choose
+$\chi_b<r_*<\pi/4$. Begin with
+\begin{equation}
+ 0<E\le\frac{2}{h}\sqrt{r_*^2-\chi_b^2}.
+ \label{micro:band1}
+\end{equation}
+Then $R_{g_j}(\epsilon)h\le r_*$ for both settings and every
+$|\epsilon|\le E$. In particular the complete Hamiltonian is bounded by
+$r_*/h$, not just its coupling term. A specified hardware strength limit
+must cover this complete bound.
+
+For brevity, set $p_j=p_{g_j}$, $q_j=q_{g_j}$ and
+$\theta_j=\theta_{g_j}$. Define the positive time scale
+\begin{equation}
+ \mu_0=
+ \frac{p_b(0)q_a(0)d_a-p_a(0)q_b(0)d_b}{p_a(0)+p_b(0)}.
+ \label{micro:mu}
+\end{equation}
+Its meaning will be the average sensitivity gained per cell when the
+strength is chosen from the observed parity. A ``reward'' below is this
+signed sensitivity score, not a payment or another physical resource.
+Its positivity can already be
+checked algebraically. In the trigonometric expressions below,
+$\tan x=\sin x/\cos x$, $\cot x=\cos x/\sin x$, and $\csc x=1/\sin x$.
+At compensation,
+\begin{equation}
+ \frac{q_j(0)d_j}{p_j(0)}=h\frac{\cot\chi_j}{\chi_j},
+ \qquad
+ \frac{\dd}{\dd\chi}\frac{\cot\chi}{\chi}
+ =-\frac{\chi\csc^2\chi+\cot\chi}{\chi^2}<0.
+ \label{micro:driftpositive}
+\end{equation}
+Since $\chi_a<\chi_b$, the numerator in Eq.~\eqref{micro:mu} is
+strictly positive.
+
+At nonzero residual frequency define the frozen-derivative mean
+\begin{equation}
+ \mu^0(\epsilon)=
+ \frac{p_b(\epsilon)q_a(\epsilon)d_a
+              -p_a(\epsilon)q_b(\epsilon)d_b}
+      {p_a(\epsilon)+p_b(\epsilon)}.
+\end{equation}
+The superscript $0$ means that the rewards $d_a,d_b$ are evaluated at
+zero, while the probabilities retain their actual frequency dependence.
+Shrink $E$, if necessary, until throughout the band
+\begin{align}
+ &0<p_a(\epsilon)<p_b(\epsilon)<\tfrac12,
+ \qquad \mu^0(\epsilon)\ge\tfrac34\mu_0,
+ \label{micro:band2}\\
+ &\max_{j\in\{a,b\}}|\theta_j'(\epsilon)-d_j|
+                         \le\tfrac14\mu_0.
+ \label{micro:band3}
+\end{align}
+These are conditions on known smooth functions of one real variable.
+Their strict values at zero and continuity guarantee some positive
+bandwidth. Fix that bandwidth once. It is not narrowed as the cell
+budget grows. The conditions also explain why constants need not remain
+uniform if the two couplings approach one another: their positive drift
+then disappears.
+
+\subsection{Calibration that uses every outcome}
+\label{micro:calibration}
+
+Prepare $|+_L\rangle=(|00\rangle+|11\rangle)/\sqrt2$ for one cell.
+After measuring parity, measure the logical sine quadrature $Y_L$ if
+parity is even. This is the Pauli $Y$ measurement in the logical basis:
+its outcomes are $\pm1$, and their mean for a phase-rotated
+$|+_L\rangle$ is the sine of that phase. Record its outcome
+$z\in\{-1,+1\}$. If parity is odd,
+record $z=0$. Lowercase $z$ is a classical score, distinct from a Pauli
+operator. Equation~\eqref{micro:kraus} gives
+\begin{equation}
+ \Pr\{z=0\}=p_g(\epsilon),\qquad
+ \Pr\{z=\pm1\}=\frac12(a\pm b)^2
+              =\frac{q_g(\epsilon)\pm F_g(\epsilon)}2,
+ \label{micro:caliblikelihood}
+\end{equation}
+where
+\begin{equation}
+ F_g(\epsilon)=\mathbb E z
+       =\frac{\epsilon\sin(2R_gh)}{2R_g}.
+ \label{micro:F}
+\end{equation}
+Every probability is independent of the unknown direction. The odd
+outcome is part of the experiment, not an event removed from its cost or
+likelihood. All three probabilities are strictly positive on the chosen
+band, because $|b|<\sin r_g<\cos r_g=a$ and $p_g>0$.
+
+For a concrete trial, take $gh=\pi/6$ and $\epsilon=0$. Then $p_g=1/4$,
+$a=\sqrt3/2$ and $b=0$: the probabilities of $0,+1,-1$ are
+$1/4,3/8,3/8$. The mean score is zero for every unknown direction.
+A small positive residual frequency makes $+1$ more likely than $-1$;
+a negative one reverses the imbalance. Repetition measures this imbalance.
+The example illustrates the readout, not the two-strength advantage.
+
+The response $F_g$ is monotone with a uniform inverse. Differentiation
+shows
+\begin{equation}
+ F_g'(\epsilon)
+ =h\left[
+    \frac{g^2}{R_g^2}\frac{\sin(2r_g)}{2r_g}
+   +\frac{\epsilon^2}{4R_g^2}\cos(2r_g)\right].
+ \label{micro:Fprime}
+\end{equation}
+The two weights are nonnegative and add to one. For $0<x<\pi/2$,
+$\sin x/x\ge\cos x$; indeed the derivative of
+$\sin x-x\cos x$ is $x\sin x\ge0$, and its value at zero is zero.
+It follows that
+\begin{equation}
+ \kappa\le F_g'(\epsilon)\le h,
+ \qquad \kappa=h\cos(2r_*)>0.
+ \label{micro:kappa}
+\end{equation}
+Thus distinct frequencies in the whole promised band give distinct mean
+scores, with a slope that never becomes arbitrarily small there.
+
+Repeat this complete preparation and readout for $N$ cells. Fresh bath
+partners and re-preparation make the scores independent. With
+$\overline z=N^{-1}\sum_{j=1}^Nz_j$, define
+\begin{equation}
+ \widehat\omega=\omega_0+
+ F_g^{-1}\!\left(\operatorname{clip}_{[F_g(-E),F_g(E)]}
+                          (\overline z)\right).
+ \label{micro:calibestimator}
+\end{equation}
+Here clipping projects a number to the nearest point in the stated
+interval. It cannot increase its distance from the true mean. The
+variance $\operatorname{Var}(z)$ is the average squared deviation from
+that mean. Since $z\in[-1,1]$, it is at most one. Independence makes the
+variance of the sample mean $\operatorname{Var}(z)/N$: cross terms from
+different centered scores average to zero. The inverse slope bound therefore
+yields
+\begin{equation}
+ |\widehat\omega-\omega|
+ \le\kappa^{-1}|\overline z-F_g(\epsilon)|,
+ \qquad
+ \sup_{\omega\in\Omega,\phi}
+ \mathbb E(\widehat\omega-\omega)^2
+ \le\frac1{N\kappa^2}.
+ \label{micro:calibrisk}
+\end{equation}
+The same bounded scores give the uniform concentration bound
+\begin{equation}
+ \Pr\{|\widehat\omega-\omega|\ge\delta\}
+ \le2\exp[-N\kappa^2\delta^2/2],\qquad\delta>0.
+ \label{micro:calibtail}
+\end{equation}
+This bounds the probability that the frequency error exceeds a chosen
+tolerance $\delta$. The bound decreases exponentially with the number of
+trials; it is stronger than a statement about average error alone.
+For confidence failure probability at most $\eta\in(0,1)$, it is enough
+to take
+\begin{equation}
+ N=\left\lceil\frac{2\log(2/\eta)}{\kappa^2\delta^2}\right\rceil.
+ \label{micro:calibcost}
+\end{equation}
+The ceiling brackets mean rounding up to a whole number of cells.
+All logarithms here and below are natural unless explicitly stated
+otherwise. This is an ordinary concentration inequality applied to an
+exact microscopic likelihood; it is not a weak-coupling approximation.
+
+As a stand-alone experiment, these $N$ cells use $N-1$ nonterminal
+contacts and terminal readout at $Nh$. As the prefix of a longer run,
+they use $N$ counted contacts: the readout and next preparation at $Nh$
+are then before the final deadline. The prefix also costs time $Nh$,
+and its failure probability remains part of the later estimator's risk.
+Taking $N=n$ proves the fixed-device upper bound. Using a shorter,
+explicitly charged prefix supplies the coarse interval needed for the
+two-setting estimator.
+
+\subsection{Why arbitrary adaptation cannot beat the fixed-device order}
+\label{micro:converse}
+
+The obstruction is not that the preceding calibration happens to use
+independent cells. It applies to every allowed boundary strategy,
+including strategies that try to learn $\phi$ while preserving quantum
+coherence in memory. To demonstrate this, consider a mathematical curve
+along which a frequency change is accompanied by a suitable change in
+the unknown direction. A worst-case guarantee over all $(\omega,\phi)$
+must also hold on this curve. No physical relationship between the two
+unknowns is imposed, and the curve is not supplied to the controller.
+
+Fix one coupling $g$ and use the coefficient functions $a,b,c$ from
+Eq.~\eqref{micro:kraus}. Put
+\begin{equation}
+ p=c^2,\qquad q=a^2+b^2,\qquad s=ab'-ba',\qquad
+ \phi(\epsilon)=\phi_0+\int_0^\epsilon\frac{s(u)}{p(u)}\,\dd u.
+ \label{micro:curve}
+\end{equation}
+The integral is well-defined because, on the entire band,
+\begin{equation}
+ p\ge p_{\min,g}\equiv(gh)^2
+                 \left(\frac{\sin r_*}{r_*}\right)^2>0.
+ \label{micro:pmin}
+\end{equation}
+This inequality follows from
+$p=(gh)^2(\sin r_g/r_g)^2$ and the decrease of $\sin r/r$ on the
+positive range in use. Angles in Eq.~\eqref{micro:curve} can be read
+modulo $\pi$; the smooth real-valued expression is a convenient lift.
+
+A dot now means the total derivative along this curve: both $\epsilon$
+and $\phi(\epsilon)$ vary. Direct multiplication, using
+$N_\phi\partial_\phi N_\phi=iZ_S$, gives
+\begin{align}
+ \sum_{r=0}^1K_r^\dagger\dot K_r
+     &=i(-s+p\phi')Z_S=0,
+ \label{micro:orthogonality}\\
+ \sum_{r=0}^1\dot K_r^\dagger\dot K_r
+     &=A(\epsilon)I,
+ \qquad A=a'^2+b'^2+c'^2+\frac{s^2}{p}.
+ \label{micro:A}
+\end{align}
+The first identity is the decisive cancellation. The direction changes
+at precisely the rate needed to remove the coherent accumulation of the
+channel derivative. Here is why this matters. If small changes produced by
+successive cells all point in the same direction in state space, their
+sizes can add before squaring, giving a term of order $n^2$. If the changes
+are perpendicular, their squared sizes add instead, giving order $n$.
+The zero-overlap identity enforces the latter behavior along the comparison
+curve, even when the controller uses the earlier record.
+Equivalently, $s=q\theta_g'/2$, and
+\begin{equation}
+ 4A=\frac{p'^2}{pq}+\frac{q\theta_g'^2}{p}.
+ \label{micro:Aequivalent}
+\end{equation}
+The first term reflects changes in the branch probabilities; the second
+accounts for phase sensitivity and the direction variation. Dropping the
+probability term would not be a valid off-compensation calculation.
+
+There is a simple uniform bound. At fixed $\phi$,
+$\partial_\epsilon H_g=Z_S\otimes I_E/2$. Differentiating the unitary
+as an integral over the evolution gives
+$\|\partial_\epsilon U_g\|\le h/2$. Applied to the bath input, this
+implies $A_0=a'^2+b'^2+c'^2\le h^2/4$. The ordinary
+Cauchy--Schwarz inequality, which bounds the size of an inner product
+by the product of the two vector lengths, gives
+$s^2\le q(a'^2+b'^2)\le qA_0$. Therefore
+\begin{equation}
+ 4A\le\frac{h^2}{p}\le\frac{h^2}{p_{\min,g}}.
+ \label{micro:Abound}
+\end{equation}
+
+To see why the bound survives feedback, represent one cell by the
+isometry $V=\sum_rK_r\otimes|r\rangle$, where the extra orthogonal
+labels retain a mathematical purification of the discarded bath.
+An isometry preserves vector lengths, so $V^\dagger V=I$.
+A purification enlarges the state space while reproducing the physical
+state when the extra registers are ignored. It can only increase the
+information available for an upper bound. Similarly purify boundary
+instruments and keep all classical records in orthogonal registers.
+The controller's instrument, including its conditional branches, has no
+explicit parameter derivative.
+
+If $|\psi\rangle$ is the accumulated purified state, the derivative after
+a cell is $\dot V|\psi\rangle+V|\dot\psi\rangle$. Expanding its squared
+length gives
+\begin{equation}
+ \|\dot V\psi+V\dot\psi\|^2
+ =\|\dot V\psi\|^2+\|\dot\psi\|^2
+   +2\operatorname{Re}\langle\dot\psi|V^\dagger\dot V|\psi\rangle.
+\end{equation}
+Here $\operatorname{Re}$ takes the real part of a complex number.
+The last, cross term vanishes because $V^\dagger\dot V=0$ from
+Eq.~\eqref{micro:orthogonality}. Each cell consequently adds at most $A$
+to the derivative norm squared. Induction gives an upper bound $nA$.
+For a normalized pure state, the quantum Fisher information is
+$4(\langle\dot\psi|\dot\psi\rangle-
+ |\langle\psi|\dot\psi\rangle|^2)$, which is at most four times the
+first term. Every actual final measurement has classical Fisher
+information $J_\epsilon$ no larger than this. Hence
+\begin{equation}
+ J_\epsilon\le F_\epsilon^{\mathrm{out}}
+          \le4nA(\epsilon)
+          \le\frac{nh^2}{p_{\min,g}}.
+ \label{micro:adaptivebound}
+\end{equation}
+The classical information is the mean squared likelihood score,
+$J_\epsilon=\mathbb E[(\partial_\epsilon\log p(x|\epsilon))^2]$;
+$F_\epsilon^{\mathrm{out}}$ denotes the corresponding maximal quantum
+information before final measurement. The variable $x$ is the complete
+outcome, including any flags, settings and stopping decisions.
+
+This proof charges the whole adaptive experiment and keeps failures.
+Resetting the sensor, learning the direction, branching on earlier data
+or storing a result early does not remove the derivative cancellation.
+A separate curve is allowed for each fixed coupling. The two-setting
+comparison does not assume that a common cancelling curve exists for
+both settings.
+
+\subsection{Turning an information bound into a global error bound}
+\label{micro:bayes}
+
+A local information bound by itself is not a global risk theorem.
+In particular, the reciprocal of information is not automatically an
+attainable mean squared error in a phase-estimation problem. Here the
+lower bound uses an integrated inequality that remains valid for biased
+estimators.
+
+The largest error over a band is at least any weighted average of errors
+within it. We can therefore choose convenient weights for a lower-bound
+proof, even though the actual experiment makes no probabilistic assumption
+about its unknown frequency. Such a weighting is called a prior. We choose
+one that goes smoothly to zero at the endpoints so that integration by
+parts has no boundary contribution.
+
+Use the frequency-coordinate density
+\begin{equation}
+ \pi_E(u)=\frac1E\cos^2\!\left(\frac{\pi u}{2E}\right),
+ \qquad -E<u<E,
+ \qquad
+ I(\pi_E)=\int\frac{\pi_E'(u)^2}{\pi_E(u)}\,\dd u
+                         =\frac{\pi^2}{E^2}.
+ \label{micro:prior}
+\end{equation}
+This prior is a lower-bound device supported inside the promised band,
+not a distribution assumed of the physical frequency. On the nuisance
+curve take $\omega=\omega_0+u$. For a fixed protocol with full outcome
+likelihood $p(x|u)$, the joint score is
+$S=\partial_u\log[p(x|u)\pi_E(u)]$. The density vanishes at both
+endpoints, so integration by parts gives
+\begin{equation}
+ \mathbb E[(\widehat\omega-\omega_0-u)S]=1.
+\end{equation}
+For a fixed observed outcome, the estimator has no explicit dependence on
+the unknown $u$, whereas the true frequency has derivative one. The
+derivative of their difference is therefore $-1$, which produces the one
+on the right after integration by parts. The conditional likelihood score
+has mean zero because differentiating the total outcome probability,
+which is one, gives zero. Thus
+$\mathbb ES^2=\mathbb E_{\pi_E}J_u+I(\pi_E)$, and another application of
+Cauchy--Schwarz yields
+\begin{equation}
+ \sup_{\omega\in\Omega,\phi}
+       \mathbb E(\widehat\omega-\omega)^2
+ \ge \frac1{\mathbb E_{\pi_E}J_u+I(\pi_E)}.
+ \label{micro:bayesbound}
+\end{equation}
+No unbiasedness condition appears. This derivation is the scalar
+integrated information inequality; the project-specific ingredient is
+the curve and the uniform channel bound used within it.
+
+Substitution of Eq.~\eqref{micro:adaptivebound}, together with the
+calibration upper bound, proves the explicit fixed-device comparison
+\begin{equation}
+ \boxed{\quad
+ \frac1{nh^2/p_{\min,g}+\pi^2/E^2}
+ \le R_g^*(n;\Omega)
+ \le\frac1{n\kappa^2}.
+ \quad}
+ \label{micro:fixedfinite}
+\end{equation}
+Both denominators have units of time squared, as required. These finite
+bounds hold for every integer $n\ge1$.
+
+For a two-setting lower bound, use a different comparison path: keep
+$\phi$ fixed. In every selected cell the frequency derivative of the
+Hamiltonian remains $Z_S\otimes I_E/2$. Its integrated generator has norm
+at most $h/2$. Across $n$ cells, the triangle inequality bounds the
+complete purified generator by $nh/2$, including classical selection and
+parameter-independent controls. Therefore $J_u\le(nh)^2$. Using the
+same prior gives
+\begin{equation}
+ R_{\{g_a,g_b\}}^*(n;\Omega)
+ \ge\frac1{(nh)^2+\pi^2/E^2}.
+ \label{micro:menulower}
+\end{equation}
+The next construction supplies an upper bound $C/n^2$, where $C$ is a
+finite constant depending only on the fixed design. An enlarged $C$
+handles the finitely many small budgets by using the interval midpoint.
+Together these statements prove Theorem~\ref{micro:theorem}.
+
+\subsection{The scope of the adaptive and limiting claims}
+\label{micro:limits}
+
+The argument above first covers finite adaptive instruments and their
+parameter-independent mixtures. It also extends to the controlled
+operational limits included in the model. The global extension rests on
+bounded loss, rather than an assumption that Fisher information is
+continuous under arbitrary convergence.
+
+The idea can be stated without taking limits of information quantities.
+Round each possible estimate to one of finitely many nearby values. The
+rounded estimator depends only on which of finitely many outcome bins
+occurred. If the probability of each bin converges, its average squared
+error converges too. Finally make the rounding finer. Because all estimates
+and true frequencies stay in a bounded interval, this last change has a
+uniformly small effect on error.
+
+Fix a budget, a comparison curve and its prior. Suppose the full outcome
+laws $P_{r,u}$ of finite controllers converge to $P_u$ on one common
+measurable output space: for every event and every $u$ on the prior
+support, its probability converges. The index $r$ labels an approximating
+controller, not an extra resource. Take any measurable estimator $f$ for
+the limiting experiment and clip it to $\Omega$. Round its values to a
+finite grid in $\Omega$, obtaining $f_\eta$ with
+$|f_\eta-f|\le\eta$. The grid inverse images form one fixed finite
+partition of the output space. Event-probability convergence gives
+pointwise convergence of the risk of $f_\eta$.
+
+All such losses are bounded by $4E^2$. Dominated convergence therefore
+passes the same finite-controller Bayes lower bound to $f_\eta$ under
+the fixed prior. Finally,
+\begin{equation}
+ |(f_\eta-\omega)^2-(f-\omega)^2|\le4E\eta
+ \qquad (\omega\in\Omega).
+\end{equation}
+Sending $\eta$ to zero proves the lower bound for $f$ itself. The finite
+rounding is classical postprocessing and requires no additional system
+contact. This explains exactly which limiting claim is used; agreement
+of experiments at a single parameter value would not suffice.
+
+The fixed band remains a substantive physical qualification. A collision
+clock can have resonant frequency pairs that give identical complete
+boundary-controlled experiments. The theorem promises a suitable
+identifiable interval, not uniform consistency at every possible
+frequency. Likewise, an instrument placed inside a collision changes the
+resource class. Neither an added temporal access resource nor a retuned
+compensation is covered by the fixed-device obstruction just proved.
+
+
+\section{Turning retained records into a global frequency estimate}
+\label{phase:section}
+
+The remaining task is constructive.  Two coupling strengths must do more than
+produce a large phase derivative at the compensated frequency: they must give
+an estimator that works throughout the promised interval, including when the
+frequency is initially unknown.  A long interrogation alone cannot do this.
+Its phase may pass through many full turns, so a precise phase reading need not
+identify a unique frequency.  Moreover, a parity record is random, its
+probability depends on frequency, and different records produce different
+phase functions.
+
+The construction addresses these difficulties in three steps.  First, an
+even-ending record removes the unknown noise direction exactly.  Second, a
+gate computed from the record selects a fixed positive fraction of blocks
+whose phase functions have a uniformly positive slope.  Third, a sequence of
+shorter and longer interrogations identifies the correct phase branch and
+refines the frequency estimate.  Every attempted block is charged, whether
+or not the gate accepts it.
+
+A \emph{block} is a run of $L$ consecutive cells, followed by a logical
+readout and a reset before the next block.  The gate is a calculation on the
+recorded outcomes, not an additional physical pulse.  The record determines
+a recipe for calculating the phase at any candidate frequency.  Knowing
+that recipe is different from knowing its value at the still-unknown true
+frequency.
+
+Throughout this section, write $u=\omega-\omega_0$ for residual frequency and
+$J=[-E,E]$ for the fixed promised interval.  The variable $v\in J$ will denote
+a candidate frequency used in a classical calculation; it is not another
+physical setting.  The interval and the hardware are held fixed as the
+available number $n$ of collision cells increases.
+
+\subsection{An exact phase attached to an observed path}
+\label{phase:identity}
+
+Use the two settings $a$ and $b$ for the couplings $g_a<g_b$.  Start each block
+with the even-parity state $|+_L\rangle$, and measure parity at each cell
+boundary.  Let $\sigma_i\in\{+1,-1\}$ be the parity after cell $i$, with
+$\sigma_0=+1$.  Choose setting $a$ when the preceding parity is even and
+setting $b$ when it is odd.  There is no recovery operation after a flip.
+
+The exact single-cell instrument has two normalized branches.  A parity
+preserving result applies
+\begin{equation}
+ D_j(u)=\exp[-i\theta_j(u)Z_S/2]
+ \quad\hbox{with probability }q_j(u),
+ \label{phase:stay}
+\end{equation}
+and a parity flip applies $N_\phi$ up to an irrelevant scalar phase, with
+probability $p_j(u)=1-q_j(u)$.  These probabilities are independent of the
+logical input state and of $\phi$.  The label $j\in\{a,b\}$ is known from
+the preceding observed parity.  In particular, the bath need not be
+measured: parity distinguishes the two Kraus branches without revealing the
+logical amplitudes.
+
+Two elementary identities determine a whole block:
+\begin{equation}
+ N_\phi^2=I,
+ \qquad
+ N_\phi D_j(u)=D_j(u)^{-1}N_\phi.
+ \label{phase:algebra}
+\end{equation}
+The second identity follows from $N_\phi Z_SN_\phi=-Z_S$: moving a phase
+rotation past a flip reverses its sign.  Move the flip factors together in the
+ordered product for an observed record
+$\mathcal R=(\sigma_0,\ldots,\sigma_L)$.  If the record ends even, the number
+of flips is even, all factors of $N_\phi$ cancel in pairs, and the logical
+output is exactly
+\begin{align}
+ |\psi_{\mathcal R}(u)\rangle
+ &=\exp[-i\Phi_{\mathcal R}(u)Z_L/2]|+_L\rangle,\label{phase:state}\\
+ \Phi_{\mathcal R}(u)
+ &=\sum_{i=1}^{L}\sigma_{i-1}
+   \mathbf 1_{\{\sigma_i=\sigma_{i-1}\}}
+   \theta_{j(\sigma_{i-1})}(u),
+ \qquad j(+1)=a,\quad j(-1)=b.
+ \label{phase:recordfunction}
+\end{align}
+Here $\mathbf 1_A$ equals one when event $A$ occurs and zero otherwise.
+$Z_L$ is the logical Pauli operator.  Equation~\eqref{phase:state} is a
+statement about each normalized conditional state.  The probability of that
+state is still part of the complete experiment.
+
+The unknown direction disappears for every even-ending record and for every
+$u$ in the band.  This cancellation is algebraic.  It neither estimates
+$\phi$ nor implements an unknown physical operation $N_\phi$ as a control.
+The flips in \eqref{phase:algebra} are the recorded noise itself.
+
+For example, consider the five-cell path in Table~\ref{phase:example}.
+Its phase is $2\theta_a(u)-\theta_b(u)$ and its probability is
+$q_a(u)^2p_a(u)q_b(u)p_b(u)$.  The two flips remove the unknown direction, but
+they do not remove the frequency dependence of the record probability.
+This small example demonstrates the exact cancellation.  By itself it does
+not guarantee that a long record has a useful slope.
+
+\begin{table}[htbp]
+\centering
+\caption{One even-ending record.  A stay adds a signed signal phase; a flip
+changes the sign for subsequent stays.}
+\label{phase:example}
+\begin{tabular}{ccccc}
+\toprule
+Cell & Setting & Result & Final parity & Phase contribution\\
+\midrule
+1 & $a$ & stay & even & $+\theta_a(u)$\\
+2 & $a$ & flip & odd & $0$\\
+3 & $b$ & stay & odd & $-\theta_b(u)$\\
+4 & $b$ & flip & even & $0$\\
+5 & $a$ & stay & even & $+\theta_a(u)$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Why two settings give a positive phase drift}
+\label{phase:drift}
+
+At zero residual frequency, define
+\begin{equation}
+ d_j=\theta_j'(0)=\frac{\tan\chi_j}{g_j},
+ \qquad \chi_j=g_jh,
+ \qquad
+ D_L^0=\sum_{i=1}^{L}\sigma_{i-1}
+ \mathbf 1_{\{\sigma_i=\sigma_{i-1}\}}d_{j(\sigma_{i-1})}.
+ \label{phase:frozen}
+\end{equation}
+A prime means differentiation with respect to residual frequency.  Thus each
+$d_j$, and $D_L^0$, has units of time, while $\theta_j$ is a dimensionless
+angle.  For an even-ending record, $D_L^0=\Phi_{\mathcal R}'(0)$.  The
+superscript $0$ means that the known derivatives are evaluated at zero; the
+actual record can have been generated at any unknown $u\in J$.
+We call each signed contribution a \emph{reward} only as bookkeeping:
+positive contributions increase the phase slope, negative ones decrease it.
+``Frozen'' means that these coefficients are calculated once at the known
+reference point.  It does not mean that the experiment is assumed to be
+operating there.
+
+At a fixed actual frequency, the observed parity is a two-state Markov chain
+with transition matrix
+\begin{equation}
+ P(u)=\begin{pmatrix}q_a(u)&p_a(u)\\p_b(u)&q_b(u)\end{pmatrix}.
+ \label{phase:matrix}
+\end{equation}
+Here ``Markov chain'' means that, at this fixed frequency, the probability of
+the next parity depends only on the present parity.  The row labels are the
+preceding parity, even then odd; the column labels are the subsequent parity
+in the same order.  The \emph{stationary fractions} are the long-run
+proportions of cells in each parity.  In equilibrium the probability flowing
+from even to odd equals the reverse flow: $\pi_+p_a=\pi_-p_b$.
+Together with $\pi_++\pi_-=1$, this gives
+$\pi_+=p_b/(p_a+p_b)$ and $\pi_-=p_a/(p_a+p_b)$.  For example,
+$p_a=0.1$ and $p_b=0.3$ give an even fraction of $3/4$: the system leaves
+the odd sector more readily.  This example explains the balance calculation;
+the actual phase sensitivity also depends on $d_a,d_b$.
+Consequently the stationary
+mean frozen reward per cell is
+\begin{equation}
+ \mu^0(u)=
+ \frac{p_b(u)q_a(u)d_a-p_a(u)q_b(u)d_b}{p_a(u)+p_b(u)}.
+ \label{phase:driftfunction}
+\end{equation}
+The positive term counts stays in even parity; the negative term counts
+stays in odd parity.  Increasing the coupling while the system is odd
+increases its chance of returning to the even sector.  The exact expression
+also includes the different conditional phase responses of the two settings.
+
+At $u=0$, let $\mu_0=\mu^0(0)$.  Since
+\begin{equation}
+ \frac{q_j(0)d_j}{p_j(0)}
+ =h\frac{\cot\chi_j}{\chi_j},
+ \qquad
+ \frac{\mathrm d}{\mathrm d\chi}\frac{\cot\chi}{\chi}
+ =-\frac{\chi\csc^2\chi+\cot\chi}{\chi^2}<0,
+ \label{phase:positive}
+\end{equation}
+the strict ordering $0<\chi_a<\chi_b<\pi/4$ implies $\mu_0>0$.
+With identical couplings this stationary reward instead vanishes.  This
+particular comparison explains the construction's mechanism; the converse
+in the preceding section is what excludes all other fixed-coupling
+strategies from achieving a better global order.
+
+The fixed band is chosen so that, for every $u\in J$,
+\begin{align}
+ &0<p_a(u)<p_b(u)<\tfrac12,
+ \qquad \mu^0(u)\ge\tfrac34\mu_0,\label{phase:band1}\\
+ &\max_{j\in\{a,b\}}\sup_{v\in J}|\theta_j'(v)-d_j|
+ \le\tfrac14\mu_0.
+ \label{phase:band2}
+\end{align}
+The functions involved are known and continuous.  Their values at zero give
+strict margins for these inequalities, so some interval of positive width
+satisfies them.  Once chosen, that interval is fixed.  This argument does
+not supply a maximal bandwidth or constants uniform as $g_b-g_a$ tends to
+zero.
+
+\subsection{A record gate that certifies an entire phase curve}
+\label{phase:gate}
+
+An even endpoint alone is insufficient: signed contributions can largely
+cancel on some paths.  Accept a record for phase estimation precisely when
+\begin{equation}
+ \sigma_L=+1
+ \quad\hbox{and}\quad
+ D_L^0\ge\frac{\mu_0L}{2}.
+ \label{phase:predicate}
+\end{equation}
+The controller computes this predicate from the observed path and the known
+constants $d_a,d_b,\mu_0$.  It does not use the unknown actual frequency or
+direction.  A rejected block is retained as a flagged outcome and costs the
+same $L$ cells as an accepted block.
+
+Two claims are needed: sufficiently long blocks pass the gate with a
+uniformly positive probability, and every accepted record has a useful phase
+slope throughout the whole band.  An average slope alone would prove
+neither claim.
+
+The next calculation separates the average from its fluctuations.  The mean
+score grows proportionally to $L$, whereas its standard deviation grows at
+most proportionally to $\sqrt L$.  Thus the relative fluctuation becomes
+small in long blocks.  The proof also accounts for the initial even state,
+which need not be sampled from the long-run proportions.
+
+\paragraph{Acceptance probability, including the initial transient.}
+Set
+\begin{equation}
+ M=\max(d_a,d_b),\qquad
+ \rho=1-\inf_{u\in J}(p_a(u)+p_b(u))<1,
+ \qquad
+ V=M^2\left(1+\frac{2}{1-\rho}\right).
+ \label{phase:varianceconstant}
+\end{equation}
+For a fixed actual $u$, suppress its argument and write
+$\lambda=1-p_a-p_b$.  The band conditions imply $0<\lambda\le\rho<1$.
+Starting from even parity, the exact two-state recursion gives
+\begin{equation}
+ \Pr\{\sigma_i=+1\}=\pi_++\pi_-\lambda^i\ge\tfrac12.
+ \label{phase:evenprob}
+\end{equation}
+Define the conditional mean one-cell rewards
+$f_+=q_ad_a$ and $f_-=-q_bd_b$.  Summing their means yields
+\begin{equation}
+ \mathbb E_u D_L^0
+ =L\mu^0(u)+\pi_-(f_+-f_-)
+   \sum_{i=0}^{L-1}\lambda^i
+ \ge\tfrac34\mu_0 L.
+ \label{phase:mean}
+\end{equation}
+The correction for starting in even parity is nonnegative.  No stationary
+initial state has been assumed.
+
+For completeness, the fluctuations also admit a bound uniform over the band.
+Write $X_i$ for the $i$th summand of $D_L^0$.  Each $X_i$ lies in $[-M,M]$.
+For $i<j$, its conditional prediction at the later cell is
+\begin{equation}
+ \mathbb E[X_j\mid\sigma_0,\ldots,\sigma_i]
+ =(P^{j-i-1}f)(\sigma_i).
+ \label{phase:conditionalreward}
+\end{equation}
+The two possible values on the right differ by at most
+$2M\rho^{j-i-1}$, because a two-state chain contracts this difference by
+$\lambda$ at each transition.  A random variable in an interval of length
+$a$ has variance at most $a^2/4$; applying the covariance inequality to the
+two bounded variables therefore gives
+\begin{equation}
+ |\operatorname{Cov}(X_i,X_j)|\le M^2\rho^{j-i-1},
+ \qquad
+ \operatorname{Var}(D_L^0)\le VL.
+ \label{phase:variance}
+\end{equation}
+The second inequality follows by summing the geometric covariance bound and
+the $L$ individual variances.  It includes the nonstationary start.
+Covariance measures whether two rewards fluctuate together.  The geometric
+factor says that distant cells remember less about each other's parity, so
+their correlations have a finite total contribution per cell.  The bound
+on the variance is what turns a positive average into a useful probability
+of passing the gate.
+
+An observed reward below $\mu_0L/2$ lies at least $\mu_0L/4$ below its mean.
+The variance bound thus implies
+\begin{equation}
+ \Pr\{D_L^0<\mu_0L/2\}
+ \le\frac{16V}{\mu_0^2L}.
+ \label{phase:rewardtail}
+\end{equation}
+Subtract this probability from the lower bound $1/2$ for an even endpoint.
+The result is
+\begin{equation}
+ \Pr\{\mathcal R\hbox{ accepted}\}
+ \ge\frac12-\frac{16V}{\mu_0^2L}
+ \ge\frac14
+ \quad\hbox{for }L\ge L_0,
+ \label{phase:acceptance}
+\end{equation}
+where one sufficient integer is
+\begin{equation}
+ L_0=\max\left\{1,
+ \left\lceil\frac{64V}{\mu_0^2}\right\rceil\right\}.
+ \label{phase:minimumlength}
+\end{equation}
+This subtraction is a union bound; the final parity and the reward need not
+be independent.  The value of $L_0$ is a sufficient proof constant and can be
+large.  No claim of practical optimality is attached to it.
+
+\paragraph{Sensitivity of each accepted record.}
+For any candidate $v\in J$, equation~\eqref{phase:band2} gives the
+deterministic bound
+\begin{equation}
+ |\Phi_{\mathcal R}'(v)-D_L^0|\le\tfrac14\mu_0L.
+ \label{phase:derivativecomparison}
+\end{equation}
+The gate therefore ensures
+\begin{equation}
+ \alpha L\le\Phi_{\mathcal R}'(v)\le\beta L
+ \quad\hbox{for every }v\in J,
+ \qquad
+ \alpha=\frac{\mu_0}{4},\quad
+ \beta=\max_{j\in\{a,b\}}\sup_{v\in J}|\theta_j'(v)|.
+ \label{phase:derivativebound}
+\end{equation}
+Both $\alpha$ and $\beta$ have units of time.  The record certifies a known,
+strictly increasing phase function over the whole frequency band, with a
+slope proportional to its length.  The probability of receiving such a
+certificate is at least $p_0=1/4$, independently of the unknown frequency
+and direction.
+
+\subsection{Resolving the phase ambiguity one scale at a time}
+\label{phase:multiscale}
+
+The rest of the argument uses only the exact conditional state
+\eqref{phase:state}, acceptance probability at least $p_0>0$, and derivative
+bounds \eqref{phase:derivativebound}.  It therefore also explains what another
+recorded instrument would have to supply for the same estimation method to
+apply.  The needed repetitions use fresh bath cells and a full reset to
+$|+_L\rangle$ between blocks.
+
+Before specifying the proof constants, the procedure is:
+\begin{enumerate}
+\item Use short, paid trials to find a coarse frequency interval.
+\item Double the block length and predict each accepted record's phase at
+the midpoint of that interval.
+\item Measure relative to that prediction, compare the outcomes with the
+recorded response functions, and obtain a refined estimate.
+\item Intersect a narrower window around the estimate with the old interval,
+then repeat at the next length.
+\end{enumerate}
+Long blocks give sharper readings, while the preceding shorter blocks tell
+us which phase turn we are on.  Intersection keeps all later estimates
+inside the earlier interval, even if a later refinement fails.  The constants
+below are one sufficient way to make both the failure probabilities and the
+total cost precise.
+
+The paid one-cell calibration experiment supplies an estimator
+$\widehat u_N\in J$ with
+\begin{equation}
+ \sup_{u\in J,\phi}
+ \Pr\{|\widehat u_N-u|\ge\delta\}
+ \le2\exp[-N\kappa^2\delta^2/2],
+ \qquad \delta>0.
+ \label{phase:coarsebound}
+\end{equation}
+Here $\kappa>0$ is the uniform derivative lower bound for the one-cell
+calibration response, with units of time.  A fixed initial localization
+accuracy will suffice, but its failure probability must become smaller as
+the final experiment becomes longer.
+
+Choose a final scale $K\ge1$ and define
+\begin{equation}
+ s=\frac{\pi}{8\beta},\qquad
+ L_k=2^kL_0,\qquad
+ \gamma=\min\left\{\frac{p_0^2}{2},
+                   \frac{p_0\alpha^2s^2}{8}\right\}>0.
+ \label{phase:scheduleconstants}
+\end{equation}
+$L_k$ counts cells, $s$ has units of frequency, and $\gamma$ is
+dimensionless.  The symbol $\pi$ in this equation is the usual circle
+constant.  All logarithms below are natural logarithms.
+
+First use
+\begin{equation}
+ N_0(K)=\left\lceil
+ \frac{2L_0^2}{\kappa^2s^2}
+       (K\log 8+\log 2)\right\rceil
+ \label{phase:calibrationcost}
+\end{equation}
+one-cell calibration trials and form
+\begin{equation}
+ C_0=J\cap[\widehat u_0-s/L_0,\widehat u_0+s/L_0].
+ \label{phase:initialinterval}
+\end{equation}
+The estimate $\widehat u_0$ is clipped to $J$, so $C_0$ is always nonempty.
+Its diameter is at most $2s/L_0$, and
+$\Pr\{u\notin C_0\}\le8^{-K}$.  This initial step costs only a number of
+cells proportional to $K$, despite the increasingly small failure
+probability, because its target width stays fixed.
+
+At scale $k=1,\ldots,K$, let $c$ be the midpoint of the current interval
+$C_{k-1}$.  Hold that center and the block policy fixed throughout this
+stage, and attempt
+\begin{equation}
+ r_k=\left\lceil
+ \frac{(K-k)\log8+\log12}{\gamma}
+ \right\rceil
+ \label{phase:repetitioncounts}
+\end{equation}
+independent blocks of length $L_k$.  Earlier stages may determine $c$.
+Earlier terminal measurement outcomes within this same stage do not change
+the later block policies.  This restriction is part of the explicit
+attaining strategy and will make its conditional independence transparent.
+
+For each accepted record $\mathcal R_i$, measure the logical equatorial
+observable
+\begin{equation}
+ B_i(c)=\cos(\Phi_{\mathcal R_i}(c))Y_L
+       -\sin(\Phi_{\mathcal R_i}(c))X_L.
+ \label{phase:observable}
+\end{equation}
+Here $X_L,Y_L$ are the logical Pauli operators.  The outcome
+$Y_i\in\{-1,+1\}$ is a classical number; the subscript distinguishes it from
+the operator $Y_L$.  The conditional mean is exactly
+\begin{equation}
+ \mathbb E_u[Y_i\mid\mathcal R_i]
+ =\sin(\Phi_{\mathcal R_i}(u)-\Phi_{\mathcal R_i}(c)).
+ \label{phase:meanreadout}
+\end{equation}
+This centers the readout at the phase predicted by the current interval
+center.  It changes a terminal measurement basis only.  The compensation,
+cell duration and interaction Hamiltonian remain fixed.
+
+Let $G$ be the number of accepted blocks in the stage.  If
+$G<p_0r_k/2$, take $\widetilde u_k=c$.  Otherwise, compute from the actual
+accepted records the known function
+\begin{equation}
+ H_k(v)=\frac1G\sum_{i:\,\mathcal R_i\text{ accepted}}
+ \sin(\Phi_{\mathcal R_i}(v)-\Phi_{\mathcal R_i}(c)),
+ \qquad v\in C_{k-1}.
+ \label{phase:responsecurve}
+\end{equation}
+Average the corresponding measured $Y_i$, clip that average to the image
+interval $H_k(C_{k-1})$, and invert $H_k$ to obtain $\widetilde u_k$.  The
+clipping prevents a fluctuation from requesting an inverse outside the
+current candidate interval.  Finally set
+\begin{equation}
+ C_k=C_{k-1}\cap
+ [\widetilde u_k-s/L_k,\widetilde u_k+s/L_k].
+ \label{phase:nesting}
+\end{equation}
+Every interval remains nonempty and nested, even when a statistical failure
+has occurred: $\widetilde u_k$ belongs to the preceding interval and to the
+new window.  If an interval has already collapsed to a point, that point is
+the estimate and no inversion is needed.
+
+Why is the inverse unique?  The preceding interval has diameter at most
+$2s/L_{k-1}$, so every $v\in C_{k-1}$ obeys $|v-c|\le s/L_{k-1}$.
+For every accepted record,
+\begin{equation}
+ |\Phi_{\mathcal R_i}(v)-\Phi_{\mathcal R_i}(c)|
+ \le\beta L_k\frac{s}{L_{k-1}}=\frac\pi4.
+ \label{phase:noalias}
+\end{equation}
+All candidate phases therefore lie on a single increasing branch of the
+sine function.  Combining its derivative with
+\eqref{phase:derivativebound} gives
+\begin{equation}
+ H_k'(v)\ge\frac{\alpha L_k}{\sqrt2}.
+ \label{phase:inversebound}
+\end{equation}
+The full phase $\Phi_{\mathcal R_i}(v)$ may have wound around the circle many
+times.  What is small is its difference across the candidate interval, made
+small by the earlier paid localization.  This is how the construction
+resolves phase ambiguity instead of assuming it away.
+
+\subsection{Conditioning on the record, without freezing its law}
+\label{phase:conditioning}
+
+For example, if two records are accepted, their prediction is the average
+of their two separate sine responses,
+\begin{equation}
+ H_k(v)=\tfrac12\bigl[
+ \sin(\Phi_1(v)-\Phi_1(c))+
+ \sin(\Phi_2(v)-\Phi_2(c))\bigr].
+\end{equation}
+The record fixes which functions appear here.  After fixing it, the remaining
+randomness is in the final $+1/-1$ measurements.  A concentration bound says
+that their measured average is unlikely to differ greatly from this predicted
+average.  Because the bound holds for every accepted collection of functions,
+it can then be averaged over their actual frequency-dependent occurrence
+probabilities.  No average phase is substituted inside the sine.
+The two-record example illustrates the prediction rule, not a sufficient
+number of repetitions for a precise estimate.
+
+The law of $\mathcal R_i$ depends on $u$ through $p_a(u)$ and $p_b(u)$.
+This dependence does not invalidate \eqref{phase:responsecurve}.  For the
+fixed unknown value $u$, first condition on all earlier stages.  The fresh
+blocks have independent acceptance indicators and each succeeds with
+probability at least $p_0$.  Bounded-variable concentration gives
+\begin{equation}
+ \Pr\{G<p_0r_k/2\}\le\exp[-p_0^2r_k/2].
+ \label{phase:counttail}
+\end{equation}
+Next condition on all the records of this stage.  Because the policy was
+held fixed and the blocks used fresh bath cells, the terminal outcomes of
+the accepted blocks are conditionally independent.  They need not have the
+same conditional mean; their average conditional mean is exactly $H_k(u)$.
+
+When $u\in C_{k-1}$, clipping and
+\eqref{phase:inversebound} imply that an estimation error exceeding
+$s/L_k$ requires the sample mean to differ from $H_k(u)$ by more than
+$\alpha s/\sqrt2$.  Independent variables in $[-1,1]$ obey the tail bound
+$2\exp(-Gt^2/2)$ for a deviation $t$ of their average from its mean.
+Consequently, on $G\ge p_0r_k/2$,
+\begin{equation}
+ \Pr\{|\widetilde u_k-u|>s/L_k\mid\mathcal R_1,\ldots,\mathcal R_{r_k}\}
+ \le2\exp[-G\alpha^2s^2/4]
+ \le2\exp[-p_0r_k\alpha^2s^2/8].
+ \label{phase:readouttail}
+\end{equation}
+Average this inequality over the actual record law and add the low-count
+event.  Uniformly over earlier observations for which $u\in C_{k-1}$,
+\begin{equation}
+ \Pr\{u\notin C_k\mid\hbox{earlier observations}\}
+ \le3e^{-\gamma r_k}
+ \le\frac14\,8^{-(K-k)}.
+ \label{phase:stagefailure}
+\end{equation}
+No derivative of the record distribution was taken, and no record
+probability was replaced by its compensated value.  In particular,
+$H_k$ is the average of the phase responses for the records actually seen,
+not the expectation of a phase under a guessed parameter-independent law.
+Classical information in record probabilities could also be used, but is
+not needed for this attainable bound.
+
+\subsection{Worst-case error with a hard cell budget}
+\label{phase:riskcost}
+
+Return the midpoint $\widehat u$ of $C_K$.  If the coarse localization and
+every refinement succeed, then
+$|\widehat u-u|\le s/L_K$.  If the first failed refinement is stage $k$,
+the true frequency and every later estimate still belong to $C_{k-1}$.
+Thus their final separation is at most its diameter,
+$2s/L_{k-1}=4s/L_k$.  If the coarse step fails, both the true value and the
+final estimate still lie in $J$, giving the bound $2E$.
+
+These three alternatives give an unconditional, worst-case mean-square
+error bound:
+\begin{align}
+ \sup_{u\in J,\phi}\mathbb E[(\widehat u-u)^2]
+ &\le\frac{s^2}{L_K^2}+4E^2\,8^{-K}
+ +\sum_{k=1}^{K}\frac{16s^2}{L_k^2}\,
+                   \frac14\,8^{-(K-k)}\notag\\
+ &\le\frac{9s^2+4E^2L_0^2}{L_K^2}.
+ \label{phase:globalrisk}
+\end{align}
+The last step is a geometric sum: after multiplication by $L_K^2$, the
+refinement terms are bounded by
+$4s^2\sum_{j=0}^{K-1}2^{-j}\le8s^2$.  The coarse term uses
+$4^K8^{-K}\le1$.  This proof includes failed branches instead of reporting
+only the precision conditional on success.
+
+The total number of cells is the deterministic number
+\begin{equation}
+ B_K=N_0(K)+\sum_{k=1}^{K}r_kL_k.
+ \label{phase:budget}
+\end{equation}
+The repetition count is largest at the short scales, where a failure could
+cause the largest final error.  Long, costly blocks require fewer
+repetitions because a late failure can move the estimate only within an
+already narrow interval.  In particular,
+\begin{equation}
+ \sum_{k=1}^{K}L_k\le2L_K,
+ \qquad
+ \sum_{k=1}^{K}(K-k)L_k\le2L_K.
+ \label{phase:costsums}
+\end{equation}
+Since $N_0(K)=O(K+1)$ and $K+1\le2^K$ for $K\ge1$, there is a fixed
+finite constant $C_*$, depending only on the hardware and chosen band, with
+\begin{equation}
+ L_K\le B_K\le C_*L_K.
+ \label{phase:linearcost}
+\end{equation}
+There is no extra logarithmic factor in the total cost.  The decreasing
+repetition schedule is essential to this conclusion; requiring the same
+small failure probability at every scale would waste resources.
+
+For a prescribed hard budget $n$, select the largest feasible $K$.
+Then $n<B_{K+1}\le2C_*L_K$, so \eqref{phase:globalrisk} becomes
+\begin{equation}
+ \sup_{\omega\in[\omega_0-E,\omega_0+E],\phi}
+ \mathbb E[(\widehat\omega-\omega)^2]=O(n^{-2}),
+ \qquad \widehat\omega=\omega_0+\widehat u.
+ \label{phase:attainment}
+\end{equation}
+The finitely many budgets too small for the first scale use the interval
+midpoint; increasing the fixed upper-bound constant covers them.  The
+matching inverse-square lower bound in the preceding section therefore
+establishes the two-coupling minimax order.  This construction does not
+determine the optimal global risk coefficient.
+
+\paragraph{Contacts and duration.}
+Each block has its prescribed length even when its record fails the gate.
+At a cell boundary, parity extraction, a completed block's logical readout,
+the next preparation and a coupling choice can be consecutive parts of one
+allowed instrument.  Scheduling all used cells consecutively within the
+$n$-cell allocation therefore uses at most $n-1$ nonterminal boundary
+contacts, with the final readout at $nh$ free under the stated convention.
+If a complete estimate is produced earlier, that readout is a counted
+contact and the classical result is retained through the remaining charged
+cells.  The physical duration remains $nh$.
+
+Calibration, failed gates, resets, repetitions and premature terminal
+readouts have all appeared in the same accounting.  At no point does a
+classical frequency estimate alter the physical compensation.  The
+quadratic precision comes from exact noise-direction cancellation and
+usable recorded phase functions, combined with paid ambiguity resolution.
+An unrecorded mixture, a phase known only through its derivative at zero,
+or an unknown timing perturbation would require a new argument.
+
+
+\section{The continuous-time counterpart}
+\label{markov:continuous}
+
+The finite-collision result has a related continuous-time statement. Its
+importance is conceptual: the obstruction caused by an unknown error direction
+does not depend on a weak-collision approximation. The continuous model also
+admits an especially transparent way to convert noise into an exact, useful
+interrogation. It is a separate model, with ideal continuous syndrome monitoring.
+We do not obtain its theorems by silently replacing the finite collision clock
+by arbitrarily fast access inside a collision.
+
+\subsection{What changes, and what remains the same}
+
+The sensor is a qubit, the auxiliary memory is noiseless, and the target
+frequency is $\omega$. A noise rate $\gamma_j$ has a direct operational
+meaning: during a short time $\mathrm dt$, a flip occurs with probability
+$\gamma_j\mathrm dt$ up to terms smaller than $\mathrm dt$. Between flips,
+the signal rotates the state. At a fixed setting, the probability of a flip
+in the next short interval does not depend on how long the system has already
+waited. This is the memoryless, or Markovian, assumption in this model.
+Averaging the flip and no-flip alternatives gives the equation below.
+In a selected setting $j$, the reduced sensor state obeys
+\begin{equation}
+ \frac{\mathrm d\rho}{\mathrm dt}
+ =-i\left[\frac{s_j\omega}{2}Z,\rho\right]
+   +\gamma_j(N_\phi\rho N_\phi-\rho),
+ \qquad N_\phi=\cos\phi\,X+\sin\phi\,Y.
+ \label{markov:master}
+\end{equation}
+Here $\rho$ is a density matrix, $[A,B]=AB-BA$, the known real number $s_j$
+is a dimensionless signal multiplier, and the known rate $\gamma_j>0$ has units
+of inverse time. The angle $\phi$ is unknown, continuous, fixed throughout the
+experiment, and shared by every setting. Its physical period in this
+dissipator is $\pi$, because changing the sign of $N_\phi$ leaves
+\eqref{markov:master} unchanged. In the main comparison $s_j=1$: we change
+the noise rate while preserving the signal Hamiltonian. One device offers a
+single rate $\gamma$; the other offers two fixed rates $0<a<b$.
+
+The resource $T$ is a hard physical exposure time for one sensor. Preparation,
+parameter-independent sensor--memory controls, monitoring, recovery pulses,
+classical feedback and protected storage are ideal. These idealizations are
+common to both sides of the comparison. They do not provide direct bath access.
+Rate selection means a classical choice of the scalar multiplying the same
+unknown noise operator. It does not mean a coherent superposition of baths or
+coherent access to $N_\phi$ as an extra Hamiltonian.
+
+Use the two-qubit code $|0_L\rangle=|00\rangle$ and
+$|1_L\rangle=|11\rangle$, with the sensor first. The signal preserves parity;
+an error $N_\phi$ changes it. Ideal parity monitoring therefore identifies
+errors without measuring the encoded amplitudes. The jump operator is
+$L_j=\sqrt{\gamma_j}N_\phi$, so $L_j^\dagger L_j=\gamma_j I$.
+Consequently the jump rate is independent of the logical state, $\omega$ and
+$\phi$. For a constant setting the observed jump count is Poisson with mean
+$\gamma_j t$: explicitly,
+$\Pr\{N=k\}=e^{-\gamma_jt}(\gamma_jt)^k/k!$ for
+$k=0,1,\ldots$. Here $k!$ is the product of the positive integers up to $k$,
+with $0!=1$. Both the mean and variance of this count equal $\gamma_jt$.
+Thus the typical count is proportional to elapsed time, with fluctuations
+of order its square root. Between jumps, normalized evolution is just the signal rotation.
+These facts make the complete measurement record tractable; none permits
+discarding the time spent on an unsuccessful run.
+
+\subsection{Why a large frequency entry in an information matrix is insufficient}
+
+For an outcome distribution $p(x\mid\omega,\phi)$, its Fisher matrix has entries
+$J_{uv}=\mathbb E[(\partial_u\log p)(\partial_v\log p)]$,
+where $u,v\in\{\omega,\phi\}$. A nuisance direction can imitate a target
+change. The information that remains after allowing that imitation is
+\begin{equation}
+ \mathcal I_\omega(J)
+ =\inf_{c\in\mathbb R}(1,c)J(1,c)^{\mathsf T}
+ =J_{\omega\omega}-\frac{J_{\omega\phi}^2}{J_{\phi\phi}}
+ \quad\hbox{when }J_{\phi\phi}>0.
+ \label{markov:efficient}
+\end{equation}
+The infimum definition also handles a zero or singular nuisance block. The
+superscript $\mathsf T$ denotes transpose. Frequency information has units of
+time squared. Its reciprocal bounds the variance of a regular locally unbiased
+frequency estimator, with zero first-order response to $\phi$. This is a local
+statement about a specified parameter point. It is not yet a global risk bound
+for an initially unknown frequency.
+
+An elementary exact example shows what is at stake. Apply the fixed sensor
+recovery $X$ after every detected error. Since $XN_\phi=e^{i\phi Z}$, an
+interrogation of duration $t$ and observed count $N$ has phase
+\begin{equation}
+ \Theta=\omega t-2\phi N,\qquad N\sim\mathrm{Poisson}(\gamma t).
+ \label{markov:recoveredphase}
+\end{equation}
+For a typical long run, $N$ is near $\gamma t$, so the phase's leading
+time-proportional part is $(\omega-2\gamma\phi)t$. Count fluctuations supply
+the remaining distinction. A change in frequency can therefore be largely
+imitated by a change in the unknown direction. Two rates produce different
+combinations of the same two unknowns; this is the statistical reason that
+rate diversity can help.
+Prepare the logical $X$ eigenstate and measure at a uniformly random,
+recorded equatorial angle $\xi$. The two probabilities are
+$[1\pm\cos(\Theta-\xi)]/2$. This measurement has unit information about
+$\Theta$ except at isolated angles, which have probability zero under the
+recorded continuous randomization. The count likelihood itself contains no
+information about $\omega$ or $\phi$.
+
+More generally, a recorded phase $\omega D-2\phi M$, with a
+parameter-independent distribution of the real variables $(D,M)$, gives
+\begin{equation}
+ J=\begin{pmatrix}
+ \mathbb E D^2&-2\mathbb E(DM)\\
+ -2\mathbb E(DM)&4\mathbb E M^2
+ \end{pmatrix}.
+ \label{markov:phasefim}
+\end{equation}
+For \eqref{markov:recoveredphase}, $D=t$,
+$\mathbb E N=\gamma t$ and $\mathbb E N^2=(\gamma t)^2+\gamma t$.
+Substitution in \eqref{markov:efficient} gives
+\begin{equation}
+ \mathcal I_\omega(t)=\frac{t^2}{1+\gamma t}.
+ \label{markov:fixedattain}
+\end{equation}
+The entry $J_{\omega\omega}=t^2$ is large, but its leading part is
+indistinguishable from an angle change. Only linear growth remains at long
+times. All counts and readout labels are retained in this calculation.
+
+\subsection{A converse for every adaptive control strategy}
+
+The limitation is not specific to that recovery. Restrict the two unknown
+parameters to a mathematical comparison path
+$\omega(u)=\omega_c+u$, $\phi(u)=\phi_c+cu$. The real parameter $u$
+has frequency units, and $c$ has time units. The controller is held fixed along
+this path. Outcome probabilities may change; the control rule does not acquire
+knowledge of the unknown $u$.
+
+We use a general information-growth inequality for a Markovian channel with
+arbitrary parameter-independent controls. If $F(t)$ is the output quantum
+Fisher information along the path, including the classical record, then
+\begin{align}
+ \frac{\mathrm dF}{\mathrm dt}
+ &\le 4\bigl(\|A\|+\|B\|\sqrt F\bigr),\label{markov:growth}\\
+ A&=(\partial_uL)^\dagger\partial_uL,\qquad
+ B=\partial_uH-\frac{i}{2}
+ \bigl((\partial_uL)^\dagger L-L^\dagger\partial_uL\bigr).
+ \nonumber
+\end{align}
+The operator norm $\|A\|$ is the largest factor by which $A$ can stretch
+a vector. Quantum Fisher
+information bounds the classical Fisher information of every final
+measurement. The inequality is an information-theoretic ingredient; the
+following choice of nuisance path is its application to this physical model.
+The two terms have different roles. The $A$ term allows information to
+increase at most at a bounded rate, giving a linear ceiling if $B=0$.
+The term containing $B$ permits
+coherent accumulation: because its size increases with $\sqrt F$, it can
+support quadratic growth. We look for a nuisance path that cancels this
+second contribution. One rate admits such a cancellation; two different
+rates generally do not admit the same cancelling path.
+For adaptive setting selection, include the controller and recorded branches
+as orthogonal blocks and take the largest norms over the permitted settings.
+These blocks simply keep mutually distinguishable classical records in
+separate labels of the mathematical description.
+Measurements, resets and feedback remain parameter-independent channels. This
+is why the bound includes learning the angle during the experiment.
+
+The Pauli identities
+$(\partial_\phi N_\phi)N_\phi=-iZ$ and
+$N_\phi(\partial_\phi N_\phi)=iZ$ give, in setting $j$,
+\begin{equation}
+ A_j=c^2\gamma_j I,\qquad
+ B_j=\left(\frac{s_j}{2}-c\gamma_j\right)Z.
+ \label{markov:ab}
+\end{equation}
+For one unit-strength setting, $c=1/(2\gamma)$ cancels $B$ exactly.
+Starting from a parameter-independent preparation, $F(0)=0$, so
+$F(T)\le T/\gamma$. The path $c=0$ separately gives $F(T)\le T^2$.
+Together with \eqref{markov:fixedattain}, this proves
+\begin{equation}
+ \mathcal I^*_{\omega,\gamma}(T)\le\min\{T^2,T/\gamma\},
+ \qquad
+ \lim_{T\to\infty}\frac{\mathcal I^*_{\omega,\gamma}(T)}{T}
+ =\frac1\gamma.
+ \label{markov:fixedlocal}
+\end{equation}
+The star denotes optimization over all permitted controls and measurements.
+The mathematical path does not assert that noise physically encodes frequency;
+it selects difficult pairs inside the allowed two-parameter family.
+
+For two rates define the dimensionless contrast
+\begin{equation}
+ r=\frac{b-a}{b+a}\in(0,1).
+ \label{markov:r}
+\end{equation}
+Choosing $c=1/(a+b)$ leaves $\|B\|\le r/2$ in either setting and
+$\|A\|\le b/(a+b)^2$. Thus
+\begin{equation}
+ F'(t)\le C+2r\sqrt{F(t)},\qquad
+ C=\frac{4b}{(a+b)^2}.
+ \label{markov:ode}
+\end{equation}
+Here and below $F'(t)$ is a time derivative. Integrating the scalar comparison
+equation gives $\sqrt{F(t)}\le rt+O(t_c\log(1+t/t_c))$ at large $t$,
+where $t_c=1/(a+b)$ and the rates are fixed; hence the leading information
+coefficient is at most $r^2$.
+The comparison integral is
+$t=y/r-[C/(2r^2)]\log(1+2ry/C)$, where $y=\sqrt F$ and the logarithm
+is natural. This also explains why the term linear in time cannot change the
+leading quadratic coefficient.
+
+\subsection{Rate diversity can remove the leading statistical ambiguity}
+
+Two simple constructions attain that coefficient without adapting the bath
+rate to the syndrome. They still use syndrome-triggered recovery pulses.
+
+First, use rate $a$ for time $t_a$, rate $b$ for time $t_b$, with
+$t_a+t_b=T$. Insert and later undo a logical $X$ pulse so that the two block
+phases subtract. With independent Poisson counts $N_a,N_b$,
+\begin{equation}
+ \Theta=\omega D-2\phi M,\quad
+ D=t_a-t_b,\quad M=N_a-N_b,\quad
+ \mu=at_a-bt_b,\quad V=at_a+bt_b.
+\end{equation}
+Since $\mathbb E M=\mu$ and $\mathbb E M^2=V+\mu^2$,
+\begin{equation}
+ \mathcal I_{\rm echo}=\frac{D^2V}{V+\mu^2}.
+ \label{markov:echo}
+\end{equation}
+The choice $t_a=bT/(a+b)$, $t_b=aT/(a+b)$ makes $\mu=0$ and $D=rT$.
+It achieves $\mathcal I_{\rm echo}=r^2T^2$ exactly at every $T$.
+The nuisance remains in individual output states, but its score is statistically
+orthogonal to the frequency score after the complete records are pooled.
+
+This design has a specific calibration sensitivity. Put $t_a=fT$ and define
+$q=af-b(1-f)$, $v=af+b(1-f)$. Then
+\begin{equation}
+ \mathcal I_{\rm echo}
+ =\frac{(2f-1)^2T^2}{1+(q^2/v)T}.
+ \label{markov:imbalance}
+\end{equation}
+A fixed nonzero imbalance $q$ eventually restores linear information growth.
+The dimensionless quantity $q^2T/v$ must stay bounded to retain a nonzero
+quadratic coefficient. This is a restriction of this particular balanced echo,
+not a universal accuracy requirement for rate-diverse sensing.
+
+Second, choose rate $a$ with probability $p$ and $b$ otherwise at the start of
+an interrogation. Retain the choice and use it throughout duration $T$.
+Define $\bar\gamma=pa+(1-p)b$, $g_2=pa^2+(1-p)b^2$ and
+$\sigma_\gamma^2=p(1-p)(b-a)^2$. Pooling the full Fisher matrices before
+eliminating their \emph{shared} nuisance gives
+\begin{equation}
+ \mathcal I_p(T)
+ =T^2\frac{\sigma_\gamma^2+\bar\gamma/T}{g_2+\bar\gamma/T},
+ \qquad
+ \lim_{T\to\infty}\frac{\mathcal I_p(T)}{T^2}
+ =\frac{p(1-p)(b-a)^2}{pa^2+(1-p)b^2}.
+ \label{markov:mixture}
+\end{equation}
+The maximizing probability is $p_*=b/(a+b)$ and the maximum is $r^2$.
+A fixed error in $p$ changes this coefficient continuously; it does not incur
+the time-amplified penalty in \eqref{markov:imbalance}. A fair choice $p=1/2$
+needs no numerical rate calibration in its design and retains the fraction
+$(a+b)^2/[2(a^2+b^2)]>1/2$ of the optimal local coefficient. For example,
+$b=3a$ gives $r^2=1/4$; the fair design retains four fifths of that coefficient.
+
+Unknown numerical rates can be included as additional nuisance parameters in
+these likelihoods. With fixed durations and selection probabilities, the phase
+likelihood conditional on counts depends on $(\omega,\phi)$, while the rate
+score comes from the count likelihood. Their cross-information is zero because
+the conditional phase score has mean zero. The displayed efficient information
+therefore survives elimination of the rate parameters. This fact is not free
+calibration: inference uses the recorded counts, and a precisely balanced echo
+still needs its design ratio. Nor does one labelled interrogation establish
+global estimation at an unknown frequency. Repeating it $\nu$ times costs
+$\nu T$.
+
+There is a structural extension. For finitely many selectable pairs
+$(s_j,\gamma_j)$, the optimal leading local coefficient is $v_*^2$, where
+\begin{equation}
+ v_* =\max_{i,j}
+ \frac{|s_i\gamma_j-s_j\gamma_i|}{\gamma_i+\gamma_j}.
+ \label{markov:general}
+\end{equation}
+Indeed the converse minimizes $\max_j|s_j-2c\gamma_j|$. Requiring this
+maximum to be at most $v$ says that the intervals
+$[(s_j-v)/(2\gamma_j),(s_j+v)/(2\gamma_j)]$ have a common intersection.
+Their endpoint inequalities give precisely \eqref{markov:general}. A recorded
+random choice of a maximizing pair, with probabilities proportional to the
+other member's rate, attains it by \eqref{markov:phasefim}. If all ratios
+$s_j/\gamma_j$ coincide, one nuisance path cancels every $B_j$, and the
+stronger bound $\mathcal I^*_\omega(T)\le T\max_j(s_j^2/\gamma_j)$ holds.
+Speeding up signal and noise in the same proportion therefore does not remove
+the obstruction. If each setting has an independently unknown direction, one
+can instead choose a separate cancelling nuisance slope for each setting; the
+same linear bound returns. A stable shared direction is essential.
+
+\section{Exact stopped sensing and a globally unknown frequency}
+\label{markov:global}
+
+Local information identifies a promising resource, but it does not resolve
+the multiple fringes of a long phase measurement. A different construction
+supplies a direction-independent channel on every completed run and makes
+the global precision theorem possible.
+
+\subsection{Use errors in pairs, and stop a signed clock}
+
+Again monitor parity, but apply no recovery after an error. Let $n(t)$ be the
+detected jump count and define the signed interrogation time
+\begin{equation}
+ D(t)=\int_0^t(-1)^{n(u)}\,\mathrm du.
+ \label{markov:signed}
+\end{equation}
+It advances at unit speed in even parity and retreats at unit speed in odd
+parity. For example, a trajectory spending 0.9 time units even, 0.25 odd,
+and another 0.85 even has physical duration 2 but signed duration
+$0.9-0.25+0.85=1.5$. The negative interval subtracts signal phase rather
+than physical cost. Since $N_\phi Z=-ZN_\phi$, moving errors through the intervening
+signal rotations gives the exact trajectory unitary
+\begin{equation}
+ U(t)=N_\phi^{n(t)}\exp[-i\omega D(t)Z/2].
+ \label{markov:trajectory}
+\end{equation}
+Use rate $a$ when parity is even and $b$ when it is odd. The positive state
+lasts longer on average, so the signed clock has positive long-time drift $r$.
+For a prescribed $d>0$, stop at its first arrival at $d$:
+\begin{equation}
+ \tau_d=\inf\{t\ge0:D(t)=d\}.
+\end{equation}
+An upward arrival is in even parity, so the number of errors is even and
+$N_\phi^{n(\tau_d)}=I$. The completed logical operation is exactly
+\begin{equation}
+ \rho_L\longmapsto e^{-i\omega dZ_L/2}\rho_L e^{i\omega dZ_L/2}.
+ \label{markov:stoppedchannel}
+\end{equation}
+It is correct for every logical input, frequency and direction. The stopping
+rule requires neither $\phi$ nor the numerical rates. Rates determine its
+cost, and rate knowledge enters the performance guarantees below. The
+stopping-time record is independent of $\omega$ and $\phi$.
+
+\subsection{The cost of waiting is part of the result}
+
+The time needed to reach the prescribed signed duration is random. Its mean
+alone cannot enforce a deadline: rare runs might last much longer. We therefore
+describe its distribution through weighted averages of the form
+$\mathbb E e^{-q\tau_d}$. For $q>0$, this gives less weight to longer runs.
+As $q$ varies, these averages form the \emph{Laplace transform} of the waiting
+time. Its first derivative at zero, with a minus sign, gives the mean; the
+second derivative of its logarithm gives the variance. Positive exponential
+weights $e^{\theta\tau_d}$ instead emphasize unusually long runs and will
+control deadline failures.
+
+Write $\delta=(b-a)/2$. For a Laplace variable $q\ge0$, with units of
+inverse time, the exact first-passage transform is
+\begin{equation}
+ \mathbb E e^{-q\tau_d}=e^{-d k(q)},\qquad
+ k(q)=\sqrt{q^2+(a+b)q+\delta^2}-\delta.
+ \label{markov:laplace}
+\end{equation}
+To see where it comes from, let $f_\pm(x)$ be the transform of the remaining
+time to $d$ when the signed clock is at $x<d$ in even or odd parity.
+Conditioning on the next infinitesimal step gives
+\begin{align}
+ \partial_x f_+ +a(f_- -f_+)&=qf_+,\nonumber\\
+ -\partial_x f_- +b(f_+-f_-)&=qf_-.
+ \label{markov:backward}
+\end{align}
+The form $f_\pm(x)=v_\pm e^{-k(d-x)}$ gives
+$k^2+(b-a)k-q(q+a+b)=0$. The outgoing boundary is $v_+=1$;
+the incoming value $f_-(d^-)$ is not assigned that same boundary condition.
+The root bounded towards $x=-\infty$ gives \eqref{markov:laplace} for the
+initial state $x=0$, even parity.
+
+At $q=0$ the transform equals one, establishing almost-sure completion,
+meaning completion with probability one.
+Differentiating its logarithm at zero gives
+\begin{equation}
+ \mathbb E\tau_d=\frac d r,\qquad
+ \operatorname{Var}(\tau_d)=\frac{8ab\,d}{(b-a)^3}.
+ \label{markov:moments}
+\end{equation}
+The transform also has a finite positive exponential-moment domain:
+\begin{equation}
+ \mathbb E e^{\theta\tau_d}=e^{-d k(-\theta)},\qquad
+ 0<\theta<\frac{(\sqrt b-\sqrt a)^2}{2}.
+ \label{markov:mgf}
+\end{equation}
+Finiteness can be established before continuation of the transform. For a
+real tilt $z$ with inverse-time units, exponential moments of $D(t)$ are
+governed by the two-state matrix
+\begin{equation}
+ G_z=\begin{pmatrix}z-a&a\\b&-z-b\end{pmatrix},\qquad
+ \lambda(z)=-\frac{a+b}{2}+\sqrt{(z+\delta)^2+ab}.
+\end{equation}
+The quantity $\lambda(z)$ is its largest eigenvalue. At $z=-\delta<0$ it
+equals $-(\sqrt b-\sqrt a)^2/2$. For fixed rates, the corresponding
+matrix exponential bounds $\mathbb E e^{-\delta D(t)}$ by a constant times
+$e^{\lambda(-\delta)t}$. Since $\tau_d>t$ implies $D(t)<d$, the exponential
+Markov inequality bounds its probability by a constant times
+$e^{\delta d+\lambda(-\delta)t}$. Thus positive exponential moments of
+$\tau_d$ are finite throughout the domain in \eqref{markov:mgf}. Continuing
+\eqref{markov:laplace} within that domain yields the stated formula.
+
+The strict inequality $a<b$ matters. If $a=b=\gamma$, the transform becomes
+$\exp[-d\sqrt{q(q+2\gamma)}]$. Completion remains almost sure, but its mean
+is infinite: increasingly rare but increasingly long waits make the average
+diverge. An eventual noiseless output alone therefore supplies no
+finite-cost precision advantage.
+
+Under a deadline $T$, retain both success and failure flags. Transfer completed
+logical outputs to protected memory; on failure assign a parameter-independent
+output. With $p_T=\Pr(\tau_d\le T)$, the experiment has local information
+$p_Td^2$. For instance, choose $t_c=1/(a+b)$ and
+$d=r[T-t_c(T/t_c)^{2/3}]$ at large $T$. The mean duration falls short of
+$T$ by the stated margin, while its variance is $O(T)$. The failure probability
+is $O(T^{-1/3})$ by the variance bound, and $p_Td^2/T^2\to r^2$.
+Thus stopped sensing also attains the optimal local coefficient with every
+failed run charged. This margin is an explicit construction, not a claim about
+the best finite-time stopping design.
+
+\subsection{The same global risk criterion on both sides}
+
+Fix a closed frequency interval $\Omega$ of width $W>0$, independent of $T$.
+For the permitted control menu $\mathcal A$, define
+\begin{equation}
+ R_{\mathcal A}(T;\Omega)
+ =\inf_{\mathcal P,\widehat\omega}
+ \sup_{\omega\in\Omega,\,\phi}
+ \mathbb E_{\omega,\phi}^{\mathcal P}
+       (\widehat\omega-\omega)^2.
+ \label{markov:risk}
+\end{equation}
+The infimum includes adaptive protocols $\mathcal P$ and arbitrary estimators;
+no unbiasedness condition is imposed. Calibration, repetitions, waiting and
+failures all share the same deadline. Clipping an estimate to $\Omega$ cannot
+increase its squared error. In this model,
+\begin{equation}
+ R_{\gamma}(T;\Omega)=\Theta(T^{-1}),\qquad
+ R_{\{a,b\}}(T;\Omega)=\Theta(T^{-2}).
+ \label{markov:globaltheorem}
+\end{equation}
+Here $\Theta$ means upper and lower bounds by fixed positive multiples for
+sufficiently large $T$; the constants carry the required units and depend on
+the fixed rates and interval. We next connect this statement to both a
+converse for biased estimators and an explicit construction.
+
+The use of a prior below does not change the estimation task into one in which
+the frequency is drawn from a known distribution. If an estimator worked
+well at every allowed frequency and direction, it would also work well on
+average under any weighting of those possibilities. Exhibiting one difficult
+weighted average is therefore enough to lower-bound its worst-case error.
+
+Choose an interior half-width $w>0$ and center $\omega_c$ with
+$[\omega_c-w,\omega_c+w]\subseteq\Omega$. On a nuisance path use the prior
+\begin{equation}
+ \pi_w(u)=\frac1w\cos^2\left(\frac{\pi u}{2w}\right),
+ \qquad -w<u<w,\qquad I(\pi_w)=\frac{\pi^2}{w^2}.
+\end{equation}
+This is a proof device inside the worst-case parameter family, not information
+supplied to the controller. For the joint score
+$S=\partial_u\log[p(x\mid u)\pi_w(u)]$, integration by parts yields
+$\mathbb E[(\widehat\omega-\omega_c-u)S]=1$; the endpoint term vanishes
+because the prior density does. The likelihood score has conditional mean
+zero, so $\mathbb E S^2=\mathbb E_{\pi_w}J_u+\pi^2/w^2$.
+The Cauchy--Schwarz inequality therefore gives prior-average squared error at
+least $1/(\mathbb E_{\pi_w}J_u+\pi^2/w^2)$, without an unbiasedness assumption.
+Worst-case risk is at least this average.
+
+The single-rate cancelling path gives
+\begin{equation}
+ R_{\gamma}(T;\Omega)\ge
+ \frac1{T/\gamma+\pi^2/w^2}.
+ \label{markov:globalfixedlower}
+\end{equation}
+For two rates a supersolution of \eqref{markov:ode} is
+$B(T)=(rT+\sqrt{CT})^2$: its derivative exceeds
+$C+2r\sqrt{B(T)}$ by $r\sqrt{CT}\ge0$. Thus
+\begin{equation}
+ R_{\{a,b\}}(T;\Omega)\ge
+ \frac1{(rT+\sqrt{CT})^2+\pi^2/w^2}.
+ \label{markov:globalcontrollower}
+\end{equation}
+In particular the asymptotic global constants obey
+\begin{equation}
+ \liminf_{T\to\infty}T R_\gamma\ge\gamma,\qquad
+ \liminf_{T\to\infty}T^2R_{\{a,b\}}\ge\frac1{r^2}.
+\end{equation}
+These are lower bounds, not claims that the locally optimal coefficients
+have globally attainable reciprocals.
+
+For the matching single-rate upper scaling, compensate only the known interval
+center and repeat trials of fixed duration
+$\tau=\min\{1/\gamma,\pi/(2W)\}$.
+A trial with no error has probability $p_0=e^{-\gamma\tau}$ and produces
+phase $(\omega-\omega_c)\tau$ independently of $\phi$. Every trial costs
+$\tau$, including those with errors. Among
+$M=\lfloor T/\tau\rfloor$ attempts, let $K$ be the number with no error;
+$K$ is binomial with parameters $(M,p_0)$. On those useful trials measure the
+sine quadrature. Clip the sample mean to the possible sine range and invert
+it. Since $W\tau/2\le\pi/4$, the inverse has Lipschitz constant at most
+$\sqrt2/\tau$, and conditional risk is at most $2/(K\tau^2)$ for $K>0$.
+Use the midpoint if $K=0$. The identities
+\begin{equation}
+ \mathbb E\frac1{K+1}
+ =\frac{1-(1-p_0)^{M+1}}{(M+1)p_0},\qquad
+ \frac{\mathbf1_{K>0}}K\le\frac2{K+1}
+\end{equation}
+then give the uniform bound
+\begin{equation}
+ R_\gamma(T;\Omega)
+ \le\frac4{\tau^2(M+1)p_0}
+     +\frac{W^2}{4}(1-p_0)^M
+ =O(T^{-1}).
+\end{equation}
+This rejection scheme establishes a rate, not an optimal constant. Its
+resource count uses attempted trials, so the successful records are not free.
+
+\subsection{Resolve phase ambiguity, then charge the whole random schedule}
+
+There are now two distinct ways an experiment can fail: the measurements
+can select the wrong phase turn, or the physical schedule can remain
+unfinished at the deadline. The next construction bounds both. Its short
+interrogations locate the turn; its long ones refine the position within it.
+The physical duration is charged for the complete sequence of attempts.
+
+For two rates, use \eqref{markov:stoppedchannel} to implement exact Ramsey
+experiments at effective durations $d_k=2^kd_0$, $k=0,\ldots,K$, where
+$Wd_0\le\pi/2$. A known center rotation removes $\omega_c d_k$ from the
+readout. At each stage measure both sine and cosine, each on $n_k$ fresh
+logical probes. All repetitions are physical experiments. Bounded-outcome
+concentration gives
+\begin{equation}
+ \Pr(\hbox{stage $k$ is inaccurate})\le4e^{-n_k/128}
+\end{equation}
+when inaccuracy means either quadrature mean differs by more than $1/8$.
+Otherwise the inferred phase error is less than $\pi/6$. Choose
+\begin{equation}
+ n_k=\left\lceil128\bigl[(K-k)\log8+\log16\bigr]\right\rceil.
+ \label{markov:taper}
+\end{equation}
+The brackets contain natural logarithms. Earlier stages receive more
+repetitions because an incorrect coarse fringe is more costly.
+
+Choose at each stage the frequency representative nearest the preceding
+estimate. On consecutive accurate stages, a phase error below $\pi/6$ is
+small enough to select the correct representative when the duration doubles.
+The starting stage is unambiguous on the prescribed band. If the first
+inaccurate stage is $k$, the final frequency error is nevertheless
+$O(2^{-k}/d_0)$: each subsequent nearest-representative update moves by at
+most $\pi/d_\ell$, and those movements have a bounded geometric sum.
+Final clipping reduces risk. The stage failure probabilities from
+\eqref{markov:taper} are at most $8^{-(K-k)}/4$. Therefore
+\begin{equation}
+ \sup_{\omega,\phi}\mathbb E(\widehat\omega-\omega)^2
+ \le O(4^{-K})+
+       O\left(\sum_{k=0}^K4^{-k}8^{-(K-k)}\right)
+ =O(4^{-K}),
+ \label{markov:riskseries}
+\end{equation}
+where fixed powers of $d_0$ are contained in the constants. The total
+prescribed effective exposure is
+\begin{equation}
+ S_K=2\sum_{k=0}^K n_k d_k=\Theta(2^K).
+ \label{markov:effectivecost}
+\end{equation}
+The factor two pays for both quadratures. The taper avoids an extra
+logarithmic factor in the total cost: long interrogations require fewer
+repetitions than short, coarse ones.
+
+Effective exposure is not yet physical time. Replace each Ramsey operation
+in this schedule by a fresh stopped experiment. Its duration law is
+independent of phase, direction and readout. Multiplying their transforms
+in \eqref{markov:laplace} gives, for the total physical duration,
+\begin{equation}
+ \mathbb E e^{-q\tau_{\rm total}}=e^{-S_Kk(q)}.
+\end{equation}
+Choose a fixed $0<\alpha<1$ and the largest $K$ for which
+$S_K\le\alpha rT$. The sequence \eqref{markov:effectivecost} grows
+geometrically, so this still gives $S_K=\Theta(T)$. For sufficiently small
+fixed $\theta>0$, the exponential-moment bound gives
+\begin{equation}
+ \Pr(\tau_{\rm total}>T)
+ \le\exp[-\theta T-S_Kk(-\theta)]\le e^{-cT}
+ \label{markov:deadline}
+\end{equation}
+for some fixed $c>0$ with inverse-time units. Indeed
+$-k(-\theta)=\theta/r+O(\theta^2)$, and the strict margin $\alpha<1$
+makes the leading exponent negative. Terminate the experiment at $T$ and
+use a bounded fallback estimate if incomplete. This contributes at most
+$W^2e^{-cT}$ to risk. On completed schedules, the quadrature statistics are
+unaffected by conditioning on duration, because completed channels are exact
+and duration records are parameter-independent. Equation
+\eqref{markov:riskseries} contributes $O(T^{-2})$.
+
+This completes the global upper bound and hence
+\eqref{markov:globaltheorem}. The argument pays for every repeated probe,
+every waiting period and every unfinished schedule. It uses a fixed frequency
+band, resolves its phase ambiguity explicitly and does not promote a local
+Fisher matrix into a global estimator. Its role beside the finite-collision
+theorem is to expose the same resource distinction through an exact
+continuous-time mechanism, with its stronger ideal monitoring assumption
+kept visible.
+
+
+\section{What changes when contacts resolve a collision?}
+\label{time:access}
+
+The coupling comparison fixes when the controller can act: only at collision
+boundaries. That restriction has physical content. A bath qubit becomes
+correlated with the sensor during its collision, and a sensor pulse applied
+before that collision ends changes their subsequent joint evolution. An
+endpoint noise channel does not specify this response to an intervening pulse.
+We now keep just one coupling and change temporal access. This is a supporting
+comparison, with its own estimation proof; it is not a consequence of the
+boundary-only coupling theorem.
+
+Fix $g,h>0$ with $\chi=gh\in(0,\pi/4)$, and retain the same Hamiltonian,
+shared direction, protected memory and fixed compensation. The horizon is
+$T=nh$. There are at most $n-1$ nonterminal system--memory contacts in total,
+of which at most $m$ occur strictly inside cells, where $0\le m\le n-1$.
+These are hard bounds on every possible classical history. Boundary contacts
+consume the total allowance too. Initial preparation and readout exactly at
+$nh$ are free; an earlier readout is a contact and does not shorten the
+charged horizon. The permitted controllers may adapt their classical contact
+times and instruments, but cannot access the bath or retune the Hamiltonian.
+
+On a sufficiently small fixed band
+$\Omega=[\omega_0-E,\omega_0+E]$, the optimal worst-case frequency error obeys
+\begin{equation}
+ R_{n,m}^{*}(\Omega)
+ =\Theta_{\chi,Eh}\!\left(\frac{1}{h^2(n+m^2)}\right).
+ \label{time:contactlaw}
+\end{equation}
+The constants are independent of $n,m$ and the unknown direction. The factor
+$h^{-2}$ supplies the units of squared frequency; $\chi$ and $Eh$ are
+dimensionless. Thus $m$ of order $\sqrt n$ marks the crossover in order, and
+$m$ proportional to $n$ permits inverse-square risk. This does not give an
+optimal numerical constant or the largest usable band.
+
+The two terms describe two usable resources. Repeated ordinary one-cell
+measurements give the $n$ term. Interior contacts permit a coherent
+interrogation whose useful length grows with $m$, giving the $m^2$ term.
+The construction below chooses the better of these designs; it need not
+combine their information in one experiment. If $m$ grows much more slowly
+than $\sqrt n$, the interior contacts do not change the asymptotic order.
+If $m$ is proportional to $n$, they do.
+
+\subsection{An exact temporal menu at one strength}
+
+There are two cell settings: leave a cell untouched, or apply one sensor
+$Z_S$ pulse at its midpoint. This is an echo: the pulse reverses the noisy
+interaction, since $Z_SN_\phi Z_S=-N_\phi$, while leaving the signal term
+unchanged, since $Z_SZ_SZ_S=Z_S$. At zero residual frequency the second half
+exactly undoes the first half's noisy evolution. Away from zero, we must
+calculate the complete evolution rather than assume perfect cancellation.
+An additional known boundary operation removes the extra rotation introduced
+by the pulse itself; this is the frame correction mentioned below. Let
+$R=(g^2+\epsilon^2/4)^{1/2}$ and $r=Rh$. The corrected echoed
+propagator, meaning the unitary for the complete cell, is
+\begin{equation}
+ V=e^{-iH_-h/2}e^{-iH_+h/2},\qquad
+ H_\pm=\frac{\epsilon}{2}Z_S\otimes I_E
+       \pm gN_\phi\otimes X_E.
+\end{equation}
+Multiplication gives the parity branches
+\begin{align}
+ K_{0,e}&=uI-ivZ_S,& K_{1,e}&=-ixN'_\phi,\label{time:echo}\\
+ u&=\cos r+\frac{g^2}{R^2}(1-\cos r),&
+ v&=\frac{\epsilon}{2R}\sin r,\nonumber\\
+ x&=\frac{\epsilon g}{2R^2}(1-\cos r),&
+ N'_\phi&=\partial_\phi N_\phi .\nonumber
+\end{align}
+Here $u,v,x$ are dimensionless real numbers and $u^2+v^2+x^2=1$.
+On an odd result, an additional known $Z_S$ within that same boundary
+instrument uses $Z_SN'_\phi=-iN_\phi$ to make the flip operator proportional
+to $N_\phi$. The frame correction, parity measurement, conditional correction
+and next preparation are components of one instrument at one time; the
+midpoint pulse is a separate contact.
+
+Both settings consequently have the same unknown normalized flip, while
+their no-flip phases differ. Denote the untouched setting by $p$ and the
+echoed setting by $e$. Their transition probabilities and phase derivatives
+at compensation are
+\begin{equation}
+ p_e(0)=0,\quad p_p(0)=\sin^2\chi,\qquad
+ \theta'_e(0)=A:=\frac{\sin\chi}{g},\quad
+ \theta'_p(0)=d_p:=\frac{\tan\chi}{g}.
+ \label{time:echoderivatives}
+\end{equation}
+Primes on scalar cell functions mean differentiation with respect to the
+residual frequency $\epsilon$; $N'_\phi$ retains its explicit meaning
+$\partial_\phi N_\phi$. Thus $A$ and $d_p$ have units of time. The zero
+value of $p_e$ holds at compensation only. Away from it, $p_e=x^2$ is usually
+positive.
+
+Use an echoed cell after an even parity result and a plain cell after an odd
+result. Every record ending even again has exact cancellation of $\phi$ and
+a known signed sum of the no-flip phases. To verify usable sensitivity,
+freeze the two phase rewards at $A$ and $d_p$. Their stationary signed mean is
+\begin{equation}
+ \mu^0(\epsilon)=
+ \frac{p_p(1-p_e)A-p_e(1-p_p)d_p}{p_e+p_p},
+ \qquad \mu^0(0)=A>0.
+\end{equation}
+Continuity supplies one fixed band on which $\mu^0\ge3A/4$,
+$p_e<p_p<1/2$, and each actual derivative differs from its frozen value by at
+most $A/4$. Also $p_e+p_p$ stays bounded below, uniformly controlling how
+rapidly dependence between well-separated parity outcomes decays.
+The record gate already developed for the coupling menu then accepts at least
+one quarter of sufficiently long blocks and gives, on every accepted record
+of length $L$,
+\begin{equation}
+ AL/4\le \Phi'_{\mathcal R}(v)\le \beta L
+ \quad (|v|\le E)
+\end{equation}
+for a fixed finite time constant $\beta$. A positive lower bound on $p_e$
+is unnecessary: at compensation the process never leaves its initial even
+sector. Plain
+one-cell trials provide the paid initial localization. The same conditional
+inversion and multiscale schedule therefore give risk $C_1/(h^2Q^2)$ with
+at most $Q$ used cells, including calibration, repetitions and rejected
+records.
+
+For $n\ge3$ and $m\ge1$, choose
+\begin{equation}
+ Q=\min\!\left\{m,\left\lfloor\frac{n-1}{2}\right\rfloor\right\}.
+ \label{time:allocation}
+\end{equation}
+The whole estimator uses at most $Q$ midpoint pulses and $Q$ boundary
+instruments. Its last readout is counted because it occurs before $nh$.
+Thus $2Q\le n-1$ and $Q\le m$. Store the resulting classical estimate
+through the remaining charged cells. For example, $n=101,m=20$ permits
+$Q=20$, uses at most 40 contacts, and still pays for all 101 cells. It does
+not receive another 101 cells for calibration.
+
+Since $Q\ge m/3$, this construction has risk at most
+$9C_1/(h^2m^2)$. A separate design uses all $n$ cells for plain-cell
+calibration and has risk at most $C_0/(h^2n)$ with $n-1$ boundary contacts.
+Choose the better design from the known budgets. The elementary inequality
+\begin{equation}
+ \min\!\left\{\frac{C_0}{n},\frac{9C_1}{m^2}\right\}
+ \le \frac{C_0+9C_1}{n+m^2}
+\end{equation}
+proves the upper order in \eqref{time:contactlaw}; the plain design covers
+$m=0$ and the small values of $n$.
+
+\subsection{Why adaptivity does not evade the contact bound}
+
+The proof uses the geometry of small changes in a quantum state. Represent
+the response to a small parameter change by a vector. Contributions from
+untouched cells are perpendicular in this mathematical state space, so their
+squared lengths add, as in Pythagoras' theorem. Contributions from contacted
+cells may instead align, so their lengths can add. This is the origin of the
+two scales $\sqrt n$ and $m$ in the information bound.
+
+Use the plain-cell nuisance curve
+$\phi'=q_p\theta'_p/(2p_p)$ from the fixed-coupling converse. It is a
+mathematical subfamily used to lower-bound worst-case error, not information
+supplied to the controller. Put
+\begin{equation}
+ p_{\min}=\chi^2\left(\frac{\sin r_*}{r_*}\right)^2,\quad
+ K=\sup_{|\epsilon|\le E}|\phi'(\epsilon)|,\quad
+ a_0=\frac{h}{2\sqrt{p_{\min}}},\quad
+ b_0=h\sqrt{\frac14+g^2K^2},
+\end{equation}
+where $r_*=(\chi^2+(Eh/2)^2)^{1/2}<\pi/4$ bounds $Rh$ on the band.
+Both $a_0,b_0$ have units of time. A cell with no interior contact has
+zero derivative overlap and derivative norm at most $a_0$ in the chosen
+purification. A cell with interior contacts instead has derivative norm
+at most $b_0$, because along the same curve
+\begin{equation}
+ \dot H=\tfrac12Z_S\otimes I_E
+       +g\phi' N'_\phi\otimes X_E,
+ \qquad \|\dot H\|=\sqrt{\tfrac14+g^2(\phi')^2}.
+\end{equation}
+The norm is the operator norm, the largest vector-stretching factor. The equality
+uses anticommutation. Integrating the unitary derivative over the cell's
+physical duration $h$ gives the bound even with intermediate adaptive
+instruments.
+
+The hard history constraint is essential to the rest of the argument.
+Dilate the instruments---represent them as unitary operations on a larger
+state space---keeping a mathematical archive of which cells
+contained an interior contact. This archive is not a new observation
+available to the controller. Derivative contributions from untouched cells
+are mutually orthogonal, so their total norm is at most $a_0\sqrt n$.
+For contacted cells, let $D_j$ be the vector contribution from cell $j$.
+The projector $Q_z$ selects the part associated with one archived activity
+history $z$, where $z_j=1$ marks a contacted cell. Every history
+contains at most $m$ active cells. Cauchy--Schwarz within each history gives
+\begin{equation}
+ \left\|\sum_jD_j\right\|^2
+ =\sum_z\left\|\sum_{j:z_j=1}Q_zD_j\right\|^2
+ \le m\sum_j\|D_j\|^2\le m^2b_0^2.
+\end{equation}
+The last step charges the expected number of active cells by the hard bound
+$m$. Merely summing square roots of separate activity probabilities would
+lose this dependence. The entrance activity flags are legitimate because
+operations on protected memory alone commute with the cell evolution;
+they can be moved before it until the first actual system contact.
+
+Consequently the complete accessible information along the curve obeys
+\begin{equation}
+ J_\epsilon\le4(a_0\sqrt n+b_0m)^2
+ \le4(a_0^2+b_0^2)(n+m^2).
+\end{equation}
+A fixed cosine-squared prior of half-width $E$ yields the global bound
+\begin{equation}
+ R_{n,m}^{*}(\Omega)\ge
+ \frac{1}{4(a_0^2+b_0^2)(n+m^2)+\pi^2/E^2}.
+\end{equation}
+This applies to biased estimators and all retained branches. Clipping and
+finite quantization transfer the bounded-loss statement to the stated
+operational limits; continuity of Fisher information is not assumed.
+The converse may grant extra boundary operations as a relaxation, but never
+relaxes the hard interior budget. Together with the construction it proves
+\eqref{time:contactlaw}.
+
+\section{Timing knowledge changes the experiment}
+\label{time:timing}
+
+A pulse being displaced by a known amount and a pulse having an unobserved
+random displacement are different statistical experiments, even at the same
+error magnitude. A simple timing example makes the distinction concrete.
+Divide a cell into 100 equal clock ticks, so that its midpoint is tick 50:
+
+\begin{center}
+\begin{tabular}{@{}p{0.23\linewidth}p{0.70\linewidth}@{}}
+\toprule
+Timing information & What the controller knows\\
+\midrule
+Known fixed offset & Every pulse arrives at tick 55, and this fact is supplied.\\
+Unknown fixed offset & Every pulse has the same displacement, but its value must be learned. This calibration problem is not solved here.\\
+Hidden random jitter & Each pulse independently arrives at tick 45 or 55; the probabilities are known, but the realized choice is never reported.\\
+\bottomrule
+\end{tabular}
+\end{center}
+The ticks are only an illustration, not an additional measurement available
+to the controller. To isolate the timing question, keep one coupling and permit
+only plain cells or cells with one $Z_S$ pulse. A displaced pulse occurs at
+$h/2+\delta$, with $|\delta|<h/2$; there is no further interior contact in
+that cell. Its corrected propagator is
+\begin{equation}
+ V_\delta=e^{-iH_-(h/2-\delta)}e^{-iH_+(h/2+\delta)}.
+\end{equation}
+Its known pulse frame is included in the counted endpoint instrument.
+The exact branch coefficients are
+\begin{align}
+ D&=\cos(2R\delta)-\cos(Rh),&
+ u&=\cos(Rh)+\frac{g^2}{R^2}D,\nonumber\\
+ v&=\frac{\epsilon}{2R}\sin(Rh),&
+ w&=\frac{g}{R}\sin(2R\delta),\nonumber\\
+ x&=\frac{\epsilon g}{2R^2}D,\label{time:displacedcoeffs}
+\end{align}
+with
+\begin{equation}
+ K_0=uI-ivZ_S,\qquad K_1=-i(wN_\phi+xN'_\phi),
+ \qquad u^2+v^2+w^2+x^2=1.
+ \label{time:displacedbranches}
+\end{equation}
+Each branch is proportional to a unitary because $N_\phi$ and $N'_\phi$
+anticommute. The odd branch has a frequency-dependent axis, but for a supplied
+known $\delta$ that dependence is known.
+
+\subsection{A supplied fixed displacement preserves a usable phase}
+
+Fix $0<|\delta|<h/2$ throughout the experiment and suppose its value is part
+of the device specification. Near compensation, $w$ has fixed nonzero sign.
+Absorb that sign into an irrelevant scalar phase and define
+\begin{equation}
+ \theta_e=2\arctan(v/u),\qquad
+ \zeta_e=\arctan(x/w).
+\end{equation}
+The normalized odd branch is then $N_{\phi+\zeta_e}$ up to a scalar phase.
+For a plain cell, $\zeta_p=0$. Using pulsed cells in the even sector and plain
+cells in the odd sector gives the exact final-even phase
+\begin{equation}
+ \Phi_{\mathcal R}(\epsilon)=
+ \sum_i\sigma_{i-1}\bigl[
+  \mathbf1_{\rm stay}\theta_{j_i}(\epsilon)
+  -2\mathbf1_{\rm flip}\zeta_{j_i}(\epsilon)\bigr].
+ \label{time:knownphase}
+\end{equation}
+The extra flip-axis terms must be retained. They are known functions of
+frequency, while the common unknown angle still cancels in pairs.
+
+For a direct sensitivity check, set $z=2g\delta$, so $0<|z|<\chi$.
+At zero residual frequency,
+\begin{align}
+ p_e&=\sin^2z,&p_p&=\sin^2\chi,\nonumber\\
+ d_e&=\theta'_e(0)=\frac{\sin\chi}{g\cos z},&
+ z_e&=\zeta'_e(0)=\frac{\cos z-\cos\chi}{2g\sin z}.
+\end{align}
+Put $f_e=(1-p_e)d_e-2p_ez_e$ and
+$f_p=(1-p_p)\tan\chi/g$. The exact contrast is
+\begin{equation}
+ \frac{f_e}{p_e}-\frac{f_p}{p_p}
+ =\frac{(\sin\chi-\sin z)\sin(\chi+z)}
+ {g\sin\chi\,\sin^2z}>0.
+\end{equation}
+All factors determining the sign are positive for $-\chi<z<\chi$ except
+at the excluded zero. Thus the stationary derivative drift
+$(p_pf_e-p_ef_p)/(p_e+p_p)$ is strictly positive; denote it by $\mu_\delta$.
+The record score must now include the new flip contributions:
+\begin{equation}
+ D_L^0=\sum_{i=1}^L\sigma_{i-1}
+ \left[\mathbf1_{\rm stay}\theta'_{j_i}(0)
+       -2\mathbf1_{\rm flip}\zeta'_{j_i}(0)\right].
+\end{equation}
+It is computed from the observed record and the supplied displacement.
+Its stationary mean is $\mu_\delta$. Accept even-ending records with
+$D_L^0\ge\mu_\delta L/2$. All these one-cell rewards are bounded for the
+fixed nonzero displacement. The same two-state mean and variance argument
+therefore gives a positive acceptance probability for sufficiently long
+blocks. Continuity on a sufficiently small fixed band keeps each derivative
+close to its frozen value, certifying a whole-band positive phase slope.
+The same conditional estimator then gives inverse-square risk.
+The band and constants may depend on the supplied displacement.
+Using \eqref{time:allocation} charges at most $Q$ interior and $Q$ boundary
+contacts, so this yields the quadratic global order when $m=\Theta(n)$.
+The ideal $\delta=0$ case is already covered by the midpoint construction.
+
+This argument does not need to retime the pulse. If calibrated retiming is
+allowed, shifting the command by $-\delta$ restores the midpoint instead.
+Neither statement supplies a method for learning an unknown $\delta$.
+Such learning would need its own identifiable likelihood, accuracy analysis
+and charged calibration cost.
+
+\subsection{Hidden independent jitter mixes the odd branch}
+
+Now let each pulsed cell independently have $\delta=+d$ or $-d$ with equal
+probability, where the amplitude $0<d<h/2$ is known but its realized signs are
+never reported. The signs are independent of the unknown parameters, prior
+records and controls. At cell entrance the controller can choose plain or
+jittered, but has no further pulse-position menu, extra interior pulse,
+coupling choice or physical compensation change.
+
+Only $w$ in \eqref{time:displacedcoeffs} changes sign. Averaging the two
+physical channels gives three Kraus operators, evaluated at $\delta=d$:
+\begin{equation}
+ L_0=uI-ivZ_S,\qquad L_1=-iwN_\phi,\qquad L_2=-ixN'_\phi.
+ \label{time:jitterkraus}
+\end{equation}
+Parity distinguishes $L_0$ from the combined odd branch. It does not reveal
+which odd operator acted. A putative record identifying $L_1$ or $L_2$ would
+supply information absent from this experiment.
+
+For input state $\rho$, the normalized state after an odd result is
+\begin{equation}
+ \rho_{\rm odd}=
+ \frac{w^2N_\phi\rho N_\phi+x^2N'_\phi\rho N'_\phi}{w^2+x^2}.
+\end{equation}
+Two alternatives remain unresolved. In general this is a mixture, not one
+known unitary rotation whose phase can be calculated from the record.
+That explains why the earlier estimator does not directly apply. A separate
+converse is still needed to rule out other permitted strategies.
+
+For every fixed $d>0$, this restricted menu has
+\begin{equation}
+ R_{n,m}^{*}(d;\Omega)=\Theta(n^{-1}),
+ \qquad 0\le m\le n-1,
+ \label{time:jitterrisk}
+\end{equation}
+on a fixed identifiable band, uniformly over the shared direction. Constants
+may depend on $g,h,E,d$. The upper bound simply uses plain-cell calibration;
+it fits every $m$ and costs all $nh$. The limitation requires a new converse,
+because good local sensitivity at compensation still survives.
+
+Choose a fixed compact residual-frequency interval strictly inside $(0,E)$.
+Use the plain-cell nuisance curve $\phi'=k(\epsilon)$ from the earlier
+converse. For the jittered cell write $p=w^2+x^2$ and $a=uv'-vu'$. Along this
+curve,
+\begin{equation}
+ i\sum_jL_j^\dagger\dot L_j=(a-pk)Z_S,
+ \qquad L_1^\dagger L_2=iwxZ_S.
+\end{equation}
+On the chosen positive interval $w,x>0$. The same accessible channel has
+several equivalent descriptions using inaccessible environmental labels.
+Changing that description leaves every accessible measurement probability
+unchanged. We choose one convenient description to prove a bound; this choice
+is called an environment gauge and grants no control over the physical bath.
+Its smooth unitary change of basis has a Hermitian derivative generator $G$,
+a $3\times3$ matrix acting on the three Kraus labels, with entries
+\begin{equation}
+ G_{12}=i\eta_G,\qquad G_{21}=-i\eta_G,\qquad
+ \eta_G=\frac{a-pk}{2wx},
+\end{equation}
+and all other entries zero. The entries of $G$ have units of time because
+the derivative is with respect to frequency. In the derivative convention
+$\widetilde{\dot L}=\dot L-iGL$, $L$ denotes the column of three Kraus
+operators. This choice cancels the overlap exactly:
+\begin{align}
+ i\sum_jL_j^\dagger\widetilde{\dot L}_j&=0,\nonumber\\
+ \sum_j\widetilde{\dot L}_j^\dagger\widetilde{\dot L}_j
+ &=\bigl[(u')^2+(v')^2+(w')^2+(x')^2\nonumber\\
+ &\hspace{2.1em}+(wk+\eta_Gx)^2+(xk+\eta_Gw)^2\bigr]I.
+ \label{time:gaugealpha}
+\end{align}
+For completeness the unitary basis change exists by solving
+$U'_E=-iU_EG$ on that interval. It is an analytical freedom in a purification,
+not bath access granted to the experimenter. The scalar in
+\eqref{time:gaugealpha}, and the corresponding plain-cell scalar, have one
+finite bound $A_*$ on this compact interval.
+
+Both selectable cells now have zero overlap on the same nuisance curve.
+Successive derivative contributions are therefore orthogonal even with
+adaptive setting choices, arbitrary protected memory and all branches
+retained. The complete information is at most $4nA_*$. A cosine-squared
+prior of fixed half-width $\ell$ contained in the positive interval gives
+\begin{equation}
+ R_{n,m}^{*}(d;\Omega)\ge
+ \frac{1}{4nA_*+\pi^2/\ell^2}.
+\end{equation}
+The prior is deliberately away from compensation, where $x=0$ and the
+chosen gauge would be singular. A worst-case risk over the entire band is
+at least this fixed-prior average. Thus the singularity at zero does not
+invalidate the global limitation, and the proof makes no pointwise risk
+claim at every frequency. The bounded-loss limit argument again extends the
+result to the allowed operational limits.
+
+\subsection{Local information and a necessary accuracy scale}
+
+At compensation the third Kraus operator in \eqref{time:jitterkraus}
+vanishes. Near zero it has the form $L_2(\epsilon)=\epsilon B+O(\epsilon^2)$
+for a fixed operator $B$ with units of time. Its contribution to the state is consequently
+$\epsilon^2B\rho B^\dagger+O(\epsilon^3)$: it does not affect the first
+derivative exactly at zero, although it matters away from zero.
+The first-order instrument therefore still
+permits a positive phase drift. Put $z_d=2gd$, $A=\sin\chi/g$,
+$p_e=\sin^2z_d$ and $p_p=\sin^2\chi$. The even-jittered/odd-plain protocol
+has local signed-phase drift per physical time
+\begin{equation}
+ v_d=\frac{A[\sin^2\chi\cos z_d-\sin^2z_d\cos\chi]}
+ {h(p_p+p_e)}>0.
+\end{equation}
+Positivity follows from the strict increase of $\sin^2z/\cos z$ on
+$(0,\pi/4)$ and $0<z_d<\chi$.
+Here is the finishing operation used for the local claim. For a sufficiently
+large allocation of $N$ cells, put $q_p=1-\sin^2\chi<1$ and reserve
+$k_N=\lceil3\log N/(-\log q_p)\rceil$ of those cells. Run the parity policy
+for the first $N-k_N$ cells. If parity is even, read out immediately; if it
+is odd, use plain cells until it first becomes even or the allocation ends.
+At an even endpoint measure $Y_L$, retain the record and store the result.
+An unfinished trial retains a failure flag. The return failure probability
+at compensation is at most $q_p^{k_N}\le N^{-3}$. The reserved number is only
+$O(\log N)$, so it does not change the leading accumulated phase derivative.
+The complete record with this readout has pointwise classical score information
+$v_d^2(Nh)^2+o(N^2)$ for $N$ used cells. Allocating
+$N=\min\{m,\lfloor(n-1)/2\rfloor\}$ pays the early readout and fits the
+original contact budget. If $m=\Theta(n)$, quadratic local information and
+the global inverse-linear law \eqref{time:jitterrisk} therefore coexist.
+A particularly sensitive readout at one special frequency need not work
+uniformly well across an interval. Here the local statement concerns the
+classical outcome probabilities of a specified readout, not an assumption
+that quantum Fisher information remains continuous when a noise branch
+vanishes.
+
+The same away-from-zero gauge supplies a necessary condition when jitter
+shrinks with the budget. Fix $d_{\max}<h/2$ and put $\xi=d/h$. Uniformly for
+$0<d\le d_{\max}$ on the fixed prior interval, $w$ is bounded below by a
+constant times $\xi$, while $x$ stays bounded below by a positive constant.
+The gauged derivative cost is consequently at most $C h^2/\xi^2$ per
+pulsed cell and $C h^2$ per plain cell. Charging at most $m$ pulsed cells
+gives, with a fixed constant $C$,
+\begin{equation}
+ R_{n,m}^{*}(d;\Omega)\ge
+ \max\!\left\{
+ \frac{1}{n^2h^2+\pi^2/\ell^2},\,
+ \frac{1}{Ch^2(n+m/\xi^2)+\pi^2/\ell^2}
+ \right\}.
+\end{equation}
+The first term is the independent signal-generator limitation. For
+$m=\Theta(n)$, the second denominator can grow quadratically only if
+$1/\xi^2$ grows at least linearly. Risk of order $n^{-2}$ would therefore require
+\begin{equation}
+ d=O(h/\sqrt n).
+\end{equation}
+The reference scale $h/\sqrt n$ halves when $n$ quadruples. This illustrates
+the necessary asymptotic order, not an exact finite-budget tolerance.
+Meeting that scale alone does not
+establish a working estimator: necessity rules out inadequate accuracy,
+whereas sufficiency would require a construction that succeeds.
+This is not an optimized joint law
+in $n,m,d$, and does not cover recorded timing errors, arbitrary pulse
+sequences, finite-duration controls or additional coupling settings.
+
+\section{Which idealizations carry the conclusion?}
+\label{time:boundaries}
+
+The shared transverse direction is essential. Two applications of the
+same error cancel, and the same unknown angle constrains the nuisance
+curve in both settings. If a continuous-time setting $j$ has an independent
+unknown angle $\phi_j$, signal coefficient $s_j$ and positive rate
+$\gamma_j$, the path $\phi'_j=s_j/(2\gamma_j)$ cancels the coherent
+contribution separately in every setting. It gives the all-strategy ceiling
+\begin{equation}
+ \mathcal I_\omega^{*}(T)\le
+ T\max_j\frac{s_j^2}{\gamma_j}.
+\end{equation}
+Known angular offsets between settings are not independently unknown axes.
+Likewise a rate knob must have its stated signal response. If setting $j$
+adds an unconstrained unknown frequency offset $\delta_j$, then
+$(s_j\omega+\delta_j)Z/2$ is invariant under
+$\omega\mapsto\omega+u$ and $\delta_j\mapsto\delta_j-s_ju$.
+The target is then unidentifiable without an additional constraint.
+
+An uncorrectable parallel noise component gives a second sharp boundary.
+In the continuous model add the independent unobserved operator
+$L_z=\sqrt\kappa Z$, with known $\kappa>0$. Its contribution is
+$\kappa(Z\rho Z-\rho)$, so off-diagonal coherence decays as
+$e^{-2\kappa T}$. Parity does not identify these errors. The signal lies in
+the same operator direction as this noise, and a channel gauge coupling the
+identity to $L_z$ with coefficient $-1/(4\sqrt\kappa)$ gives
+\begin{equation}
+ \mathcal I_\omega^{*}(T)\le\frac{T}{4\kappa}.
+\end{equation}
+This familiar channel-bound mechanism applies even if the transverse axis
+is known. Hence the strict quadratic asymptotic claim is not protection
+against arbitrary added noise.
+
+A finite advantage can nevertheless remain. For the prescribed fixed-duration
+random-rate readout with a recorded uniform equatorial measurement angle,
+parallel dephasing multiplies every entry of its frequency--direction Fisher
+matrix by
+\begin{equation}
+ w(T)=1-\sqrt{1-e^{-4\kappa T}}.
+\end{equation}
+The nuisance-adjusted information is multiplied by the same factor. For
+$b=3a$, lower-rate probability $3/4$, and $T=10/a$, the ideal information is
+$200/(7a^2)$. At $\kappa/a=0.01$ it becomes approximately $12.16635/a^2$,
+still above the universal ideal single-rate-$a$ bound $T/a=10/a^2$.
+This is a finite local-information comparison for a specified readout, not
+a global risk ratio or a general hardware error tolerance. The random
+physical duration of a stopped interrogation would require its own
+averaging; this fixed-duration formula cannot be transplanted to it.
+
+Finite-rate monitoring also needs its own scope. In the continuous Markov
+model, parity checks separated by a fixed interval $\Delta$ miss pairs of
+jumps. Writing $p_\gamma=(1-e^{-2\gamma\Delta})/2$, the even/odd rate policy
+has mean signed signal rate
+\begin{equation}
+ v_\Delta=\frac{p_ap_b}{\Delta(p_a+p_b)}
+ \left(\frac1a-\frac1b\right)>0.
+\end{equation}
+At compensation, a retained-even logical $Y_L$ readout gives local information
+$v_\Delta^2T^2+o(T^2)$. Use the same kind of logarithmic finishing window
+within the allocated intervals, retaining the high rate in the odd sector
+until an even boundary result, and keep deadline failures as flags.
+Thus both the finishing time and failures are charged. Away from
+compensation, unobserved residence times form a mixture of phases. This
+local finite-cadence result does not prove the continuous-monitoring global
+risk theorem at finite cadence. The microscopic global theorem avoids this
+inference by analyzing its own exact recorded instrument.
+
+Finally, the charged resource is exposure time under specified ideal control.
+Memory is protected, instruments and pulses are instantaneous, the bath cells
+are prepared as stated, and the shared axis is stable throughout the run.
+Control work, bath preparation expense, pulse duration, readout errors and
+unknown timing-offset calibration are not assigned free solutions. Exact
+conditional identities and analytic bounds establish the mathematical
+results in this resource model; finite numerical checks verify selected
+identities and examples. Neither those checks nor a completed exposition
+constitutes an independent experimental or expert certification.
+
+
+\section{What the comparison establishes}
+\label{end:synthesis}
+
+The question was how accurately to measure an initially unknown frequency
+when the same unknown transverse error keeps acting on the sensor. The
+quantity being optimized is mean-square error, including every experimental
+outcome, at the hardest frequency and direction in the promised set. The
+resource is the full physical duration $nh$, with the stated restrictions
+on when the controller can act. The frequency interval, collision duration,
+couplings and physical compensation are fixed as $n$ grows.
+
+With one positive coupling, a change in frequency can be partly hidden by
+a change in the unknown error direction. The proof chooses a whole curve
+of such difficult parameter pairs and shows that no allowed boundary-control
+strategy can distinguish them faster than a linear information law permits.
+A guarantee at every parameter pair must also hold on average over that
+curve, which turns the information limit into an inverse-linear lower bound
+on error. Repeated, fully charged one-cell calibration reaches that order.
+This is a limitation of all allowed strategies, not just a failure of one
+chosen recovery procedure.
+
+With two distinct positive couplings, the construction uses the weaker one
+in the even sector and the stronger one in the odd sector. The unknown
+direction cancels on every even-ending record. Some such records have little
+useful phase left, so a computable rule accepts only those with a certified
+response throughout the frequency band. The retained path supplies a known
+prediction curve for every candidate frequency; it need not reveal the true
+frequency on its own.
+
+The estimator then pays for a coarse estimate and uses progressively longer
+blocks to narrow the candidate interval. It compares measured outcomes with
+the curves from the paths actually observed. Early mistakes receive greater
+protection because they would cause larger errors; all rejected blocks still
+consume their full time. The resulting worst-case mean-square error has order
+$1/n^2$. A separate bound on the total signal response rules out a better
+order. Thus both sides of the main comparison have a matching construction
+and converse. Updating the estimate never retunes the physical compensation.
+
+The continuous-time model reaches the same distinction under its own,
+stronger assumption of ideal continuous error monitoring. Its first
+explanation is statistical: two noise rates expose different combinations of
+the same unknown frequency and direction. Its second explanation pairs errors
+and stops when the signed signal clock reaches a chosen value. This makes an
+exact sensing operation, but the physical waiting time must still be charged.
+The finite-cell theorem does not depend on approximating its hardware by
+that continuous model. Sharp local information coefficients are not asserted
+to be optimal constants in the global estimation error.
+
+Access during a collision is another resource. At one fixed coupling,
+the companion contact law combines an ordinary $n$ scale with a coherent
+$m^2$ scale, where $m$ bounds the allowed interior contacts. Both its
+construction and its limitation use the full contact budget. The same
+recorded-phase estimator is useful there, but the physical operation enabling
+it is different.
+
+Finally, timing knowledge changes what the record tells us. A supplied
+fixed displacement can be included when calculating each path's phase.
+Hidden independent jitter can instead leave two unresolved operations after
+the same observed parity result. For the stated plain/one-pulse menu,
+a global lower bound then restores inverse-linear error at any fixed
+nonzero jitter amplitude. High sensitivity at the special compensation point
+does not contradict poor worst-case precision over a whole interval.
+The shrinking-jitter accuracy condition is necessary only: meeting it has
+not been shown sufficient.
+
+The stable shared axis, protected memory, ideal permitted instruments and
+fixed band remain essential. Within that model, controlling noise strength
+changes the attainable order of global estimation error, with every trial
+and failure charged.
+
+\end{document}

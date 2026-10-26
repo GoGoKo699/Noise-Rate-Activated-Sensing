@@ -8,6 +8,10 @@ This repository studies frequency estimation with a shared, continuously unknown
 
 A separate Markovian analysis proves the same change of global scaling and identifies sharp local information coefficients. Preset rate choices attain the local optimum; rate feedback supplies an exact direction-independent stopped sensing operation with its random duration fully charged. These are complementary guarantees, each with its own proof. The [scientific synthesis](science/interpretation.md#principal-argument-and-supporting-results) separates the principal microscopic argument from its supporting results and the companion's temporal-access claims.
 
+## Explanatory report
+
+Read the [complete explanatory report (PDF)](learning/report/Noise_Rate_Activated_Sensing_Report.pdf) for a self-contained account from quantum-clock basics to the global precision separation, its proof and its physical limits. It introduces the required quantum and statistical ideas as they arise, with worked examples and explanations of the formulas.
+
 ## Global precision at finite microscopic strength
 
 The [collision theorem](science/microscopic_global_precision.md) fixes a cell duration $`h`$, nominal compensation and two couplings $`0<g_a<g_b<\pi/(4h)`$. Over $`n`$ cells, all controls occur at boundaries and use at most $`n-1`$ nonterminal contacts. On one fixed, nonshrinking identifiable frequency interval,
@@ -105,6 +109,6 @@ The checks cover algebra, complete likelihoods, timing laws, risk-bound ingredie
 
 ## Purpose and contact
 
-This repository serves as a record of the work and a guide for the author’s self-directed learning. For discussion or potential collaboration, please contact Ruge Lin at [gogoko699@gmail.com](mailto:gogoko699@gmail.com).
+The project is currently under collaboration. For questions, please contact Ruge Lin at [gogoko699@gmail.com](mailto:gogoko699@gmail.com).
 
 [LLM reading guide](llms.txt) · [Agent instructions](AGENTS.md) · [MIT license](LICENSE)
