@@ -86,6 +86,14 @@ The parity chain is mixing; its additive reward has mean $`v_\Delta T+O(1)`$ and
 
 This is an attainable **local** coefficient at a compensated operating point, not a claim that $`v_\Delta^2`$ is the globally optimized coefficient over finite-cadence controls. Away from compensation, unobserved residence times cause dephasing. The exact stopped-channel and global-estimation proofs assume ideal continuous syndrome timing. Measurement errors, directional drift, and independently unknown setting-dependent axes are not represented by the finite-interval calculation.
 
+## Bounded microscopic dynamics and the retained record
+
+The [microscopic sensing calculation](microscopic_sensing.md) specifies a bounded two-rate collision device and derives its own local quadratic-information coefficient at finite cadence. The Hamiltonian retains the signal throughout every collision, and the unknown transverse axis is shared by both settings. All environmental qubits are initialized at time zero and retained after use.
+
+The companion [controlled-record analysis](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/sensing_bridge.md) supplies two different guarantees. The probability of an all-even parity record witnesses model disagreement when checks resolve bounded microscopic motion. Conversely, for measurements and rate choices at collision boundaries, a parameter-uniform error bound compares the complete finite sensing experiment with its Markovian prediction. That bound transfers bounded-loss risk for the same protocol and estimator; it does not transfer Fisher information.
+
+The microscopic local coefficient is proved directly, rather than inferred from agreement of the channels at the compensated frequency. Neither this attainment result nor the record-discrimination witness proves that rate diversity improves the optimal microscopic risk: the strongest fixed-rate protocol on the same hardware must also be analyzed. Finite measurement duration, ancilla noise, and controller work remain outside these ideal-instrument calculations.
+
 ## The load-bearing boundaries
 
 The exact cancellation requires successive errors to share an involutory operator anticommuting with the signal. The independent-axis converse in [the proofs](precision_bounds.md#independent-setting-dependent-directions) shows that this restriction changes the ultimate precision law, rather than being a cosmetic simplification.

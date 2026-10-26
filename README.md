@@ -70,12 +70,15 @@ The [scientific entrypoint](science/README.md) maps the topic-based proof accoun
 | Compare preset controls and calibration requirements | [Preset protocols](science/preset_protocols.md) |
 | Check exact channels, stopping costs, and global achievability | [Stopped sensing](science/stopped_sensing.md) |
 | Check physical assumptions and a quantitative imperfection | [Physical scope](science/physical_scope.md) · [Residual dephasing](science/residual_dephasing.md) |
+| Connect finite-cadence sensing to bounded microscopic dynamics | [Microscopic sensing](science/microscopic_sensing.md) |
 | Compare with prior work | [Related work and attribution](references/RELATED_WORK.md) |
 | Execute the checks and reproduce the examples | [Reproducibility](verification/README.md) |
 
 ## Scope
 
 The principal theorem assumes Markovian noise with one shared, stable transverse axis, rate selection that preserves the signal Hamiltonian, ideal fast syndrome extraction, and noiseless ancillary storage. Rate bounds are fixed independently of $`T`$; the noise is never turned off. The converse does not grant bath-output access, indefinite causal order, or coherent application of the unknown error operator. Finite-interval syndrome measurements have a separate **local**, compensated-operating-point result.
+
+A [bounded collision realization](science/microscopic_sensing.md) also attains quadratic local information at a fixed, finite parity-check interval. Its coefficient is derived from its own instrument. The companion [Markovian Resolution Limit analysis](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/sensing_bridge.md) bounds the discrepancy in the complete sensing record and transfers bounded-loss risk for matched finite protocols. These results do not establish the same-hardware fixed-rate converse or the global quadratic-risk claim for the microscopic model.
 
 An additional unobserved parallel dephasing rate $`\kappa>0`$ changes the asymptotic bound to $`\mathcal I_\omega^*(T)\le T/(4\kappa)`$. The [quantified finite-time example](science/residual_dephasing.md#a-certified-finite-time-advantage-with-nonzero-dephasing) retains an advantage at nonzero $`\kappa`$; it is not a fault-tolerance theorem. The physical examples motivate the resource model rather than demonstrate the full protocol. The literature comparison distinguishes these results from established fixed-recovery sensing, noise-assisted correction, and informative-noise metrology.
 
