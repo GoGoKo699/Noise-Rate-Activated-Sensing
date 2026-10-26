@@ -66,6 +66,9 @@ def source_math_issues(text: str) -> list[str]:
     for formula in math_fragments(text):
         if r'\operatorname' in formula:
             issues.append('Use the checked upright named-function notation instead of operatorname')
+    for fence in FENCE.finditer(text):
+        if fence[1].strip() == 'math' and re.search(r'<[A-Za-z]', fence[2]):
+            issues.append(r'Use \lt before a letter in display math; GitHub can truncate it as HTML')
     if sum(line.startswith('```') for line in text.splitlines()) % 2:
         issues.append('Unbalanced code or math fences')
     return issues
@@ -95,6 +98,7 @@ INSPECT = r'''root => {
   const rows = all.filter(e => e.localName === 'mtable').map(e =>
       [...e.children].filter(n => ['mtr','mlabeledtr'].includes(n.localName)).length).sort((a,b)=>a-b);
   return {math_elements: renderers.length, rendered: renderers.filter(done).length,
+          less_than_operators: all.filter(e => e.localName === 'mo' && e.textContent.trim() === '<').length,
           errors, unrendered, raw_dollar_text: raw, matrix_rows: rows,
           heading: root.querySelector('h1')?.innerText || '',
           links: root.querySelectorAll('a[href]').length,
@@ -145,6 +149,8 @@ def main() -> int:
                                         check=True, capture_output=True, text=True).stdout
                 formulas = math_fragments(source)
                 item['expected_math'] = len(formulas)
+                item['expected_less_than_operators'] = sum(
+                    len(re.findall(r'<|\\lt(?![A-Za-z])', formula)) for formula in formulas)
                 item['expected_matrix_rows'] = matrix_rows(formulas)
                 response = page.goto(url, wait_until='domcontentloaded', timeout=60000)
                 if response is None or response.status != 200:
@@ -168,6 +174,8 @@ def main() -> int:
                     raise RuntimeError('Hosted formula count differs from source')
                 if data['rendered'] != data['math_elements'] or data['errors']:
                     raise RuntimeError('Unrendered or invalid hosted mathematics')
+                if data['less_than_operators'] != item['expected_less_than_operators']:
+                    raise RuntimeError('Hosted strict inequalities differ from source; possible silent HTML truncation')
                 if data['raw_dollar_text']:
                     raise RuntimeError('Raw math delimiters remain outside rendered formulas')
                 if data['matrix_rows'] != item['expected_matrix_rows']:

@@ -34,9 +34,12 @@ class MathSerializationTests(unittest.TestCase):
         self.assertEqual(matrix_rows([r'\begin{matrix}a\\b\\\end{matrix}']), [2])
 
     def test_legacy_delimiters_and_rejected_macro_are_flagged(self):
-        for text in ['$x$', '$$\nx^2\n$$', r'$`\operatorname{Poisson}(t)`$', '```math\nx']:
+        for text in ['$x$', '$$\nx^2\n$$', r'$`\operatorname{Poisson}(t)`$', '```math\nx',
+                     '```math\n0<E\n```', '```math\n0<p_a<p_b\n```']:
             with self.subTest(text=text):
                 self.assertTrue(source_math_issues(text))
+        self.assertFalse(source_math_issues('```math\n' + r'0\lt E,\quad 0\lt p_a\lt p_b' + '\n```'))
+        self.assertFalse(source_math_issues('$`0<E`$'))
 
     def test_every_document_uses_the_checked_serialization(self):
         paths = list(ROOT.glob('*.md')) + list((ROOT/'docs').glob('*.md'))

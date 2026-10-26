@@ -1,6 +1,6 @@
 # Identifiability on a fixed microscopic frequency band
 
-[Collision construction](microscopic_sensing.md) · [Local precision](microscopic_precision.md) · [Statistical model](model.md)
+[Collision construction](microscopic_sensing.md) · [Local precision](microscopic_precision.md) · [Global precision](microscopic_global_precision.md) · [Statistical model](model.md)
 
 One fixed-coupling collision already supplies a frequency-sensitive likelihood independent of the unknown transverse direction. On an explicit fixed-width frequency band, repeating this experiment gives a uniformly consistent estimator with a paid calibration cost. This is a finite-strength, off-compensation statement. It does not infer a global risk law from the local information coefficients.
 
@@ -150,6 +150,6 @@ The estimate is classical information about frequency. Producing it does not cha
 
 ## Scope
 
-This establishes an exact identifiable experiment, a uniform attainable $`O(N^{-1})`$ risk bound on a fixed band, and a paid localization guarantee. It does not establish the optimal global risk over all controls, a global counterpart of the local $`n+m^2`$ information law, or quadratic-risk attainment by an off-compensation echo.
+This establishes an exact identifiable experiment, a uniform attainable $`O(N^{-1})`$ risk bound on a fixed band, and a paid localization guarantee. The separate [microscopic global theorem](microscopic_global_precision.md) supplies a matching fixed-coupling lower order and uses this calibration resource in the two-coupling global estimator. The companion [global contact theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md) uses it for an echoed/untouched temporal menu. Those results require their own uniform converses and recorded-phase constructions; they do not follow from this one-cell estimator alone.
 
 The bandwidth restriction is substantive. The companion [frequency-alias obstruction](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/sensing_bridge.md#frequency-aliases-of-the-collision-clock) gives frequencies whose complete boundary-controlled experiments are identical. No unrestricted-band conclusion follows from the monotone-band calculation here.
