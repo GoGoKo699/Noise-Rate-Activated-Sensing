@@ -122,3 +122,7 @@ The central claims have the following dependencies. The comparison is at the lev
 The shared recorded-phase lemma has its principal exposition here; its separate contact-budget application belongs to the [temporal-access companion](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md). Neither the lemma nor that application should be counted twice as an independent contribution.
 
 The microscopic constants depend on the fixed hardware and a sufficient frequency band; neither maximal bandwidth nor optimal global constants are asserted. Residual-dephasing and imperfect-control results retain their separately stated scope. None of these claims asserts correction of arbitrary uncharacterized noise, an experimental demonstration, a fault-tolerance threshold, or exhaustive bibliographic priority.
+
+## Shared educational foundation
+
+**Rivas and Huelga, _Open Quantum Systems: An Introduction_ (2012), [arXiv:1104.5242v2](https://arxiv.org/abs/1104.5242v2).** This is the single common educational anchor for the two sister projects. Its reduced-map, generator and microscopic-dynamics foundations are mapped in the [source bridge](../learning/ANCHOR.md). The project's global statistical arguments and adaptive resource theorems are supplied separately and retain the primary-source attribution above. **Haase et al., [arXiv:1807.11882v4](https://arxiv.org/abs/1807.11882v4)** remains a metrology background reference, including the explicitly checked rate-convention comparison; it is not a second educational anchor.

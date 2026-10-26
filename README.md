@@ -2,6 +2,8 @@
 
 **Noise-rate diversity can remove the precision obstruction created by an unknown error direction.**
 
+Part of **Quantum Noise under Control**, alongside [**Markovian Resolution Limit**](https://github.com/GoGoKo699/Markovian-Resolution-Limit). This repository studies noise-strength selection; its sister studies temporal resolution and access inside microscopic interactions.
+
 This repository studies frequency estimation with a shared, continuously unknown transverse error direction. Its finite-strength collision theorem fixes the hardware, measurement clock and nominal compensation: one positive coupling gives optimal worst-case mean-square error of inverse-time order, while a menu of two distinct positive couplings gives inverse-time-squared order on a suitable fixed frequency band. Exact retained phases supply the estimator; a nuisance-curve converse covers every permitted adaptive boundary controller. Calibration, repetitions and failed records are charged.
 
 A separate Markovian analysis proves the same change of global scaling and identifies sharp local information coefficients. Preset rate choices attain the local optimum; rate feedback supplies an exact direction-independent stopped sensing operation with its random duration fully charged. These are complementary guarantees, each with its own proof. The [scientific synthesis](science/interpretation.md#principal-argument-and-supporting-results) separates the principal microscopic argument from its supporting results and the companion's temporal-access claims.
@@ -64,9 +66,9 @@ Both constructions use one noiseless ancilla. The stopped channel supports the g
 
 ## Learn the project
 
-The single educational anchor is **Haase et al., _Precision Limits in Quantum Metrology with Open Quantum Systems_, arXiv:1807.11882v4**. The [Haase bridge](learning/HAASE_BRIDGE.md) maps its sections and notation to the project; the [worked tutorial](learning/TUTORIAL.md) supplies the bridge from Ramsey likelihoods to nuisance elimination, rate diversity, stopped channels, and global precision. No whole-book prerequisite is imposed. Primary research citations remain separate from this educational anchor.
+Both sister repositories use **Ángel Rivas and Susana F. Huelga, _Open Quantum Systems: An Introduction_ (2012), arXiv:1104.5242v2**, as their single common educational anchor. The [source bridge](learning/ANCHOR.md) connects its channels, generators and microscopic dynamics to this sensing problem. The [worked tutorial](learning/TUTORIAL.md) supplies the estimation, nuisance and recorded-phase arguments that the source does not teach. Selective reading is sufficient; research citations remain distinct from the anchor.
 
-The [30-milestone map](learning/MILESTONES.md) is common to every reader. Its **13 background/preliminaries milestones** connect the qubit experiment, noise, statistics, and time budget into the complete operational task. Its **17 narrative/innovation milestones** connect the fixed-rate obstruction, rate-diverse protocols, exact stopped channel, global precision, and physical boundaries. Each milestone gives a central question, an understanding target, earlier dependencies, a conceptual connection, and source pointers.
+The [30-milestone map](learning/MILESTONES.md) has **13 background/preliminaries** and **17 narrative/innovation** targets. Its principal route reaches the finite-strength global coupling separation, with the Markovian coefficients and stopped channel as separately proved counterparts. The companion's [learning route](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/learning/ANCHOR.md) uses the same foundation for the resolution law, global contact budget and timing distinction. Each repository retains its own project-defined thirty targets.
 
 ## Read the science
 
@@ -75,7 +77,7 @@ The [scientific entrypoint](science/README.md) maps the topic-based proof accoun
 | Purpose | Start here |
 |---|---|
 | See the complete scientific claim and proof map | [Scientific synthesis](science/interpretation.md) |
-| Learn the project | [30 milestones](learning/MILESTONES.md) → [Haase bridge](learning/HAASE_BRIDGE.md) → [Worked tutorial](learning/TUTORIAL.md) |
+| Learn the project | [30 milestones](learning/MILESTONES.md) → [Common anchor bridge](learning/ANCHOR.md) → [Worked tutorial](learning/TUTORIAL.md) |
 | Check the statistical task and physical resources | [Model](science/model.md) |
 | Verify local optimality and the selectable-setting criterion | [Theorems and proofs](science/precision_bounds.md) |
 | Compare the same global error criterion | [Global precision](science/global_precision.md) |

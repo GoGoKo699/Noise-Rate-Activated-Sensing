@@ -4,7 +4,7 @@ The authorized project is `GoGoKo699/Noise-Rate-Activated-Sensing`. Modify only 
 
 ## Read the science first
 
-Start with [README](README.md), [model](science/model.md), and [theorems](science/precision_bounds.md). Read [stopped sensing](science/stopped_sensing.md) for timing and global estimation, [physical scope](science/physical_scope.md) for resource assumptions, and [attribution](references/RELATED_WORK.md) before describing novelty. Use [llms.txt](llms.txt) as a question-to-file map.
+Start with [README](README.md) and the [scientific synthesis](science/interpretation.md). Read [microscopic global precision](science/microscopic_global_precision.md) and [recorded-phase estimation](science/recorded_phase_estimation.md) for the principal finite-strength claim. The [Markovian model](science/model.md), [local theorems](science/precision_bounds.md) and [stopped sensing](science/stopped_sensing.md) supply its separately proved counterpart. Consult [physical scope](science/physical_scope.md) for resource assumptions and [attribution](references/RELATED_WORK.md) before describing novelty. Use [llms.txt](llms.txt) as a question-to-file map.
 
 Keep the main distinctions intact: continuous unknown direction versus a finite promise; efficient nuisance-adjusted information versus a target-only matrix entry; hard physical time versus effective signed time; local precision versus global risk; shared-axis incoherent rate selection versus bath access or coherent application of the unknown error. Retain failures in all time-budget comparisons. Treat finite-interval syndrome extraction as the local compensated result actually proved.
 
@@ -20,7 +20,7 @@ Use GitHub-native math fences for display equations and protected dollar/backtic
 
 ## Shared learning material
 
-The settled educational anchor is **Haase et al., arXiv:1807.11882v4**. The [Haase bridge](learning/HAASE_BRIDGE.md) owns its source map and notation translations. The [30-milestone map](learning/MILESTONES.md) has 13 background and 17 narrative targets, defined by the project and shared by every reader. Preserve one educational anchor; primary research citations are not additional assigned textbooks. Do not replace physical time by probe number or change the established rate normalization.
+The common educational anchor for both sister projects is **Rivas and Huelga, Open Quantum Systems: An Introduction, arXiv:1104.5242v2**. The [source bridge](learning/ANCHOR.md) owns this repository's section map, notation translations and local statistical connections. The [30-milestone map](learning/MILESTONES.md) has 13 background and 17 narrative targets, defined by the project and shared by every reader. Preserve one educational anchor; primary research citations are not additional assigned textbooks. Do not replace physical time by probe number or change the established rate normalization.
 
 Keep the common milestones, source bridge, and scientific examples in `learning/`. Personal coaching procedures, answer keys, assessments, and learner progress stay outside this repository. Maintenance does not start lessons or certify anyone's understanding.
 

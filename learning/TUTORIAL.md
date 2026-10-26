@@ -1,19 +1,21 @@
-# From Ramsey sensing to noise-rate activation
+# From open-system dynamics to global noise-strength sensing
 
-[30 milestones](MILESTONES.md) · [Anchor and reading map](HAASE_BRIDGE.md) · [Overview](../README.md) · [Scientific synthesis](../science/interpretation.md)
+[30 milestones](MILESTONES.md) · [Anchor and reading map](ANCHOR.md) · [Overview](../README.md) · [Scientific synthesis](../science/interpretation.md)
 
-This tutorial bridges the single educational anchor, [Haase et al., arXiv:1807.11882v4](https://arxiv.org/abs/1807.11882v4), to the research. Basic qubit states, tensor products, and the Born rule are the starting language. Estimation notation is introduced as it is used. The source locations and normalization translations are in the [learning guide](HAASE_BRIDGE.md); the project derivations below are not attributed to the anchor.
+This tutorial bridges the sisters’ single educational anchor, [Rivas and Huelga, _Open Quantum Systems: An Introduction_, arXiv:1104.5242v2](https://arxiv.org/abs/1104.5242v2), to the sensing research. Basic qubit states, tensor products, and the Born rule are the starting language. Estimation notation is introduced as it is used. The source locations and normalization translations are in the [learning guide](ANCHOR.md); the project derivations below are not attributed to the anchor.
 
 ## How this tutorial connects to the milestones
 
-The [30-milestone map](MILESTONES.md) is the dependency-ordered route; this tutorial groups its calculations by mechanism. Sections 1–3 develop the experimental and statistical background. Sections 4–7 explain the two constructions and the universal bound. Sections 8–9 join local precision, global risk, and physical scope. The map supplies direct source pointers for material whose full treatment lives in the scientific pages.
+The [30-milestone map](MILESTONES.md) is the dependency-ordered route; this tutorial groups calculations by mechanism. Sections 1–3 introduce the experiment, the parity code and the nuisance parameter. The **principal microscopic route** then follows [sections 10–13](#10-from-a-bounded-collision-to-an-observed-phase): exact finite-strength records, the global one-versus-two-coupling comparison, ambiguity resolution, and the boundary with temporal access. Sections 4–9 provide a separately proved Markovian counterpart through simple numerical examples, sharp local information and exact stopped sensing.
+
+The common anchor supplies channels, generators and microscopic reduction. The statistical and control arguments below are supplied locally and attributed to their primary sources. They should not be read as consequences of a textbook Markov approximation. The scientific pages contain the full proofs; the tutorial makes their dependencies visible.
 
 ## 1. One qubit, one likelihood, one clock
 
-Prepare $`|+\rangle=(|0\rangle+|1\rangle)/\sqrt2`$. A frequency $`\omega`$ acts through $`H=\omega Z/2`$ for physical time $`t`$. In units with $`\hbar=1`$, the rotation is $`U_\omega(t)=e^{-i\omega tZ/2}`$. Read out in an equatorial basis with a known angle $`\chi`$. The two outcome probabilities are
+Prepare $`|+\rangle=(|0\rangle+|1\rangle)/\sqrt2`$. A frequency $`\omega`$ acts through $`H=\omega Z/2`$ for physical time $`t`$. In units with $`\hbar=1`$, the rotation is $`U_\omega(t)=e^{-i\omega tZ/2}`$. Read out in an equatorial basis with a known angle $`\zeta`$. The two outcome probabilities are
 
 ```math
-p_\pm(\omega\mid t,\chi)=\frac{1\pm\cos(\omega t-\chi)}2.
+p_\pm(\omega\mid t,\zeta)=\frac{1\pm\cos(\omega t-\zeta)}2.
 ```
 
 These probabilities, together with the chosen controls, form the **likelihood**: a rule assigning a probability to each possible data record for each candidate frequency. The phase $`\vartheta=\omega t`$ is dimensionless. Throughout this repository, $`\phi`$ is reserved for the unknown *noise direction*, not for $`\vartheta`$.
@@ -24,7 +26,7 @@ The classical Fisher information of this measurement is
 F_{\rm cl}(t)=\sum_{y\in\{+,-\}}\frac{(\partial_\omega p_y)^2}{p_y}=t^2
 ```
 
-at regular readout points. It measures local distinguishability of nearby frequencies, not the amount by which one experimental outcome determines the frequency. Drawing and retaining a uniform angle $`\chi`$ avoids exceptional zero-probability points for any fixed phase. The qubit's quantum Fisher information also equals $`t^2`$ here; for a general state a particular measurement need not attain the quantum bound.
+at regular readout points. It measures local distinguishability of nearby frequencies, not the amount by which one experimental outcome determines the frequency. Drawing and retaining a uniform angle $`\zeta`$ avoids exceptional zero-probability points for any fixed phase. The qubit's quantum Fisher information also equals $`t^2`$ here; for a general state a particular measurement need not attain the quantum bound.
 
 For $`\nu`$ independent repetitions of duration $`t`$, information adds to $`\nu t^2`$ and time adds to $`\nu t`$. With a total budget $`T=\nu t`$, this is $`Tt`$. One cannot simultaneously claim a single coherent interrogation of duration $`T`$ and $`\nu`$ free copies of its output. The ideal costs of preparation and readout are specified in the [model](../science/model.md).
 
@@ -54,7 +56,7 @@ The sensor is the first qubit. Both basis states have even parity, measured by $
 =c_0e^{i\phi}|10\rangle+c_1e^{-i\phi}|01\rangle,
 ```
 
-which has odd parity. Projecting onto either parity sector does not distinguish $`c_0`$ from $`c_1`$. Thus the measurement can detect an error without measuring the unknown signal phase. Arbitrarily fast ideal parity extraction supplies the syndrome record used below; finite-rate and faulty measurements are different assumptions.
+which has odd parity. Projecting onto either parity sector does not distinguish $`c_0`$ from $`c_1`$. Thus the measurement can detect an error without measuring the unknown signal phase. Arbitrarily fast ideal parity extraction supplies the continuous-time syndrome record in sections 4–9. In sections 10–13, parity is measured only at fixed collision boundaries and the exact instrument is derived afresh. Faulty measurements remain a different assumption.
 
 If $`\phi`$ were known, applying $`N_\phi`$ after an error would undo it. A fixed sensor recovery $`X`$ also returns the state to the code, but leaves
 
@@ -107,9 +109,9 @@ This calculation evaluates one protocol. Only the separate [converse](../science
 
 ## 4. A complete rate-diversity example
 
-Set $`a=1`$ and $`b=3`$ in inverse-time units and use an interrogation of duration $`t=10`$. Choose rate $`a`$ with probability $`3/4`$ and rate $`b`$ with probability $`1/4`$. Keep that rate fixed within the interrogation. Prepare $`|+_L\rangle`$, monitor parity, apply sensor $`X`$ after each detected error, and record the count $`n`$. At the end, draw and record $`\chi`$ and measure the equatorial logical basis.
+Set $`a=1`$ and $`b=3`$ in inverse-time units and use an interrogation of duration $`t=10`$. Choose rate $`a`$ with probability $`3/4`$ and rate $`b`$ with probability $`1/4`$. Keep that rate fixed within the interrogation. Prepare $`|+_L\rangle`$, monitor parity, apply sensor $`X`$ after each detected error, and record the count $`n`$. At the end, draw and record $`\zeta`$ and measure the equatorial logical basis.
 
-The complete data are the setting label $`j`$, count $`n`$, readout angle $`\chi`$, and outcome $`y`$. Conditional on $`j`$, the count is Poisson with mean $`\gamma_jt`$ and the phase remains $`\omega t-2\phi n`$. For this example,
+The complete data are the setting label $`j`$, count $`n`$, readout angle $`\zeta`$, and outcome $`y`$. Conditional on $`j`$, the count is Poisson with mean $`\gamma_jt`$ and the phase remains $`\omega t-2\phi n`$. For this example,
 
 ```math
 \mathbb E[n]=15,\qquad
@@ -201,7 +203,7 @@ A=c^2\gamma I,\qquad B=(1/2-c\gamma)Z.
 
 $`A`$ and $`B`$ are operators built from **parameter** derivatives of the generator; their norms constrain the **time** growth of information. They are not additional controls. At a fixed rate, choosing $`c=1/(2\gamma)`$ makes $`B=0`$. Integrating from a parameter-independent initial state gives $`F_u(T)\le T/\gamma`$ and therefore the universal nuisance-adjusted bound.
 
-At two rates one common slope cannot cancel $`B`$ at both. The minimax choice yields leading coefficient at most $`r^2`$; the constructions attain it. The proof covers arbitrary permitted ancillary controls, not merely the parity protocols used to explain attainment. The anchor motivates channel bounds, but this adaptive inequality and its precise assumptions must still be read as a research-level imported premise, not as a consequence of replacing its probe number by time.
+At two rates one common slope cannot cancel $`B`$ at both. The minimax choice yields leading coefficient at most $`r^2`$; the constructions attain it. The proof covers arbitrary permitted ancillary controls, not merely the parity protocols used to explain attainment. The anchor supplies channel and generator language; this adaptive inequality and its precise assumptions are a separate research-level premise. It is not obtained by replacing probe number with time in a parallel-metrology bound.
 
 ## 8. Global precision is a separate statement
 
@@ -222,6 +224,132 @@ Here $`\Omega`$ inside $`R`$ denotes the fixed frequency interval; $`\Omega(T^{-
 
 The shared, stable direction matters: separate unknown axes for the settings have a linear-information converse. A scalar rate change must preserve the specified signal response. Ordinary known pulses do not give independent reversal of an unknown signal while leaving every unknown noise direction unchanged.
 
-Ideal syndrome extraction and noiseless ancillary storage are shared resources in the main comparison. Fixed-interval ideal measurements have only the separately stated compensated **local** result. A fixed positive unobserved parallel dephasing rate $`\kappa`$ restores the ceiling $`\mathcal I_\omega^*(T)\le T/(4\kappa)`$, although a quantified finite-time advantage remains. Use the project's contrast convention $`e^{-2\kappa t}`$; see the [source normalization note](HAASE_BRIDGE.md#rate-normalization-when-using-the-source).
+Ideal syndrome extraction and noiseless ancillary storage are shared resources in this Markovian comparison. Its fixed-interval ideal-measurement calculation is a compensated **local** result. The exact finite-strength collision model has the separate global theorem explained below. A fixed positive unobserved parallel dephasing rate $`\kappa`$ restores the ceiling $`\mathcal I_\omega^*(T)\le T/(4\kappa)`$, although a quantified finite-time advantage remains. Use the project's contrast convention $`e^{-2\kappa t}`$; see the [source normalization note](ANCHOR.md#rate-normalization).
 
 The [physical scope](../science/physical_scope.md), [residual-noise calculation](../science/residual_dephasing.md), and [attribution](../references/RELATED_WORK.md) explain those boundaries. The [scientific synthesis](../science/interpretation.md) is the expert route through the full claims. The [milestone map](MILESTONES.md) connects these distinctions into one shared route through the project.
+
+## 10. From a bounded collision to an observed phase
+
+The principal microscopic theorem fixes a cell duration $`h`$, a nominal compensation $`\omega_0`$, and either one positive coupling or a menu $`0<g_a<g_b<\pi/(4h)`$. During each cell, signal and noise act simultaneously:
+
+```math
+H=\frac\epsilon2 Z_S\otimes I_E+gN_\phi\otimes X_E,
+\qquad \epsilon=\omega-\omega_0.
+```
+
+Every bath qubit begins in $`|0\rangle`$, is used once and remains inaccessible. All bath cells are prepared at time zero and retained afterward. Controls occur only at cell boundaries. The full Hamiltonian norm is $`R=\sqrt{g^2+\epsilon^2/4}`$; a physical strength budget must cover the signal term as well as the noisy coupling.
+
+The two terms anticommute and square to multiples of the identity. Exponentiating the joint Hamiltonian and taking bath matrix elements gives the exact operators
+
+```math
+K_0=\cos(Rh)I-i\frac{\epsilon}{2R}\sin(Rh)Z_S,
+\qquad
+K_1=-i\frac gR\sin(Rh)N_\phi.
+```
+
+The parity code of section 2 makes these branches observable without measuring the bath: $`K_0`$ preserves the sector and $`K_1`$ flips it. Each branch probability is independent of the logical input. Write $`p_g=(g^2/R^2)\sin^2(Rh)`$ and $`q_g=1-p_g`$. On a sufficiently small fixed band around compensation,
+
+```math
+K_0/\sqrt{q_g}=e^{-i\theta_g(\epsilon)Z_S/2},
+\qquad
+\theta_g(\epsilon)=2\arctan\!\left[
+\frac{\epsilon}{2R}\tan(Rh)
+\right].
+```
+
+After every even result choose $`g_a`$; after every odd result choose $`g_b`$. Let $`\sigma_i=\pm1`$ denote the measured parity after cell $`i`$, starting with $`\sigma_0=+1`$. A record ending even contains an even number of $`N_\phi`$ factors. Commuting the intervening rotations through them reverses the rotation signs, and the paired unknown operators cancel. Its exact logical state is
+
+```math
+|\psi_{\mathcal R}(\epsilon)\rangle
+=e^{-i\Phi_{\mathcal R}(\epsilon)Z_L/2}|+_L\rangle,
+\qquad
+\Phi_{\mathcal R}(\epsilon)
+=\sum_{i=1}^L\sigma_{i-1}
+\mathbf1_{\{\sigma_i=\sigma_{i-1}\}}
+\theta_{g_i}(\epsilon).
+```
+
+For example, a five-cell sequence “stay, flip, stay, flip, stay” has phase $`2\theta_a(\epsilon)-\theta_b(\epsilon)`$ and probability $`q_a(\epsilon)^2p_a(\epsilon)q_b(\epsilon)p_b(\epsilon)`$. The phase has no unknown direction, but both this phase function and the record probability depend on frequency. Recording a function does not reveal its value at the unknown frequency. It supplies a known response curve for the terminal measurement.
+
+This is an exact finite-strength statement. A no-flip cell generally accumulates $`\theta_g(\epsilon)`$, not $`\epsilon h`$. Matching a Markovian parity-transition probability at compensation would not establish equality of the phases or their frequency derivatives.
+
+## 11. What two couplings change globally
+
+The [microscopic theorem](../science/microscopic_global_precision.md) fixes one positive-width identifiable interval $`\Omega=[\omega_0-E,\omega_0+E]`$ for the entire experiment. It does not shrink with $`n`$. The risk is the worst-case mean-square frequency error over that interval and every shared direction. The same fixed coupling must be used in all pooled trials of the single-coupling benchmark.
+
+A simple one-cell calibration already gives a uniform inverse-linear upper bound. Measure $`Y_L`$ after an even parity result, assigning the score $`Z=\pm1`$, and assign $`Z=0`$ after an odd result. Here $`Z`$ is a classical variable. Its mean is
+
+```math
+F(\epsilon)=\mathbb E Z
+=\frac{\epsilon\sin(2Rh)}{2R}.
+```
+
+This likelihood is independent of $`\phi`$. On a sufficient band, $`F'(\epsilon)\ge\kappa>0`$. Thus clip the empirical mean to $`F([-E,E])`$ and invert $`F`$. The inverse is Lipschitz and the score is bounded, yielding mean-square error at most $`1/(n\kappa^2)`$. The [calibration proof](../science/microscopic_identifiability.md) also supplies exponential confidence bounds. Every odd outcome and every reset consumes a cell and its applicable contact.
+
+Why can no more elaborate boundary controller improve the fixed-coupling order? Write $`K_0=aI-ibZ_S`$, $`K_1=-icN_\phi`$ and $`p=c^2`$. Along the mathematical nuisance curve
+
+```math
+\phi'(\epsilon)=\frac{ab'-ba'}p,
+```
+
+the exact physical Kraus derivative overlap vanishes. The corresponding adaptive channel bound is linear in cell count, uniformly on the band. Integrating this information bound against a smooth prior gives a worst-case risk lower bound for biased as well as unbiased estimators. The proof curve selects a difficult subfamily of allowed unknown parameters; it does not add a physical frequency dependence to the bath. The [bounded-loss closure](../science/microscopic_global_precision.md#global-risk-under-controlled-limits) extends that global lower bound to the stipulated operational limits without invoking continuity of Fisher information.
+
+The two-coupling upper bound needs more than cancellation. Some even-ending records have poor signed phase sensitivity. The construction accepts only even records whose known frozen derivative reward is sufficiently positive. Distinct couplings give a positive drift; continuity supplies a fixed band on which every accepted phase satisfies
+
+```math
+\alpha L\le\Phi'_{\mathcal R}(v)\le\beta L
+\qquad (|v|\le E),
+```
+
+for fixed positive constants. The acceptance probability is uniformly bounded below for sufficiently long blocks. The gate is a function of the observed record and fixed hardware, never of the unknown frequency. Its [analytic proof](../science/recorded_phase_estimation.md#a-two-state-parity-gate) controls the whole band and the nonstationary parity chain. Positive average drift or positive local Fisher information alone would not supply these guarantees.
+
+## 12. Resolve ambiguity with the recorded functions
+
+A steep phase can wind around the circle many times. The estimator must determine which winding contains the unknown frequency. The [recorded-phase construction](../science/recorded_phase_estimation.md#nested-multiscale-estimation) starts with paid one-cell calibration and then uses block lengths $`L_k=2^kL_0`$.
+
+At each stage let $`c`$ be the center of the current residual-frequency interval. For an accepted record, choose the terminal logical observable
+
+```math
+\cos(\Phi_{\mathcal R}(c))Y_L
+-\sin(\Phi_{\mathcal R}(c))X_L.
+```
+
+Its outcome $`Y=\pm1`$ has conditional mean
+
+```math
+\mathbb E[Y\mid\mathcal R]
+=\sin\bigl(\Phi_{\mathcal R}(\epsilon)
+-\Phi_{\mathcal R}(c)\bigr).
+```
+
+The preceding interval is narrow enough that every accepted sine response stays on one monotone branch. For the actual records collected, average their known response functions and invert that average at the observed sample mean, clipping first to its image. This uses the functions that were observed, not an average phase computed with a guessed record distribution.
+
+Each block starts from a fresh preparation with independent bath cells. Within a stage its policy is fixed and does not adapt to earlier terminal outcomes. Conditional on all of that stage's records, the readouts are therefore independent and their average conditional mean is exactly the averaged response at the true frequency. Concentration can be applied conditionally and then integrated over the frequency-dependent record law. No derivative of that law or assumption that it is constant is needed.
+
+Intersect each new confidence interval with the previous one, including on failure branches. If the first wrong refinement is at scale $`L_k`$, later estimates remain inside the last valid interval, so the eventual error is only of order $`L_k^{-1}`$. Early stages receive more repetitions, making their more damaging failures rarer. A tapered allocation with $`r_k=O(K-k+1)`$ has deterministic total cell cost
+
+```math
+B_K=N_0(K)+\sum_{k=1}^K r_kL_k=O(L_K),
+```
+
+including the coarse calibration and every rejected block. The weighted failure errors sum to $`O(L_K^{-2})`$. Choosing the largest feasible depth therefore gives $`O(n^{-2})`$ global risk without a logarithmic overhead. Multiscale phase estimation and the first-failure principle are inherited methods; the observed nonlinear functions, their conditional concentration and the uniform record gate are the extra work required by this instrument.
+
+The implementation combines parity extraction, readout, re-preparation and setting changes at the same boundary into the permitted instrument. Finishing before cell $`n`$ pays that early readout as a contact and retains the classical estimate through the rest of the charged horizon. It uses at most $`n-1`$ nonterminal contacts overall. The estimate changes terminal readout bases, never $`\omega_0`$. Together with the separate signal-generator lower bound, this establishes the matching global orders
+
+```math
+R_g^*(n)=\Theta(n^{-1}),
+\qquad
+R_{\{g_a,g_b\}}^*(n)=\Theta(n^{-2}).
+```
+
+The constants depend on the fixed hardware and sufficient band. The theorem does not give a maximal band or an optimal global coefficient.
+
+## 13. Separate strength control from temporal access
+
+The coupling comparison permits boundary contacts only. Its converse does not apply if the controller can interrupt a collision. The companion [global contact theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md) keeps one fixed coupling but allows at most $`m`$ inside-cell contacts within $`n-1`$ total contacts. An exact midpoint pulse creates an echoed temporal setting. Choosing between echoed and plain cells provides usable records for the same estimator, while an activity-budget nuisance bound constrains every permitted adaptive controller. The resulting risk is of order $`1/[h^2(n+m^2)]`$ on a fixed sufficient band.
+
+Both types of contact must be paid. For example, using at most $`Q=\min\{m,\lfloor(n-1)/2\rfloor\}`$ cells for the temporal construction leaves room for at most $`Q`$ inside-cell pulses and $`Q`$ boundary instruments, including early readout. The full duration is still $`nh`$. The baseline calibration using plain cells supplies the inverse-linear option. This is why counting only pulses would misstate the resource law.
+
+The companion [timing theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md) adds an observation distinction. A supplied known systematic displacement preserves pure conditional records and permits quadratic global precision through the appropriate plain/pulsed menu when the interior-contact allowance is linear in the horizon. Learning an unknown displacement is not included. Hidden independent two-point jitter instead mixes two odd-branch operations that parity does not distinguish. At fixed nonzero jitter, that specified menu has inverse-linear global risk even though its pointwise classical score Fisher information at compensation can be quadratic. An accuracy scale $`d=O(h/\sqrt n)`$ is necessary for quadratic global precision when $`m=\Theta(n)`$; sufficiency is unproved.
+
+These conclusions belong to their stated menus. Extra pulses, observed timing errors, selectable couplings or retuned compensation would change the resources. The companion's headline controlled-process discrimination law has a different task and proof; global sensing is an additional explicit-device consequence, not a reciprocal of a discrimination distance. Sharing the anchor and estimation lemma makes the connection teachable while preserving that distinction.

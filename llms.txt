@@ -5,10 +5,10 @@
 ## Shared learning route
 - [Learning entrypoint](learning/README.md): One reader-independent route through the project.
 - [30 milestones](learning/MILESTONES.md): M01–M13 develop the background; M14–M30 connect the research mechanisms and complete scientific meaning. Each target includes dependencies and sources.
-- [Haase bridge](learning/HAASE_BRIDGE.md): The sole selected anchor, arXiv:1807.11882v4; source sections, notation, rate normalization, and locally supplied connections.
-- [Worked tutorial](learning/TUTORIAL.md): Ramsey likelihood, logical code, nuisance projection, a complete rate-diversity example, stopped channel, and the route to universal and global bounds.
+- [Common anchor bridge](learning/ANCHOR.md): Rivas–Huelga, Open Quantum Systems: An Introduction, arXiv:1104.5242v2, shared with Markovian Resolution. Source sections, notation, rate conventions and locally supplied estimation bridges.
+- [Worked tutorial](learning/TUTORIAL.md): Ramsey likelihood, parity records, nuisance projection, the principal finite-strength global route, and separate Markovian examples and temporal comparisons.
 
-Use the milestones for dependency order and the bridge for source translation. One educational anchor does not replace primary-source attribution. These shared pages contain no personal assessment history or coaching contract.
+Use the milestones for dependency order and the bridge for source translation. Each sister retains its own 30 project-specific milestones with a coordinated common foundation. One educational anchor does not replace primary-source attribution. These shared pages contain no personal assessment history or coaching contract.
 
 ## Scientific entry points
 - [Scientific route](science/README.md): Dependency-ordered topic map of the full scientific account.

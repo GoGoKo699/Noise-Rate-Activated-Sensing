@@ -63,7 +63,7 @@ The suite contains 144 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_pres
 
 The likelihood checks use Poisson cutoffs with tail probability below $`10^{-14}`$ at their tested parameters. They finite-difference actual outcome probabilities rather than substituting analytical scores into an information formula. Seeded checks use stated tolerances instead of requiring identical floating-point results across all package versions.
 
-The [worked tutorial](../learning/TUTORIAL.md) uses the same physical and statistical conventions. Its seven finite checks run as part of the suite; passing them validates those calculations, not a reader's understanding or the source PDF. The selected-source normalization note is in the [learning guide](../learning/HAASE_BRIDGE.md#rate-normalization-when-using-the-source).
+The [worked tutorial](../learning/TUTORIAL.md) uses the same physical and statistical conventions. Its seven finite checks run as part of the suite; passing them validates those calculations, not a reader's understanding or the source PDF. The rate-convention comparison with Haase is retained in the [common-anchor bridge](../learning/ANCHOR.md#rate-normalization); Rivas–Huelga is the educational anchor. The microscopic tutorial uses the separately listed global and timing checks below.
 
 The shared-structure checks validate the milestone count, declared dependencies, required fields, navigation, and separation from personal coaching records. They do not establish teaching effectiveness, comprehension, or scientific truth. The scientific implementations and their existing example tests use the same executable paths as before.
 
