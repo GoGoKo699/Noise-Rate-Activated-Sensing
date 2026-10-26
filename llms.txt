@@ -13,7 +13,7 @@ Use the milestones for dependency order and the bridge for source translation. O
 ## Scientific entry points
 - [Scientific route](science/README.md): Dependency-ordered topic map of the full scientific account.
 - [Overview](README.md): Central results, scope, reading routes, and purpose/contact.
-- [Scientific synthesis](science/interpretation.md): Unified contribution, claim-to-proof map, resource distinctions, and scientific scope.
+- [Scientific synthesis](science/interpretation.md): Principal microscopic argument, supporting Markovian results, shared-result ownership, claim-to-proof map and scientific scope.
 - [Model](science/model.md): Allowed controls, shared nuisance, full Fisher pooling, charged time, and parameter normalization.
 - [Local theorems](science/precision_bounds.md): All-strategy fixed-rate converse, optimal selectable-setting coefficient, preset attainment, and independent-axis bound.
 - [Global precision](science/global_precision.md): Same-metric minimax comparison, van Trees lower bounds valid for biased estimators, and matching global scalings.
@@ -27,8 +27,8 @@ Use the milestones for dependency order and the bridge for source translation. O
 - [Microscopic global precision](science/microscopic_global_precision.md): Optimal worst-case risk Θ(n⁻¹) at either one fixed positive coupling and Θ(n⁻²) with two couplings, on one suitable fixed nonshrinking band. A curved nuisance path supplies the adaptive converse; exact retained even records supply attainment. Hardware, cell clock and physical compensation remain fixed.
 - [Recorded-phase estimation](science/recorded_phase_estimation.md): Canonical global upper-bound method shared with the companion temporal constructions. Uniform record gates, conditional inversion of actual nonlinear phase functions, paid coarse calibration, nested intervals, tapered repetitions and deterministic budgets. The two-state gate permits a zero flip probability at compensation.
 - [Companion global contact law](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md): At one fixed coupling, risk is of order 1/[h²(n+m²)] with at most m inside-cell and n−1 total contacts, on a suitable fixed band. The attaining temporal menu and the all-adaptive-contact converse are separate arguments.
-- [Companion timing precision](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md): Known fixed pulse displacement retains quadratic global order with a plain/pulsed-cell menu. Hidden independent two-point jitter of fixed nonzero amplitude gives inverse-time global risk for the specified plain/jittered-one-pulse menu, despite quadratic local information at compensation. This restricted-menu converse does not cover arbitrary further interior controls or coupling selection.
-- [Related work](references/RELATED_WORK.md): Primary-source comparisons and explicit attribution, including global-risk foundations and stronger access models.
+- [Companion timing precision](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md): A supplied known fixed pulse displacement retains quadratic global order with a plain/pulsed-cell menu. Hidden independent two-point jitter of fixed nonzero amplitude gives inverse-time global risk for the specified plain/jittered-one-pulse menu, despite quadratic local information at compensation. This restricted-menu converse does not cover arbitrary further interior controls or coupling selection.
+- [Related work](references/RELATED_WORK.md): Claim-level primary-source comparisons, inherited global-phase methods, general comb frameworks, paid repetition/calibration precedents and stronger access models.
 - [Bibliography](references/references.bib): Machine-readable references.
 
 ## Verification and maintenance

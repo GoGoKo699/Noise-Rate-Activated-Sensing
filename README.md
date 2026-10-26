@@ -2,13 +2,23 @@
 
 **Noise-rate diversity can remove the precision obstruction created by an unknown error direction.**
 
-This repository studies a qubit sensing a frequency while a fixed, unknown transverse error acts on it. A single fixed noise rate limits nuisance-adjusted information to linear growth in interrogation time, even with adaptive quantum control. Access to two strictly positive rates restores quadratic local information without calibrating the error direction. Preset rate choices suffice for that local precision law; a separate rate-feedback protocol implements an exact noiseless sensing operation at a fully charged random duration.
+This repository studies frequency estimation with a shared, continuously unknown transverse error direction. Its finite-strength collision theorem fixes the hardware, measurement clock and nominal compensation: one positive coupling gives optimal worst-case mean-square error of inverse-time order, while a menu of two distinct positive couplings gives inverse-time-squared order on a suitable fixed frequency band. Exact retained phases supply the estimator; a nuisance-curve converse covers every permitted adaptive boundary controller. Calibration, repetitions and failed records are charged.
 
-The global comparison uses the same squared-error criterion on both sides: over a fixed bounded frequency interval, optimal worst-case risk scales as inverse time at one fixed rate and as inverse time squared with rate access. It allows biased estimators and counts every trial and failed stop.
+A separate Markovian analysis proves the same change of global scaling and identifies sharp local information coefficients. Preset rate choices attain the local optimum; rate feedback supplies an exact direction-independent stopped sensing operation with its random duration fully charged. These are complementary guarantees, each with its own proof. The [scientific synthesis](science/interpretation.md#principal-argument-and-supporting-results) separates the principal microscopic argument from its supporting results and the companion's temporal-access claims.
 
-The same change of global scaling also holds for a finite-strength collision device with a fixed measurement clock. One fixed positive coupling permits inverse-time risk, while two fixed positive couplings permit inverse-time-squared risk on a suitable fixed frequency band. Its exact recorded phases and all-strategy converse are derived directly from the microscopic dynamics.
+## Global precision at finite microscopic strength
 
-## The result
+The [collision theorem](science/microscopic_global_precision.md) fixes a cell duration $`h`$, nominal compensation and two couplings $`0<g_a<g_b<\pi/(4h)`$. Over $`n`$ cells, all controls occur at boundaries and use at most $`n-1`$ nonterminal contacts. On one fixed, nonshrinking identifiable frequency interval,
+
+```math
+R_g^*(n)=\Theta(n^{-1})\quad(g=g_a\text{ or }g_b),
+\qquad
+R_{\{g_a,g_b\}}^*(n)=\Theta(n^{-2}).
+```
+
+The shared unknown direction cancels exactly in retained even-parity records. Their known nonlinear phase functions support [global estimation with recorded phases](science/recorded_phase_estimation.md), using paid calibration, nested intervals and a deterministic multiscale schedule. Only measurement bases adapt to earlier estimates; the physical compensation stays fixed. A smooth nuisance curve gives the matching fixed-coupling lower bound against all allowed adaptive boundary controllers. Optimal global constants and maximal bandwidth are not asserted.
+
+## The Markovian counterpart
 
 The sensor evolves as
 
@@ -52,18 +62,6 @@ The [global-risk proof](science/global_precision.md) does not infer this result 
 
 Both constructions use one noiseless ancilla. The stopped channel supports the global upper scaling by resolving phase ambiguity at several prescribed effective times. That theorem is separate from the preset protocols' local-information coefficients. A repetition of duration $`T`$ costs $`T`$ each time; repetitions are never free resources.
 
-## Global precision at finite microscopic strength
-
-The [collision theorem](science/microscopic_global_precision.md) fixes a cell duration $`h`$, nominal compensation and two couplings $`0<g_a<g_b<\pi/(4h)`$. Over $`n`$ cells, all controls occur at boundaries and use at most $`n-1`$ nonterminal contacts. On one fixed, nonshrinking identifiable frequency interval,
-
-```math
-R_g^*(n)=\Theta(n^{-1})\quad(g=g_a\text{ or }g_b),
-\qquad
-R_{\{g_a,g_b\}}^*(n)=\Theta(n^{-2}).
-```
-
-The shared unknown direction cancels exactly in retained even-parity records. Their known nonlinear phase functions support [global estimation with recorded phases](science/recorded_phase_estimation.md), using paid calibration, nested intervals and a deterministic multiscale schedule. Only measurement bases adapt to earlier estimates; the physical compensation stays fixed. A smooth nuisance curve gives the matching fixed-coupling lower bound against all allowed adaptive boundary controllers. Optimal global constants and maximal bandwidth are not asserted.
-
 ## Learn the project
 
 The single educational anchor is **Haase et al., _Precision Limits in Quantum Metrology with Open Quantum Systems_, arXiv:1807.11882v4**. The [Haase bridge](learning/HAASE_BRIDGE.md) maps its sections and notation to the project; the [worked tutorial](learning/TUTORIAL.md) supplies the bridge from Ramsey likelihoods to nuisance elimination, rate diversity, stopped channels, and global precision. No whole-book prerequisite is imposed. Primary research citations remain separate from this educational anchor.
@@ -94,11 +92,11 @@ The [scientific entrypoint](science/README.md) maps the topic-based proof accoun
 
 ## Scope
 
-The principal theorem assumes Markovian noise with one shared, stable transverse axis, rate selection that preserves the signal Hamiltonian, ideal fast syndrome extraction, and noiseless ancillary storage. Rate bounds are fixed independently of $`T`$; the noise is never turned off. The converse does not grant bath-output access, indefinite causal order, or coherent application of the unknown error operator. Finite-interval syndrome measurements have a separate **local**, compensated-operating-point result.
+The Markovian theorem assumes one shared, stable transverse axis, rate selection that preserves the signal Hamiltonian, ideal fast syndrome extraction, and noiseless ancillary storage. Rate bounds are fixed independently of $`T`$; the noise is never turned off. The converse does not grant bath-output access, indefinite causal order, or coherent application of the unknown error operator. Finite-interval syndrome measurements have a separate **local**, compensated-operating-point result.
 
 A [bounded collision realization](science/microscopic_sensing.md) has [exact optimal local coefficients](science/microscopic_precision.md) and the separate [global separation](science/microscopic_global_precision.md) above. The boundary restriction matters: the companion [global contact theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md) permits at most $`m`$ contacts inside cells while keeping at most $`n-1`$ total contacts. At one fixed coupling it proves worst-case risk of order $`1/[h^2(n+m^2)]`$ on a suitable fixed band. Its estimator uses a menu of echoed and untouched cells, with complete records and all costs charged. This is an additional temporal resource.
 
-[Clock resonances](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/sensing_bridge.md#frequency-aliases-of-the-collision-clock) make some distinct frequencies indistinguishable to every fixed-coupling boundary-only controller, so the fixed-band qualification is substantive. Timing information is also substantive. For the companion's restricted menu of plain cells and one-pulse echoes, [known systematic displacement and hidden independent jitter](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md) have different global consequences: calibrated fixed displacement preserves quadratic order on a suitable band, whereas fixed nonzero unobserved two-point jitter gives inverse-time optimal global risk even when quadratic local information survives at compensation. The jitter converse does not cover arbitrary extra interior controls or coupling selection.
+[Clock resonances](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/sensing_bridge.md#frequency-aliases-of-the-collision-clock) make some distinct frequencies indistinguishable to every fixed-coupling boundary-only controller, so the fixed-band qualification is substantive. Timing information is also substantive. For the companion's restricted menu of plain cells and one-pulse echoes, [known systematic displacement and hidden independent jitter](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md) have different global consequences: a supplied known fixed displacement preserves quadratic order on a suitable band, whereas fixed nonzero unobserved two-point jitter gives inverse-time optimal global risk even when quadratic local information survives at compensation. The jitter converse does not cover arbitrary extra interior controls or coupling selection.
 
 An additional unobserved parallel dephasing rate $`\kappa>0`$ changes the asymptotic bound to $`\mathcal I_\omega^*(T)\le T/(4\kappa)`$. The [quantified finite-time example](science/residual_dephasing.md#a-certified-finite-time-advantage-with-nonzero-dephasing) retains an advantage at nonzero $`\kappa`$; it is not a fault-tolerance theorem. The physical examples motivate the resource model rather than demonstrate the full protocol. The literature comparison distinguishes these results from established fixed-recovery sensing, noise-assisted correction, and informative-noise metrology.
 
