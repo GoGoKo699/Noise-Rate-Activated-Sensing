@@ -16,6 +16,7 @@ The [model](model.md) fixes one exposed sensor, a shared continuously unknown tr
 | Shared-axis realizations, coherent access, signal shifts, and finite-cadence scope | [Physical scope](physical_scope.md) |
 | Finite-coupling local sensing and the controlled-record connection | [Microscopic sensing](microscopic_sensing.md) |
 | Sharp fixed-clock coefficients and the matching limited-interior-contact law | [Microscopic precision](microscopic_precision.md) |
+| An identifiable frequency band and calibration with all trials charged | [Microscopic identifiability](microscopic_identifiability.md) |
 | A parallel-noise ceiling and a certified finite-time advantage window | [Residual dephasing](residual_dephasing.md) |
 | Claim-to-proof map and interpretation of the complete result | [Scientific synthesis](interpretation.md) |
 

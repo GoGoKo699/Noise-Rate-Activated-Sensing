@@ -96,6 +96,8 @@ The [microscopic precision theorem](microscopic_precision.md) analyzes every ada
 
 ## The load-bearing boundaries
 
+The exact collision likelihood also supports [paid frequency localization](microscopic_identifiability.md) on an explicit fixed band. That result charges all trials and any early readout, retains failures, and keeps the nominal compensation fixed. Its attainable inverse-time risk bound is distinct from the local precision optimum and from the companion resonance obstruction on broad frequency bands.
+
 The exact cancellation requires successive errors to share an involutory operator anticommuting with the signal. The independent-axis converse in [the proofs](precision_bounds.md#independent-setting-dependent-directions) shows that this restriction changes the ultimate precision law, rather than being a cosmetic simplification.
 
 The theorem concerns sensor exposure with ideal control and storage. It does not include a bound on control energy, bath-engineering expense, error in the classical timing record, or readout infidelity. These define a different physical resource model. Noise-assisted correction is established prior work; the attributed contribution here is the unknown-axis obstruction, its controlled-rate removal, and the matching precision coefficient.
