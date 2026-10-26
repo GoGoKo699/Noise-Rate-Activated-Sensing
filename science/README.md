@@ -4,6 +4,8 @@
 
 The [model](model.md) fixes one exposed sensor, a shared continuously unknown transverse direction, ideal ancillary controls, and a hard physical time budget. A fixed rate imposes a linear-information ceiling. Two distinct positive rates attain quadratic local information; a separate stopped construction gives an exact direction-independent sensing operation and the global precision separation.
 
+For a finite-strength collision realization, the [microscopic global theorem](microscopic_global_precision.md) proves the same inverse-time versus inverse-time-squared risk separation under boundary-only control on a fixed identifiable band. Its [recorded-phase estimator](recorded_phase_estimation.md) accounts for calibration and ambiguity resolution directly in the exact microscopic experiment.
+
 ## Read by scientific dependency
 
 | Topic | Authoritative account |
@@ -17,6 +19,8 @@ The [model](model.md) fixes one exposed sensor, a shared continuously unknown tr
 | Finite-coupling local sensing and the controlled-record connection | [Microscopic sensing](microscopic_sensing.md) |
 | Sharp fixed-clock coefficients and the matching limited-interior-contact law | [Microscopic precision](microscopic_precision.md) |
 | An identifiable frequency band and calibration with all trials charged | [Microscopic identifiability](microscopic_identifiability.md) |
+| Global minimax separation between one and two fixed microscopic couplings | [Microscopic global precision](microscopic_global_precision.md) |
+| Uniform record gates, conditional inversion and paid multiscale estimation | [Recorded-phase estimation](recorded_phase_estimation.md) |
 | A parallel-noise ceiling and a certified finite-time advantage window | [Residual dephasing](residual_dephasing.md) |
 | Claim-to-proof map and interpretation of the complete result | [Scientific synthesis](interpretation.md) |
 
@@ -25,5 +29,7 @@ Follow the first five pages for the core proof chain, then read the physical bou
 ## Different guarantees
 
 A preset experiment can separate the target and nuisance statistically without removing the nuisance from each output. Stopped sensing instead cancels it on every completed trajectory, but has a random physical duration. The global theorem accounts for that duration and resolves phase ambiguity. Neither an attainable Fisher matrix nor an eventual successful stop alone proves the global claim.
+
+Microscopic even-parity records cancel the direction but supply different nonlinear phase functions. The global construction conditions on those records and adapts the terminal readout without retuning the Hamiltonian. The companion [global contact law](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md) and [specified timing-error models](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md) identify temporal access and timing information as distinct resources.
 
 [Shared learning route](../learning/README.md) · [Primary-source attribution](../references/RELATED_WORK.md) · [Verification](../verification/README.md) · [Overview](../README.md)

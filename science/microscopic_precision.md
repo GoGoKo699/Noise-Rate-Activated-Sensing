@@ -2,7 +2,7 @@
 
 [Microscopic construction](microscopic_sensing.md) · [Statistical model](model.md) · [Markovian precision bounds](precision_bounds.md)
 
-For the finite-strength collision device, one fixed positive coupling permits only linear nuisance-adjusted local information when controls occur at the prescribed cell boundaries. Selecting between two fixed positive couplings restores quadratic information within that same control class. Both leading coefficients can be determined exactly. The result is local at a compensated operating point and does not establish a microscopic global-risk law.
+For the finite-strength collision device, one fixed positive coupling permits only linear nuisance-adjusted local information when controls occur at the prescribed cell boundaries. Selecting between two fixed positive couplings restores quadratic information within that same control class. Both leading coefficients can be determined exactly. These are local statements at a compensated operating point; the [microscopic global theorem](microscopic_global_precision.md) separately proves the corresponding risk orders on a fixed band with paid localization and ambiguity resolution.
 
 ## The control class is part of the theorem
 
@@ -273,7 +273,7 @@ Finally, $`(x+y)^2\le2x^2+2y^2`$ and $`p\le\chi^2`$ give the stated $`c_U=2/p`$.
 
 With $`\chi`$ and $`h`$ fixed, $`m=O(\sqrt n)`$ retains linear information $`\Theta(n)`$; in particular this holds for $`m=o(\sqrt n)`$. If $`m/\sqrt n\to\infty`$, information is $`\Theta(m^2)`$ and is superlinear in the number of cells. A nonzero quadratic-in-$`T`$ order is possible precisely when $`m=\Omega(n)`$ under the imposed $`m\le n-1`$ budget. More generally, $`m=\Theta(n^\alpha)`$ gives order $`n+n^{2\alpha}`$ for $`0\le\alpha\le1`$.
 
-These statements concern local information at the fixed compensated operating point. They do not identify a global estimation risk, infer derivative control from single-parameter probability agreement, or price finite-duration pulses and measurements.
+These statements concern local information at the fixed compensated operating point. The companion [global contact theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md) separately proves risk of order $`1/[h^2(n+m^2)]`$ on a suitable fixed band, using a uniform nuisance curve and an exact recorded-phase estimator. Neither proof infers derivative control from single-parameter probability agreement or prices finite-duration pulses and measurements.
 
 ## Scope of the separation
 
@@ -281,6 +281,6 @@ For the fixed positive menu $`\{g_a,g_b\}`$, the strongest strategy confined to 
 
 The timing restriction is substantive. The [limited-interior-access theorem](#limited-access-inside-collision-cells) quantifies it: a fixed contact count alone does **not** establish a coupling-activated change of scaling. Fixed-coupling sensing already has quadratic local information when a linear number of those contacts may be placed inside the cells. The matching two-coupling separation above concerns the prescribed boundary clock.
 
-These results remain local at $`\epsilon=0`$. They do not transfer a Fisher-information bound to global risk, give free initial localization, price finite control duration or controller work, or establish a fixed-rate limitation for arbitrary non-Markovian reservoirs. The separate [identifiability and calibration theorem](microscopic_identifiability.md) supplies a uniform attainable risk bound on an explicit fixed frequency band, with calibration costs included. It does not turn this local optimum into a global optimum or physically retune the compensation. The full interaction strength and growing finite-bath resources are specified in the [construction](microscopic_sensing.md#one-shared-interaction-and-a-fixed-measurement-clock).
+The local coefficients above remain evaluated at $`\epsilon=0`$. The separate [microscopic global theorem](microscopic_global_precision.md) uses the [paid calibration experiment](microscopic_identifiability.md) and exact retained records to prove the boundary-only global separation; it does not identify the optimal global constants with these local coefficients. The nominal compensation is fixed throughout. Finite control duration, controller work and arbitrary non-Markovian reservoirs are outside these statements. The full interaction strength and growing finite-bath resources are specified in the [construction](microscopic_sensing.md#one-shared-interaction-and-a-fixed-measurement-clock).
 
 The proof uses the channel-extension and common-nuisance-path method attributed in the [related-work account](../references/RELATED_WORK.md); the finite-step isometry argument above states the exact specialization needed here. Passing finite checks supplements this argument rather than proving its universal control quantifier.

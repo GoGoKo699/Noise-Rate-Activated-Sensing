@@ -28,7 +28,7 @@ The [regeneration check](../scripts/check_reproducibility.py) runs both producer
 
 ## Coverage
 
-The suite contains 125 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, 20 in `tests/test_risk.py`, 11 in `tests/test_microscopic.py`, 8 in `tests/test_contact_precision.py`, 7 in `tests/test_identifiability.py`, 7 in `tests/test_learning.py`, 8 offline serialization/regeneration checks in `tests/test_rendering.py`, and 8 shared-structure checks in `tests/test_structure.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
+The suite contains 144 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, 20 in `tests/test_risk.py`, 11 in `tests/test_microscopic.py`, 8 in `tests/test_contact_precision.py`, 7 in `tests/test_identifiability.py`, 11 in `tests/test_global_microscopic.py`, 8 in `tests/test_timing_precision.py`, 7 in `tests/test_learning.py`, 8 offline serialization/regeneration checks in `tests/test_rendering.py`, and 8 shared-structure checks in `tests/test_structure.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
 
 | Calculation | Check |
 |---|---|
@@ -41,6 +41,8 @@ The suite contains 125 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_pres
 | Contact placement | Joint-unitary midpoint pulses with a retained failure flag; exact local response and disagreement with a subdivided Markov endpoint surrogate |
 | Limited interior-contact precision | Purified adaptive controller with rare and parameter-dependent activity records; orthogonal inactive derivative sources, hard-budget active-source bound, and charged early-readout likelihoods |
 | Microscopic identifiability and calibration | Direct joint-unitary three-outcome likelihoods, band conditioning, complete reset trees, exactly enumerated estimator risks and tails, charged prefix readout, and adaptive output equality at clock aliases |
+| Global microscopic construction and converse ingredients | Exact off-compensation even-record states, curved-nuisance cancellation, complete reward distributions, record-conditioned inversion, nested failure containment, and charged multiscale and temporal-contact budgets |
+| Timing information | Displaced joint unitaries, hidden two-point mixture, common nuisance-curve gauge, complete local readout derivatives, known-offset record phases, and the small-jitter gauge envelope |
 | First-passage distribution | Backward equations, symbolic moments, and 30,000 event samples |
 | Timing at numerical limits | High-precision comparisons for nearly equal rates and short exposures; large positive Laplace parameters |
 | Hard-deadline accounting | 20,000 samples retaining every failed run at full deadline cost |
@@ -76,7 +78,7 @@ local terminal-readout derivative with an independent classical reward
 recursion. It also checks the companion complete-record error and survival
 bounds. Run `python verification/run_all.py` from the
 Markovian-Resolution-Limit checkout to execute it and compare its recorded
-quantities. It is separate from this repository's 125-test suite.
+quantities. It is separate from this repository's 144-test suite.
 
 The eleven [microscopic control checks](../tests/test_microscopic.py) in this
 repository support the [sharp boundary-control theorem](../science/microscopic_precision.md)
@@ -84,8 +86,9 @@ and the companion midpoint calculation. They propagate the actual joint
 unitary around an interior pulse rather than subdividing an endpoint channel.
 Their Fisher checks retain the complete count record or the terminal failure
 flag. Finite checks do not prove the all-controls quantifier; the scientific
-pages supply that argument. No global-risk separation or fixed-rate converse
-under arbitrary contact timing is established.
+pages supply that argument. The separate [global microscopic theorem](../science/microscopic_global_precision.md)
+has its own off-compensation converse and explicit estimator; the fixed-coupling
+boundary limitation is not a limitation under arbitrary contact timing.
 
 The eight [contact-precision checks](../tests/test_contact_precision.py) support
 the [limited-interior-access theorem](../science/microscopic_precision.md#limited-access-inside-collision-cells)
@@ -111,7 +114,31 @@ include off-compensation frequencies. The prefix check counts an early
 readout and preserves its classical record through the remaining noisy cells.
 The alias checks use entangled inputs and outcome-adaptive instruments;
 the all-controller equality follows from the written induction, not these
-finite examples. No full microscopic global-risk optimum is tested or claimed.
+finite examples. These calibration checks do not optimize microscopic global
+risk; the global theorem and its additional checks are described below.
+
+The eleven [global microscopic checks](../tests/test_global_microscopic.py)
+support the [fixed-band precision separation](../science/microscopic_global_precision.md),
+the [recorded-phase estimator](../science/recorded_phase_estimation.md), and the
+companion [global contact law](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md).
+They compare complete six-cell parity trees with direct joint unitaries,
+including corrected echo cells and off-compensation frequencies. Independent
+count-distribution and moment recursions check the acceptance mechanism.
+Exact readout enumeration tests inversion conditional on the actual retained
+records, whose probabilities change with frequency. Deliberately wrong
+refinements check nested-interval containment. The schedule and branch checks
+charge rejected blocks, interior pulses and the final early readout. An
+adaptive complete-output likelihood tests the uniform nuisance-path bound.
+
+The eight [timing checks](../tests/test_timing_precision.py) support the
+companion [timing-information theorems](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md).
+They propagate pulses inside the simultaneous joint Hamiltonian, average the
+physical hidden timing signs, and compare that mixture with its three-Kraus
+channel. They also check the known-offset record phase, the common-curve
+environment gauge, the rank change away from compensation, the small-jitter
+gauge growth, and actual complete local readout probabilities. They do not
+infer global risk from Fisher information or certify a sufficient accuracy
+scale. The asymptotic minimax statements follow from the written proofs.
 
 ## Reading the numerical examples
 

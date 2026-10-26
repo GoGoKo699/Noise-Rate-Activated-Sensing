@@ -10,6 +10,8 @@ For one sensor with Hamiltonian $`H=\omega Z/2`$ and transverse Lindblad operato
 
 The central scientific statement is a change in the optimal precision law. It is established both for nuisance-adjusted local information and for global worst-case mean-square error over a fixed bounded frequency interval. Preset protocols attain the local coefficient. A monitored stopped protocol implements an exact nuisance-independent quantum channel and supplies the global upper bound.
 
+The [finite-strength microscopic theorem](microscopic_global_precision.md) establishes an analogous global separation for a fixed collision clock: either one fixed positive coupling gives risk $`\Theta(n^{-1})`$, while two fixed positive couplings give $`\Theta(n^{-2})`$ on one suitable fixed, nonshrinking frequency interval. This statement is derived from the collision instrument itself, with its own adaptive converse and fully charged estimator. It does not require a Markovian approximation or physical retuning after calibration.
+
 ## Claim and proof map
 
 | Result | Precise statement | Authoritative derivation |
@@ -22,7 +24,11 @@ The central scientific statement is a change in the optimal precision law. It is
 | Charged timing | Exact first-passage transform, finite mean $`d/r`$, exponential tails, and hard-deadline accounting | [Stopped sensing](stopped_sensing.md) |
 | Calibration distinction | A balanced echo is sensitive to differential imbalance; a fair recorded rate choice retains at least half the optimal local coefficient without numerical rate calibration | [Preset protocols](preset_protocols.md) |
 | Shared-direction boundary | Independently unknown setting directions obey a linear-information converse | [Independent-axis bound](precision_bounds.md#independent-setting-dependent-directions) |
-| Finite-cadence result | Ideal measurements at fixed intervals retain a positive quadratic local coefficient at a compensated operating point | [Physical scope](physical_scope.md#finite-interval-ideal-parity-measurements) |
+| Finite-cadence Markovian result | Ideal measurements at fixed intervals retain a positive quadratic local coefficient at a compensated operating point | [Physical scope](physical_scope.md#finite-interval-ideal-parity-measurements) |
+| Finite-strength global separation | One fixed coupling gives inverse-cell-count risk, while a two-coupling menu gives inverse-square risk on a common fixed band | [Microscopic global precision](microscopic_global_precision.md) |
+| Estimation from retained microscopic records | Uniformly usable nonlinear phase functions give quadratic global precision with paid calibration and ambiguity resolution | [Recorded-phase estimation](recorded_phase_estimation.md) |
+| Temporal access at one fixed coupling | Global risk has order $`1/[h^2(n+m^2)]`$ under the stated total and inside-cell contact budgets | [Companion global contact theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md) |
+| Specified hidden timing noise | Fixed nonzero independent two-point jitter gives inverse-time global risk for a plain/jittered-one-pulse menu, even with quadratic local information at compensation | [Companion timing theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md) |
 | Residual parallel noise | A positive parallel rate restores a linear ceiling, while a quantified finite-time rate-diversity advantage remains | [Residual dephasing](residual_dephasing.md) |
 
 ## Two mechanisms, not two versions of the same guarantee
@@ -32,6 +38,8 @@ The central scientific statement is a change in the optimal precision law. It is
 **Exact channel cancellation.** Leave the errors uncorrected. Since $`N_\phi^2=I`$ and $`N_\phi ZN_\phi=-Z`$, the syndrome records a signed signal clock. Increasing the rate in the error sector gives that clock positive drift. Stopping at a prescribed signed time cancels the unknown error on every completed trajectory. Its waiting-time distribution, rather than an uncharged success condition, determines the physical cost. At equal rates the mean first-passage time is infinite, consistently with the fixed-rate obstruction.
 
 These mechanisms support one resource distinction. Rate feedback is sufficient for the exact stopped channel, but is not necessary for the leading local optimum. The latter should not be described as an intrinsically syndrome-conditioned bath-control effect.
+
+For the microscopic device, an even number of observed flips also cancels the direction exactly. Its record specifies a nonlinear phase function, rather than a noiseless Ramsey operation at a prescribed signed duration. The [global estimator](recorded_phase_estimation.md) retains these functions, certifies their sensitivity over an entire fixed band, and measures each output relative to the phase predicted at the current classical interval center. Conditional concentration and nested intervals resolve ambiguity. This changes only terminal measurement bases; the signal Hamiltonian and nominal compensation are unchanged. Averaging the records into an unobserved mixture would describe a different experiment.
 
 ## The upper-bound chain
 
@@ -46,6 +54,8 @@ At one rate, a single $`c`$ cancels every coherent contribution. With a common d
 
 The channel inequality, nuisance-parameter projection, statistical design, van Trees argument, and multiscale phase-estimation technique are inherited tools. The particular obstruction, controlled removal, matching coefficient, and fully costed stopped operation are the combined results proved here. The [primary-source comparison](../references/RELATED_WORK.md) makes those attribution boundaries explicit.
 
+For a fixed microscopic coupling, the [global converse](microscopic_global_precision.md#the-fixed-coupling-nuisance-curve) uses a smooth frequency-dependent nuisance curve that cancels the exact Kraus derivative overlap across the fixed band. The resulting uniform linear information bound applies to every allowed adaptive boundary experiment and then enters a global risk inequality. The two-coupling construction supplies a matching inverse-square upper order through exact records. Its global constants are not identified with the sharp local coefficients.
+
 ## Physical interpretation and assumptions
 
 A scalar rate knob can represent changing the intensity of one fixed noisy coupling or the arrival rate of unobserved identical collisions. The illustrative constructions preserve the same unknown operator. They are not a demonstration of the complete protocol in a device. Signal changes, coherent access, additional baths, and finite monitoring have to be assessed in their actual access model.
@@ -55,6 +65,10 @@ Known system pulses do not silently provide independent control of an unknown si
 The physically essential assumptions are a common stable transverse direction, a specified signal response under the rate knob, and ideal ancillary measurement/control in the principal theorem. Known setting-dependent Hamiltonian offsets can be compensated. If instead every setting has a free unknown additive frequency offset $`\delta_j`$, the family $`H_j=(s_j\omega+\delta_j)Z/2`$ is invariant under $`\omega\mapsto\omega+u`$, $`\delta_j\mapsto\delta_j-s_ju`$; the target is then unidentifiable without another constraint. That is a different statistical model, not a small uncharged calibration error.
 
 Strict asymptotic quadratic scaling also excludes an uncorrectable parallel error of fixed positive strength. Its explicit linear ceiling and finite-time advantage window are included rather than hidden behind a robustness claim. No assertion of general fault tolerance, arbitrary unknown-noise correction, or optimal global constant is made.
+
+For the collision device, temporal access is an additional resource. The companion [global contact theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md) allows at most $`m`$ contacts inside cells within $`n-1`$ total contacts. A menu of echoed and untouched cells attains the matching global law on a fixed band, while a nuisance-curve activity bound limits every permitted adaptive controller. This does not change the boundary-only coupling comparison.
+
+Timing errors require a specified observation model. In the companion [plain/pulsed-cell analysis](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md), a known fixed displacement preserves usable exact phase records and quadratic global order. Unobserved independent two-point jitter mixes distinct odd-parity operations; the stated plain/jittered-one-pulse menu then has only inverse-time global precision at fixed nonzero jitter, even though its compensated local information can remain quadratic. That converse is restricted to the given menu. It does not cover additional interior pulses, recorded timing errors, selectable couplings or retuned compensation.
 
 ## Evidence and use
 

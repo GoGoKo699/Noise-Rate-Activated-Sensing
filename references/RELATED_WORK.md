@@ -2,7 +2,7 @@
 
 [Overview](../README.md) · [Scientific synthesis](../science/interpretation.md) · [Bibliography](references.bib)
 
-This comparison uses primary papers and identifies preprints as such. It separates inherited methods from the precision statements proved here. The core unknown-direction pages, channel-bound coefficients, and the additional global-risk and access-model references were checked on 16 October 2026. It is a targeted comparison, not an exhaustive priority guarantee.
+This comparison uses primary papers and identifies preprints as such. It separates inherited methods from the precision statements proved here. The core unknown-direction pages and channel-bound coefficients were checked on 16 October 2026; the focused non-Markovian and global-estimation comparisons below were checked on 26 October 2026. It is a targeted comparison, not an exhaustive priority guarantee.
 
 ## Closest noise model
 
@@ -33,6 +33,23 @@ Reduction of function estimation to one-parameter embeddings and correction of n
 **Gill and Levit, “Applications of the van Trees inequality: a Bayesian Cramér–Rao bound,” Bernoulli 1, 59–79 (1995).** [Paper](https://projecteuclid.org/journals/bernoulli/volume-1/issue-1-2/Applications-of-the-van-Trees-inequality--a-Bayesian-Cram%C3%A9r/bj/1186078362.full)
 
 Using a smooth compact prior on a difficult submodel to obtain a minimax lower bound is an established statistical technique. The global-risk proof supplies the scalar integration-by-parts argument explicitly. Its application to the uniform sensing nuisance-path bound is not a new Bayesian inequality. The path prior is a proof device, not a distribution of angles assumed by the physical protocol.
+
+## Non-Markovian correction and controlled-process metrology
+
+<a id="mann2025nonmarkovian"></a>
+**Mann, Cao, Laflamme, and Zhou, “Quantum Error Corrected Non-Markovian Metrology,” PRX Quantum 6, 030321 (2025).** [Paper](https://doi.org/10.1103/wfyl-wtz3) · [Compared version](https://arxiv.org/html/2503.07745v2)
+
+Section III derives sufficient conditions for quadratic quantum Fisher information in a hidden Markov model with an inaccessible environment. Theorem 3 assumes perfect, arbitrarily fast error correction; some subsequent guarantees are stated as a quadratic limsup. The statistical formulation uses the quantum Cramér–Rao bound for repeated experiments. Non-Markovian error correction and recovery of quadratic information are therefore established precedents. The [microscopic global theorem](../science/microscopic_global_precision.md) instead keeps the collision duration and two positive couplings fixed and proves worst-case risk on one nonshrinking interval, uniformly over a shared unknown direction. Its resource restriction and global attainability argument are additional requirements, not consequences of the non-Markovian correction criteria.
+
+<a id="altherr2021nonmarkovian"></a>
+**Altherr and Yang, “Quantum metrology for non-Markovian processes,” Physical Review Letters 127, 060501 (2021).** [Paper](https://doi.org/10.1103/PhysRevLett.127.060501) · [Compared version](https://arxiv.org/html/2103.02619v2)
+
+Theorem 1, Eq. (8), and Algorithm 1 characterize and optimize quantum-comb Fisher information over probe controls. Appendix B studies collision examples, including an elementary step that factors a signal gate and an interaction gate. This establishes a general framework for control-enhanced non-Markovian metrology. Here the signal acts during the bounded interaction, and only collision-boundary controls are available in the rate-menu comparison. An optimized local comb information value does not by itself supply a global estimator, a nuisance-uniform risk bound or the one-versus-two-coupling separation. The [temporal-access companion](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md) treats access inside the same microscopic interactions as a separate resource.
+
+<a id="kurdzialek2025correlated"></a>
+**Kurdziałek, Albarelli, and Demkowicz-Dobrzański, “Universal bounds for quantum metrology in the presence of correlated noise,” Physical Review Letters 135, 130801 (2025).** [Paper](https://doi.org/10.1103/jy3v-wkcb) · [Compared version](https://arxiv.org/html/2410.01881v3)
+
+Equations (5)–(7) give adaptive-information recurrences and asymptotic bounds; the subsequent quantum-comb construction treats temporal and spatial correlations. Its general bounds need not be tight. This is a close converse framework, alongside the channel-extension sources above. The present nuisance-curve calculation supplies an explicit linear bound for the fixed-coupling microscopic channel on a frequency subinterval, and the established van Trees method turns it into a minimax obstruction. The matching global upper bound requires the separate [recorded-phase estimator](../science/recorded_phase_estimation.md). Neither the general adaptive bound nor reciprocal local information alone establishes that risk statement.
 
 ## Noise-assisted recovery is established
 
@@ -80,9 +97,11 @@ Incoherent environment control is an established resource. This supports disting
 
 Concentration of bounded independent observations is an inherited statistical ingredient. The [microscopic calibration theorem](../science/microscopic_identifiability.md) applies it to a complete three-outcome experiment, including failed parity outcomes, after deriving an explicit inverse-Lipschitz response on a fixed frequency band. Its concentration inequality is not a new statistical bound.
 
-**Higgins et al., “Demonstrating Heisenberg-limited unambiguous phase estimation without adaptive measurements,” New Journal of Physics 11, 073023 (2009).** [Paper](https://doi.org/10.1088/1367-2630/11/7/073023) · [Preprint](https://arxiv.org/abs/0809.3308)
+**Higgins et al., “Demonstrating Heisenberg-limited unambiguous phase estimation without adaptive measurements,” New Journal of Physics 11, 073023 (2009).** [Paper](https://doi.org/10.1088/1367-2630/11/7/073023) · [Compared version](https://arxiv.org/abs/0809.3308v4)
 
-Multiscale interrogation for resolving phase ambiguity is inherited background. The global result transfers such reasoning to exact stopped Ramsey operations and includes deadline failures. An elementary schedule and its risk bound are supplied in the proof notes.
+Section 4, pp. 9–10, uses dyadic interrogation lengths, tapered repetitions and first-failed-stage error accounting to establish global Heisenberg scaling. Multiscale ambiguity resolution and this allocation principle are inherited methods. The continuous-time [global result](../science/global_precision.md) transfers such reasoning to exact stopped Ramsey operations and includes deadline failures.
+
+The finite-strength [recorded-phase lemma](../science/recorded_phase_estimation.md) adds a conditional argument for observed, nonlinear phase functions whose record probabilities may depend on the unknown frequency. It inverts the actual retained functions, proves uniform sensitivity on a fixed interval, and charges calibration, every attempted block and all failed records. The [microscopic theorem](../science/microscopic_global_precision.md) verifies these conditions uniformly over the shared unknown direction. Adapting a terminal measurement basis uses the observed record and earlier estimates; it does not retune physical compensation. These additional steps connect the microscopic construction to global risk rather than infer it from local Fisher information.
 
 **Gneiting, Rozhkov, and Nori, “Jump-time unraveling of Markovian open quantum systems,” Physical Review A 104, 062212 (2021).** [Paper](https://doi.org/10.1103/PhysRevA.104.062212)
 
@@ -90,4 +109,4 @@ Conditioning open-system dynamics on jump counts is established. Count-condition
 
 ## Contribution boundary
 
-The central contribution is the combination of a nuisance-sensitive all-strategy converse, its removal by bounded shared-axis rate diversity, a matching local coefficient, and an exact stopped channel with charged timing and a same-metric global precision separation. Finite-cadence and residual-dephasing calculations have their stated narrower scope. None of these claims asserts correction of arbitrary uncharacterized noise, an experimental demonstration, a fault-tolerance threshold, or exhaustive bibliographic priority.
+The central contribution is the combination of a nuisance-sensitive all-strategy converse, its removal by bounded shared-axis rate diversity, a matching local coefficient, and an exact stopped channel with charged timing and a same-metric global precision separation. The finite-strength microscopic comparison independently establishes inverse-time versus inverse-time-squared worst-case risk on a sufficient fixed frequency band, using one versus two fixed positive couplings, boundary-only controls and unchanged compensation. Its constants depend on the fixed hardware and band; neither maximal bandwidth nor optimal global constants are asserted. Residual-dephasing and imperfect-control results retain their separately stated scope. None of these claims asserts correction of arbitrary uncharacterized noise, an experimental demonstration, a fault-tolerance threshold, or exhaustive bibliographic priority.
