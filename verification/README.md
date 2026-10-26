@@ -37,12 +37,7 @@ The suite contains 144 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_pres
 | Uncorrected trajectories | 500 random chronological products, including odd endpoints |
 | Optimal selectable-setting coefficient | 500 random setting families compared with an independent linear program |
 | Collision-induced channel | Explicit environment trace versus the analytical channel |
-| Exact microscopic boundary precision | Direct joint-unitary likelihoods, finite-difference complete Fisher matrices, fixed-coupling nuisance cancellation, and the common two-coupling tangent |
-| Contact placement | Joint-unitary midpoint pulses with a retained failure flag; exact local response and disagreement with a subdivided Markov endpoint surrogate |
-| Limited interior-contact precision | Purified adaptive controller with rare and parameter-dependent activity records; orthogonal inactive derivative sources, hard-budget active-source bound, and charged early-readout likelihoods |
-| Microscopic identifiability and calibration | Direct joint-unitary three-outcome likelihoods, band conditioning, complete reset trees, exactly enumerated estimator risks and tails, charged prefix readout, and adaptive output equality at clock aliases |
-| Global microscopic construction and converse ingredients | Exact off-compensation even-record states, curved-nuisance cancellation, complete reward distributions, record-conditioned inversion, nested failure containment, and charged multiscale and temporal-contact budgets |
-| Timing information | Displaced joint unitaries, hidden two-point mixture, common nuisance-curve gauge, complete local readout derivatives, known-offset record phases, and the small-jitter gauge envelope |
+| Microscopic precision, calibration, contact placement and timing | [Shared microscopic verification](#shared-microscopic-verification) maps each suite to its calculation and proof |
 | First-passage distribution | Backward equations, symbolic moments, and 30,000 event samples |
 | Timing at numerical limits | High-precision comparisons for nearly equal rates and short exposures; large positive Laplace parameters |
 | Hard-deadline accounting | 20,000 samples retaining every failed run at full deadline cost |
@@ -64,8 +59,6 @@ The suite contains 144 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_pres
 The likelihood checks use Poisson cutoffs with tail probability below $`10^{-14}`$ at their tested parameters. They finite-difference actual outcome probabilities rather than substituting analytical scores into an information formula. Seeded checks use stated tolerances instead of requiring identical floating-point results across all package versions.
 
 The [worked tutorial](../learning/TUTORIAL.md) uses the same physical and statistical conventions. Its seven finite checks run as part of the suite; passing them validates those calculations, not a reader's understanding or the source PDF. The rate-convention comparison with Haase is retained in the [common-anchor bridge](../learning/ANCHOR.md#rate-normalization); Rivas–Huelga is the educational anchor. The microscopic tutorial uses the separately listed global and timing checks below.
-
-The shared-structure checks validate the milestone count, declared dependencies, required fields, navigation, and separation from personal coaching records. They do not establish teaching effectiveness, comprehension, or scientific truth. The scientific implementations and their existing example tests use the same executable paths as before.
 
 ## Shared microscopic verification
 
@@ -170,4 +163,4 @@ The stopped simulator samples exact alternating exponential waits. An unfinished
 
 All implementations retain the resource assumptions of their documents. Finite-cadence signed drift is a local compensated result, not a faulty-readout simulation or a global theorem. Residual dephasing describes one unobserved parallel channel with otherwise ideal operations. The global upper scaling follows from the stopped-channel and multiscale proofs, not from a preset Fisher matrix or the sampled no-jump baseline.
 
-Tests establish their documented finite identities and implementation properties. They do not substitute for the universal proofs, independent scientific review, or a priority assessment. The source check rejects bare dollar math and the unsupported named-operator macro found by the hosted audit. Use GitHub math fences for displayed formulas and protected dollar/backtick spans for inline formulas; the browser additionally verifies formula counts and matrix row structure. Source-level syntax checks alone do not certify GitHub's hosted mathematical rendering; use the separate browser check and screenshot inspection above.
+Tests establish their documented finite identities and implementation properties. They do not substitute for universal proofs, independent scientific review, a priority assessment, or evidence of a reader's understanding. Source-format checks and hosted appearance have the separate roles described [above](#hosted-mathematical-rendering).
