@@ -28,7 +28,7 @@ The [regeneration check](../scripts/check_reproducibility.py) runs both producer
 
 ## Coverage
 
-The suite contains 99 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, 20 in `tests/test_risk.py`, 7 in `tests/test_learning.py`, 8 offline serialization/regeneration checks in `tests/test_rendering.py`, and 8 shared-structure checks in `tests/test_structure.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
+The suite contains 110 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, 20 in `tests/test_risk.py`, 11 in `tests/test_microscopic.py`, 7 in `tests/test_learning.py`, 8 offline serialization/regeneration checks in `tests/test_rendering.py`, and 8 shared-structure checks in `tests/test_structure.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
 
 | Calculation | Check |
 |---|---|
@@ -37,6 +37,8 @@ The suite contains 99 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_prese
 | Uncorrected trajectories | 500 random chronological products, including odd endpoints |
 | Optimal selectable-setting coefficient | 500 random setting families compared with an independent linear program |
 | Collision-induced channel | Explicit environment trace versus the analytical channel |
+| Exact microscopic boundary precision | Direct joint-unitary likelihoods, finite-difference complete Fisher matrices, fixed-coupling nuisance cancellation, and the common two-coupling tangent |
+| Contact placement | Joint-unitary midpoint pulses with a retained failure flag; exact local response and disagreement with a subdivided Markov endpoint surrogate |
 | First-passage distribution | Backward equations, symbolic moments, and 30,000 event samples |
 | Timing at numerical limits | High-precision comparisons for nearly equal rates and short exposures; large positive Laplace parameters |
 | Hard-deadline accounting | 20,000 samples retaining every failed run at full deadline cost |
@@ -72,11 +74,16 @@ local terminal-readout derivative with an independent classical reward
 recursion. It also checks the companion complete-record error and survival
 bounds. Run `python verification/run_all.py` from the
 Markovian-Resolution-Limit checkout to execute it and compare its recorded
-quantities. It is separate from this repository's 99-test suite.
+quantities. It is separate from this repository's 110-test suite.
 
-The shared checks support the specified microscopic local result. They do
-not establish a global-risk separation or a converse against arbitrary
-fixed-rate microscopic control.
+The eleven [microscopic control checks](../tests/test_microscopic.py) in this
+repository support the [sharp boundary-control theorem](../science/microscopic_precision.md)
+and the companion midpoint calculation. They propagate the actual joint
+unitary around an interior pulse rather than subdividing an endpoint channel.
+Their Fisher checks retain the complete count record or the terminal failure
+flag. Finite checks do not prove the all-controls quantifier; the scientific
+pages supply that argument. No global-risk separation or fixed-rate converse
+under arbitrary contact timing is established.
 
 ## Reading the numerical examples
 

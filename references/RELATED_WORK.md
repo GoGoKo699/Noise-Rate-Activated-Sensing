@@ -14,6 +14,10 @@ The fixed recovery $`X`$, count-conditioned phase, and complete-record single-ra
 
 ## Bound and estimation foundations
 
+**Demkowicz-Dobrzański and Maccone, “Using entanglement against noise in quantum metrology,” Physical Review Letters 113, 250801 (2014).** [Paper](https://doi.org/10.1103/PhysRevLett.113.250801) · [Author version](https://arxiv.org/abs/1407.2934v3)
+
+The channel-extension bound for arbitrary adaptive, ancilla-assisted sequences, including its linear form when the Kraus derivative overlap vanishes, is established in Eq. (9). The [microscopic precision proof](../science/microscopic_precision.md) supplies the finite-step purification argument for the present collision channel, with one shared nuisance path across all selected settings. Its exact coefficients and boundary-clock assumptions are derived here; the general adaptive bound is inherited.
+
 **Das, Górecki, and Demkowicz-Dobrzański, “Universal time scalings of sensitivity in Markovian quantum metrology,” Physical Review A 111, L020403 (2025).** [Paper](https://doi.org/10.1103/PhysRevA.111.L020403) · [Equations](https://arxiv.org/html/2404.03954v2)
 
 The adaptive information-growth inequality and its operators, including parameter-dependent noise, are inherited from Eqs. (2), (4), and (5). The zero-gauge nuisance-path substitution and matching constructions are worked out here. The general channel-bound method is not a contribution of this repository. The residual-parallel-noise bound uses a different explicit gauge of this same established inequality.
