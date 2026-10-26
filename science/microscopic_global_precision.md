@@ -215,7 +215,30 @@ This is valid for biased estimators. Substitution proves the stated fixed-coupli
 
 For the two-coupling lower bound, instead keep $`\phi`$ fixed along the prior. Every selected Hamiltonian has frequency derivative $`Z_S/2`$, so the norm of the complete purified signal generator is at most $`nh/2`$. Classical coupling selection and boundary instruments do not change this bound. Therefore $`J_u\le(nh)^2`$ uniformly, and van Trees proves the displayed inverse-square lower bound. These are different comparison paths for the two lower bounds.
 
-The statements extend to the stipulated controlled limits of finite controllers. On a slightly larger compact frequency interval, the nuisance curve has bounded first and second derivatives. Along it, $`H'=Z_S/2+g\phi'\partial_\phi N_\phi\otimes X_E`$ and $`H''=g(\phi''\partial_\phi N_\phi-\phi'^2N_\phi)\otimes X_E`$ have uniformly bounded norms. The companion [derivative-controlled limit argument](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/intervention_bounds.md#limits-with-controlled-parameter-derivatives) passes the information bounds to pointwise event-probability limits on a common output space throughout that neighborhood. For an arbitrary measurable estimator, first clip it to $`\Omega`$ and quantize its values into finitely many bins. The finite-output risk bound applies, and the bounded squared losses converge uniformly as the bin width tends to zero. No continuity of Fisher information from agreement at one parameter value is assumed.
+### Global risk under controlled limits
+
+The global lower bounds pass directly to the stipulated operational limits through bounded loss. Fix the hardware, resource budgets, one comparison path and its prior $`\pi`$. Suppose the finite-controller laws $`P_{r,u}`$ converge to $`P_u`$ on a common measurable output space, for every event and every point $`u`$ on the prior support. This is part of the convergence required by the stated controller class. Let $`b_\pi`$ be a lower bound on Bayes risk valid for every finite controller and every estimator, such as $`[C_n+I(\pi)]^{-1}`$ when the uniform information bound is $`J_u\le C_n`$.
+
+For any measurable estimator $`f`$ of the limiting output, first clip its values to $`\Omega`$. Quantize the clipped values to finitely many representatives in $`\Omega`$, obtaining $`f_\eta`$ with $`|f_\eta-f|\le\eta`$. The inverse images of those representatives form a fixed finite partition of the common output space, independent of $`u`$ and $`r`$. Event-probability convergence therefore gives pointwise convergence of the corresponding risks. They are bounded by $`4E^2`$, so dominated convergence under the same fixed prior yields
+
+```math
+\int\mathbb E_{P_u}[(f_\eta-\omega(u))^2]\,\pi(u)\,du
+=\lim_{r\to\infty}
+\int\mathbb E_{P_{r,u}}[(f_\eta-\omega(u))^2]\,\pi(u)\,du
+\ge b_\pi.
+```
+
+Both estimators take values in an interval of width $`2E`$. Consequently
+
+```math
+\bigl|(f_\eta-\omega)^2-(f-\omega)^2\bigr|
+\le4E\eta
+\qquad(\omega\in\Omega).
+```
+
+Sending $`\eta\to0`$ proves the same Bayes lower bound for $`f`$, and hence the same minimax lower bound. This argument includes biased estimators and requires no continuity of Fisher information. It does not enlarge the stipulated controller class. A finite partition of a final output is classical postprocessing and consumes no additional system contact.
+
+Separately, the information bounds themselves have the [derivative-controlled extension](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/intervention_bounds.md#limits-with-controlled-parameter-derivatives) used for local precision. On a slightly larger compact frequency interval, the nuisance curve has bounded first and second derivatives. Along it, $`H'=Z_S/2+g\phi'\partial_\phi N_\phi\otimes X_E`$ and $`H''=g(\phi''\partial_\phi N_\phi-\phi'^2N_\phi)\otimes X_E`$ have uniformly bounded norms. That argument retains information bounds under the required event-probability convergence on an open neighborhood; agreement at a single parameter value is insufficient. The bounded-loss argument above makes the global risk conclusion independent of that additional information-limit step.
 
 ## Attainment with retained even-parity records
 

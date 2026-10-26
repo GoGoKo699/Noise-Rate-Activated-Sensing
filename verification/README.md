@@ -130,6 +130,8 @@ refinements check nested-interval containment. The schedule and branch checks
 charge rejected blocks, interior pulses and the final early readout. An
 adaptive complete-output likelihood tests the uniform nuisance-path bound.
 
+The [global-risk closure](../science/microscopic_global_precision.md#global-risk-under-controlled-limits) is an analytical bounded-loss argument: quantize a clipped estimator, transfer its fixed-prior risk through event convergence, then refine the partition. Finite numerical checks cannot establish this statement for all operational limits. It is logically separate from the derivative-controlled closure used for local information.
+
 The eight [timing checks](../tests/test_timing_precision.py) support the
 companion [timing-information theorems](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md).
 They propagate pulses inside the simultaneous joint Hamiltonian, average the
