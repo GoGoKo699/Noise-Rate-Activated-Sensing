@@ -61,6 +61,23 @@ The [worked tutorial](../learning/TUTORIAL.md) uses the same physical and statis
 
 The shared-structure checks validate the milestone count, declared dependencies, required fields, navigation, and separation from personal coaching records. They do not establish teaching effectiveness, comprehension, or scientific truth. The scientific implementations and their existing example tests use the same executable paths as before.
 
+## Shared microscopic verification
+
+The [bounded-collision sensing proof](../science/microscopic_sensing.md) has a
+shared finite check in the companion repository:
+[verify_sensing_bridge.py](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/verification/verify_sensing_bridge.py).
+That script compares the direct joint unitary with the analytic Kraus
+instrument, propagates complete adaptive parity records, and compares the
+local terminal-readout derivative with an independent classical reward
+recursion. It also checks the companion complete-record error and survival
+bounds. Run `python verification/run_all.py` from the
+Markovian-Resolution-Limit checkout to execute it and compare its recorded
+quantities. It is separate from this repository's 99-test suite.
+
+The shared checks support the specified microscopic local result. They do
+not establish a global-risk separation or a converse against arbitrary
+fixed-rate microscopic control.
+
 ## Reading the numerical examples
 
 In the preset table, rate units set $`a=1`$, $`b=3`$. A balanced echo has local information $`T^2/4`$. A fixed timing imbalance uses fractions 0.76 and 0.24; its coefficient eventually falls as described by the exact calibration law. A fair recorded rate choice instead approaches coefficient $`1/5`$. The column labelled `optimal_leading_design_information` uses probability $`3/4`$: it optimizes the leading coefficient, not necessarily the finite-time information.
