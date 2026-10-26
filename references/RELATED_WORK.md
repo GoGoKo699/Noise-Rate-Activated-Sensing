@@ -76,6 +76,10 @@ Incoherent environment control is an established resource. This supports disting
 
 ## Phase-estimation and stopping background
 
+**Hoeffding, “Probability inequalities for sums of bounded random variables,” Journal of the American Statistical Association 58, 13–30 (1963).** [Paper](https://doi.org/10.1080/01621459.1963.10500830)
+
+Concentration of bounded independent observations is an inherited statistical ingredient. The [microscopic calibration theorem](../science/microscopic_identifiability.md) applies it to a complete three-outcome experiment, including failed parity outcomes, after deriving an explicit inverse-Lipschitz response on a fixed frequency band. Its concentration inequality is not a new statistical bound.
+
 **Higgins et al., “Demonstrating Heisenberg-limited unambiguous phase estimation without adaptive measurements,” New Journal of Physics 11, 073023 (2009).** [Paper](https://doi.org/10.1088/1367-2630/11/7/073023) · [Preprint](https://arxiv.org/abs/0809.3308)
 
 Multiscale interrogation for resolving phase ambiguity is inherited background. The global result transfers such reasoning to exact stopped Ramsey operations and includes deadline failures. An elementary schedule and its risk bound are supplied in the proof notes.
