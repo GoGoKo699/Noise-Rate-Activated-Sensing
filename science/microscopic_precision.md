@@ -173,22 +173,113 @@ Minimizing over the common nuisance slope gives
 
 For example, $`k_*=(f_a+f_b)/[2(p_a+p_b)]`$ makes the two residuals equal and opposite; any smaller maximum would require two incompatible intervals for $`k`$. The resulting upper coefficient is $`\Delta^2v_{\mathrm{col}}^2`$ per squared cell count. The attainable coefficient in the microscopic construction matches it.
 
+## Limited access inside collision cells
+
+The boundary restriction can be relaxed quantitatively. Write $`h=\Delta`$, fix $`0<\chi=gh<\pi/4`$, and put $`p=\sin^2\chi`$, $`q=\cos^2\chi`$. Keep the same fixed coupling, fresh-cell bath, fixed nominal compensation and physical horizon $`T=nh`$.
+
+Allow at most $`n-1`$ instantaneous system–memory contacts strictly between times zero and $`T`$. At most $`m`$ of them may lie strictly inside collision cells, where $`n\ge1`$ and $`0\le m\le n-1`$. The other contacts may occur at cell boundaries. Both bounds hold on every controller branch, including transcripts with zero probability at the operating point. Initial preparation and final readout at $`T`$ are free. A readout performed earlier is a counted contact. All outcomes and failures are retained, and an early completed outcome is stored until the charged horizon $`T`$.
+
+The controller may use arbitrary parameter-independent adaptive instruments and protected memory. Contact times are selected classically; coherent superpositions of different contact times are not included. The bath, cell duration and coupling remain fixed, with no bath access, altered collision clock or noise-free signal-bearing waiting interval. Let $`\mathcal I_{n,m}^*`$ be the optimal nuisance-adjusted information at $`\epsilon=0`$ in this class.
+
+The theorem includes finite adaptive instrument trees, parameter-independent classical mixtures of them, and the following controlled limits: for fixed $`n,m,g,h`$ and a common output space, every event probability converges pointwise throughout an open parameter neighborhood, with the same branchwise budgets. The derivative control needed for these limits is stated below; probability convergence alone is not being treated as Fisher-information continuity.
+
+**Finite-budget theorem.** Define
+
+```math
+B_n=\frac{n^2p}{g^2(np+q)},
+\qquad E_m=\frac p{g^2}(1+m\cos\chi)^2.
+```
+
+Then
+
+```math
+\max\{B_n,E_m\}
+\le\mathcal I_{n,m}^*
+\le\min\left\{n^2h^2,
+\left(\frac{\sqrt n}{g}+\frac{mh}{\sin\chi}\right)^2\right\}.
+```
+
+In particular, for every permitted $`n,m`$,
+
+```math
+c_L(n+m^2)
+\le\frac{\mathcal I_{n,m}^*}{h^2}
+\le c_U(n+m^2),
+\qquad
+c_L=\frac{pq}{\chi^2(1+q)}\ge\frac8{3\pi^2},
+\qquad c_U=\frac2p.
+```
+
+Thus $`\mathcal I_{n,m}^*/h^2=\Theta_\chi(n+m^2)`$. The bounds do not claim optimal crossover constants.
+
+### Two experiments supply the lower bound
+
+The fixed-recovery experiment above uses $`n-1`$ interior boundary contacts; its last recovery and readout are included in the free terminal instrument. It uses no contact inside a cell and attains $`B_n`$.
+
+For the second experiment, put a sensor $`Z`$ pulse at the midpoint of each of the first $`m`$ cells. Leave cell $`m+1`$ unrefocused, then measure parity and the appropriate logical quadrature as one instrument. The known $`Z`$ actions from the echoed cells are accounted for in the readout, without extra recovery pulses. At compensation, each echoed cell contributes local phase duration $`\sin\chi/g`$; the final even branch contributes $`d=\tan\chi/g`$ and occurs with probability $`q`$. Retaining the odd result as a failure gives
+
+```math
+q\left[m\frac{\sin\chi}{g}+d\right]^2
+=\frac p{g^2}(1+m\cos\chi)^2=E_m.
+```
+
+The [joint-dynamics calculation](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/sensing_bridge.md) establishes this local response without assuming that echoed cells are noiseless away from compensation. If $`m<n-1`$, the measurement at $`(m+1)h<T`$ is one counted boundary contact, for a total of $`m+1\le n-1`$. Store its outcome through the remaining cells. If $`m=n-1`$, that measurement is the free readout at $`T`$, so there are exactly $`m=n-1`$ contacts. These rules also cover $`m=0`$ and $`n=1`$. Neither a successful branch nor an early readout reduces the charged physical horizon.
+
+Since $`B_n/h^2\ge pn/\chi^2`$ and $`E_m/h^2\ge pqm^2/\chi^2`$, the maximum of the two experiments is at least $`c_L(n+m^2)`$. The uniform lower estimate on $`c_L`$ uses $`(\sin\chi/\chi)^2\ge8/\pi^2`$ and $`q/(1+q)\ge1/3`$ on the stated interval.
+
+### Clean cells and controlled cells have different derivative costs
+
+Use the same nuisance slope $`k=\cot\chi/(2g)`$ as in the fixed-coupling converse. An untouched cell has a dilation satisfying
+
+```math
+V^\dagger\dot V=0,
+\qquad \|\dot V\|\le\frac1{2g}.
+```
+
+A cell containing interior contacts need not have the zero-overlap property. Its derivative is nevertheless bounded. Along the common nuisance path,
+
+```math
+\partial_uH
+=\frac Z2+kg\,\partial_\phi N_\phi\otimes X_E,
+\qquad
+\|\partial_uH\|=\frac1{2\sin\chi}.
+```
+
+The terms anticommute. In a dilation of the adaptive instruments, the same bound holds in every classical record block at each laboratory time. Integrating the derivative insertion over one full cell therefore gives $`\|\dot V_{\mathrm{active}}\|\le L=h/(2\sin\chi)`$, even when contact times depend on earlier outcomes. The integration uses the common laboratory interval of length $`h`$, not a sum of maxima of branch-dependent waiting times.
+
+At most $`m`$ cells can be active on a branch. The companion [derivative bound with a hard activity budget](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/intervention_bounds.md#a-derivative-bound-with-a-hard-activity-budget) separates mutually orthogonal clean-cell derivative insertions from active-cell insertions supported on immutable activity records. Its bound with $`a=1/(2g)`$ and $`L=h/(2\sin\chi)`$ is
+
+```math
+\|\dot\Psi_n\|
+\le\frac{\sqrt n}{2g}+\frac{mh}{2\sin\chi}.
+```
+
+It covers adaptively chosen active cells, protected-memory observations and nominal zero-probability branches. Multiplication by four after squaring bounds the path quantum Fisher information and hence efficient target information. The independent fixed-$`\phi`$ signal bound supplies $`n^2h^2`$.
+
+The same proof extends to the stated limits using bounded second derivatives, rather than a continuity assumption for Fisher information. Along this path,
+
+```math
+D_1=\frac1{2\sin\chi},
+\qquad D_2=gk^2,
+\qquad
+|\partial_u^2P(B)|\le2TD_2+4T^2D_1^2
+```
+
+for every outcome event $`B`$, uniformly over the allowed controllers. The companion [controlled-derivative limit argument](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/intervention_bounds.md#limits-with-controlled-parameter-derivatives) shows that event-probability convergence on an open neighborhood then controls first derivatives; finite-partition Fisher information preserves the upper bound in the limit.
+
+Finally, $`(x+y)^2\le2x^2+2y^2`$ and $`p\le\chi^2`$ give the stated $`c_U=2/p`$.
+
+### How much access changes the scaling
+
+With $`\chi`$ and $`h`$ fixed, $`m=O(\sqrt n)`$ retains linear information $`\Theta(n)`$; in particular this holds for $`m=o(\sqrt n)`$. If $`m/\sqrt n\to\infty`$, information is $`\Theta(m^2)`$ and is superlinear in the number of cells. A nonzero quadratic-in-$`T`$ order is possible precisely when $`m=\Omega(n)`$ under the imposed $`m\le n-1`$ budget. More generally, $`m=\Theta(n^\alpha)`$ gives order $`n+n^{2\alpha}`$ for $`0\le\alpha\le1`$.
+
+These statements concern local information at the fixed compensated operating point. They do not identify a global estimation risk, infer derivative control from single-parameter probability agreement, or price finite-duration pulses and measurements.
+
 ## Scope of the separation
 
 For the fixed positive menu $`\{g_a,g_b\}`$, the strongest strategy confined to either one coupling has information at most $`n/g_a^2`$. The two-coupling construction has $`v_{\mathrm{col}}^2(n\Delta)^2+o(n^2)`$. Thus coupling diversity changes the optimal local scaling under the same prescribed boundary clock, with the same ideal ancillary and control resources.
 
-The timing restriction is substantive. With one fixed coupling, move the same $`n-1`$ interior contacts to the midpoints of the first $`n-1`$ cells and use each for a sensor $`Z`$ pulse. Leave the last cell unrefocused and retain its terminal parity result. At compensation, an echoed cell has a known parameter-independent $`Z`$ action and a coherent local frequency derivative with duration $`\sin\chi/g`$. Tracking those known actions in the terminal readout gives the attainable information
-
-```math
-\mathcal I_{\mathrm{midpoint}}
-=q\left[(n-1)\frac{\sin\chi}{g}+d\right]^2,
-\qquad
-\lim_{n\to\infty}
-\frac{\mathcal I_{\mathrm{midpoint}}}{(n\Delta)^2}
-=q\left(\frac{\sin\chi}{\chi}\right)^2>0.
-```
-
-The factor $`q`$ charges the last cell's even-parity success probability; odd results are retained as failures. No extra boundary recovery pulse is needed. The companion [contact-placement proof](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/sensing_bridge.md) derives this local response directly from the joint dynamics. Thus a fixed contact count alone does **not** establish a coupling-activated change of scaling: fixed-coupling sensing already has quadratic local information when those contacts may be placed inside the cells. The matching separation above concerns the prescribed boundary clock.
+The timing restriction is substantive. The [limited-interior-access theorem](#limited-access-inside-collision-cells) quantifies it: a fixed contact count alone does **not** establish a coupling-activated change of scaling. Fixed-coupling sensing already has quadratic local information when a linear number of those contacts may be placed inside the cells. The matching two-coupling separation above concerns the prescribed boundary clock.
 
 These results remain local at $`\epsilon=0`$. They do not transfer a Fisher-information bound to global risk, give free initial localization, price finite control duration or controller work, or establish a fixed-rate limitation for arbitrary non-Markovian reservoirs. The full interaction strength and growing finite-bath resources are specified in the [construction](microscopic_sensing.md#one-shared-interaction-and-a-fixed-measurement-clock).
 
