@@ -37,7 +37,7 @@ and define $`R_{\{g_a,g_b\}}^*(n;\Omega)`$ with the two-coupling class. The infi
 Write $`\chi_j=g_jh`$ and choose a fixed $`r_*`$ with $`\chi_b<r_*<\pi/4`$. First restrict
 
 ```math
-0<E\le\frac2h\sqrt{r_*^2-\chi_b^2}.
+0\lt E\le\frac2h\sqrt{r_*^2-\chi_b^2}.
 ```
 
 Then $`R_j(\epsilon)h\le r_*`$ for both settings, where $`R_j(\epsilon)=\sqrt{g_j^2+\epsilon^2/4}`$. The full interaction norm is at most $`r_*/h`$ throughout the interval; a hardware strength budget must cover this value. Define the exact cell functions
@@ -78,7 +78,7 @@ Its strict positivity is the [microscopic drift calculation](microscopic_sensing
 Choose $`E>0`$ small enough that, throughout $`[-E,E]`$,
 
 ```math
-0<p_a(\epsilon)<p_b(\epsilon)<\frac12,
+0\lt p_a(\epsilon)\lt p_b(\epsilon)\lt \frac12,
 \qquad
 \mu^0(\epsilon)\ge\frac34\mu_0,
 \qquad
@@ -199,7 +199,7 @@ Use the normalized cosine prior on the frequency coordinate,
 
 ```math
 \pi_E(u)=\frac1E\cos^2\!\left(\frac{\pi u}{2E}\right),
-\qquad -E<u<E,
+\qquad -E\lt u\lt E,
 \qquad I(\pi_E)=\frac{\pi^2}{E^2}.
 ```
 
@@ -244,7 +244,7 @@ Every accepted record also has a uniformly monotone known phase curve:
 \le\Phi_\mathcal R'(\epsilon)
 \le\beta L,
 \qquad
-\beta=\max_{j,|\epsilon|\le E}|\theta_j'(\epsilon)|<\infty.
+\beta=\max_{j,|\epsilon|\le E}|\theta_j'(\epsilon)|\lt \infty.
 ```
 
 The lower bound follows by comparing every derivative with its value at zero, using the deterministic per-cell error bound $`\mu_0/4`$. Thus acceptance certifies a whole phase curve on the interval, not merely a large derivative at one point.

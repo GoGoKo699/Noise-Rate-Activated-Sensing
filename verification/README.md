@@ -150,7 +150,7 @@ The global table uses $`\Omega=[-1,1]`$ and prior half-width $`h=1/2`$. Its lowe
 
 ## Hosted mathematical rendering
 
-The separate [hosted-rendering workflow](../.github/workflows/render.yml) opens the actual public GitHub pages in Chromium at the inspected commit. It compares formula counts with the source, checks that the mathematics has rendered, reports parser errors, checks matrix row counts and unparsed delimiters, and captures full-page screenshots of the README, all Markdown pages in `science/`, `learning/`, `references/`, and `verification/`. It runs on same-repository documentation pull requests or by manual dispatch. It neither uses a substitute local Markdown renderer nor publishes a release.
+The separate [hosted-rendering workflow](../.github/workflows/render.yml) opens the actual public GitHub pages in Chromium at the inspected commit. It compares formula and strict-inequality counts with the source, checks that the mathematics has rendered, reports parser errors, checks matrix row counts and unparsed delimiters, and captures full-page screenshots of the README, all Markdown pages in `science/`, `learning/`, `references/`, and `verification/`. Checking inequality counts also detects silent HTML truncation that can leave an apparently rendered formula incomplete. It runs on same-repository documentation pull requests or by manual dispatch. It neither uses a substitute local Markdown renderer nor publishes a release.
 
 For the same check from a complete checkout, with network access:
 

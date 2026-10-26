@@ -55,10 +55,10 @@ The constant depends on the fixed band, instrument and constants above. This is 
 Here is a sufficient condition for the accepted-record hypotheses. Start a block in even parity, denoted $`+`$. Use setting $`a`$ after an even result and setting $`b`$ after an odd result. The state-independent flip probabilities are $`p_a(u),p_b(u)`$, and $`q_j=1-p_j`$. Suppose on the fixed band
 
 ```math
-0\le p_a(u)\le p_b(u)<\frac12,
+0\le p_a(u)\le p_b(u)\lt \frac12,
 \qquad p_a(u)+p_b(u)>0,
 \qquad
-\lambda(u)=1-p_a(u)-p_b(u)\le\rho<1.
+\lambda(u)=1-p_a(u)-p_b(u)\le\rho\lt 1.
 ```
 
 An even terminal record has a known phase
@@ -250,7 +250,7 @@ The image is therefore a single monotone branch, although the full uncentered re
 Conditional on all earlier observations, the acceptance indicators of the fresh blocks are independent and have probability at least $`p_0`$. Hoeffding's inequality yields
 
 ```math
-\Pr\{G<p_0r_k/2\}\le e^{-p_0^2r_k/2}.
+\Pr\{G\lt p_0r_k/2\}\le e^{-p_0^2r_k/2}.
 ```
 
 Next condition on all records in this stage. Their probability law can depend on the target. The accepted $`Y_i`$ are still independent, with average conditional mean exactly $`H_k(u)`$. When $`u\in C_{k-1}`$, the inverse derivative bound and clipping imply that an estimation error larger than $`s/L_k`$ requires a sample-mean deviation larger than $`\alpha s/\sqrt2`$. On $`G\ge p_0r_k/2`$, its conditional probability is at most
