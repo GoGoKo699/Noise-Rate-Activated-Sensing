@@ -2,9 +2,9 @@
 
 **Can control of a noise rate replace knowledge of the error direction in quantum sensing?**
 
-The [model](model.md) fixes one exposed sensor, a shared continuously unknown transverse direction, ideal ancillary controls, and a hard physical time budget. A fixed rate imposes a linear-information ceiling. Two distinct positive rates attain quadratic local information; a separate stopped construction gives an exact direction-independent sensing operation and the global precision separation.
+The principal [finite-strength global theorem](microscopic_global_precision.md) fixes a collision clock, nominal compensation and a shared continuously unknown transverse direction. One fixed positive coupling gives inverse-time worst-case risk; two distinct positive couplings give inverse-time-squared risk on a suitable fixed band. Its exact instrument, [paid calibration](microscopic_identifiability.md), [recorded-phase estimator](recorded_phase_estimation.md) and nuisance-curve converse establish the comparison directly.
 
-For a finite-strength collision realization, the [microscopic global theorem](microscopic_global_precision.md) proves the same inverse-time versus inverse-time-squared risk separation under boundary-only control on a fixed identifiable band. Its [recorded-phase estimator](recorded_phase_estimation.md) accounts for calibration and ambiguity resolution directly in the exact microscopic experiment.
+The [Markovian model](model.md) has its own sharp local coefficients and [global separation](global_precision.md). Its stopped construction gives an exact direction-independent sensing operation with a random, fully charged duration. These results provide a separately proved counterpart to the microscopic argument.
 
 ## Read by scientific dependency
 
@@ -24,7 +24,7 @@ For a finite-strength collision realization, the [microscopic global theorem](mi
 | A parallel-noise ceiling and a certified finite-time advantage window | [Residual dephasing](residual_dephasing.md) |
 | Claim-to-proof map and interpretation of the complete result | [Scientific synthesis](interpretation.md) |
 
-Follow the first five pages for the core proof chain, then read the physical boundaries and synthesis. Each proof has one authoritative home; the synthesis connects the results rather than replacing their derivations.
+For the principal microscopic chain, read microscopic sensing → identifiability → recorded-phase estimation → microscopic global precision, followed by the synthesis. For the Markovian counterpart, read the model → precision bounds → stopped sensing → global precision. Each proof has one authoritative home; the synthesis connects the results rather than replacing their derivations.
 
 ## Different guarantees
 

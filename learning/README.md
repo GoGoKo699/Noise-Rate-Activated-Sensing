@@ -1,19 +1,19 @@
 # Learn the sensing problem
 
-The shared route consists of the [30-milestone map](MILESTONES.md), the [Haase bridge](HAASE_BRIDGE.md), and a [worked tutorial](TUTORIAL.md). It is defined by the scientific project and is the same for every reader, including an LLM.
-
-**Haase et al., _Precision Limits in Quantum Metrology with Open Quantum Systems_, arXiv:1807.11882v4**, remains the sole educational anchor. The bridge identifies relevant sections, translates notation and resource conventions, and supplies connections absent from the source. The research bibliography is not a second educational reading list.
+Both sister projects use **Rivas and Huelga, _Open Quantum Systems: An Introduction_, arXiv:1104.5242v2**, as their single common educational anchor. The [source bridge](ANCHOR.md) maps selective reading to channels, generators and microscopic dynamics. The [30-milestone map](MILESTONES.md) and [worked tutorial](TUTORIAL.md) supply the statistical and control connections needed for this project. They are common to every reader; reading the whole source first is unnecessary.
 
 ## Reading route
 
 | Purpose | Route |
 |---|---|
-| Understand the whole project in dependency order | [M01–M30](MILESTONES.md), with 13 background and 17 narrative milestones |
-| Connect the selected source to the project | [Source map and notation bridge](HAASE_BRIDGE.md#source-map) |
-| Follow a concrete experiment and calculation | [Worked tutorial](TUTORIAL.md) |
-| Check exact quantifiers and complete proofs | [Scientific account](../science/README.md) |
+| Build the complete sensing task | M01–M13 in the [milestone map](MILESTONES.md), covering open-system foundations, records, nuisance statistics and charged resources |
+| Follow the principal scientific argument | M14–M30 in the [milestone map](MILESTONES.md): the finite-strength global separation, its estimator and converse, and the supporting Markovian and temporal comparisons |
+| Connect the source to the project | [Source map](ANCHOR.md#source-map) and [notation and resource conventions](ANCHOR.md#notation-and-resource-conventions) |
+| See the mechanism in an explicit experiment | [Worked tutorial](TUTORIAL.md), using its principal microscopic reading route |
+| Check exact statements and proofs | [Scientific account](../science/README.md) |
+| Follow the sister's distinct question | [Markovian Resolution learning bridge](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/learning/ANCHOR.md) |
 | Reproduce the finite examples | [Verification](../verification/README.md) |
 
-The background phase connects a single Ramsey experiment to the estimation and open-system framework. The narrative phase connects the obstruction, the two sensing mechanisms, and their local and global consequences. Each phase ends with an integrated operational question or scientific conclusion.
+The shared foundation is reduced dynamics, inaccessible environments, retained records and the meaning of allowed intervention. The two routes then branch: this paper asks what scalar coupling selection changes about estimation; the companion asks what temporal access reveals and enables. The global phase-estimation method has one principal proof here and is explicitly cited in the companion.
 
-The milestones specify understanding targets and conceptual connections, not individual progress or assessment rules. Their scope is global understanding of this project, not exhaustive coverage of every neighboring topic. The tutorial is an explanatory companion; specialist details remain in the linked scientific pages. Reading the entire anchor first is not required.
+The milestone targets follow the research, rather than the anchor's table of contents. Fisher information with a nuisance, global risk, record-conditioned inversion and adaptive bounds are taught locally with their research attribution. Haase and other cited metrology sources remain references, not additional assigned anchors. These pages contain conceptual dependencies and examples, not personal progress, assessments or coaching procedures.

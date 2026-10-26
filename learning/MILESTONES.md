@@ -1,444 +1,444 @@
 # Project understanding map: 30 milestones
 
-This map defines exactly **30 milestones** for understanding noise-rate-activated sensing. It depends on the scientific project, not on a particular reader’s prior knowledge, and is shared by every reader, including an LLM. It records conceptual targets and scientific dependencies, not assessments or personal progress.
+This map defines exactly **30 milestones** for understanding noise-rate-activated sensing. It is defined by the scientific project and shared by every reader, including an LLM. It records conceptual targets and dependencies, not assessments or personal progress.
 
-The allocation is **13 background/preliminaries milestones** and **17 narrative/innovation milestones**. The background needs room to connect qubit evolution, open-system dynamics, nuisance statistics, and charged random times before defining the complete task. The narrative then connects the universal obstruction, two different sensing mechanisms, optimal local information, global risk, and physical boundaries. Both phases progress from local objects or arguments to an integrated account.
+The allocation is **13 background/preliminaries milestones** and **17 narrative/innovation milestones**. The background joins open-system dynamics, recorded instruments, nuisance statistics and physical resource accounting. The narrative leads through the principal finite-strength global separation, then uses the separately proved Markovian results to explain the mechanism and the companion results to identify the limits of boundary-only access.
 
-The sole educational anchor is **Haase et al., _Precision Limits in Quantum Metrology with Open Quantum Systems_, arXiv:1807.11882v4**. The [Haase bridge](HAASE_BRIDGE.md) owns the selective source map and notation translations. The [worked tutorial](TUTORIAL.md) supplies examples; the topic-based scientific pages remain authoritative for exact claims and proofs. Primary research dependencies are not additional educational anchors.
+The single educational anchor shared with **Markovian Resolution Limit** is **Ángel Rivas and Susana F. Huelga, _Open Quantum Systems: An Introduction_, arXiv:1104.5242v2**. The [anchor bridge](ANCHOR.md) supplies the selective source map and notation translations. It supplies common foundations, not the global estimation theorem or the full controlled-process formalism. Those connections are taught in the [worked tutorial](TUTORIAL.md) and justified in the topic-based proof files. Primary research dependencies remain research citations rather than additional educational anchors.
 
 ## Route through the project
 
 | Phase | Milestones | Connection established |
 |---|---|---|
-| Background/preliminaries | M01–M07 | Sensor evolution, noise algebra, parity encoding, and complete records |
-| Background/preliminaries | M08–M13 | Nuisance information, strategy bounds, timing, and the complete local/global task |
-| Narrative/innovation | M14–M19 | Fixed-rate converse, rate-diverse local optimum, and calibration tradeoffs |
-| Narrative/innovation | M20–M23 | Exact trajectory cancellation and fully charged stopped sensing |
-| Narrative/innovation | M24–M28 | Same-metric global separation and consequential physical boundaries |
-| Narrative/innovation | M29–M30 | Attribution, evidence, and the complete scientific meaning |
+| Background/preliminaries | M01–M08 | States, microscopic evolution, channels, generators, instruments and parity encoding |
+| Background/preliminaries | M09–M13 | Shared nuisance, local information, global risk and the complete resource comparison |
+| Narrative/innovation | M14–M17 | Exact finite-strength instrument, fixed-band calibration and adaptive global converses |
+| Narrative/innovation | M18–M22 | Direction cancellation, uniform record gates and a fully charged global estimator |
+| Narrative/innovation | M23–M26 | Markovian obstruction, local rate diversity, exact stopped sensing and global counterpart |
+| Narrative/innovation | M27–M30 | Temporal access, timing information, attribution and the complete scientific meaning |
 
-Together these targets support global understanding of the project, not exhaustive mastery of every calculation or neighboring subject. Each prerequisite below refers to an earlier milestone; the final milestone integrates the full dependency chain.
+The two repositories use the same foundational text but retain distinct project-specific milestone maps. Here the central question concerns choosing the strength of one noisy coupling. The companion's central question concerns temporal resolution of bounded microscopic dynamics. Each prerequisite below points to an earlier milestone; M13 and M30 integrate their respective phases.
 
 ## Phase I: background and preliminaries
 
-### M01 Qubit states and recorded outcomes
+### M01 States, outcomes and a protected reference
 
-**Central question.** What physical object carries the signal, and what does its measurement report?
+**Central question.** Which state determines the observable data when a sensor has both an environment and an ancilla?
 
-**Understanding target.** Interpret a normalized qubit state, a density operator, and a two-outcome measurement. Connect Born probabilities to recorded data without treating a probability or a quantum state as one observed outcome.
+**Understanding target.** Distinguish the exposed sensor, inaccessible bath and protected reference. Interpret density operators, partial traces and Born probabilities, including a sensor entangled with its reference.
 
 **Prerequisites.** None within this map.
 
-**Story role.** This establishes the physical input and output used by every sensing protocol.
+**Story role.** This fixes the physical systems and observations used by every protocol and converse.
 
-**Conceptual connection.** A quantum preparation determines a distribution of classical records; it does not supply the unknown frequency as a readable label.
+**Conceptual connection.** Protected memory can preserve correlations and records without becoming a second exposed signal generator or an accessible bath.
 
-**Canonical sources.** [Haase §II](HAASE_BRIDGE.md#source-map); [Ramsey probabilities](TUTORIAL.md#1-one-qubit-one-likelihood-one-clock).
+**Canonical sources.** [Rivas–Huelga, §§3–4.1](ANCHOR.md#source-map); [one-qubit likelihood](TUTORIAL.md#1-one-qubit-one-likelihood-one-clock); [allowed operations](../science/model.md#allowed-operations).
 
-### M02 Frequency and coherent phase accumulation
+### M02 Frequency, unitary evolution and fixed compensation
 
-**Central question.** How does an unknown frequency enter a qubit experiment?
+**Central question.** How does an unknown frequency enter the microscopic dynamics?
 
-**Understanding target.** Read the Hamiltonian $`H=\omega Z/2`$ and the rotation $`e^{-i\omega tZ/2}`$. Distinguish a frequency, its dimensionless accumulated phase, and the transverse noise angle.
+**Understanding target.** Relate $`H=\omega Z/2`$ to the phase rotation $`e^{-i\omega tZ/2}`$. Interpret the residual frequency $`\epsilon=\omega-\omega_0`$ when the physical compensation $`\omega_0`$ is fixed.
 
-**Prerequisites.** [M01](#m01-qubit-states-and-recorded-outcomes)
+**Prerequisites.** [M01](#m01-states-outcomes-and-a-protected-reference)
 
-**Story role.** This identifies the target parameter before noise or statistical bounds are introduced.
+**Story role.** This identifies the target and the Hamiltonian convention before introducing noise.
 
-**Conceptual connection.** The factor of one half fixes the noiseless information scale; copying a different Hamiltonian convention changes numerical constants.
+**Conceptual connection.** An estimate changes the controller's information. It does not change the compensating Hamiltonian unless the access model explicitly supplies that action.
 
-**Canonical sources.** [Haase notation translation](HAASE_BRIDGE.md#translate-the-notation-and-the-task); [parameter normalization](../science/model.md#parameters-and-normalization).
+**Canonical sources.** [Rivas–Huelga, §3](ANCHOR.md#source-map); [notation and resources](ANCHOR.md#notation-and-resource-conventions); [microscopic hardware](../science/microscopic_sensing.md#one-shared-interaction-and-a-fixed-measurement-clock).
 
-### M03 Interrogation and the physical time budget
+### M03 Reduced channels and microscopic dilations
 
-**Central question.** Which experimental actions contribute to the sensing budget?
+**Central question.** What does a channel specify, and what additional structure does its dilation retain?
 
-**Understanding target.** Distinguish one coherent interrogation from repeated shorter trials. Count the duration of every trial and distinguish exposed sensor time from noiseless ancillary storage.
+**Understanding target.** Connect a completely positive trace-preserving map, its Kraus operators and a joint unitary with an initially independent bath. Keep equality valid on inputs entangled with a private reference.
 
-**Prerequisites.** [M02](#m02-frequency-and-coherent-phase-accumulation)
+**Prerequisites.** [M01](#m01-states-outcomes-and-a-protected-reference), [M02](#m02-frequency-unitary-evolution-and-fixed-compensation)
 
-**Story role.** This supplies the common resource unit for later comparisons.
+**Story role.** This supplies the language for deriving an exact collision channel.
 
-**Conceptual connection.** Information adds across independent trials, but so does their exposure. Changing probe number is not the same as increasing one sensor’s time budget.
+**Conceptual connection.** Equal endpoint channels need not imply equal responses to interventions during the joint interaction. Tracing an inaccessible spent bath is an analytical operation, not a physical reset.
 
-**Canonical sources.** [Haase §II.A–C](HAASE_BRIDGE.md#source-map); [charged time](../science/model.md#charged-time-and-failures); [repeated Ramsey trials](TUTORIAL.md#1-one-qubit-one-likelihood-one-clock).
+**Canonical sources.** [Rivas–Huelga, §§4.1–4.2](ANCHOR.md#source-map); [exact collision instrument](../science/microscopic_sensing.md#exact-parity-conditioned-cell-channel); [companion controlled-process distinction](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/interpretation.md#a-decay-curve-does-not-specify-a-controlled-process).
 
-### M04 Markovian noise and rate normalization
+### M04 Instruments and complete experimental records
 
-**Central question.** What does a Lindblad rate specify about the sensor’s evolution?
+**Central question.** How are a recorded outcome and the quantum state left after it described together?
 
-**Understanding target.** Connect a channel, its continuous-time generator, and a jump operator. Separate the coefficient of a dissipator from the resulting coherence-decay rate.
+**Understanding target.** Treat each measurement outcome as a completely positive branch map with its probability in its trace. Keep setting labels, parity outcomes, terminal measurements and failure flags in the complete experiment.
 
-**Prerequisites.** [M01](#m01-qubit-states-and-recorded-outcomes), [M02](#m02-frequency-and-coherent-phase-accumulation)
+**Prerequisites.** [M03](#m03-reduced-channels-and-microscopic-dilations)
 
-**Story role.** This defines the noise dynamics before discussing correction.
+**Story role.** This defines the data available to feedback and estimation.
 
-**Conceptual connection.** For the stated Pauli convention, parallel dephasing with coefficient $`\kappa`$ has contrast $`e^{-2\kappa t}`$. Equal symbols across sources need not denote equal rates.
+**Conceptual connection.** Conditioning on an observed record is legitimate analysis of a labelled experiment; discarding its probability or charging only successful records changes the task.
 
-**Canonical sources.** [Haase §III](HAASE_BRIDGE.md#source-map); [source normalization](HAASE_BRIDGE.md#rate-normalization-when-using-the-source); [generator](../science/model.md#parameters-and-normalization).
+**Canonical sources.** [Channel background and the locally supplied instrument bridge](ANCHOR.md#what-is-supplied-locally); [allowed operations](../science/model.md#allowed-operations); [microscopic resources](../science/microscopic_global_precision.md#statistical-task-and-resources).
 
-### M05 The algebra of an unknown transverse error
+### M05 Generators, Markov approximations and rate normalization
 
-**Central question.** Which properties of the error remain available without knowing its direction?
+**Central question.** How does a reduced noise law relate to its microscopic realization?
 
-**Understanding target.** Explain $`N_\phi^2=I`$ and $`N_\phi ZN_\phi=-Z`$ for a fixed transverse Pauli direction. Separate structural knowledge of the error family from calibration of its continuous angle.
+**Understanding target.** Connect a Lindblad generator to its semigroup and distinguish a microscopic approximation from an exact finite-duration collision. Separate the coefficient of a dissipator from the resulting coherence-decay rate.
 
-**Prerequisites.** [M02](#m02-frequency-and-coherent-phase-accumulation), [M04](#m04-markovian-noise-and-rate-normalization)
+**Prerequisites.** [M02](#m02-frequency-unitary-evolution-and-fixed-compensation), [M03](#m03-reduced-channels-and-microscopic-dilations), [M04](#m04-instruments-and-complete-experimental-records)
 
-**Story role.** This isolates the algebra that later permits both recovery and exact cancellation.
+**Story role.** This keeps the Markovian and finite-strength theorems in their respective models.
 
-**Conceptual connection.** Two identical errors undo each other, but the signal changes sign between them. A continuously unknown direction is not a finite list of known alternatives.
+**Conceptual connection.** For $`\kappa(Z\rho Z-\rho)`$, the coherence decays as $`e^{-2\kappa t}`$. A weak-coupling identification of parameters does not transfer a global estimator or an adaptive converse for free.
 
-**Canonical sources.** [Transverse error and code](TUTORIAL.md#2-detect-an-error-without-reading-the-signal); [parameter family](../science/model.md#parameters-and-normalization).
+**Canonical sources.** [Rivas–Huelga, §§5.2 and 6](ANCHOR.md#source-map); [rate normalization](ANCHOR.md#rate-normalization); [physical realization and scope](../science/physical_scope.md).
 
-### M06 A noiseless ancilla and parity encoding
+### M06 Physical time, collision clocks and counted contacts
 
-**Central question.** How can an error be detected without reading the signal phase?
+**Central question.** Which resources are fixed and which actions consume the experimental budget?
 
-**Understanding target.** Track the logical amplitudes in the even-parity code and in the odd error sector. Explain why measuring parity reveals the sector without distinguishing the logical basis amplitudes.
+**Understanding target.** Charge every cell, repetition, calibration attempt and failed record to the hard horizon $`T=nh`$. Distinguish boundary instruments from contacts inside a cell, and count an early readout even when its result is stored afterward.
 
-**Prerequisites.** [M01](#m01-qubit-states-and-recorded-outcomes), [M05](#m05-the-algebra-of-an-unknown-transverse-error)
+**Prerequisites.** [M04](#m04-instruments-and-complete-experimental-records), [M05](#m05-generators-markov-approximations-and-rate-normalization)
 
-**Story role.** This constructs the system-side syndrome measurement used by the protocols.
+**Story role.** This supplies the common accounting needed to compare attainable errors.
 
-**Conceptual connection.** The ancilla helps preserve and read the logical state but does not contribute another exposed signal generator.
+**Conceptual connection.** A boundary may combine several operations into one instrument, but moving it inside a collision changes physical access. No protocol gains free time by finishing early.
 
-**Canonical sources.** [Haase §VI.B](HAASE_BRIDGE.md#source-map); [worked parity encoding](TUTORIAL.md#2-detect-an-error-without-reading-the-signal); [allowed operations](../science/model.md#allowed-operations).
+**Canonical sources.** [Statistical task and resources](../science/microscopic_global_precision.md#statistical-task-and-resources); [charged calibration](../science/microscopic_identifiability.md#every-calibration-cell-and-readout-is-charged); [continuous-time accounting](../science/model.md#charged-time-and-failures).
 
-### M07 Jump records and retained experimental labels
+### M07 A shared continuous error direction
 
-**Central question.** Which records are observable in the stated model?
+**Central question.** Which features of an unknown error operator are known and usable?
 
-**Understanding target.** Distinguish a system-side parity record from direct access to environmental outputs. Relate $`L^\dagger L=\gamma I`$ to state-independent counts in the stated protocol, and retain the setting, count, readout angle, outcome, and failure flag when relevant.
+**Understanding target.** Explain $`N_\phi=\cos\phi X+\sin\phi Y`$, $`N_\phi^2=I`$ and $`N_\phi ZN_\phi=-Z`$. The same arbitrary continuous angle is shared across settings and repeated trials.
 
-**Prerequisites.** [M04](#m04-markovian-noise-and-rate-normalization), [M06](#m06-a-noiseless-ancilla-and-parity-encoding)
+**Prerequisites.** [M02](#m02-frequency-unitary-evolution-and-fixed-compensation), [M05](#m05-generators-markov-approximations-and-rate-normalization)
 
-**Story role.** This specifies the data on which every likelihood and stopping rule is built.
+**Story role.** This identifies the structural promise behind the obstruction and its removal.
 
-**Conceptual connection.** Discarding a label changes the experiment. Assuming an accessible bath record would change the resource model rather than improve its data processing.
+**Conceptual connection.** Knowing the error family differs from knowing its direction. Two identical flips undo the unknown axis, while their intervening signal rotation changes sign.
 
-**Canonical sources.** [Allowed operations](../science/model.md#allowed-operations); [complete preset readout](../science/preset_protocols.md#common-readout-and-the-order-of-nuisance-elimination).
+**Canonical sources.** [Parameters and normalization](../science/model.md#parameters-and-normalization); [transverse error algebra](TUTORIAL.md#2-detect-an-error-without-reading-the-signal); [shared microscopic interaction](../science/microscopic_sensing.md#one-shared-interaction-and-a-fixed-measurement-clock).
 
-### M08 Likelihood scores and local information
+### M08 Parity encoding without reading the signal
 
-**Central question.** What does Fisher information say about nearby parameter values?
+**Central question.** How can the controller observe an error without measuring the logical phase?
 
-**Understanding target.** Interpret a likelihood derivative as a score and its second moment as local distinguishability. Distinguish information in a specified measurement from the actual error of an estimator on one run.
+**Understanding target.** Track the even code sector and odd error sector of a sensor–ancilla encoding. Explain why parity identifies the sector while preserving the unknown logical amplitudes.
 
-**Prerequisites.** [M01](#m01-qubit-states-and-recorded-outcomes), [M02](#m02-frequency-and-coherent-phase-accumulation), [M07](#m07-jump-records-and-retained-experimental-labels)
+**Prerequisites.** [M04](#m04-instruments-and-complete-experimental-records), [M06](#m06-physical-time-collision-clocks-and-counted-contacts), [M07](#m07-a-shared-continuous-error-direction)
 
-**Story role.** This supplies the classical statistical language for the noise-direction penalty.
+**Story role.** This constructs the system-side record used by both coupling selection and phase readout.
 
-**Conceptual connection.** A steep Ramsey fringe provides local sensitivity but still has phase ambiguity; a large information value is not a globally accurate estimate.
+**Conceptual connection.** The syndrome comes from a permitted system–memory instrument. Direct observation of bath outputs would be a different resource.
 
-**Canonical sources.** [Haase §II.A–B](HAASE_BRIDGE.md#source-map); [scores and Fisher matrix](TUTORIAL.md#3-why-a-nuisance-parameter-costs-information).
+**Canonical sources.** [Worked parity encoding](TUTORIAL.md#2-detect-an-error-without-reading-the-signal); [exact parity-conditioned channel](../science/microscopic_sensing.md#exact-parity-conditioned-cell-channel); [instrument background](ANCHOR.md#what-is-supplied-locally).
 
-### M09 A shared nuisance and efficient information
+### M09 Likelihood scores and local information
 
-**Central question.** Which part of apparent frequency sensitivity survives an unknown noise angle?
+**Central question.** What does Fisher information measure about an actual recorded experiment?
 
-**Understanding target.** Interpret efficient information as the target score after projection away from nuisance scores. Pool the full Fisher matrices of labelled experiments before eliminating their common nuisance.
+**Understanding target.** Interpret a likelihood derivative as a score and its second moment as local distinguishability. Include the parameter dependence of every retained record, not only the final phase measurement.
 
-**Prerequisites.** [M08](#m08-likelihood-scores-and-local-information)
+**Prerequisites.** [M04](#m04-instruments-and-complete-experimental-records), [M08](#m08-parity-encoding-without-reading-the-signal)
 
-**Story role.** This defines the local precision quantity optimized by the project.
+**Story role.** This introduces the statistical tool used in the converses and local companion results.
 
-**Conceptual connection.** Treating each label as having an independent direction, or using only the target diagonal entry, answers a different statistical question.
+**Conceptual connection.** A steep phase fringe gives local sensitivity but does not identify which fringe produced an outcome. Information alone is not the error of a global estimator.
 
-**Canonical sources.** [Efficient information and pooling](../science/model.md#information-in-the-presence-of-a-nuisance); [worked nuisance projection](TUTORIAL.md#3-why-a-nuisance-parameter-costs-information).
+**Canonical sources.** [Scores and Fisher matrices](TUTORIAL.md#3-why-a-nuisance-parameter-costs-information); [local and global distinction](../science/interpretation.md); [statistical bridge](ANCHOR.md#what-is-supplied-locally).
 
-### M10 Quantum information and strategy bounds
+### M10 Shared nuisance and efficient information
 
-**Central question.** How can a bound cover measurements and controls not explicitly constructed?
+**Central question.** Which apparent frequency sensitivity remains useful when the error angle is unknown?
 
-**Understanding target.** Separate the Fisher information of an actual readout, the quantum Fisher information of its output, and an upper bound on all allowed controlled channels. Identify the assumptions of the imported bound.
+**Understanding target.** Project the target score away from the nuisance score. Pool the full Fisher matrices of labelled experiments before eliminating their common nuisance, and distinguish this from using the target diagonal entry alone.
 
-**Prerequisites.** [M04](#m04-markovian-noise-and-rate-normalization), [M08](#m08-likelihood-scores-and-local-information), [M09](#m09-a-shared-nuisance-and-efficient-information)
+**Prerequisites.** [M07](#m07-a-shared-continuous-error-direction), [M09](#m09-likelihood-scores-and-local-information)
 
-**Story role.** This establishes the distinction between a protocol calculation and a converse.
+**Story role.** This explains the nuisance-induced precision obstruction.
 
-**Conceptual connection.** Parameter-independent controls can use previous outcomes without receiving an oracle for the unknown parameters. The adaptive time bound is not obtained by relabelling a probe-number bound.
+**Conceptual connection.** Rate labels can separate two score directions even when the labels themselves contain no information about frequency. Giving each setting an independent unknown axis defines a different model.
 
-**Canonical sources.** [Haase §IV.A–C](HAASE_BRIDGE.md#source-map); [nuisance-path argument](../science/model.md#the-nuisance-path-argument); [inherited channel bound](../science/precision_bounds.md#the-inherited-channel-bound).
+**Canonical sources.** [Information with a nuisance](../science/model.md#information-in-the-presence-of-a-nuisance); [worked projection](TUTORIAL.md#3-why-a-nuisance-parameter-costs-information); [independent setting directions](../science/precision_bounds.md#independent-setting-dependent-directions).
 
-### M11 Random waiting times and stopping costs
+### M11 Adaptive strategies and converse bounds
 
-**Central question.** When is a successful random-duration operation a finite-resource procedure?
+**Central question.** How can a bound constrain controls and learning procedures that have not been explicitly constructed?
 
-**Understanding target.** Distinguish a stopping rule, its physical duration, its expectation, and a hard deadline. Interpret a tail bound and the cost of explicitly retained failures.
+**Understanding target.** Separate a measurement's Fisher information, an output-state quantum information bound and a bound for every permitted adaptive strategy. Interpret a joint frequency–nuisance path as a mathematical submodel with the same fixed controller.
 
-**Prerequisites.** [M03](#m03-interrogation-and-the-physical-time-budget), [M07](#m07-jump-records-and-retained-experimental-labels)
+**Prerequisites.** [M06](#m06-physical-time-collision-clocks-and-counted-contacts), [M10](#m10-shared-nuisance-and-efficient-information)
 
-**Story role.** This prepares the resource accounting needed for stopped sensing.
+**Story role.** This distinguishes a limitation of one recovery from a model-wide obstruction.
 
-**Conceptual connection.** Almost-sure eventual completion need not have finite mean cost. Success-conditioned precision cannot omit the exposure of failed or unfinished attempts.
+**Conceptual connection.** Learning the nuisance does not evade a converse that already allows outcome-dependent controls. The proof's nuisance path is not a physical claim that the bath tracks the unknown frequency.
 
-**Canonical sources.** [Charged time and failures](../science/model.md#charged-time-and-failures); [stopped-time example](TUTORIAL.md#6-let-the-error-supply-its-own-recovery).
+**Canonical sources.** [Nuisance-path argument](../science/model.md#the-nuisance-path-argument); [inherited channel bound](../science/precision_bounds.md#the-inherited-channel-bound); [general bound comparisons](../references/RELATED_WORK.md#non-markovian-correction-and-controlled-process-metrology).
 
-### M12 Local precision and global estimation risk
+### M12 Identifiability and global estimation risk
 
-**Central question.** Why does a bounded-interval estimation task require more than local information?
+**Central question.** What makes a frequency estimate accurate over an entire fixed interval?
 
-**Understanding target.** Distinguish locally unbiased variance bounds from worst-case mean-square error allowing biased estimators. Explain phase ambiguity, fixed prior support, and the different roles of lower bounds and explicit global procedures.
+**Understanding target.** Define worst-case mean-square error over a nonshrinking frequency band and the shared nuisance. Distinguish identifiability, local sensitivity and an estimator's global risk; allow biased estimators and retain localization failures.
 
-**Prerequisites.** [M08](#m08-likelihood-scores-and-local-information), [M09](#m09-a-shared-nuisance-and-efficient-information), [M10](#m10-quantum-information-and-strategy-bounds), [M11](#m11-random-waiting-times-and-stopping-costs)
+**Prerequisites.** [M09](#m09-likelihood-scores-and-local-information), [M11](#m11-adaptive-strategies-and-converse-bounds)
 
-**Story role.** This joins the statistical and timing prerequisites before the full task is stated.
+**Story role.** This establishes the principal comparison metric.
 
-**Conceptual connection.** Multiple interrogation scales resolve ambiguity; a smooth prior can establish a minimax lower bound without giving that prior to the controller.
+**Conceptual connection.** A smooth prior on a difficult subfamily yields a minimax lower bound without being a promise supplied to the controller. Phase ambiguity requires a separate attaining construction.
 
-**Canonical sources.** [Global distinction](TUTORIAL.md#8-global-precision-is-a-separate-statement); [global statistical task](../science/global_precision.md#statistical-task-and-theorem); [biased-estimator bound](../science/global_precision.md#a-bound-valid-for-biased-estimators).
+**Canonical sources.** [Microscopic statistical task](../science/microscopic_global_precision.md#statistical-task-and-resources); [fixed-band identification](../science/microscopic_identifiability.md); [global-risk distinction](TUTORIAL.md#8-global-precision-is-a-separate-statement).
 
-### M13 The complete operational comparison
+### M13 The complete strength-control comparison
 
-**Central question.** What precisely changes between the fixed-rate and rate-diverse experiments?
+**Central question.** What changes when the controller receives a menu of two positive couplings?
 
-**Understanding target.** State the target, shared continuous nuisance, positive fixed rate bounds, retained data, ideal controls, and charged physical time. Distinguish the local-information, exact-channel, and global-risk tasks.
+**Understanding target.** State the fixed clock, nominal compensation, distinct positive couplings, common unknown axis, accessible records and boundary-only control class. Every fixed-coupling trial uses the same chosen coupling; all trials and contacts are charged.
 
-**Prerequisites.** [M03](#m03-interrogation-and-the-physical-time-budget), [M06](#m06-a-noiseless-ancilla-and-parity-encoding), [M07](#m07-jump-records-and-retained-experimental-labels), [M09](#m09-a-shared-nuisance-and-efficient-information), [M10](#m10-quantum-information-and-strategy-bounds), [M11](#m11-random-waiting-times-and-stopping-costs), [M12](#m12-local-precision-and-global-estimation-risk)
+**Prerequisites.** [M06](#m06-physical-time-collision-clocks-and-counted-contacts), [M08](#m08-parity-encoding-without-reading-the-signal), [M10](#m10-shared-nuisance-and-efficient-information), [M12](#m12-identifiability-and-global-estimation-risk)
 
-**Story role.** This completes the background phase by assembling one common comparison model.
+**Story role.** This assembles the background into the principal finite-strength task.
 
-**Conceptual connection.** Rate diversity is the added resource; bath-output access, a coherent unknown-axis drive, free repetitions, and a known nuisance are not silently added with it.
+**Conceptual connection.** Classical selection between two fixed strengths is the additional resource. Weakening the coupling with the budget, turning noise off, accessing the bath or retuning compensation is not included.
 
-**Canonical sources.** [Complete model](../science/model.md); [question and contribution](../science/interpretation.md#the-question-and-the-contribution).
+**Canonical sources.** [Statistical task and resources](../science/microscopic_global_precision.md#statistical-task-and-resources); [principal scientific argument](../science/interpretation.md#principal-argument-and-supporting-results).
 
 ## Phase II: narrative and innovation
 
-### M14 The phase left by fixed recovery
+### M14 The exact finite-strength collision instrument
 
-**Central question.** Why does returning the sensor to its code not fully correct its sensing phase?
+**Central question.** What quantum operation and probability does each parity outcome produce during a real collision?
 
-**Understanding target.** Use $`XN_\phi=e^{i\phi Z}`$ to reconstruct the complete count-conditioned phase and the inherited fixed-rate information $`T^2/(1+\gamma T)`$. Keep the noise direction as a nuisance.
+**Understanding target.** Derive $`K_0=aI-ibZ`$ and $`K_1=-icN_\phi`$ from simultaneous signal and bath coupling. Normalize the no-flip branch to a known frequency-dependent rotation and retain the exact flip probability.
 
-**Prerequisites.** [M13](#m13-the-complete-operational-comparison)
+**Prerequisites.** [M13](#m13-the-complete-strength-control-comparison)
 
-**Story role.** This starts the narrative with a concrete, attributed component rather than a universal claim.
+**Story role.** This begins the principal argument directly from microscopic dynamics.
 
-**Conceptual connection.** Known recovery pulses can restore parity while leaving a coherent nuisance phase. The target-only Fisher entry overstates usable information.
+**Conceptual connection.** No small-cell approximation or operating-point substitution is needed to identify the conditional instrument. Off-compensation records generally change their probabilities as well as their phases.
 
-**Canonical sources.** [Fixed-recovery readout](../science/preset_protocols.md#common-readout-and-the-order-of-nuisance-elimination); [single-rate attainment](../science/precision_bounds.md#attainment-with-preset-controls); [closest predecessor](../references/RELATED_WORK.md#closest-noise-model).
+**Canonical sources.** [Exact parity-conditioned cell channel](../science/microscopic_sensing.md#exact-parity-conditioned-cell-channel); [bounded collision example](TUTORIAL.md#10-from-a-bounded-collision-to-an-observed-phase).
 
-### M15 The all-strategy fixed-rate obstruction
+### M15 One fixed identifiable band and paid calibration
 
-**Central question.** Why can a different adaptive learning-and-correction strategy not evade the fixed-rate law?
+**Central question.** On which frequency interval can the same physical device support uniform identification and later refinement?
 
-**Understanding target.** Follow the joint frequency-and-angle path, its cancellation of the coherent growth term, and the resulting bound $`\mathcal I_\omega^*(T)\le T/\gamma`$. Identify why this covers the full allowed model.
+**Understanding target.** Use the nuisance-independent three-outcome experiment, a uniformly invertible mean signal and its concentration bound. Choose one sufficiently small positive-width band that also satisfies the later phase-gate conditions, independently of the budget.
 
-**Prerequisites.** [M10](#m10-quantum-information-and-strategy-bounds), [M13](#m13-the-complete-operational-comparison), [M14](#m14-the-phase-left-by-fixed-recovery)
+**Prerequisites.** [M12](#m12-identifiability-and-global-estimation-risk), [M14](#m14-the-exact-finite-strength-collision-instrument)
 
-**Story role.** This elevates the component limitation into a universal converse with a matching leading coefficient.
+**Story role.** This supplies a legitimate global domain and the estimator's charged initial localization.
 
-**Conceptual connection.** The nuisance path is a proof device, not a physical assertion that the bath encodes the frequency. A failed calibration protocol alone would not prove this result.
+**Conceptual connection.** A sufficient band is not a maximal bandwidth claim. Fixed-clock aliases obstruct broader promises, and localization does not retune the compensating Hamiltonian.
 
-**Canonical sources.** [Theorem 1 and its proof](../science/precision_bounds.md#theorem-1--fixed-rate); [common nuisance path](../science/precision_bounds.md#the-common-nuisance-path); [tutorial converse](TUTORIAL.md#7-from-a-protocol-to-an-all-strategy-bound).
+**Canonical sources.** [Exact calibration experiment](../science/microscopic_identifiability.md#an-exact-three-outcome-experiment); [risk and confidence](../science/microscopic_identifiability.md#repetition-risk-and-confidence); [common band](../science/microscopic_global_precision.md#one-fixed-band-for-both-designs).
 
-### M16 The optimal selectable-setting ceiling
+### M16 A curved nuisance path at one fixed coupling
 
-**Central question.** What prevents one nuisance direction from cancelling the signal in every setting?
+**Central question.** Why can no permitted adaptive boundary strategy recover quadratic information at a fixed coupling?
 
-**Understanding target.** Interpret the minimax residual $`\min_c\max_j|s_j-2c\gamma_j|`$ and its pairwise expression. Recognize why unequal signal-to-rate ratios, not a proportional speed-up, permit a positive quadratic coefficient.
+**Understanding target.** Follow the smooth frequency-dependent nuisance curve that cancels the physical Kraus derivative overlap throughout the band. Relate the remaining bounded squared derivative to a linear information bound for arbitrary protected-memory strategies.
 
-**Prerequisites.** [M15](#m15-the-all-strategy-fixed-rate-obstruction)
+**Prerequisites.** [M11](#m11-adaptive-strategies-and-converse-bounds), [M14](#m14-the-exact-finite-strength-collision-instrument)
 
-**Story role.** This identifies the control resource and its universal leading ceiling before proving attainment.
+**Story role.** This supplies the microscopic all-strategy obstruction.
 
-**Conceptual connection.** The interval-intersection argument turns a many-setting optimization into a pairwise criterion, while preserving one common nuisance parameter.
+**Conceptual connection.** Uniform positivity of the flip probability keeps the curve regular. The converse includes attempts to learn the direction, resets, setting-independent boundary controls and retained failures.
 
-**Canonical sources.** [Theorem 3](../science/precision_bounds.md#theorem-3--selectable-signal-and-noise-strengths); [minimax derivation](../science/precision_bounds.md#the-minimax-coefficient).
+**Canonical sources.** [Fixed-coupling nuisance curve](../science/microscopic_global_precision.md#the-fixed-coupling-nuisance-curve); [local coefficient comparison](../science/microscopic_precision.md#the-optimal-fixed-coupling-coefficient).
 
-### M17 Statistical separation by recorded rate diversity
+### M17 Global lower bounds and operational limits
 
-**Central question.** How can two noisy labelled experiments separate the same two unknown parameters?
+**Central question.** How does the uniform information obstruction become a risk statement for biased estimators and limiting controllers?
 
-**Understanding target.** Reconstruct the random-rate likelihood and average its full Fisher matrices before nuisance elimination. Explain why one constant rate per interrogation can suffice for quadratic local information.
+**Understanding target.** Apply a smooth fixed prior along the nuisance curve to obtain inverse-linear risk. Use a separate fixed-angle signal-generator bound for inverse-square risk with a menu. Pass global lower bounds through clipped, quantized loss and event-probability convergence.
 
-**Prerequisites.** [M09](#m09-a-shared-nuisance-and-efficient-information), [M14](#m14-the-phase-left-by-fixed-recovery), [M16](#m16-the-optimal-selectable-setting-ceiling)
+**Prerequisites.** [M15](#m15-one-fixed-identifiable-band-and-paid-calibration), [M16](#m16-a-curved-nuisance-path-at-one-fixed-coupling)
 
-**Story role.** This supplies the simplest statistical mechanism attaining the rate-diverse scaling.
+**Story role.** This establishes the lower directions in the same global metric used for attainment.
 
-**Conceptual connection.** The rate label alone carries no target information. It identifies differing nuisance responses, and both the label and count record must remain available.
+**Conceptual connection.** The two lower bounds use different comparison paths. The direct bounded-loss closure does not assume continuity of Fisher information or enlarge the controller class.
 
-**Canonical sources.** [Recorded random rate](../science/preset_protocols.md#a-recorded-random-choice-of-one-rate); [complete numerical example](TUTORIAL.md#4-a-complete-rate-diversity-example).
+**Canonical sources.** [Uniform bounds to risk](../science/microscopic_global_precision.md#from-uniform-information-bounds-to-risk-bounds); [global-risk closure](../science/microscopic_global_precision.md#global-risk-under-controlled-limits).
 
-### M18 Optimal design and calibration-free local scaling
+### M18 Exact cancellation in retained even records
 
-**Central question.** Which design choices need calibrated rates, and which guarantees do not?
+**Central question.** How can two strengths produce useful signal while cancelling an arbitrary shared error direction?
 
-**Understanding target.** Connect the maximizing pair and its probabilities to the universal coefficient. Distinguish exact leading optimization from the fair choice’s constant-factor guarantee, and explain the orthogonal unknown-rate score block.
+**Understanding target.** Choose the weaker coupling in the even sector and the stronger in the odd sector. Pair the unknown-axis flips in an even-ending record and reconstruct its exact signed sum of known nonlinear no-flip phases.
 
-**Prerequisites.** [M16](#m16-the-optimal-selectable-setting-ceiling), [M17](#m17-statistical-separation-by-recorded-rate-diversity)
+**Prerequisites.** [M07](#m07-a-shared-continuous-error-direction), [M14](#m14-the-exact-finite-strength-collision-instrument)
 
-**Story role.** This closes the matching local theorem and determines its actual calibration requirements.
+**Story role.** This supplies the attaining mechanism that strength selection makes possible.
 
-**Conceptual connection.** A fair choice needs no numerical rate estimate to be designed, but inference still uses the retained counts. Local information is not a global guarantee for one randomly chosen branch.
+**Conceptual connection.** The complete observed record identifies a phase function; it is not replaced by an unobserved mixture or a prescribed noiseless Ramsey duration. The record law remains frequency dependent.
 
-**Canonical sources.** [Optimal and fair choices](../science/preset_protocols.md#optimal-and-calibration-free-choices); [unknown-rate blocks](../science/preset_protocols.md#also-treating-the-numerical-rates-as-unknown); [general setting attainment](../science/preset_protocols.md#general-selectable-settings).
+**Canonical sources.** [Retained even-parity construction](../science/microscopic_global_precision.md#attainment-with-retained-even-parity-records); [two-coupling explanation](TUTORIAL.md#11-what-two-couplings-change-globally).
 
-### M19 The balanced echo and its specific limitation
+### M19 A uniform gate for useful phase records
 
-**Central question.** What does balancing expected counts achieve, and what does an imbalance destroy?
+**Central question.** Which observed records have enough sensitivity everywhere on the promised band?
 
-**Understanding target.** Derive the role of signed time, count mean, and count variance in the two-block echo. Distinguish finite-time statistical orthogonality from cancellation on each trajectory, and track the differential-balancing crossover.
+**Understanding target.** Use even endpoint parity and a threshold on the recorded frozen derivative to define acceptance without knowing the parameters. Combine positive drift, a controlled transient and a variance bound to obtain a uniform positive acceptance probability and a derivative proportional to block length for every accepted phase curve.
 
-**Prerequisites.** [M14](#m14-the-phase-left-by-fixed-recovery), [M17](#m17-statistical-separation-by-recorded-rate-diversity), [M18](#m18-optimal-design-and-calibration-free-local-scaling)
+**Prerequisites.** [M15](#m15-one-fixed-identifiable-band-and-paid-calibration), [M18](#m18-exact-cancellation-in-retained-even-records)
 
-**Story role.** This compares a second local construction without mistaking its calibration weakness for a universal obstruction.
+**Story role.** This upgrades exact cancellation to a uniformly usable estimation resource.
 
-**Conceptual connection.** Common multiplicative rate error preserves balance; fixed differential error can remove the echo’s quadratic scaling. The recorded random-rate construction avoids that time-amplified penalty.
+**Conceptual connection.** Average drift alone is insufficient. The accepted record must certify sensitivity across the whole fixed interval, while rejected records retain their full physical cost.
 
-**Canonical sources.** [Echo and calibration](../science/preset_protocols.md#two-block-echo); [timing imbalance](../science/preset_protocols.md#timing-imbalance-and-its-crossover); [worked echo](TUTORIAL.md#5-what-the-preset-echo-trades-for-balance).
+**Canonical sources.** [Two-state parity gate](../science/recorded_phase_estimation.md#a-two-state-parity-gate); [uniform acceptance](../science/recorded_phase_estimation.md#uniform-acceptance-probability); [uniform sensitivity](../science/recorded_phase_estimation.md#uniform-phase-sensitivity-on-accepted-records).
 
-### M20 Two uncorrected errors and the signed clock
+### M20 Conditional inversion of the observed phase functions
 
-**Central question.** What remains of the unknown direction when errors are left uncorrected?
+**Central question.** How can an estimator use nonlinear phases when the distribution of those phases depends on frequency?
 
-**Understanding target.** Track the chronological trajectory identity and the signed interrogation time. Explain why an even count removes the unknown operator while retaining the signal’s signed residence times.
+**Understanding target.** Condition on the actual records of freshly reset blocks. Choose each terminal quadrature relative to the current interval center, then invert the empirical average of the known conditional mean functions with clipping on that interval.
 
-**Prerequisites.** [M05](#m05-the-algebra-of-an-unknown-transverse-error), [M06](#m06-a-noiseless-ancilla-and-parity-encoding), [M14](#m14-the-phase-left-by-fixed-recovery)
+**Prerequisites.** [M09](#m09-likelihood-scores-and-local-information), [M19](#m19-a-uniform-gate-for-useful-phase-records)
 
-**Story role.** This begins the exact-channel mechanism, distinct from statistical nuisance separation.
+**Story role.** This turns the retained quantum states into a valid statistical refinement step.
 
-**Conceptual connection.** Identical involutory errors can supply their own recovery, but equal physical time in the two sectors would cancel the desired signal as well.
+**Conceptual connection.** Conditional readout concentration does not freeze record probabilities. Within a stage the policy ignores preceding terminal bits, preserving the independence used by the proof; changing the readout basis does not change physical compensation.
 
-**Canonical sources.** [Uncorrected trajectory identity](../science/precision_bounds.md#attainment-by-leaving-the-errors-uncorrected); [paired-error example](TUTORIAL.md#6-let-the-error-supply-its-own-recovery).
+**Canonical sources.** [One refinement](../science/recorded_phase_estimation.md#one-refinement); [conditional concentration](../science/recorded_phase_estimation.md#conditional-concentration); [recorded-function tutorial](TUTORIAL.md#12-resolve-ambiguity-with-the-recorded-functions).
 
-### M21 Rate feedback and an exact stopped operation
+### M21 Multiscale ambiguity resolution with a hard budget
 
-**Central question.** How can the signed clock implement a prescribed noiseless sensing operation?
+**Central question.** How do local refinements give inverse-square worst-case error without a free success condition or logarithmic overhead?
 
-**Understanding target.** Explain the positive signed drift from a lower rate in the code sector and a higher rate in the error sector. Identify why the first upward crossing of a target signed time has even parity and gives the same Ramsey channel on every completion.
+**Understanding target.** Combine paid coarse localization, dyadic block lengths, tapered repetitions and nested confidence intervals. Bound the damage from the first failed stage and sum its contribution to mean-square error; charge every attempted block.
 
-**Prerequisites.** [M11](#m11-random-waiting-times-and-stopping-costs), [M20](#m20-two-uncorrected-errors-and-the-signed-clock)
+**Prerequisites.** [M17](#m17-global-lower-bounds-and-operational-limits), [M20](#m20-conditional-inversion-of-the-observed-phase-functions)
 
-**Story role.** This converts trajectory cancellation into an exact operational output.
+**Story role.** This supplies the global upper bound with deterministic total duration.
 
-**Conceptual connection.** The stopping rule requires the syndrome timing but not the numerical rates or the unknown direction. Its exact channel guarantee does not yet bound its physical cost.
+**Conceptual connection.** The largest feasible scale is proportional to the budget because the repetition taper has finite weighted cost. A long successful block alone would not resolve ambiguity or bound failed-run risk.
 
-**Canonical sources.** [Stopped protocol and output](../science/stopped_sensing.md#protocol-and-exact-output); [comparison of guarantees](../science/preset_protocols.md#relation-to-stopped-sensing).
+**Canonical sources.** [Nested multiscale estimation](../science/recorded_phase_estimation.md#nested-multiscale-estimation); [global risk and cost](../science/recorded_phase_estimation.md#global-risk-and-deterministic-cost); [inherited phase-estimation methods](../references/RELATED_WORK.md#phase-estimation-and-stopping-background).
 
-### M22 First-passage law and the equal-rate boundary
+### M22 The finite-strength global separation
 
-**Central question.** How much physical time does the exact stopped operation require?
+**Central question.** What exact comparison follows after the converse and estimator are put under one resource convention?
 
-**Understanding target.** Interpret the two-state backward equations, outgoing boundary, Laplace transform, mean, variance, and exponential tail. Explain why equal rates still permit eventual completion but have infinite mean duration.
+**Understanding target.** State $`R_g^*(n)=\Theta(n^{-1})`$ at either fixed coupling and $`R_{\{g_a,g_b\}}^*(n)=\Theta(n^{-2})`$ for the two-strength menu, on the same fixed band uniformly over the unknown axis. Account for at most $`n-1`$ nonterminal boundary instruments and the full duration $`nh`$.
 
-**Prerequisites.** [M11](#m11-random-waiting-times-and-stopping-costs), [M21](#m21-rate-feedback-and-an-exact-stopped-operation)
+**Prerequisites.** [M17](#m17-global-lower-bounds-and-operational-limits), [M21](#m21-multiscale-ambiguity-resolution-with-a-hard-budget)
 
-**Story role.** This determines whether the exact operation is a finite-cost sensing resource.
+**Story role.** This completes the principal microscopic argument.
 
-**Conceptual connection.** A fixed effective interrogation time and a random physical completion time are different quantities. The equal-rate limit is consistent with, not a counterexample to, the converse.
+**Conceptual connection.** The fixed-coupling calibration estimator matches the inverse-linear lower order. The menu estimator matches the inverse-square generator ceiling. Neither global constant is identified with a sharp local coefficient.
 
-**Canonical sources.** [First-passage proof](../science/stopped_sensing.md#first-passage-law); [timing checks](../verification/README.md#coverage).
+**Canonical sources.** [Global precision theorem](../science/microscopic_global_precision.md#global-precision-theorem); [attainment and contact accounting](../science/microscopic_global_precision.md#attainment-with-retained-even-parity-records); [scope](../science/microscopic_global_precision.md#scope-of-the-separation).
 
-### M23 Hard deadlines and finite-time advantage
+### M23 The Markovian fixed-rate counterpart
 
-**Central question.** Does the advantage remain after every unfinished run is charged?
+**Central question.** How does the nuisance obstruction appear in an ideal continuous-time noise law?
 
-**Understanding target.** Explain the sublinear deadline margin, success-weighted information, and the separate finite-time certificate. Distinguish sufficient thresholds from an optimized finite-time optimum.
+**Understanding target.** Reconstruct the inherited fixed-recovery phase $`\omega T-2\phi N`$ and its nuisance-adjusted information $`T^2/(1+\gamma T)`$. Follow the independent all-strategy argument giving $`\mathcal I_\omega^*(T)\le T/\gamma`$ and the matching leading coefficient.
 
-**Prerequisites.** [M15](#m15-the-all-strategy-fixed-rate-obstruction), [M18](#m18-optimal-design-and-calibration-free-local-scaling), [M22](#m22-first-passage-law-and-the-equal-rate-boundary)
+**Prerequisites.** [M10](#m10-shared-nuisance-and-efficient-information), [M16](#m16-a-curved-nuisance-path-at-one-fixed-coupling), [M22](#m22-the-finite-strength-global-separation)
 
-**Story role.** This connects the exact stopped channel back to the same physical budget as the universal comparison.
+**Story role.** This provides a transparent analytic counterpart to the microscopic obstruction.
 
-**Conceptual connection.** No success-only normalization or unlimited waiting is used; preset and stopped protocols retain different output and timing guarantees even when their leading local coefficients match.
+**Conceptual connection.** Fixed recovery is an attributed attaining component, not the proof that every strategy is limited. The continuous-time converse is proved in its own control model.
 
-**Canonical sources.** [Hard-deadline attainment](../science/stopped_sensing.md#a-hard-deadline-and-the-optimal-local-coefficient); [finite-time separation](../science/stopped_sensing.md#a-finite-time-separation); [preset comparison](../science/preset_protocols.md#relation-to-stopped-sensing).
+**Canonical sources.** [Fixed-rate theorem](../science/precision_bounds.md#theorem-1--fixed-rate); [preset attainment](../science/precision_bounds.md#attainment-with-preset-controls); [closest prior model](../references/RELATED_WORK.md#closest-noise-model).
 
-### M24 Global lower bounds without unbiasedness
+### M24 Preset rate diversity and the sharp local coefficient
 
-**Central question.** How can a nuisance-path information bound constrain every estimator’s global risk?
+**Central question.** Which rate choices remove the local nuisance penalty, and which choices need feedback or calibration?
 
-**Understanding target.** Follow the compact smooth prior, integration-by-parts identity, and uniform path bound in the van Trees argument. Distinguish lower bounds from different path priors and avoid inferring an optimal global constant from the local coefficient.
+**Understanding target.** Pool labelled experiments at two positive rates and recover the optimal coefficient $`[(b-a)/(b+a)]^2`$. Distinguish calibrated optimal design, a fair recorded choice and balanced echo; identify unequal signal-to-rate ratios as the broader selectable-setting criterion.
 
-**Prerequisites.** [M12](#m12-local-precision-and-global-estimation-risk), [M15](#m15-the-all-strategy-fixed-rate-obstruction), [M16](#m16-the-optimal-selectable-setting-ceiling), [M23](#m23-hard-deadlines-and-finite-time-advantage)
+**Prerequisites.** [M23](#m23-the-markovian-fixed-rate-counterpart)
 
-**Story role.** This places the negative and positive resource models under one global performance criterion.
+**Story role.** This separates local statistical design from the exact cancellation construction.
 
-**Conceptual connection.** The prior is a minimax proof device. Bias, adaptivity, and learning during sensing do not invalidate the uniform lower-bound argument.
+**Conceptual connection.** Preset rate selection can attain the leading local optimum even though recovery responds to detected errors. It does not implement a nuisance-independent quantum channel on each trajectory or prove global attainability by itself.
 
-**Canonical sources.** [Biased-estimator argument](../science/global_precision.md#a-bound-valid-for-biased-estimators); [fixed-rate bound](../science/global_precision.md#fixed-rate-lower-bound); [controlled-rate bound](../science/global_precision.md#controlled-rate-lower-bound).
+**Canonical sources.** [Controlled-rate and selectable-setting theorems](../science/precision_bounds.md); [preset protocols](../science/preset_protocols.md); [complete rate-diversity example](TUTORIAL.md#4-a-complete-rate-diversity-example).
 
-### M25 Global achievability and the same-metric separation
+### M25 Exact stopped sensing and charged random duration
 
-**Central question.** Which explicit procedures attain the global scalings at a hard total deadline?
+**Central question.** Can the observed noise itself supply a direction-independent sensing operation?
 
-**Understanding target.** Connect paid no-error trials to the fixed-rate upper scaling and multiscale exact stopped operations to controlled-rate phase unwrapping. Account for the sum of all physical durations and a bounded fallback on failure.
+**Understanding target.** Leave errors uncorrected, track the signed signal clock and stop at a prescribed positive signed time. Explain exact cancellation at completion, the positive drift from rate feedback, and the distinction between finite mean duration, tail control and a hard deadline.
 
-**Prerequisites.** [M12](#m12-local-precision-and-global-estimation-risk), [M22](#m22-first-passage-law-and-the-equal-rate-boundary), [M23](#m23-hard-deadlines-and-finite-time-advantage), [M24](#m24-global-lower-bounds-without-unbiasedness)
+**Prerequisites.** [M06](#m06-physical-time-collision-clocks-and-counted-contacts), [M18](#m18-exact-cancellation-in-retained-even-records), [M24](#m24-preset-rate-diversity-and-the-sharp-local-coefficient)
 
-**Story role.** This completes the global precision theorem with matching achievable and unavoidable exponents.
+**Story role.** This supplies the exact operation used in the continuous-time global counterpart.
 
-**Conceptual connection.** The result is a separation in worst-case mean-square error, not a substitution of a preset Fisher matrix for a global estimator. Optimal global constants remain distinct.
+**Conceptual connection.** Equal rates give an infinite mean first-passage time. Eventual completion or conditioning on success cannot substitute for charged physical time and retained deadline failures.
 
-**Canonical sources.** [Fixed-rate upper scaling](../science/global_precision.md#a-matching-fixed-rate-upper-scaling); [multiscale stopped construction](../science/stopped_sensing.md#global-estimation-on-a-bounded-interval); [complete global comparison](../science/global_precision.md#controlled-rate-upper-scaling).
+**Canonical sources.** [Protocol and exact output](../science/stopped_sensing.md#protocol-and-exact-output); [first-passage law](../science/stopped_sensing.md#first-passage-law); [random-duration accounting](../science/stopped_sensing.md#charge-the-random-physical-durations).
 
-### M26 Physical access and the shared-axis condition
+### M26 The continuous-time global counterpart
 
-**Central question.** When does a physical rate knob provide the resource in the theorem?
+**Central question.** How do the Markovian local and exact-channel results support their own global separation?
 
-**Understanding target.** Connect scalar noise injection and unobserved collision intensity to one shared interaction. Distinguish coherent access, independent setting-dependent axes, known signal changes, and unrestricted unknown frequency offsets.
+**Understanding target.** Combine uniform nuisance-path lower bounds, a paid fixed-rate estimator and a multiscale stopped-channel schedule to obtain inverse-linear versus inverse-quadratic risk at a hard time budget. Keep deadline failures and biased estimators in the comparison.
 
-**Prerequisites.** [M13](#m13-the-complete-operational-comparison), [M16](#m16-the-optimal-selectable-setting-ceiling), [M18](#m18-optimal-design-and-calibration-free-local-scaling), [M21](#m21-rate-feedback-and-an-exact-stopped-operation), [M25](#m25-global-achievability-and-the-same-metric-separation)
+**Prerequisites.** [M17](#m17-global-lower-bounds-and-operational-limits), [M21](#m21-multiscale-ambiguity-resolution-with-a-hard-budget), [M25](#m25-exact-stopped-sensing-and-charged-random-duration)
 
-**Story role.** This translates the precision laws into explicit physical requirements and exclusions.
+**Story role.** This completes the separately proved Markovian explanation of the same resource distinction.
 
-**Conceptual connection.** A known pulse generally changes both the signal and the unknown noise axis. Free unknown offsets can make the target unidentifiable; unrelated unknown axes restore a linear ceiling.
+**Conceptual connection.** The stopped channel has a prescribed effective phase duration; microscopic blocks provide observed nonlinear phase functions instead. Each model needs its own attaining argument and cannot borrow global risk from a local information formula.
 
-**Canonical sources.** [Physical realizations](../science/physical_scope.md#a-scalar-control-of-one-interaction); [independent-axis converse](../science/precision_bounds.md#independent-setting-dependent-directions); [resource interpretation](../science/interpretation.md#physical-interpretation-and-assumptions).
+**Canonical sources.** [Global continuous-time theorem](../science/global_precision.md); [stopped global estimator](../science/stopped_sensing.md#global-estimation-on-a-bounded-interval); [two mechanisms](../science/interpretation.md#two-mechanisms-not-two-versions-of-the-same-guarantee).
 
-### M27 Finite measurement cadence and local scope
+### M27 Temporal access as a separate resource
 
-**Central question.** What survives when parity is checked at fixed intervals?
+**Central question.** What changes when the same fixed coupling becomes accessible inside collisions?
 
-**Understanding target.** Interpret the sampled parity chain and its nonzero mean signed drift. Explain the compensated operating point and why hidden residence times prevent importing the exact continuous-monitoring global proof.
+**Understanding target.** State the companion law $`R^*_{n,m}=\Theta([h^2(n+m^2)]^{-1})`$ with at most $`m`$ inside-cell contacts and $`n-1`$ total contacts. Identify the echoed/plain menu, charged frame corrections and early readout, and the hard activity budget in the adaptive converse.
 
-**Prerequisites.** [M21](#m21-rate-feedback-and-an-exact-stopped-operation), [M23](#m23-hard-deadlines-and-finite-time-advantage), [M26](#m26-physical-access-and-the-shared-axis-condition)
+**Prerequisites.** [M06](#m06-physical-time-collision-clocks-and-counted-contacts), [M22](#m22-the-finite-strength-global-separation), [M26](#m26-the-continuous-time-global-counterpart)
 
-**Story role.** This separates one proved monitoring variation from claims of general implementation robustness.
+**Story role.** This locates the boundary-only separation within the sisters' common resource question.
 
-**Conceptual connection.** Ideal finite-interval measurements are not faulty readout. A positive local coefficient at compensation does not establish global accuracy away from it.
+**Conceptual connection.** The companion theorem uses the shared recorded-phase estimator but supplies a different physical instrument and converse. It neither weakens the boundary-only lower bound nor follows merely by taking a reciprocal local-information expression.
 
-**Canonical sources.** [Finite-cadence derivation](../science/physical_scope.md#finite-interval-ideal-parity-measurements).
+**Canonical sources.** [Companion global contact theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md); [local contact comparison](../science/microscopic_precision.md#limited-access-inside-collision-cells); [strength and temporal access](TUTORIAL.md#13-separate-strength-control-from-temporal-access).
 
-### M28 Residual parallel noise and a finite advantage window
+### M28 Known displacement and hidden timing jitter
 
-**Central question.** How can finite advantage coexist with the loss of strict asymptotic scaling?
+**Central question.** Which timing information preserves an exact useful record, and which uncertainty changes the available channel?
 
-**Understanding target.** Connect parallel dephasing to the Lindblad-span ceiling and to the exact contrast reduction for the prescribed readout. Interpret the nonzero-noise finite-time certificate without turning it into a fault-tolerance threshold.
+**Understanding target.** Distinguish a supplied known fixed pulse displacement from independent unobserved two-point jitter. With a linear inside-cell contact allowance, the former retains quadratic global order on a sufficient fixed band; fixed nonzero hidden jitter gives inverse-linear global risk for the stated plain/one-pulse menu despite quadratic pointwise information at compensation.
 
-**Prerequisites.** [M04](#m04-markovian-noise-and-rate-normalization), [M18](#m18-optimal-design-and-calibration-free-local-scaling), [M25](#m25-global-achievability-and-the-same-metric-separation), [M26](#m26-physical-access-and-the-shared-axis-condition), [M27](#m27-finite-measurement-cadence-and-local-scope)
+**Prerequisites.** [M20](#m20-conditional-inversion-of-the-observed-phase-functions), [M27](#m27-temporal-access-as-a-separate-resource)
 
-**Story role.** This makes a consequential imperfection quantitative within the complete resource account.
+**Story role.** This supplies the principal limitation of the companion temporal construction.
 
-**Conceptual connection.** A positive fixed uncorrectable parallel rate eventually enforces a linear ceiling, yet an explicitly charged protocol can still beat the ideal fixed-rate benchmark at finite time.
+**Conceptual connection.** The worst-case obstruction uses a prior away from compensation. The shrinking-jitter condition is necessary only; learning an unknown offset, supplying its hidden record or adding stronger control changes the problem.
 
-**Canonical sources.** [Parallel-noise converse](../science/residual_dephasing.md#every-fixed-positive-parallel-rate-restores-a-linear-ceiling); [finite certificate](../science/residual_dephasing.md#a-certified-finite-time-advantage-with-nonzero-dephasing).
+**Canonical sources.** [Companion timing theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md); [timing scope in the synthesis](../science/interpretation.md#physical-interpretation-and-assumptions).
 
-### M29 Attribution and the strength of the evidence
+### M29 Model boundaries, attribution and evidence
 
-**Central question.** Which ingredients are inherited, and which claims are supported by proofs or finite checks?
+**Central question.** Which conclusions belong to the model, which to a construction, and which ingredients are inherited?
 
-**Understanding target.** Identify the known-noise framework, fixed-recovery baseline, channel bound, noise-assisted feedback, van Trees method, and multiscale estimation as attributed ingredients. Separate the combined precision result from those methods and from physical implementation claims.
+**Understanding target.** Keep shared-axis stability, fixed hardware, sufficient bandwidth, ideal instruments and protected memory explicit. Identify the general channel bounds, nuisance statistics and multiscale methods as inherited tools, and distinguish analytic theorems from finite numerical checks and expert judgment.
 
-**Prerequisites.** [M15](#m15-the-all-strategy-fixed-rate-obstruction), [M18](#m18-optimal-design-and-calibration-free-local-scaling), [M25](#m25-global-achievability-and-the-same-metric-separation), [M28](#m28-residual-parallel-noise-and-a-finite-advantage-window)
+**Prerequisites.** [M23](#m23-the-markovian-fixed-rate-counterpart), [M26](#m26-the-continuous-time-global-counterpart), [M28](#m28-known-displacement-and-hidden-timing-jitter)
 
-**Story role.** This joins the scientific story to its provenance and reproducibility boundaries.
+**Story role.** This prevents the combined story from becoming an unrestricted noise-correction or timing theorem.
 
-**Conceptual connection.** Passing tests checks specified identities and code behavior; it does not certify universal laws, exhaustive priority, independent validation, or a reader’s understanding.
+**Conceptual connection.** A limitation of one echo or calibration procedure is not a universal impossibility. Conversely, independent setting directions or an uncorrectable parallel noise component can change the model's attainable law; those qualifications cannot be hidden in a robustness claim.
 
-**Canonical sources.** [Related work](../references/RELATED_WORK.md); [verification coverage and limits](../verification/README.md); [synthesis](../science/interpretation.md#evidence-and-use).
+**Canonical sources.** [Claim-level attribution](../references/RELATED_WORK.md#contribution-boundary); [physical scope](../science/physical_scope.md); [parallel dephasing](../science/residual_dephasing.md); [verification limits](../verification/README.md).
 
 ### M30 The complete scientific story
 
-**Central question.** What does rate control change about sensing with a continuously unknown error direction?
+**Central question.** What does noise-strength control enable when the frequency and continuous noise direction are initially unknown?
 
-**Understanding target.** Explain the shared task, universal fixed-rate obstruction, matching local rate-diverse law, exact stopped channel, same-metric global separation, and essential physical boundaries as one connected argument.
+**Understanding target.** Reconstruct the fixed-strength global comparison from its exact instrument, identifiable band, nuisance-curve lower bounds and paid recorded-phase estimator. Explain the separately proved Markovian counterpart and the companion's distinct temporal-access and timing results without combining incompatible resource classes.
 
-**Prerequisites.** [M18](#m18-optimal-design-and-calibration-free-local-scaling), [M19](#m19-the-balanced-echo-and-its-specific-limitation), [M23](#m23-hard-deadlines-and-finite-time-advantage), [M25](#m25-global-achievability-and-the-same-metric-separation), [M26](#m26-physical-access-and-the-shared-axis-condition), [M27](#m27-finite-measurement-cadence-and-local-scope), [M28](#m28-residual-parallel-noise-and-a-finite-advantage-window), [M29](#m29-attribution-and-the-strength-of-the-evidence)
+**Prerequisites.** [M22](#m22-the-finite-strength-global-separation), [M29](#m29-model-boundaries-attribution-and-evidence)
 
-**Story role.** This completes the narrative phase and the project-wide understanding map.
+**Story role.** This integrates the full dependency chain into one defensible explanation of the paper and its relationship to its sister.
 
-**Conceptual connection.** Statistical nuisance separation and trajectory-wise cancellation support different guarantees. Their common significance is a rigorously specified distinction between knowing an error direction and controlling its rate, not a general claim that noise improves every sensor.
+**Conceptual connection.** Noise strength and temporal access are different ways to change the experiment. Their consequences must be established through an attainable global risk law with the actual records and full resource costs, rather than inferred from a favorable local sensitivity.
 
-**Canonical sources.** [Scientific synthesis](../science/interpretation.md); [claim-to-proof map](../science/interpretation.md#claim-and-proof-map); [scientific entrypoint](../science/README.md).
+**Canonical sources.** [Scientific synthesis](../science/interpretation.md); [principal global theorem](../science/microscopic_global_precision.md); [shared estimation lemma](../science/recorded_phase_estimation.md); [companion scientific story](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/interpretation.md).

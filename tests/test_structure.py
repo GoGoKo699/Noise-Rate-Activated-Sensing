@@ -16,7 +16,9 @@ MAP = ROOT / 'learning/MILESTONES.md'
 FIELDS = ('Central question', 'Understanding target', 'Prerequisites',
           'Story role', 'Conceptual connection', 'Canonical sources')
 SCIENCE = ('model', 'precision_bounds', 'preset_protocols', 'stopped_sensing',
-           'global_precision', 'physical_scope', 'residual_dephasing', 'interpretation')
+           'global_precision', 'physical_scope', 'residual_dephasing', 'interpretation',
+           'microscopic_sensing', 'microscopic_precision', 'microscopic_identifiability',
+           'microscopic_global_precision', 'recorded_phase_estimation')
 
 
 def records():
@@ -56,10 +58,10 @@ class SharedStructureTests(unittest.TestCase):
 
     def test_anchor_and_milestone_entrypoints(self):
         for name in ('README.md', 'llms.txt', 'learning/README.md',
-                     'learning/HAASE_BRIDGE.md', 'learning/TUTORIAL.md'):
+                     'learning/ANCHOR.md', 'learning/TUTORIAL.md'):
             text = (ROOT / name).read_text(encoding='utf-8')
             self.assertIn('MILESTONES.md', text, name)
-            self.assertIn('1807.11882v4', text, name)
+            self.assertIn('1104.5242v2', text, name)
 
     def test_topic_homes_without_superseded_duplicates(self):
         for name in SCIENCE:
