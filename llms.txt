@@ -3,6 +3,7 @@
 > Rate diversity changes the optimal precision law of quantum sensing under a shared fixed unknown transverse error direction. The scientific account distinguishes local information, global minimax risk, and exact stopped-channel guarantees.
 
 ## Shared learning route
+- [Explanatory report](learning/report/Noise_Rate_Activated_Sensing_Report.pdf): A self-contained continuous explanation from quantum-clock foundations to the finite-strength global separation, Markovian counterpart and temporal limitations. Its editable source and build instructions are linked from the verification guide.
 - [Learning entrypoint](learning/README.md): One reader-independent route through the project.
 - [30 milestones](learning/MILESTONES.md): M01–M13 develop the background; M14–M30 connect the research mechanisms and complete scientific meaning. Each target includes dependencies and sources.
 - [Common anchor bridge](learning/ANCHOR.md): Rivas–Huelga, Open Quantum Systems: An Introduction, arXiv:1104.5242v2, shared with Markovian Resolution. Source sections, notation, rate conventions and locally supplied estimation bridges.
@@ -33,6 +34,7 @@ Use the milestones for dependency order and the bridge for source translation. E
 
 ## Verification and maintenance
 - [Reproducibility](verification/README.md): Commands, check coverage, numerical examples, and evidence-table definitions.
+- [Report build](verification/README.md#explanatory-report-build): Self-contained LaTeX source, TeX Live 2025 compilation, fresh output and final-log checks, separate from the scientific test suite.
 - [Stopped calculations](src/nras.py): Algebra, control speed, timing laws, and event simulator.
 - [Preset calculations](src/preset.py): Complete Fisher matrices, calibration laws, and labelled-design coefficients.
 - [Risk and dephasing calculations](src/risk.py): Global lower bounds, fixed-rate upper scaling, and dephased preset information.

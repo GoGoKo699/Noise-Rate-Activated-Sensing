@@ -26,6 +26,20 @@ The [stopped-sensing example](../results/example.json) records parameters, seeds
 
 The [regeneration check](../scripts/check_reproducibility.py) runs both producers and compares the complete result structures and numbers, with relative tolerance `1e-10` and absolute tolerance `1e-14`. Runtime-version metadata is allowed to report the actual installed versions rather than reproduce an earlier environment label. The [verification workflow](../.github/workflows/check.yml) runs the suite and regeneration on Python 3.11 and 3.13, then checks that no tracked files were modified.
 
+## Explanatory report build
+
+The [report PDF](../learning/report/Noise_Rate_Activated_Sensing_Report.pdf) is accompanied by its [self-contained LaTeX source](../learning/source/Noise_Rate_Activated_Sensing_Report.tex). All content, macros and diagrams are inline; no external figures, bibliography or additional TeX inputs are needed.
+
+Use **pdfLaTeX from TeX Live 2025**, with the packages named in the source preamble. A full TeX Live 2025 installation includes them. The checked engine is pdfTeX 3.141592653-2.6-1.40.28. With that installation on `PATH`, run from the repository root:
+
+```bash
+python scripts/build_report.py --output /tmp/nras-report-build
+```
+
+The output directory must not already exist. Alternatively, select the engine explicitly with `--pdflatex /path/to/texlive/2025/bin/x86_64-linux/pdflatex`. The [build script](../scripts/build_report.py) checks the engine year, copies the source into the new directory, compiles twice, and requires a fresh PDF and final log with resolved references and no layout or missing-character warnings. It retains both compiler transcripts and writes `build.json` with the engine version and source/output SHA-256 hashes. It never overwrites the stored report.
+
+The fresh PDF and matching final log establish that this source compiles; the stored PDF alone cannot establish that. PDF bytes may differ between builds because of timestamps and identifiers. Compare page content and inspect the rendered pages before replacing the stored PDF. Compilation and visual inspection are separate from scientific validation. The Python scientific CI does not install TeX or compile the report; this build is a separate check.
+
 ## Coverage
 
 The suite contains 144 tests: 36 in `tests/test_nras.py`, 20 in `tests/test_preset.py`, 20 in `tests/test_risk.py`, 11 in `tests/test_microscopic.py`, 8 in `tests/test_contact_precision.py`, 7 in `tests/test_identifiability.py`, 11 in `tests/test_global_microscopic.py`, 8 in `tests/test_timing_precision.py`, 7 in `tests/test_learning.py`, 8 offline serialization/regeneration checks in `tests/test_rendering.py`, and 8 shared-structure checks in `tests/test_structure.py`. The GitHub workflow executes `python scripts/check.py`, which also checks local links, anchors, and basic mathematics delimiters.
