@@ -10,21 +10,19 @@ The [Markovian model](model.md) has its own sharp local coefficients and [global
 
 | Topic | Authoritative account |
 |---|---|
-| Physical parameters, retained data, nuisance information, and charged resources | [Model and statistical task](model.md) |
+| Finite-coupling instrument, local sensing and the controlled-record connection | [Microscopic sensing](microscopic_sensing.md) |
+| An identifiable frequency band and calibration with all trials charged | [Microscopic identifiability](microscopic_identifiability.md) |
+| Uniform record gates, conditional inversion and paid multiscale estimation | [Recorded-phase estimation](recorded_phase_estimation.md) |
+| Global minimax separation between one and two fixed microscopic couplings | [Microscopic global precision](microscopic_global_precision.md) |
+| Sharp fixed-clock coefficients and the matching limited-interior-contact law | [Microscopic precision](microscopic_precision.md) |
+| Markovian parameters, retained data, nuisance information, and charged resources | [Model and statistical task](model.md) |
 | Fixed-rate converse, optimal rate-diverse coefficient, and selectable-setting criterion | [Precision bounds](precision_bounds.md) |
 | Complete likelihoods, preset echo, random rate choice, and calibration | [Preset protocols](preset_protocols.md) |
 | Trajectory cancellation, first-passage law, hard deadlines, and multiscale construction | [Stopped sensing](stopped_sensing.md) |
 | Same-metric global lower and upper scalings, including biased estimators | [Global precision](global_precision.md) |
 | Shared-axis realizations, coherent access, signal shifts, and finite-cadence scope | [Physical scope](physical_scope.md) |
-| Finite-coupling local sensing and the controlled-record connection | [Microscopic sensing](microscopic_sensing.md) |
-| Sharp fixed-clock coefficients and the matching limited-interior-contact law | [Microscopic precision](microscopic_precision.md) |
-| An identifiable frequency band and calibration with all trials charged | [Microscopic identifiability](microscopic_identifiability.md) |
-| Global minimax separation between one and two fixed microscopic couplings | [Microscopic global precision](microscopic_global_precision.md) |
-| Uniform record gates, conditional inversion and paid multiscale estimation | [Recorded-phase estimation](recorded_phase_estimation.md) |
 | A parallel-noise ceiling and a certified finite-time advantage window | [Residual dephasing](residual_dephasing.md) |
 | Claim-to-proof map and interpretation of the complete result | [Scientific synthesis](interpretation.md) |
-
-For the principal microscopic chain, read microscopic sensing → identifiability → recorded-phase estimation → microscopic global precision, followed by the synthesis. For the Markovian counterpart, read the model → precision bounds → stopped sensing → global precision. Each proof has one authoritative home; the synthesis connects the results rather than replacing their derivations.
 
 ## Different guarantees
 

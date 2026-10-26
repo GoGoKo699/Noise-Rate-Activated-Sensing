@@ -4,7 +4,7 @@
 
 Part of **Quantum Noise under Control**, alongside [**Markovian Resolution Limit**](https://github.com/GoGoKo699/Markovian-Resolution-Limit). This repository studies noise-strength selection; its sister studies temporal resolution and access inside microscopic interactions.
 
-This repository studies frequency estimation with a shared, continuously unknown transverse error direction. Its finite-strength collision theorem fixes the hardware, measurement clock and nominal compensation: one positive coupling gives optimal worst-case mean-square error of inverse-time order, while a menu of two distinct positive couplings gives inverse-time-squared order on a suitable fixed frequency band. Exact retained phases supply the estimator; a nuisance-curve converse covers every permitted adaptive boundary controller. Calibration, repetitions and failed records are charged.
+This repository studies frequency estimation with a shared, continuously unknown transverse error direction. Its principal result compares one positive coupling with a menu of two at finite microscopic strength, with calibration, repetitions and failed records charged.
 
 A separate Markovian analysis proves the same change of global scaling and identifies sharp local information coefficients. Preset rate choices attain the local optimum; rate feedback supplies an exact direction-independent stopped sensing operation with its random duration fully charged. These are complementary guarantees, each with its own proof. The [scientific synthesis](science/interpretation.md#principal-argument-and-supporting-results) separates the principal microscopic argument from its supporting results and the companion's temporal-access claims.
 
@@ -72,25 +72,14 @@ The [30-milestone map](learning/MILESTONES.md) has **13 background/preliminaries
 
 ## Read the science
 
-The [scientific entrypoint](science/README.md) maps the topic-based proof account.
+The [scientific entrypoint](science/README.md) is the complete topic index. The principal reading routes are:
 
 | Purpose | Start here |
 |---|---|
-| See the complete scientific claim and proof map | [Scientific synthesis](science/interpretation.md) |
-| Learn the project | [30 milestones](learning/MILESTONES.md) → [Common anchor bridge](learning/ANCHOR.md) → [Worked tutorial](learning/TUTORIAL.md) |
-| Check the statistical task and physical resources | [Model](science/model.md) |
-| Verify local optimality and the selectable-setting criterion | [Theorems and proofs](science/precision_bounds.md) |
-| Compare the same global error criterion | [Global precision](science/global_precision.md) |
-| Compare preset controls and calibration requirements | [Preset protocols](science/preset_protocols.md) |
-| Check exact channels, stopping costs, and global achievability | [Stopped sensing](science/stopped_sensing.md) |
-| Check physical assumptions and a quantitative imperfection | [Physical scope](science/physical_scope.md) · [Residual dephasing](science/residual_dephasing.md) |
-| Connect finite-cadence sensing to bounded microscopic dynamics | [Microscopic sensing](science/microscopic_sensing.md) |
-| Compare microscopic precision and the number of contacts inside collisions | [Microscopic precision](science/microscopic_precision.md) |
-| Identify frequency on an explicit band with paid calibration | [Microscopic identifiability](science/microscopic_identifiability.md) |
-| Compare global error at one or two finite couplings | [Microscopic global precision](science/microscopic_global_precision.md) |
-| Resolve ambiguity in exact record-dependent phases | [Recorded-phase estimation](science/recorded_phase_estimation.md) |
-| Compare with prior work | [Related work and attribution](references/RELATED_WORK.md) |
-| Execute the checks and reproduce the examples | [Reproducibility](verification/README.md) |
+| Follow the principal finite-strength proof | [Collision instrument](science/microscopic_sensing.md) → [Identifiability](science/microscopic_identifiability.md) → [Recorded-phase estimator](science/recorded_phase_estimation.md) → [Global theorem](science/microscopic_global_precision.md) |
+| Follow the Markovian counterpart | [Model](science/model.md) → [Local bounds](science/precision_bounds.md) → [Stopped sensing](science/stopped_sensing.md) → [Global theorem](science/global_precision.md) |
+| Compare guarantees and resource assumptions | [Scientific synthesis](science/interpretation.md) · [Physical scope](science/physical_scope.md) |
+| Check attribution or reproduce calculations | [Related work](references/RELATED_WORK.md) · [Verification](verification/README.md) |
 
 ## Scope
 
@@ -98,7 +87,7 @@ The Markovian theorem assumes one shared, stable transverse axis, rate selection
 
 A [bounded collision realization](science/microscopic_sensing.md) has [exact optimal local coefficients](science/microscopic_precision.md) and the separate [global separation](science/microscopic_global_precision.md) above. The boundary restriction matters: the companion [global contact theorem](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/global_contact_precision.md) permits at most $`m`$ contacts inside cells while keeping at most $`n-1`$ total contacts. At one fixed coupling it proves worst-case risk of order $`1/[h^2(n+m^2)]`$ on a suitable fixed band. Its estimator uses a menu of echoed and untouched cells, with complete records and all costs charged. This is an additional temporal resource.
 
-[Clock resonances](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/sensing_bridge.md#frequency-aliases-of-the-collision-clock) make some distinct frequencies indistinguishable to every fixed-coupling boundary-only controller, so the fixed-band qualification is substantive. Timing information is also substantive. For the companion's restricted menu of plain cells and one-pulse echoes, [known systematic displacement and hidden independent jitter](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md) have different global consequences: a supplied known fixed displacement preserves quadratic order on a suitable band, whereas fixed nonzero unobserved two-point jitter gives inverse-time optimal global risk even when quadratic local information survives at compensation. The jitter converse does not cover arbitrary extra interior controls or coupling selection.
+[Clock resonances](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/sensing_bridge.md#frequency-aliases-of-the-collision-clock) make some distinct frequencies indistinguishable to every fixed-coupling boundary-only controller, so the fixed-band qualification is substantive. For the companion's restricted menu of plain cells and one-pulse echoes, [timing information](https://github.com/GoGoKo699/Markovian-Resolution-Limit/blob/main/science/timing_precision.md) also matters: a supplied known fixed displacement preserves quadratic global order on a suitable band with a linear inside-cell contact allowance. Learning the offset is not included. Fixed nonzero hidden independent two-point jitter instead gives inverse-time optimal global risk, despite quadratic local information at compensation. The jitter converse does not cover extra interior pulses or coupling selection.
 
 An additional unobserved parallel dephasing rate $`\kappa>0`$ changes the asymptotic bound to $`\mathcal I_\omega^*(T)\le T/(4\kappa)`$. The [quantified finite-time example](science/residual_dephasing.md#a-certified-finite-time-advantage-with-nonzero-dephasing) retains an advantage at nonzero $`\kappa`$; it is not a fault-tolerance theorem. The physical examples motivate the resource model rather than demonstrate the full protocol. The literature comparison distinguishes these results from established fixed-recovery sensing, noise-assisted correction, and informative-noise metrology.
 
