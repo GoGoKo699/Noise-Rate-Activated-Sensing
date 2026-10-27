@@ -60,7 +60,7 @@ For rate $`\gamma`$ the odd-transition probability and signed residence-time exp
 ```math
 p_\gamma=\frac{1-e^{-2\gamma\Delta}}2,
 \qquad
-\mathbb E\left[\int_0^\Delta(-1)^{n(u)}du\right]
+\mathbb E\left[\int_0^\Delta(-1)^{N(u)}du\right]
 =\sigma\frac{p_\gamma}{\gamma}.
 ```
 

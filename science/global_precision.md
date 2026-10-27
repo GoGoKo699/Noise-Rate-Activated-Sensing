@@ -9,7 +9,7 @@ This comparison uses the same global squared-error criterion on both sides. It d
 Fix a closed frequency interval $`\Omega`$ of width $`W>0`$, independent of $`T`$. The transverse direction is any $`\phi\in\mathbb R/\pi\mathbb Z`$, shared throughout the experiment. Let
 
 ```math
-R_{\mathcal A}(T;\Omega)
+R_{\mathcal A}^*(T;\Omega)
 =\inf_{\mathcal P,\widehat\omega}\;
 \sup_{\omega\in\Omega,\phi}
 \mathbb E_{\omega,\phi}^{\mathcal P}
@@ -21,17 +21,34 @@ The infimum includes every allowed control, measurement, classical randomization
 **Global precision theorem.** Under these access models,
 
 ```math
-R_{\mathrm{fixed}}(T;\Omega)=\Theta(T^{-1}),
+R_{\mathrm{fixed}}^*(T;\Omega)=\Theta(T^{-1}),
 \qquad
-R_{[a,b]}(T;\Omega)=\Theta(T^{-2}).
+R_{[a,b]}^*(T;\Omega)=\Theta(T^{-2}).
 ```
+
+The endpoint menu and full interval are different finite-time access classes. Write $`R_{\{a,b\}}^*(T;\Omega)`$ for the former. Every endpoint strategy is allowed by the interval, so
+
+```math
+R_{[a,b]}^*(T;\Omega)\le R_{\{a,b\}}^*(T;\Omega).
+```
+
+The converse below applies to all classically selected $`\gamma(t)\in[a,b]`$. The stopped estimator uses only $`a,b`$, giving the asymptotic sandwich
+
+```math
+\frac1{B_T+\pi^2/\ell^2}
+\le R_{[a,b]}^*(T;\Omega)
+\le R_{\{a,b\}}^*(T;\Omega)
+\le\frac{C_\Omega}{T^2}
+```
+
+for sufficiently large $`T`$, with $`r=(b-a)/(b+a)`$, $`B_T=(rT+\sqrt{CT})^2`$, $`C=4b/(a+b)^2`$, and a fixed interior prior half-width $`\ell`$ defined below. The finite constant $`C_\Omega`$ depends on the rates and interval. Both menus therefore have order $`\Theta(T^{-2})`$; equality of their finite-time risks is not asserted.
 
 The constants depend on the fixed interval and rates. More specifically,
 
 ```math
-\liminf_{T\to\infty}T R_{\mathrm{fixed}}(T;\Omega)\ge\gamma,
+\liminf_{T\to\infty}T R_{\mathrm{fixed}}^*(T;\Omega)\ge\gamma,
 \qquad
-\liminf_{T\to\infty}T^2 R_{[a,b]}(T;\Omega)\ge\frac1{r^2},
+\liminf_{T\to\infty}T^2 R_{[a,b]}^*(T;\Omega)\ge\frac1{r^2},
 \qquad r=\frac{b-a}{b+a}.
 ```
 
@@ -41,17 +58,17 @@ These are lower bounds on global constants, not a claim that those constants are
 
 The statistical ingredient is the scalar van Trees inequality, used here in the form developed for minimax arguments by [Gill and Levit](https://projecteuclid.org/journals/bernoulli/volume-1/issue-1-2/Applications-of-the-van-Trees-inequality--a-Bayesian-Cram%C3%A9r/bj/1186078362.full). The inequality is inherited; the nuisance paths and resulting sensing comparison are the application here.
 
-Take an interval center $`\omega_c`$ and a fixed $`h>0`$ with $`[\omega_c-h,\omega_c+h]\subseteq\Omega`$. For $`u\in(-h,h)`$ use the density
+Take an interval center $`\omega_c`$ and a fixed $`\ell>0`$ with $`[\omega_c-\ell,\omega_c+\ell]\subseteq\Omega`$. For $`u\in(-\ell,\ell)`$ use the density
 
 ```math
-\pi_h(u)=\frac1h\cos^2\!\left(\frac{\pi u}{2h}\right),
-\qquad I(\pi_h)=\frac{\pi^2}{h^2}.
+\pi_\ell(u)=\frac1\ell\cos^2\!\left(\frac{\pi u}{2\ell}\right),
+\qquad I(\pi_\ell)=\frac{\pi^2}{\ell^2}.
 ```
 
 Consider any smooth path $`\omega(u)=\omega_c+u`$, $`\phi(u)=\phi_c+cu`$ through the physical parameter family. A prior concentrated on this path is a legitimate lower-bound device for a supremum over the full parameter set; it is not extra information given to the controller. For a fixed protocol with outcome density $`p(x\mid u)`$, define the joint score
 
 ```math
-S(u,x)=\partial_u\log[p(x\mid u)\pi_h(u)].
+S(u,x)=\partial_u\log[p(x\mid u)\pi_\ell(u)].
 ```
 
 The density vanishes at the endpoints, and integration by parts yields
@@ -63,10 +80,10 @@ The density vanishes at the endpoints, and integration by parts yields
 The conditional likelihood score has zero mean. Consequently
 
 ```math
-\mathbb E S^2=\mathbb E_{\pi_h}J_u+I(\pi_h),
+\mathbb E S^2=\mathbb E_{\pi_\ell}J_u+I(\pi_\ell),
 \qquad
 \mathbb E[(\widehat\omega-\omega)^2]
-\ge\frac1{\mathbb E_{\pi_h}J_u+I(\pi_h)}.
+\ge\frac1{\mathbb E_{\pi_\ell}J_u+I(\pi_\ell)}.
 ```
 
 Cauchy–Schwarz supplies the last inequality without any unbiasedness condition. The argument applies to the complete classical outcome of an adaptive quantum experiment, whose $`J_u`$ is bounded by the output QFI. The ideal-model bounds can equivalently be obtained as limits of regular finite-step protocols. Estimators with infinite risk already obey the lower bound.
@@ -76,24 +93,24 @@ Cauchy–Schwarz supplies the last inequality without any unbiasedness condition
 Choose $`c=1/(2\gamma)`$. The [nuisance-path channel bound](precision_bounds.md#the-common-nuisance-path) gives $`J_u\le F_u\le T/\gamma`$ at every point on the path, uniformly over the allowed strategies. Therefore
 
 ```math
-\boxed{R_{\mathrm{fixed}}(T;\Omega)
-\ge\frac1{T/\gamma+\pi^2/h^2}.}
+\boxed{R_{\mathrm{fixed}}^*(T;\Omega)
+\ge\frac1{T/\gamma+\pi^2/\ell^2}.}
 ```
 
 Taking $`T\to\infty`$ proves the fixed-rate lower scaling and its stated liminf. Learning the angle during sensing, using a biased estimator, or changing the readout cannot avoid this global worst-case bound.
 
 ## A matching fixed-rate upper scaling
 
-A simple paid rejection scheme suffices; optimal constants are not needed for this part. Compensate the known center $`\omega_c`$ and use repeated probes of fixed duration
+A simple paid rejection scheme suffices; optimal constants are not needed for this part. Use a fixed terminal readout phase referenced to the known center $`\omega_c`$ and repeated probes of fixed duration
 
 ```math
 \tau=\min\{1/\gamma,\pi/(2W)\},
 \qquad m=\lfloor T/\tau\rfloor.
 ```
 
-Continuously monitor the syndrome. A trial containing no error has probability $`p_0=e^{-\gamma\tau}`$, independent of both parameters, and produces an exact Ramsey phase $`(\omega-\omega_c)\tau`$. Trials with errors still cost $`\tau`$ and are retained as failures. The number of useful trials is $`K\sim\mathrm{Binomial}(m,p_0)`$.
+Continuously monitor the syndrome. A trial containing no error has probability $`p_0=e^{-\gamma\tau}`$, independent of both parameters, and produces an exact Ramsey phase $`\omega\tau`$, read relative to $`\omega_c\tau`$. Trials with errors still cost $`\tau`$ and are retained as failures. The number of useful trials is $`K\sim\mathrm{Binomial}(m,p_0)`$.
 
-On each useful trial measure the sine quadrature $`Y_L`$. For $`K>0`$, clip its sample mean to $`[-\sin(W\tau/2),\sin(W\tau/2)]`$, apply $`\arcsin`$, divide by $`\tau`$, and add $`\omega_c`$. Since $`W\tau/2\le\pi/4`$, the inverse map is Lipschitz with constant at most $`\sqrt2/\tau`$. Conditional risk is at most $`2/(K\tau^2)`$. Use the interval midpoint when $`K=0`$.
+On each useful trial measure the referenced sine quadrature $`O_c=\cos(\omega_c\tau)Y_L-\sin(\omega_c\tau)X_L`$. For $`K>0`$, clip its sample mean to $`[-\sin(W\tau/2),\sin(W\tau/2)]`$, apply $`\arcsin`$, divide by $`\tau`$, and add $`\omega_c`$. Since $`W\tau/2\le\pi/4`$, the inverse map is Lipschitz with constant at most $`\sqrt2/\tau`$. Conditional risk is at most $`2/(K\tau^2)`$. Use the interval midpoint when $`K=0`$.
 
 The binomial identity
 
@@ -107,7 +124,7 @@ The binomial identity
 gives the uniform bound
 
 ```math
-R_{\mathrm{fixed}}(T;\Omega)
+R_{\mathrm{fixed}}^*(T;\Omega)
 \le\frac4{\tau^2(m+1)p_0}
 +\frac{W^2}{4}(1-p_0)^m
 =O(T^{-1}).
@@ -120,7 +137,7 @@ This is not a free postselection gain: the number of attempted trials, not just 
 For $`c=1/(a+b)`$, the local converse gives, along this path,
 
 ```math
-F_u'\le C+2r\sqrt{F_u},
+\frac{dF_u}{dt}\le C+2r\sqrt{F_u},
 \qquad C=\frac{4b}{(a+b)^2},
 \qquad F_u(0)=0.
 ```
@@ -128,32 +145,32 @@ F_u'\le C+2r\sqrt{F_u},
 A convenient explicit supersolution is
 
 ```math
-B(T)=(rT+\sqrt{CT})^2.
+B_T=(rT+\sqrt{CT})^2.
 ```
 
-Indeed $`B'-(C+2r\sqrt B)=r\sqrt{CT}\ge0`$. It follows that
+Indeed $`\frac{dB_T}{dT}-(C+2r\sqrt{B_T})=r\sqrt{CT}\ge0`$. It follows that
 
 ```math
-R_{[a,b]}(T;\Omega)\ge\frac1{B(T)+\pi^2/h^2}.
+R_{[a,b]}^*(T;\Omega)\ge\frac1{B_T+\pi^2/\ell^2}.
 ```
 
 The fixed-$`\phi`$ path $`c=0`$ separately gives the usual target-only bound $`F_u\le T^2`$ and thus
 
 ```math
-R_{[a,b]}(T;\Omega)
+R_{[a,b]}^*(T;\Omega)
 \ge\max\left\{
-\frac1{B(T)+\pi^2/h^2},
-\frac1{T^2+\pi^2/h^2}
+\frac1{B_T+\pi^2/\ell^2},
+\frac1{T^2+\pi^2/\ell^2}
 \right\}.
 ```
 
-These two lower bounds use different path priors. Their maximum is valid for minimax risk; it must not be described as a bound on the QFI of a single common path. Since $`B(T)/T^2\to r^2`$, the global controlled-rate liminf follows.
+These two lower bounds use different path priors. Their maximum is valid for minimax risk; it must not be described as a bound on the QFI of a single common path. Since $`B_T/T^2\to r^2`$, the global controlled-rate liminf follows.
 
 ## Controlled-rate upper scaling
 
 The [stopped-channel proof](stopped_sensing.md#global-estimation-on-a-bounded-interval) supplies the matching uniform $`O(T^{-2})`$ estimator. Its essential ingredients are an exact Ramsey operation at each prescribed effective time, a multiscale schedule resolving the phase ambiguity, and a hard-deadline bound for the sum of random physical durations.
 
-For total prescribed effective exposure $`S`$, that sum has Laplace transform $`e^{-S k(q)}`$ with the stated first-passage exponent. Choosing $`S\le\alpha rT`$, $`0<\alpha<1`$, leaves an exponentially small deadline-failure probability. A bounded fallback on failure adds exponentially small risk, while successful multiscale estimation costs $`O(T^{-2})`$ in risk. The schedule is independent of the unknown angle, and all physical times are included.
+For total prescribed effective exposure $`S`$, that sum has Laplace transform $`e^{-S k(q)}`$ with the stated first-passage exponent. Choosing $`S\le\zeta rT`$, $`0<\zeta<1`$, leaves an exponentially small deadline-failure probability. A bounded fallback on failure adds exponentially small risk, while successful multiscale estimation costs $`O(T^{-2})`$ in risk. The schedule is independent of the unknown angle, and all physical times are included.
 
 Together with the lower bounds, this completes the same-metric global comparison. It does not promote the preset random-rate experiment's local Fisher matrix into a global estimator, and does not require that the entire stopped schedule fit into one Ramsey fringe.
 

@@ -13,7 +13,7 @@
 \usepackage{hyperref}
 \definecolor{ink}{HTML}{143C53}
 \definecolor{accent}{HTML}{267A88}
-\hypersetup{colorlinks=true,linkcolor=ink,urlcolor=accent,pdftitle={Noise-Rate-Activated Sensing: Explanatory Report},pdfauthor={},pdfsubject={Global frequency estimation with a shared unknown noise direction},pdfkeywords={},bookmarksnumbered=true}
+\hypersetup{colorlinks=true,linkcolor=ink,urlcolor=accent,pdftitle={Noise-Rate-Activated Sensing: Explanatory Report},pdfauthor={Ruge Lin},pdfsubject={Global frequency estimation with a shared unknown noise direction},pdfkeywords={},bookmarksnumbered=true}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\color{ink}Noise-Rate-Activated Sensing}
@@ -43,6 +43,10 @@
   \vspace{0.45em}
   {\large How changing noise strength changes the precision of an unknown frequency\par}
   \vspace{0.65em}
+  {\normalsize Ruge Lin\par}
+  \vspace{0.3em}
+  {\small\parbox{0.94\textwidth}{\centering Thrust of Artificial Intelligence, Information Hub, The Hong Kong University of Science and Technology (Guangzhou), Guangzhou 511453, China}\par}
+  \vspace{0.45em}
   {\small Explanatory report}
 \end{center}
 \vspace{0.4em}
@@ -444,15 +448,15 @@ $\phi+\pi$ describe the same noise axis.
 
 \subsection{What is fixed, what is controlled, and what is counted}
 
-During a cell with chosen coupling $g>0$, the joint Hamiltonian is
+During a cell with setting $j\in\{a,b\}$ and coupling $g_j>0$, the joint Hamiltonian is
 \begin{equation}
- H_g(\epsilon,\phi)
- =\frac{\epsilon}{2}Z_S\otimes I_E+gN_\phi\otimes X_E.
+ H_j(\epsilon,\phi)
+ =\frac{\epsilon}{2}Z_S\otimes I_E+g_jN_\phi\otimes X_E.
  \label{micro:hamiltonian}
 \end{equation}
 The subscript $E$ denotes that cell's environmental qubit. Units are chosen
-so that $\hbar=1$: $H_g$, $g$ and $\epsilon$ have units of inverse time,
-whereas $gh$ is dimensionless. All bath qubits start in $|0\rangle$ at time
+so that $\hbar=1$: $H_j$, $g_j$ and $\epsilon$ have units of inverse time,
+whereas $g_jh$ is dimensionless. All bath qubits start in $|0\rangle$ at time
 zero. Each is used once and retained afterward. The controller cannot
 measure or manipulate them. Thus a finite experiment uses a finite bath,
 whose size grows with the number of cells.
@@ -556,35 +560,35 @@ provides the probabilities and the conditional operations together.
 The two terms in Eq.~\eqref{micro:hamiltonian} anticommute: multiplying them
 in opposite orders changes the sign, so their cross terms cancel when the
 Hamiltonian is squared. Therefore
-$H_g^2=R_g(\epsilon)^2I$, where
+$H_j^2=R_j(\epsilon)^2I$, where
 \begin{equation}
- R_g(\epsilon)=\sqrt{g^2+\epsilon^2/4},\qquad r_g=R_g(\epsilon)h.
+ R_j(\epsilon)=\sqrt{g_j^2+\epsilon^2/4},\qquad r_j=R_j(\epsilon)h.
 \end{equation}
-The symbol $R_g(\epsilon)$ here is a frequency scale, distinguished by
+The symbol $R_j(\epsilon)$ here is a frequency scale, distinguished by
 its argument and absence of a star from the risk $R_g^*(n;\Omega)$.
 Exponentiating the Hamiltonian gives the exact unitary
 \begin{equation}
- U_g=\cos r_g\,I
-     -i\frac{\sin r_g}{R_g}
+ U_j=\cos r_j\,I
+     -i\frac{\sin r_j}{R_j}
        \left(\frac{\epsilon}{2}Z_S\otimes I_E
-                        +gN_\phi\otimes X_E\right).
+                        +g_jN_\phi\otimes X_E\right).
  \label{micro:unitary}
 \end{equation}
 The operator norm, meaning the largest factor by which a matrix can stretch
 a vector, is
-$\|H_g\|=R_g(\epsilon)$. No short-time expansion has entered this formula.
+$\|H_j\|=R_j(\epsilon)$. No short-time expansion has entered this formula.
 
 Tracing out a bath input $|0\rangle$ produces a quantum channel
-$\rho\mapsto\sum_{r=0}^1K_r\rho K_r^\dagger$ with operators
+$\rho\mapsto\sum_{r=0}^1K_{r,j}\rho K_{r,j}^\dagger$ with operators
 \begin{equation}
- K_0=aI-ibZ_S,\qquad K_1=-icN_\phi,
+ K_{0,j}=a_jI-ib_jZ_S,\qquad K_{1,j}=-ic_jN_\phi,
  \qquad
- a=\cos r_g,\quad
- b=\frac{\epsilon}{2R_g}\sin r_g,\quad
- c=\frac{g}{R_g}\sin r_g.
+ a_j=\cos r_j,\quad
+ b_j=\frac{\epsilon}{2R_j}\sin r_j,\quad
+ c_j=\frac{g_j}{R_j}\sin r_j.
  \label{micro:kraus}
 \end{equation}
-These real coefficient functions satisfy $a^2+b^2+c^2=1$. The term
+These real coefficient functions satisfy $a_j^2+b_j^2+c_j^2=1$. The term
 ``Kraus operators'' denotes this representation of an unobserved
 system--environment interaction; it does not imply environmental access.
 
@@ -596,9 +600,9 @@ space. The first operator preserves the parity of the two qubits, while
 the second reverses it. A parity measurement distinguishes these cases
 without distinguishing $|0_L\rangle$ from $|1_L\rangle$. Because
 \begin{equation}
- K_1^\dagger K_1=p_gI,\qquad K_0^\dagger K_0=q_gI,
+ K_{1,j}^\dagger K_{1,j}=p_jI,\qquad K_{0,j}^\dagger K_{0,j}=q_jI,
  \qquad
- p_g(\epsilon)=\frac{g^2}{R_g^2}\sin^2(R_gh),\quad q_g=1-p_g,
+ p_j(\epsilon)=\frac{g_j^2}{R_j^2}\sin^2(R_jh),\quad q_j=1-p_j,
  \label{micro:probabilities}
 \end{equation}
 the flip and no-flip probabilities are independent of the logical state.
@@ -607,19 +611,19 @@ $\epsilon$.
 
 On the band used below, the normalized no-flip branch is a phase rotation:
 \begin{equation}
- \frac{K_0}{\sqrt{q_g}}
-  =\exp[-i\theta_g(\epsilon)Z_S/2],\qquad
- \theta_g(\epsilon)
-  =2\arctan\left[\frac{\epsilon}{2R_g}\tan(R_gh)\right].
+ \frac{K_{0,j}}{\sqrt{q_j}}
+  =\exp[-i\theta_j(\epsilon)Z_S/2],\qquad
+ \theta_j(\epsilon)
+  =2\arctan\left[\frac{\epsilon}{2R_j}\tan(R_jh)\right].
  \label{micro:theta}
 \end{equation}
 Here $\arctan$ is the inverse tangent taking values between $-\pi/2$ and
-$\pi/2$. This is the continuous phase branch with $\theta_g(0)=0$.
+$\pi/2$. This is the continuous phase branch with $\theta_j(0)=0$.
 The flip branch is $N_\phi$ up to an irrelevant scalar phase.
 A phase is dimensionless; its derivative with respect to frequency has
 units of time. In particular,
 \begin{equation}
- d_j=\theta_{g_j}'(0)=\frac{\tan(g_jh)}{g_j},\qquad j\in\{a,b\}.
+ d_j=\theta_j'(0)=\frac{\tan(g_jh)}{g_j},\qquad j\in\{a,b\}.
  \label{micro:derivative}
 \end{equation}
 A prime denotes differentiation with respect to residual frequency, not
@@ -644,13 +648,12 @@ $\chi_b<r_*<\pi/4$. Begin with
  0<E\le\frac{2}{h}\sqrt{r_*^2-\chi_b^2}.
  \label{micro:band1}
 \end{equation}
-Then $R_{g_j}(\epsilon)h\le r_*$ for both settings and every
+Then $R_j(\epsilon)h\le r_*$ for both settings and every
 $|\epsilon|\le E$. In particular the complete Hamiltonian is bounded by
 $r_*/h$, not just its coupling term. A specified hardware strength limit
 must cover this complete bound.
 
-For brevity, set $p_j=p_{g_j}$, $q_j=q_{g_j}$ and
-$\theta_j=\theta_{g_j}$. Define the positive time scale
+The setting-dependent functions are $p_j$, $q_j$ and $\theta_j$. Define the positive time scale
 \begin{equation}
  \mu_0=
  \frac{p_b(0)q_a(0)d_a-p_a(0)q_b(0)d_b}{p_a(0)+p_b(0)}.
@@ -701,45 +704,46 @@ then disappears.
 \subsection{Calibration that uses every outcome}
 \label{micro:calibration}
 
-Prepare $|+_L\rangle=(|00\rangle+|11\rangle)/\sqrt2$ for one cell.
+Fix one coupling and suppress its setting label, writing $g,R,r,a,b,c,p,q,\theta,H,U,K_0,K_1$
+for the corresponding cell quantities. Prepare $|+_L\rangle=(|00\rangle+|11\rangle)/\sqrt2$ for one cell.
 After measuring parity, measure the logical sine quadrature $Y_L$ if
 parity is even. This is the Pauli $Y$ measurement in the logical basis:
 its outcomes are $\pm1$, and their mean for a phase-rotated
 $|+_L\rangle$ is the sine of that phase. Record its outcome
-$z\in\{-1,+1\}$. If parity is odd,
-record $z=0$. Lowercase $z$ is a classical score, distinct from a Pauli
+$W\in\{-1,+1\}$. If parity is odd,
+record $W=0$. $W$ is a classical score, distinct from a Pauli
 operator. Equation~\eqref{micro:kraus} gives
 \begin{equation}
- \Pr\{z=0\}=p_g(\epsilon),\qquad
- \Pr\{z=\pm1\}=\frac12(a\pm b)^2
-              =\frac{q_g(\epsilon)\pm F_g(\epsilon)}2,
+ \Pr\{W=0\}=p(\epsilon),\qquad
+ \Pr\{W=\pm1\}=\frac12(a\pm b)^2
+              =\frac{q(\epsilon)\pm f(\epsilon)}2,
  \label{micro:caliblikelihood}
 \end{equation}
 where
 \begin{equation}
- F_g(\epsilon)=\mathbb E z
-       =\frac{\epsilon\sin(2R_gh)}{2R_g}.
+ f(\epsilon)=\mathbb E W
+       =\frac{\epsilon\sin(2Rh)}{2R}.
  \label{micro:F}
 \end{equation}
 Every probability is independent of the unknown direction. The odd
 outcome is part of the experiment, not an event removed from its cost or
 likelihood. All three probabilities are strictly positive on the chosen
-band, because $|b|<\sin r_g<\cos r_g=a$ and $p_g>0$.
+band, because $|b|<\sin r<\cos r=a$ and $p>0$.
 
-For a concrete trial, take $gh=\pi/6$ and $\epsilon=0$. Then $p_g=1/4$,
+For a concrete trial, take $gh=\pi/6$ and $\epsilon=0$. Then $p=1/4$,
 $a=\sqrt3/2$ and $b=0$: the probabilities of $0,+1,-1$ are
 $1/4,3/8,3/8$. The mean score is zero for every unknown direction.
 A small positive residual frequency makes $+1$ more likely than $-1$;
 a negative one reverses the imbalance. Repetition measures this imbalance.
 The example illustrates the readout, not the two-strength advantage.
 
-The response $F_g$ is monotone with a uniform inverse. Differentiation
+The response $f$ is monotone with a uniform inverse. Differentiation
 shows
 \begin{equation}
- F_g'(\epsilon)
+ f'(\epsilon)
  =h\left[
-    \frac{g^2}{R_g^2}\frac{\sin(2r_g)}{2r_g}
-   +\frac{\epsilon^2}{4R_g^2}\cos(2r_g)\right].
+    \frac{g^2}{R^2}\frac{\sin(2r)}{2r}
+   +\frac{\epsilon^2}{4R^2}\cos(2r)\right].
  \label{micro:Fprime}
 \end{equation}
 The two weights are nonnegative and add to one. For $0<x<\pi/2$,
@@ -747,7 +751,7 @@ $\sin x/x\ge\cos x$; indeed the derivative of
 $\sin x-x\cos x$ is $x\sin x\ge0$, and its value at zero is zero.
 It follows that
 \begin{equation}
- \kappa\le F_g'(\epsilon)\le h,
+ \kappa\le f'(\epsilon)\le h,
  \qquad \kappa=h\cos(2r_*)>0.
  \label{micro:kappa}
 \end{equation}
@@ -756,23 +760,24 @@ scores, with a slope that never becomes arbitrarily small there.
 
 Repeat this complete preparation and readout for $N$ cells. Fresh bath
 partners and re-preparation make the scores independent. With
-$\overline z=N^{-1}\sum_{j=1}^Nz_j$, define
+$\overline W=N^{-1}\sum_{j=1}^NW_j$, define
 \begin{equation}
- \widehat\omega=\omega_0+
- F_g^{-1}\!\left(\operatorname{clip}_{[F_g(-E),F_g(E)]}
-                          (\overline z)\right).
+ \widehat\epsilon_N=
+ f^{-1}\!\left(\operatorname{clip}_{[f(-E),f(E)]}
+                          (\overline W)\right).
  \label{micro:calibestimator}
 \end{equation}
+The physical-frequency estimate is $\widehat\omega=\omega_0+\widehat\epsilon_N$.
 Here clipping projects a number to the nearest point in the stated
 interval. It cannot increase its distance from the true mean. The
-variance $\operatorname{Var}(z)$ is the average squared deviation from
-that mean. Since $z\in[-1,1]$, it is at most one. Independence makes the
-variance of the sample mean $\operatorname{Var}(z)/N$: cross terms from
+variance $\operatorname{Var}(W)$ is the average squared deviation from
+that mean. Since $W\in[-1,1]$, it is at most one. Independence makes the
+variance of the sample mean $\operatorname{Var}(W)/N$: cross terms from
 different centered scores average to zero. The inverse slope bound therefore
 yields
 \begin{equation}
  |\widehat\omega-\omega|
- \le\kappa^{-1}|\overline z-F_g(\epsilon)|,
+ \le\kappa^{-1}|\overline W-f(\epsilon)|,
  \qquad
  \sup_{\omega\in\Omega,\phi}
  \mathbb E(\widehat\omega-\omega)^2
@@ -834,7 +839,7 @@ The integral is well-defined because, on the entire band,
  \label{micro:pmin}
 \end{equation}
 This inequality follows from
-$p=(gh)^2(\sin r_g/r_g)^2$ and the decrease of $\sin r/r$ on the
+$p=(gh)^2(\sin r/r)^2$ and the decrease of $\sin r/r$ on the
 positive range in use. Angles in Eq.~\eqref{micro:curve} can be read
 modulo $\pi$; the smooth real-valued expression is a convenient lift.
 
@@ -858,9 +863,9 @@ sizes can add before squaring, giving a term of order $n^2$. If the changes
 are perpendicular, their squared sizes add instead, giving order $n$.
 The zero-overlap identity enforces the latter behavior along the comparison
 curve, even when the controller uses the earlier record.
-Equivalently, $s=q\theta_g'/2$, and
+Equivalently, $s=q\theta'/2$, and
 \begin{equation}
- 4A=\frac{p'^2}{pq}+\frac{q\theta_g'^2}{p}.
+ 4A=\frac{p'^2}{pq}+\frac{q\theta'^2}{p}.
  \label{micro:Aequivalent}
 \end{equation}
 The first term reflects changes in the branch probabilities; the second
@@ -868,9 +873,9 @@ accounts for phase sensitivity and the direction variation. Dropping the
 probability term would not be a valid off-compensation calculation.
 
 There is a simple uniform bound. At fixed $\phi$,
-$\partial_\epsilon H_g=Z_S\otimes I_E/2$. Differentiating the unitary
+$\partial_\epsilon H=Z_S\otimes I_E/2$. Differentiating the unitary
 as an integral over the evolution gives
-$\|\partial_\epsilon U_g\|\le h/2$. Applied to the bath input, this
+$\|\partial_\epsilon U\|\le h/2$. Applied to the bath input, this
 implies $A_0=a'^2+b'^2+c'^2\le h^2/4$. The ordinary
 Cauchy--Schwarz inequality, which bounds the size of an inner product
 by the product of the two vector lengths, gives
@@ -891,21 +896,21 @@ instruments and keep all classical records in orthogonal registers.
 The controller's instrument, including its conditional branches, has no
 explicit parameter derivative.
 
-If $|\psi\rangle$ is the accumulated purified state, the derivative after
-a cell is $\dot V|\psi\rangle+V|\dot\psi\rangle$. Expanding its squared
+If $|\Psi\rangle$ is the accumulated purified state, the derivative after
+a cell is $\dot V|\Psi\rangle+V|\dot\Psi\rangle$. Expanding its squared
 length gives
 \begin{equation}
- \|\dot V\psi+V\dot\psi\|^2
- =\|\dot V\psi\|^2+\|\dot\psi\|^2
-   +2\operatorname{Re}\langle\dot\psi|V^\dagger\dot V|\psi\rangle.
+ \|\dot V\Psi+V\dot\Psi\|^2
+ =\|\dot V\Psi\|^2+\|\dot\Psi\|^2
+   +2\operatorname{Re}\langle\dot\Psi|V^\dagger\dot V|\Psi\rangle.
 \end{equation}
 Here $\operatorname{Re}$ takes the real part of a complex number.
 The last, cross term vanishes because $V^\dagger\dot V=0$ from
 Eq.~\eqref{micro:orthogonality}. Each cell consequently adds at most $A$
 to the derivative norm squared. Induction gives an upper bound $nA$.
 For a normalized pure state, the quantum Fisher information is
-$4(\langle\dot\psi|\dot\psi\rangle-
- |\langle\psi|\dot\psi\rangle|^2)$, which is at most four times the
+$4(\langle\dot\Psi|\dot\Psi\rangle-
+ |\langle\Psi|\dot\Psi\rangle|^2)$, which is at most four times the
 first term. Every actual final measurement has classical Fisher
 information $J_\epsilon$ no larger than this. Hence
 \begin{equation}
@@ -1414,11 +1419,11 @@ $\widehat u_N\in J$ with
 \begin{equation}
  \sup_{u\in J,\phi}
  \Pr\{|\widehat u_N-u|\ge\delta\}
- \le2\exp[-N\kappa^2\delta^2/2],
+ \le2\exp[-N\kappa_0^2\delta^2/2],
  \qquad \delta>0.
  \label{phase:coarsebound}
 \end{equation}
-Here $\kappa>0$ is the uniform derivative lower bound for the one-cell
+Here $\kappa_0=\kappa>0$ is the uniform derivative lower bound for the one-cell
 calibration response, with units of time.  A fixed initial localization
 accuracy will suffice, but its failure probability must become smaller as
 the final experiment becomes longer.
@@ -1438,7 +1443,7 @@ constant.  All logarithms below are natural logarithms.
 First use
 \begin{equation}
  N_0(K)=\left\lceil
- \frac{2L_0^2}{\kappa^2s^2}
+ \frac{2L_0^2}{\kappa_0^2s^2}
        (K\log 8+\log 2)\right\rceil
  \label{phase:calibrationcost}
 \end{equation}
@@ -1470,7 +1475,7 @@ attaining strategy and will make its conditional independence transparent.
 For each accepted record $\mathcal R_i$, measure the logical equatorial
 observable
 \begin{equation}
- B_i(c)=\cos(\Phi_{\mathcal R_i}(c))Y_L
+ O_i=\cos(\Phi_{\mathcal R_i}(c))Y_L
        -\sin(\Phi_{\mathcal R_i}(c))X_L.
  \label{phase:observable}
 \end{equation}
@@ -1709,9 +1714,12 @@ is a dimensionless signal multiplier, and the known rate $\gamma_j>0$ has units
 of inverse time. The angle $\phi$ is unknown, continuous, fixed throughout the
 experiment, and shared by every setting. Its physical period in this
 dissipator is $\pi$, because changing the sign of $N_\phi$ leaves
-\eqref{markov:master} unchanged. In the main comparison $s_j=1$: we change
-the noise rate while preserving the signal Hamiltonian. One device offers a
-single rate $\gamma$; the other offers two fixed rates $0<a<b$.
+\eqref{markov:master} unchanged. In the main comparison $s_j=1$: classical rate selection allows
+$\gamma(t)\in[a,b]$ with fixed $0<a<b$, while preserving the signal
+Hamiltonian. The fixed-device benchmark uses one specified rate $\gamma>0$.
+The endpoints $\{a,b\}$ suffice for the attaining protocols below; the
+converse covers every rate in the interval. The more general known
+coefficients $s_j$ are retained for the finite-setting extension.
 
 The resource $T$ is a hard physical exposure time for one sensor. Preparation,
 parameter-independent sensor--memory controls, monitoring, recovery pulses,
@@ -1771,8 +1779,8 @@ imitated by a change in the unknown direction. Two rates produce different
 combinations of the same two unknowns; this is the statistical reason that
 rate diversity can help.
 Prepare the logical $X$ eigenstate and measure at a uniformly random,
-recorded equatorial angle $\xi$. The two probabilities are
-$[1\pm\cos(\Theta-\xi)]/2$. This measurement has unit information about
+recorded equatorial angle $\vartheta$. The two probabilities are
+$[1\pm\cos(\Theta-\vartheta)]/2$. This measurement has unit information about
 $\Theta$ except at isolated angles, which have probability zero under the
 recorded continuous randomization. The count likelihood itself contains no
 information about $\omega$ or $\phi$.
@@ -1807,11 +1815,11 @@ this path. Outcome probabilities may change; the control rule does not acquire
 knowledge of the unknown $u$.
 
 We use a general information-growth inequality for a Markovian channel with
-arbitrary parameter-independent controls. If $F(t)$ is the output quantum
+arbitrary parameter-independent controls. If $F_u(t)$ is the output quantum
 Fisher information along the path, including the classical record, then
 \begin{align}
- \frac{\mathrm dF}{\mathrm dt}
- &\le 4\bigl(\|A\|+\|B\|\sqrt F\bigr),\label{markov:growth}\\
+ \frac{\mathrm dF_u}{\mathrm dt}
+ &\le 4\bigl(\|A\|+\|B\|\sqrt{F_u}\bigr),\label{markov:growth}\\
  A&=(\partial_uL)^\dagger\partial_uL,\qquad
  B=\partial_uH-\frac{i}{2}
  \bigl((\partial_uL)^\dagger L-L^\dagger\partial_uL\bigr).
@@ -1825,7 +1833,7 @@ following choice of nuisance path is its application to this physical model.
 The two terms have different roles. The $A$ term allows information to
 increase at most at a bounded rate, giving a linear ceiling if $B=0$.
 The term containing $B$ permits
-coherent accumulation: because its size increases with $\sqrt F$, it can
+coherent accumulation: because its size increases with $\sqrt{F_u}$, it can
 support quadratic growth. We look for a nuisance path that cancels this
 second contribution. One rate admits such a cancellation; two different
 rates generally do not admit the same cancelling path.
@@ -1845,13 +1853,13 @@ $N_\phi(\partial_\phi N_\phi)=iZ$ give, in setting $j$,
  \label{markov:ab}
 \end{equation}
 For one unit-strength setting, $c=1/(2\gamma)$ cancels $B$ exactly.
-Starting from a parameter-independent preparation, $F(0)=0$, so
-$F(T)\le T/\gamma$. The path $c=0$ separately gives $F(T)\le T^2$.
+Starting from a parameter-independent preparation, $F_u(0)=0$, so
+$F_u(T)\le T/\gamma$. The path $c=0$ separately gives $F_u(T)\le T^2$.
 Together with \eqref{markov:fixedattain}, this proves
 \begin{equation}
- \mathcal I^*_{\omega,\gamma}(T)\le\min\{T^2,T/\gamma\},
+ \mathcal I^*_{\omega,\mathrm{fixed}}(T)\le\min\{T^2,T/\gamma\},
  \qquad
- \lim_{T\to\infty}\frac{\mathcal I^*_{\omega,\gamma}(T)}{T}
+ \lim_{T\to\infty}\frac{\mathcal I^*_{\omega,\mathrm{fixed}}(T)}{T}
  =\frac1\gamma.
  \label{markov:fixedlocal}
 \end{equation}
@@ -1859,24 +1867,24 @@ The star denotes optimization over all permitted controls and measurements.
 The mathematical path does not assert that noise physically encodes frequency;
 it selects difficult pairs inside the allowed two-parameter family.
 
-For two rates define the dimensionless contrast
+For rates selected from $[a,b]$, define the dimensionless contrast
 \begin{equation}
  r=\frac{b-a}{b+a}\in(0,1).
  \label{markov:r}
 \end{equation}
-Choosing $c=1/(a+b)$ leaves $\|B\|\le r/2$ in either setting and
-$\|A\|\le b/(a+b)^2$. Thus
+Choosing $c=1/(a+b)$ leaves $\|B_\gamma\|\le r/2$ for every $\gamma\in[a,b]$ and
+$\|A_\gamma\|\le b/(a+b)^2$. Thus
 \begin{equation}
- F'(t)\le C+2r\sqrt{F(t)},\qquad
+ \frac{\mathrm d F_u}{\mathrm dt}\le C+2r\sqrt{F_u},\qquad
  C=\frac{4b}{(a+b)^2}.
  \label{markov:ode}
 \end{equation}
-Here and below $F'(t)$ is a time derivative. Integrating the scalar comparison
-equation gives $\sqrt{F(t)}\le rt+O(t_c\log(1+t/t_c))$ at large $t$,
+The derivative $\mathrm dF_u/\mathrm dt$ is with respect to physical time. Integrating the scalar comparison
+equation gives $\sqrt{F_u(t)}\le rt+O(t_c\log(1+t/t_c))$ at large $t$,
 where $t_c=1/(a+b)$ and the rates are fixed; hence the leading information
 coefficient is at most $r^2$.
 The comparison integral is
-$t=y/r-[C/(2r^2)]\log(1+2ry/C)$, where $y=\sqrt F$ and the logarithm
+$t=y/r-[C/(2r^2)]\log(1+2ry/C)$, where $y=\sqrt{F_u}$ and the logarithm
 is natural. This also explains why the term linear in time cannot change the
 leading quadratic coefficient.
 
@@ -1928,7 +1936,11 @@ eliminating their \emph{shared} nuisance gives
  =\frac{p(1-p)(b-a)^2}{pa^2+(1-p)b^2}.
  \label{markov:mixture}
 \end{equation}
-The maximizing probability is $p_*=b/(a+b)$ and the maximum is $r^2$.
+The maximizing probability is $p=b/(a+b)$ and the maximum is $r^2$.
+These endpoint-only experiments attain the interval converse, so
+\begin{equation}
+ \lim_{T\to\infty}\frac{\mathcal I^*_{\omega,[a,b]}(T)}{T^2}=r^2.
+\end{equation}
 A fixed error in $p$ changes this coefficient continuously; it does not incur
 the time-amplified penalty in \eqref{markov:imbalance}. A fair choice $p=1/2$
 needs no numerical rate calibration in its design and retains the fraction
@@ -1943,8 +1955,8 @@ the conditional phase score has mean zero. The displayed efficient information
 therefore survives elimination of the rate parameters. This fact is not free
 calibration: inference uses the recorded counts, and a precisely balanced echo
 still needs its design ratio. Nor does one labelled interrogation establish
-global estimation at an unknown frequency. Repeating it $\nu$ times costs
-$\nu T$.
+global estimation at an unknown frequency. Repeating it $N_{\rm rep}$ times costs
+$N_{\rm rep}T$.
 
 There is a structural extension. For finitely many selectable pairs
 $(s_j,\gamma_j)$, the optimal leading local coefficient is $v_*^2$, where
@@ -1976,10 +1988,10 @@ the global precision theorem possible.
 
 \subsection{Use errors in pairs, and stop a signed clock}
 
-Again monitor parity, but apply no recovery after an error. Let $n(t)$ be the
+Again monitor parity, but apply no recovery after an error. Let $N(t)$ be the
 detected jump count and define the signed interrogation time
 \begin{equation}
- D(t)=\int_0^t(-1)^{n(u)}\,\mathrm du.
+ D(t)=\int_0^t(-1)^{N(u)}\,\mathrm du.
  \label{markov:signed}
 \end{equation}
 It advances at unit speed in even parity and retreats at unit speed in odd
@@ -1989,7 +2001,7 @@ $0.9-0.25+0.85=1.5$. The negative interval subtracts signal phase rather
 than physical cost. Since $N_\phi Z=-ZN_\phi$, moving errors through the intervening
 signal rotations gives the exact trajectory unitary
 \begin{equation}
- U(t)=N_\phi^{n(t)}\exp[-i\omega D(t)Z/2].
+ U(t)=N_\phi^{N(t)}\exp[-i\omega D(t)Z/2].
  \label{markov:trajectory}
 \end{equation}
 Use rate $a$ when parity is even and $b$ when it is odd. The positive state
@@ -1999,7 +2011,7 @@ For a prescribed $d>0$, stop at its first arrival at $d$:
  \tau_d=\inf\{t\ge0:D(t)=d\}.
 \end{equation}
 An upward arrival is in even parity, so the number of errors is even and
-$N_\phi^{n(\tau_d)}=I$. The completed logical operation is exactly
+$N_\phi^{N(\tau_d)}=I$. The completed logical operation is exactly
 \begin{equation}
  \rho_L\longmapsto e^{-i\omega dZ_L/2}\rho_L e^{i\omega dZ_L/2}.
  \label{markov:stoppedchannel}
@@ -2053,22 +2065,23 @@ Differentiating its logarithm at zero gives
 The transform also has a finite positive exponential-moment domain:
 \begin{equation}
  \mathbb E e^{\theta\tau_d}=e^{-d k(-\theta)},\qquad
- 0<\theta<\frac{(\sqrt b-\sqrt a)^2}{2}.
+ 0<\theta<\theta_c,\qquad
+ \theta_c=\frac{(\sqrt b-\sqrt a)^2}{2}.
  \label{markov:mgf}
 \end{equation}
 Finiteness can be established before continuation of the transform. For a
-real tilt $z$ with inverse-time units, exponential moments of $D(t)$ are
+real tilt $\eta$ with inverse-time units, exponential moments of $D(t)$ are
 governed by the two-state matrix
 \begin{equation}
- G_z=\begin{pmatrix}z-a&a\\b&-z-b\end{pmatrix},\qquad
- \lambda(z)=-\frac{a+b}{2}+\sqrt{(z+\delta)^2+ab}.
+ Q_\eta=\begin{pmatrix}\eta-a&a\\b&-\eta-b\end{pmatrix},\qquad
+ \lambda(\eta)=-\frac{a+b}{2}+\sqrt{(\eta+\delta)^2+ab}.
 \end{equation}
-The quantity $\lambda(z)$ is its largest eigenvalue. At $z=-\delta<0$ it
-equals $-(\sqrt b-\sqrt a)^2/2$. For fixed rates, the corresponding
+The quantity $\lambda(\eta)$ is its largest eigenvalue. At $\eta=-\delta<0$ it
+equals $-\theta_c$. For fixed rates, the corresponding
 matrix exponential bounds $\mathbb E e^{-\delta D(t)}$ by a constant times
-$e^{\lambda(-\delta)t}$. Since $\tau_d>t$ implies $D(t)<d$, the exponential
+$e^{-\theta_ct}$. Since $\tau_d>t$ implies $D(t)<d$, the exponential
 Markov inequality bounds its probability by a constant times
-$e^{\delta d+\lambda(-\delta)t}$. Thus positive exponential moments of
+$e^{\delta d-\theta_ct}$. Thus positive exponential moments of
 $\tau_d$ are finite throughout the domain in \eqref{markov:mgf}. Continuing
 \eqref{markov:laplace} within that domain yields the stated formula.
 
@@ -2080,11 +2093,11 @@ finite-cost precision advantage.
 
 Under a deadline $T$, retain both success and failure flags. Transfer completed
 logical outputs to protected memory; on failure assign a parameter-independent
-output. With $p_T=\Pr(\tau_d\le T)$, the experiment has local information
-$p_Td^2$. For instance, choose $t_c=1/(a+b)$ and
-$d=r[T-t_c(T/t_c)^{2/3}]$ at large $T$. The mean duration falls short of
+output. The experiment has local information
+$\Pr(\tau_d\le T)d^2$. For instance, choose $t_c=1/(a+b)$,
+$\Delta_T=t_c(T/t_c)^{2/3}$ and $d=r(T-\Delta_T)$ at large $T$. The mean duration falls short of
 $T$ by the stated margin, while its variance is $O(T)$. The failure probability
-is $O(T^{-1/3})$ by the variance bound, and $p_Td^2/T^2\to r^2$.
+is $O(T^{-1/3})$ by the variance bound, and $\Pr(\tau_d\le T)d^2/T^2\to r^2$.
 Thus stopped sensing also attains the optimal local coefficient with every
 failed run charged. This margin is an explicit construction, not a claim about
 the best finite-time stopping design.
@@ -2094,7 +2107,7 @@ the best finite-time stopping design.
 Fix a closed frequency interval $\Omega$ of width $W>0$, independent of $T$.
 For the permitted control menu $\mathcal A$, define
 \begin{equation}
- R_{\mathcal A}(T;\Omega)
+ R_{\mathcal A}^*(T;\Omega)
  =\inf_{\mathcal P,\widehat\omega}
  \sup_{\omega\in\Omega,\,\phi}
  \mathbb E_{\omega,\phi}^{\mathcal P}
@@ -2106,11 +2119,14 @@ no unbiasedness condition is imposed. Calibration, repetitions, waiting and
 failures all share the same deadline. Clipping an estimate to $\Omega$ cannot
 increase its squared error. In this model,
 \begin{equation}
- R_{\gamma}(T;\Omega)=\Theta(T^{-1}),\qquad
- R_{\{a,b\}}(T;\Omega)=\Theta(T^{-2}).
+ R_{\mathrm{fixed}}^*(T;\Omega)=\Theta(T^{-1}),\qquad
+ R_{[a,b]}^*(T;\Omega)=\Theta(T^{-2}).
  \label{markov:globaltheorem}
 \end{equation}
-Here $\Theta$ means upper and lower bounds by fixed positive multiples for
+The interval-rate class and its endpoint-only subclass have distinct
+finite-budget risk functions: $R_{[a,b]}^*$ and $R_{\{a,b\}}^*$.
+Allowing more rates gives $R_{[a,b]}^*\le R_{\{a,b\}}^*$; equality at a
+fixed $T$ is not asserted. Here $\Theta$ means upper and lower bounds by fixed positive multiples for
 sufficiently large $T$; the constants carry the required units and depend on
 the fixed rates and interval. We next connect this statement to both a
 converse for biased estimators and an explicit construction.
@@ -2121,66 +2137,69 @@ well at every allowed frequency and direction, it would also work well on
 average under any weighting of those possibilities. Exhibiting one difficult
 weighted average is therefore enough to lower-bound its worst-case error.
 
-Choose an interior half-width $w>0$ and center $\omega_c$ with
-$[\omega_c-w,\omega_c+w]\subseteq\Omega$. On a nuisance path use the prior
+Choose an interior half-width $\ell>0$ and center $\omega_c$ with
+$[\omega_c-\ell,\omega_c+\ell]\subseteq\Omega$. On a nuisance path use the prior
 \begin{equation}
- \pi_w(u)=\frac1w\cos^2\left(\frac{\pi u}{2w}\right),
- \qquad -w<u<w,\qquad I(\pi_w)=\frac{\pi^2}{w^2}.
+ \pi_\ell(u)=\frac1\ell\cos^2\left(\frac{\pi u}{2\ell}\right),
+ \qquad -\ell<u<\ell,\qquad I(\pi_\ell)=\frac{\pi^2}{\ell^2}.
 \end{equation}
 This is a proof device inside the worst-case parameter family, not information
 supplied to the controller. For the joint score
-$S=\partial_u\log[p(x\mid u)\pi_w(u)]$, integration by parts yields
+$S=\partial_u\log[p(x\mid u)\pi_\ell(u)]$, integration by parts yields
 $\mathbb E[(\widehat\omega-\omega_c-u)S]=1$; the endpoint term vanishes
 because the prior density does. The likelihood score has conditional mean
-zero, so $\mathbb E S^2=\mathbb E_{\pi_w}J_u+\pi^2/w^2$.
+zero, so $\mathbb E S^2=\mathbb E_{\pi_\ell}J_u+\pi^2/\ell^2$.
 The Cauchy--Schwarz inequality therefore gives prior-average squared error at
-least $1/(\mathbb E_{\pi_w}J_u+\pi^2/w^2)$, without an unbiasedness assumption.
+least $1/(\mathbb E_{\pi_\ell}J_u+\pi^2/\ell^2)$, without an unbiasedness assumption.
 Worst-case risk is at least this average.
 
 The single-rate cancelling path gives
 \begin{equation}
- R_{\gamma}(T;\Omega)\ge
- \frac1{T/\gamma+\pi^2/w^2}.
+ R_{\mathrm{fixed}}^*(T;\Omega)\ge
+ \frac1{T/\gamma+\pi^2/\ell^2}.
  \label{markov:globalfixedlower}
 \end{equation}
-For two rates a supersolution of \eqref{markov:ode} is
-$B(T)=(rT+\sqrt{CT})^2$: its derivative exceeds
-$C+2r\sqrt{B(T)}$ by $r\sqrt{CT}\ge0$. Thus
+For every selected rate in $[a,b]$, a supersolution of \eqref{markov:ode} is
+$B_T=(rT+\sqrt{CT})^2$: its derivative exceeds
+$C+2r\sqrt{B_T}$ by $r\sqrt{CT}\ge0$. Thus
 \begin{equation}
- R_{\{a,b\}}(T;\Omega)\ge
- \frac1{(rT+\sqrt{CT})^2+\pi^2/w^2}.
+ L(T):=\frac1{(rT+\sqrt{CT})^2+\pi^2/\ell^2}
+ \le R_{[a,b]}^*(T;\Omega)\le R_{\{a,b\}}^*(T;\Omega).
  \label{markov:globalcontrollower}
 \end{equation}
 In particular the asymptotic global constants obey
 \begin{equation}
- \liminf_{T\to\infty}T R_\gamma\ge\gamma,\qquad
- \liminf_{T\to\infty}T^2R_{\{a,b\}}\ge\frac1{r^2}.
+ \liminf_{T\to\infty}T R_{\mathrm{fixed}}^*\ge\gamma,\qquad
+ \liminf_{T\to\infty}T^2R_{[a,b]}^*\ge\frac1{r^2}.
 \end{equation}
 These are lower bounds, not claims that the locally optimal coefficients
 have globally attainable reciprocals.
 
-For the matching single-rate upper scaling, compensate only the known interval
-center and repeat trials of fixed duration
+For the matching single-rate upper scaling, reference the terminal readout
+to the known interval center $\omega_c$ and repeat trials of fixed duration
 $\tau=\min\{1/\gamma,\pi/(2W)\}$.
 A trial with no error has probability $p_0=e^{-\gamma\tau}$ and produces
-phase $(\omega-\omega_c)\tau$ independently of $\phi$. Every trial costs
+phase $\omega\tau$ independently of $\phi$, read relative to the known
+phase $\omega_c\tau$. Every trial costs
 $\tau$, including those with errors. Among
-$M=\lfloor T/\tau\rfloor$ attempts, let $K$ be the number with no error;
-$K$ is binomial with parameters $(M,p_0)$. On those useful trials measure the
-sine quadrature. Clip the sample mean to the possible sine range and invert
+$m=\lfloor T/\tau\rfloor$ attempts, let $K$ be the number with no error;
+$K$ is binomial with parameters $(m,p_0)$. On those useful trials measure the
+referenced sine quadrature
+$O_c=\cos(\omega_c\tau)Y_L-\sin(\omega_c\tau)X_L$.
+Clip the sample mean to the possible sine range and invert
 it. Since $W\tau/2\le\pi/4$, the inverse has Lipschitz constant at most
 $\sqrt2/\tau$, and conditional risk is at most $2/(K\tau^2)$ for $K>0$.
 Use the midpoint if $K=0$. The identities
 \begin{equation}
  \mathbb E\frac1{K+1}
- =\frac{1-(1-p_0)^{M+1}}{(M+1)p_0},\qquad
+ =\frac{1-(1-p_0)^{m+1}}{(m+1)p_0},\qquad
  \frac{\mathbf1_{K>0}}K\le\frac2{K+1}
 \end{equation}
 then give the uniform bound
 \begin{equation}
- R_\gamma(T;\Omega)
- \le\frac4{\tau^2(M+1)p_0}
-     +\frac{W^2}{4}(1-p_0)^M
+ R_{\mathrm{fixed}}^*(T;\Omega)
+ \le\frac4{\tau^2(m+1)p_0}
+     +\frac{W^2}{4}(1-p_0)^m
  =O(T^{-1}).
 \end{equation}
 This rejection scheme establishes a rate, not an optimal constant. Its
@@ -2204,7 +2223,7 @@ concentration gives
  \Pr(\hbox{stage $k$ is inaccurate})\le4e^{-n_k/128}
 \end{equation}
 when inaccuracy means either quadrature mean differs by more than $1/8$.
-Otherwise the inferred phase error is less than $\pi/6$. Choose
+Otherwise the inferred phase error is less than $\varepsilon=\pi/6$. Choose
 \begin{equation}
  n_k=\left\lceil128\bigl[(K-k)\log8+\log16\bigr]\right\rceil.
  \label{markov:taper}
@@ -2223,12 +2242,14 @@ Final clipping reduces risk. The stage failure probabilities from
 \eqref{markov:taper} are at most $8^{-(K-k)}/4$. Therefore
 \begin{equation}
  \sup_{\omega,\phi}\mathbb E(\widehat\omega-\omega)^2
- \le O(4^{-K})+
-       O\left(\sum_{k=0}^K4^{-k}8^{-(K-k)}\right)
- =O(4^{-K}),
+ \le\frac{\varepsilon^2}{d_K^2}
+ +\sum_{k=0}^K\frac{9\pi^2}{d_k^2}\,\frac14\,8^{-(K-k)}
+ \le\frac{C_{\rm ph}}{d_K^2},
  \label{markov:riskseries}
 \end{equation}
-where fixed powers of $d_0$ are contained in the constants. The total
+where $C_{\rm ph}=\varepsilon^2+9\pi^2/2$ is a sufficient constant.
+The first inaccurate stage leaves error at most $3\pi/d_k$; summing
+$4^{K-k}8^{-(K-k)}=2^{-(K-k)}$ gives the displayed bound. The total
 prescribed effective exposure is
 \begin{equation}
  S_K=2\sum_{k=0}^K n_k d_k=\Theta(2^K).
@@ -2245,8 +2266,8 @@ in \eqref{markov:laplace} gives, for the total physical duration,
 \begin{equation}
  \mathbb E e^{-q\tau_{\rm total}}=e^{-S_Kk(q)}.
 \end{equation}
-Choose a fixed $0<\alpha<1$ and the largest $K$ for which
-$S_K\le\alpha rT$. The sequence \eqref{markov:effectivecost} grows
+Choose a fixed $0<\zeta<1$ and the largest $K$ for which
+$S_K\le\zeta rT$. The sequence \eqref{markov:effectivecost} grows
 geometrically, so this still gives $S_K=\Theta(T)$. For sufficiently small
 fixed $\theta>0$, the exponential-moment bound gives
 \begin{equation}
@@ -2255,7 +2276,7 @@ fixed $\theta>0$, the exponential-moment bound gives
  \label{markov:deadline}
 \end{equation}
 for some fixed $c>0$ with inverse-time units. Indeed
-$-k(-\theta)=\theta/r+O(\theta^2)$, and the strict margin $\alpha<1$
+$-k(-\theta)=\theta/r+O(\theta^2)$, and the strict margin $\zeta<1$
 makes the leading exponent negative. Terminate the experiment at $T$ and
 use a bounded fallback estimate if incomplete. This contributes at most
 $W^2e^{-cT}$ to risk. On completed schedules, the quadrature statistics are
@@ -2263,7 +2284,18 @@ unaffected by conditioning on duration, because completed channels are exact
 and duration records are parameter-independent. Equation
 \eqref{markov:riskseries} contributes $O(T^{-2})$.
 
-This completes the global upper bound and hence
+The endpoint construction gives $R_{\{a,b\}}^*(T;\Omega)\le
+U_{\rm endpoint}(T)$, where
+\begin{equation}
+ U_{\rm endpoint}(T)=\frac{C_{\rm ph}}{d_K^2}+W^2e^{-cT}=O(T^{-2})
+\end{equation}
+for the schedule chosen above and all sufficiently large $T$.
+Together with the interval converse,
+\begin{equation}
+ L(T)\le R_{[a,b]}^*(T;\Omega)\le R_{\{a,b\}}^*(T;\Omega)
+ \le U_{\rm endpoint}(T).
+\end{equation}
+Both selectable classes therefore have order $T^{-2}$, proving
 \eqref{markov:globaltheorem}. The argument pays for every repeated probe,
 every waiting period and every unfinished schedule. It uses a fixed frequency
 band, resolves its phase ambiguity explicitly and does not promote a local
@@ -2388,23 +2420,23 @@ for a fixed finite time constant $\beta$. A positive lower bound on $p_e$
 is unnecessary: at compensation the process never leaves its initial even
 sector. Plain
 one-cell trials provide the paid initial localization. The same conditional
-inversion and multiscale schedule therefore give risk $C_1/(h^2Q^2)$ with
-at most $Q$ used cells, including calibration, repetitions and rejected
+inversion and multiscale schedule therefore give risk $C_1/(h^2n_{\mathrm{use}}^2)$ with
+at most $n_{\mathrm{use}}$ used cells, including calibration, repetitions and rejected
 records.
 
 For $n\ge3$ and $m\ge1$, choose
 \begin{equation}
- Q=\min\!\left\{m,\left\lfloor\frac{n-1}{2}\right\rfloor\right\}.
+ n_{\mathrm{use}}=\min\!\left\{m,\left\lfloor\frac{n-1}{2}\right\rfloor\right\}.
  \label{time:allocation}
 \end{equation}
-The whole estimator uses at most $Q$ midpoint pulses and $Q$ boundary
+The whole estimator uses at most $n_{\mathrm{use}}$ midpoint pulses and $n_{\mathrm{use}}$ boundary
 instruments. Its last readout is counted because it occurs before $nh$.
-Thus $2Q\le n-1$ and $Q\le m$. Store the resulting classical estimate
+Thus $2n_{\mathrm{use}}\le n-1$ and $n_{\mathrm{use}}\le m$. Store the resulting classical estimate
 through the remaining charged cells. For example, $n=101,m=20$ permits
-$Q=20$, uses at most 40 contacts, and still pays for all 101 cells. It does
+$n_{\mathrm{use}}=20$, uses at most 40 contacts, and still pays for all 101 cells. It does
 not receive another 101 cells for calibration.
 
-Since $Q\ge m/3$, this construction has risk at most
+Since $n_{\mathrm{use}}\ge m/3$, this construction has risk at most
 $9C_1/(h^2m^2)$. A separate design uses all $n$ cells for plain-cell
 calibration and has risk at most $C_0/(h^2n)$ with $n-1$ boundary contacts.
 Choose the better design from the known budgets. The elementary inequality
@@ -2430,9 +2462,9 @@ mathematical subfamily used to lower-bound worst-case error, not information
 supplied to the controller. Put
 \begin{equation}
  p_{\min}=\chi^2\left(\frac{\sin r_*}{r_*}\right)^2,\quad
- K=\sup_{|\epsilon|\le E}|\phi'(\epsilon)|,\quad
+ K_\phi=\sup_{|\epsilon|\le E}|\phi'(\epsilon)|,\quad
  a_0=\frac{h}{2\sqrt{p_{\min}}},\quad
- b_0=h\sqrt{\frac14+g^2K^2},
+ b_0=h\sqrt{\frac14+g^2K_\phi^2},
 \end{equation}
 where $r_*=(\chi^2+(Eh/2)^2)^{1/2}<\pi/4$ bounds $Rh$ on the band.
 Both $a_0,b_0$ have units of time. A cell with no interior contact has
@@ -2509,18 +2541,19 @@ Hidden random jitter & Each pulse independently arrives at tick 45 or 55; the pr
 The ticks are only an illustration, not an additional measurement available
 to the controller. To isolate the timing question, keep one coupling and permit
 only plain cells or cells with one $Z_S$ pulse. A displaced pulse occurs at
-$h/2+\delta$, with $|\delta|<h/2$; there is no further interior contact in
-that cell. Its corrected propagator is
+$h/2+\delta_t$, with $|\delta_t|<h/2$; there is no further interior contact in
+that cell. Here $\delta_t$ is a timing displacement, distinct from the
+Markovian half-rate contrast $\delta=(b-a)/2$. Its corrected propagator is
 \begin{equation}
- V_\delta=e^{-iH_-(h/2-\delta)}e^{-iH_+(h/2+\delta)}.
+ V_{\delta_t}=e^{-iH_-(h/2-\delta_t)}e^{-iH_+(h/2+\delta_t)}.
 \end{equation}
 Its known pulse frame is included in the counted endpoint instrument.
 The exact branch coefficients are
 \begin{align}
- D&=\cos(2R\delta)-\cos(Rh),&
+ D&=\cos(2R\delta_t)-\cos(Rh),&
  u&=\cos(Rh)+\frac{g^2}{R^2}D,\nonumber\\
  v&=\frac{\epsilon}{2R}\sin(Rh),&
- w&=\frac{g}{R}\sin(2R\delta),\nonumber\\
+ w&=\frac{g}{R}\sin(2R\delta_t),\nonumber\\
  x&=\frac{\epsilon g}{2R^2}D,\label{time:displacedcoeffs}
 \end{align}
 with
@@ -2531,11 +2564,11 @@ with
 \end{equation}
 Each branch is proportional to a unitary because $N_\phi$ and $N'_\phi$
 anticommute. The odd branch has a frequency-dependent axis, but for a supplied
-known $\delta$ that dependence is known.
+known $\delta_t$ that dependence is known.
 
 \subsection{A supplied fixed displacement preserves a usable phase}
 
-Fix $0<|\delta|<h/2$ throughout the experiment and suppose its value is part
+Fix $0<|\delta_t|<h/2$ throughout the experiment and suppose its value is part
 of the device specification. Near compensation, $w$ has fixed nonzero sign.
 Absorb that sign into an irrelevant scalar phase and define
 \begin{equation}
@@ -2555,7 +2588,7 @@ cells in the odd sector gives the exact final-even phase
 The extra flip-axis terms must be retained. They are known functions of
 frequency, while the common unknown angle still cancels in pairs.
 
-For a direct sensitivity check, set $z=2g\delta$, so $0<|z|<\chi$.
+For a direct sensitivity check, set $z=2g\delta_t$, so $0<|z|<\chi$.
 At zero residual frequency,
 \begin{align}
  p_e&=\sin^2z,&p_p&=\sin^2\chi,\nonumber\\
@@ -2571,7 +2604,7 @@ $f_p=(1-p_p)\tan\chi/g$. The exact contrast is
 \end{equation}
 All factors determining the sign are positive for $-\chi<z<\chi$ except
 at the excluded zero. Thus the stationary derivative drift
-$(p_pf_e-p_ef_p)/(p_e+p_p)$ is strictly positive; denote it by $\mu_\delta$.
+$(p_pf_e-p_ef_p)/(p_e+p_p)$ is strictly positive; denote it by $\mu_{\delta_t}$.
 The record score must now include the new flip contributions:
 \begin{equation}
  D_L^0=\sum_{i=1}^L\sigma_{i-1}
@@ -2579,27 +2612,27 @@ The record score must now include the new flip contributions:
        -2\mathbf1_{\rm flip}\zeta'_{j_i}(0)\right].
 \end{equation}
 It is computed from the observed record and the supplied displacement.
-Its stationary mean is $\mu_\delta$. Accept even-ending records with
-$D_L^0\ge\mu_\delta L/2$. All these one-cell rewards are bounded for the
+Its stationary mean is $\mu_{\delta_t}$. Accept even-ending records with
+$D_L^0\ge\mu_{\delta_t} L/2$. All these one-cell rewards are bounded for the
 fixed nonzero displacement. The same two-state mean and variance argument
 therefore gives a positive acceptance probability for sufficiently long
 blocks. Continuity on a sufficiently small fixed band keeps each derivative
 close to its frozen value, certifying a whole-band positive phase slope.
 The same conditional estimator then gives inverse-square risk.
 The band and constants may depend on the supplied displacement.
-Using \eqref{time:allocation} charges at most $Q$ interior and $Q$ boundary
+Using \eqref{time:allocation} charges at most $n_{\mathrm{use}}$ interior and $n_{\mathrm{use}}$ boundary
 contacts, so this yields the quadratic global order when $m=\Theta(n)$.
-The ideal $\delta=0$ case is already covered by the midpoint construction.
+The ideal $\delta_t=0$ case is already covered by the midpoint construction.
 
 This argument does not need to retime the pulse. If calibrated retiming is
-allowed, shifting the command by $-\delta$ restores the midpoint instead.
-Neither statement supplies a method for learning an unknown $\delta$.
+allowed, shifting the command by $-\delta_t$ restores the midpoint instead.
+Neither statement supplies a method for learning an unknown $\delta_t$.
 Such learning would need its own identifiable likelihood, accuracy analysis
 and charged calibration cost.
 
 \subsection{Hidden independent jitter mixes the odd branch}
 
-Now let each pulsed cell independently have $\delta=+d$ or $-d$ with equal
+Now let each pulsed cell independently have $\delta_t=+d$ or $-d$ with equal
 probability, where the amplitude $0<d<h/2$ is known but its realized signs are
 never reported. The signs are independent of the unknown parameters, prior
 records and controls. At cell entrance the controller can choose plain or
@@ -2607,7 +2640,7 @@ jittered, but has no further pulse-position menu, extra interior pulse,
 coupling choice or physical compensation change.
 
 Only $w$ in \eqref{time:displacedcoeffs} changes sign. Averaging the two
-physical channels gives three Kraus operators, evaluated at $\delta=d$:
+physical channels gives three Kraus operators, evaluated at $\delta_t=d$:
 \begin{equation}
  L_0=uI-ivZ_S,\qquad L_1=-iwN_\phi,\qquad L_2=-ixN'_\phi.
  \label{time:jitterkraus}

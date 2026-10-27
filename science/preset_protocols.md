@@ -14,15 +14,15 @@ Use the even-parity code $`|0_L\rangle=|00\rangle`$, $`|1_L\rangle=|11\rangle`$.
 XN_\phi=e^{i\phi Z},
 ```
 
-a constant setting of duration $`t`$, signal strength $`s`$, and observed count $`n`$ leaves the logical phase $`\Theta=\omega st-2\phi n`$. Error times do not enter this phase in the ideal instantaneous-recovery limit.
+a constant setting of duration $`t`$, signal strength $`s`$, and observed count $`N`$ leaves the logical phase $`\Theta=\omega st-2\phi N`$. Error times do not enter this phase in the ideal instantaneous-recovery limit.
 
-Prepare $`|+_L\rangle`$, draw and record an independent uniform equatorial readout angle $`\chi`$, and measure the two outcomes with conditional probabilities
+Prepare $`|+_L\rangle`$, draw and record an independent uniform equatorial readout angle $`\vartheta`$, and measure the two outcomes with conditional probabilities
 
 ```math
-p_\pm=\frac{1\pm\cos(\Theta-\chi)}2.
+p_\pm=\frac{1\pm\cos(\Theta-\vartheta)}2.
 ```
 
-The conditional classical Fisher information about $`\Theta`$ is one away from isolated zero-probability points. Uniform recorded $`\chi`$ makes those points a null set for every fixed unknown phase. No estimate of $`\phi`$ is needed to select this measurement.
+The conditional classical Fisher information about $`\Theta`$ is one away from isolated zero-probability points. Uniform recorded $`\vartheta`$ makes those points a null set for every fixed unknown phase. No estimate of $`\phi`$ is needed to select this measurement.
 
 For a phase $`\Theta=\omega D-2\phi M`$ and a parameter-independent record $`(D,M)`$, the complete classical Fisher matrix for $`(\omega,\phi)`$ is
 
@@ -42,10 +42,10 @@ Preset two durations $`t_a,t_b>0`$, with $`t_a+t_b=T`$. Use rate $`a`$ in the fi
 ```math
 \Theta=\omega D-2\phi M,
 \qquad D=t_a-t_b,
-\qquad M=n_a-n_b.
+\qquad M=N_a-N_b.
 ```
 
-Here $`n_a,n_b`$ are independent Poisson counts. Set
+Here $`N_a,N_b`$ are independent Poisson counts. Set
 
 ```math
 \mu=at_a-bt_b,
@@ -217,6 +217,6 @@ A maximizing pair therefore attains [Theorem 3](precision_bounds.md#theorem-3--s
 | Recorded random rate | Once at the start | Fixed $`X`$ after each error | None for the fair design; ratio optimizes the coefficient | Quadratic local information; no trajectory-wise cancellation |
 | Stopped sensing | Conditioned on measured parity | None after errors | Not needed for output correctness; throughput bounds require rate information | Exact direction-independent Ramsey channel on success |
 
-Every construction still uses ideal syndrome monitoring and noiseless ancillary support. For the random design, $`T`$ is the duration of **each** complete interrogation; $`\nu`$ repetitions cost $`\nu T`$ and have Fisher matrix $`\nu J`$. Its local statement must not be reinterpreted as an $`O(T^{-2})`$ global risk guarantee for one random branch. The [stopped protocol](stopped_sensing.md) supplies the separate bounded-interval global theorem with every duration and failure charged.
+Every construction still uses ideal syndrome monitoring and noiseless ancillary support. For the random design, $`T`$ is the duration of **each** complete interrogation; $`N_{\rm rep}`$ repetitions cost $`N_{\rm rep}T`$ and have Fisher matrix $`N_{\rm rep}J`$. Its local statement must not be reinterpreted as an $`O(T^{-2})`$ global risk guarantee for one random branch. The [stopped protocol](stopped_sensing.md) supplies the separate bounded-interval global theorem with every duration and failure charged.
 
 If different settings have independently unknown directions, the Fisher matrices have separate nuisance columns. The rate-mixing gain then disappears, consistent with the [independent-axis converse](precision_bounds.md#independent-setting-dependent-directions). A retained label and a shared stable nuisance are load-bearing resources.

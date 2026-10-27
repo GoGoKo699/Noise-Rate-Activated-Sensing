@@ -6,10 +6,10 @@ This construction uses rates $`0<a<b`$, unit signal strength, a shared fixed unk
 
 ## Protocol and exact output
 
-Prepare the logical state in the even code, use rate $`a`$ in the even sector and rate $`b`$ in the odd sector, and do not apply recovery pulses. From the detected count $`n(t)`$ compute
+Prepare the logical state in the even code, use rate $`a`$ in the even sector and rate $`b`$ in the odd sector, and do not apply recovery pulses. From the detected count $`N(t)`$ compute
 
 ```math
-D(t)=\int_0^t(-1)^{n(u)}du.
+D(t)=\int_0^t(-1)^{N(u)}du.
 ```
 
 For a prescribed $`d>0`$, stop at
@@ -86,11 +86,11 @@ At physical time $`T`$, terminate any unfinished run. Decode completed outputs i
 For a dimensionally explicit asymptotic construction, let $`t_c=1/(a+b)`$ and set
 
 ```math
-h(T)=t_c(T/t_c)^{2/3},
-\qquad d=r[T-h(T)]
+\Delta_T=t_c(T/t_c)^{2/3},
+\qquad d=r[T-\Delta_T]
 ```
 
-for sufficiently large $`T`$. The mean completion time is $`T-h(T)`$ and the variance is $`O(T)`$. Chebyshev's inequality gives $`1-p_T=O(T^{-1/3})`$. Thus
+for sufficiently large $`T`$. The mean completion time is $`T-\Delta_T`$ and the variance is $`O(T)`$. Chebyshev's inequality gives $`1-p_T=O(T^{-1/3})`$. Thus
 
 ```math
 \mathcal I_\omega(T)/T^2\longrightarrow r^2,
@@ -164,7 +164,7 @@ Replace every Ramsey experiment by its exact stopped version. Fresh runs start i
 \mathbb E[e^{-q\tau_{\rm total}}]=e^{-S_Kk(q)}.
 ```
 
-Choose the largest $`K`$ for which $`S_K\le\alpha rT`$, with fixed $`0<\alpha<1`$. Since $`S_K=\Theta(2^K)`$, this still gives $`S_K=\Theta(T)`$. For sufficiently small fixed $`\theta>0`$,
+Choose the largest $`K`$ for which $`S_K\le\zeta rT`$, with fixed $`0<\zeta<1`$. Since $`S_K=\Theta(2^K)`$, this still gives $`S_K=\Theta(T)`$. For sufficiently small fixed $`\theta>0`$,
 
 ```math
 \Pr(\tau_{\rm total}>T)
