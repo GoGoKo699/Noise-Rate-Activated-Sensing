@@ -349,7 +349,7 @@ The two repositories use the same foundational text but retain distinct project-
 
 **Central question.** Which rate choices remove the local nuisance penalty, and which choices need feedback or calibration?
 
-**Understanding target.** Pool labelled experiments at two positive rates and recover the optimal coefficient $`[(b-a)/(b+a)]^2`$. Distinguish calibrated optimal design, a fair recorded choice and balanced echo; identify unequal signal-to-rate ratios as the broader selectable-setting criterion.
+**Understanding target.** Distinguish interval rate access $`\gamma(t)\in[a,b]`$ from its sufficient endpoint menu $`\{a,b\}`$; pool labelled endpoint experiments and recover the optimal coefficient $`[(b-a)/(b+a)]^2`$. Distinguish calibrated optimal design, a fair recorded choice and balanced echo; identify unequal signal-to-rate ratios as the broader selectable-setting criterion.
 
 **Prerequisites.** [M23](#m23-the-markovian-fixed-rate-counterpart)
 

@@ -21,11 +21,12 @@ The bound covers adaptive learning, interleaved correction, retained measurement
 If the same unknown error operator is available at any classically selected rate in $`[a,b]`$, with $`0<a<b<\infty`$, then
 
 ```math
-\lim_{T\to\infty}\frac{\mathcal I_\omega^*(T)}{T^2}=r^2,
-\qquad r=\frac{b-a}{b+a}.
+\lim_{T\to\infty}\frac{\mathcal I_{\omega,[a,b]}^*(T)}{T^2}
+=\lim_{T\to\infty}\frac{\mathcal I_{\omega,\{a,b\}}^*(T)}{T^2}
+=r^2,\qquad r=\frac{b-a}{b+a}.
 ```
 
-The endpoints suffice. Preset protocols with a fixed $`X`$ recovery after each detected error attain this leading local coefficient; syndrome-conditioned bath-rate selection is not necessary. A separate stopped protocol uses rate feedback but no error-recovery pulses and gives an exact direction-independent Ramsey channel on success. The different output and calibration guarantees are compared in [preset protocols](preset_protocols.md#relation-to-stopped-sensing).
+The endpoint-only protocol class is contained in the interval class, so its optimized information cannot be larger at finite time. The uniform converse covers every selected rate $`\gamma(t)\in[a,b]`$, and the endpoints suffice for the matched leading coefficient. Preset protocols with a fixed $`X`$ recovery after each detected error attain this leading local coefficient; syndrome-conditioned bath-rate selection is not necessary. A separate stopped protocol uses rate feedback but no error-recovery pulses and gives an exact direction-independent Ramsey channel on success. The different output and calibration guarantees are compared in [preset protocols](preset_protocols.md#relation-to-stopped-sensing).
 
 ## Theorem 3 — Selectable signal and noise strengths
 
@@ -72,7 +73,7 @@ Parameter-independent controls preserve this upper bound. For an adaptively sele
 
 ### The common nuisance path
 
-Along $`\omega=\omega_0+u`$, $`\phi=\phi_0+cu`$, direct Pauli multiplication gives
+Along $`\omega=\omega_c+u`$, $`\phi=\phi_c+cu`$, direct Pauli multiplication gives
 
 ```math
 (\partial_\phi N_\phi)N_\phi=-iZ,
@@ -97,9 +98,9 @@ For rates in $`[a,b]`$, choose $`c=1/(a+b)`$. Uniformly in the selected rate,
 \qquad \|B\|\le\frac r2.
 ```
 
-Consequently $`F'\le4b/(a+b)^2+2r\sqrt F`$, which implies $`\limsup F(T)/T^2\le r^2`$.
+Consequently $`\frac{dF}{dt}\le4b/(a+b)^2+2r\sqrt F`$, which implies $`\limsup F(T)/T^2\le r^2`$.
 
-For completeness, if $`F'\le C+2v\sqrt F`$ and $`v>0`$, the comparison solution, with $`y=\sqrt F`$, satisfies
+For completeness, if $`\frac{dF}{dt}\le C+2v\sqrt F`$ and $`v>0`$, the comparison solution, with $`y=\sqrt F`$, satisfies
 
 ```math
 t=\frac yv-\frac{C}{2v^2}\log\left(1+\frac{2vy}{C}\right)
@@ -164,16 +165,16 @@ The expectations are over the retained setting label. The formula follows by ave
 
 The stopped construction has a stronger channel guarantee than the preset local-information protocols. Encode a logical qubit as $`|0_L\rangle=|00\rangle`$, $`|1_L\rangle=|11\rangle`$, with the sensor first. Measure parity ideally, but do not apply a recovery after an error.
 
-Let $`n(t)`$ count detected jumps. For any trajectory define the signal-weighted signed time
+Let $`N(t)`$ count detected jumps. For any trajectory define the signal-weighted signed time
 
 ```math
-D_s(t)=\int_0^t(-1)^{n(u)}s_{j(u)}\,du.
+D_s(t)=\int_0^t(-1)^{N(u)}s_{j(u)}\,du.
 ```
 
 Repeatedly moving $`N_\phi`$ through the signal rotations gives the exact sensor unitary
 
 ```math
-U(t)=N_\phi^{n(t)}\exp[-i\omega D_s(t)Z/2].
+U(t)=N_\phi^{N(t)}\exp[-i\omega D_s(t)Z/2].
 ```
 
 Because $`L_j^\dagger L_j=\gamma_j I`$, the jump likelihoods are state-, $`\omega`$-, and $`\phi`$-independent for this protocol. Normalized no-jump propagation contains only the signal rotation. At an even count the unknown operator disappears, giving an exact logical Ramsey output with known $`D_s`$.

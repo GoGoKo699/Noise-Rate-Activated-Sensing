@@ -12,7 +12,7 @@ H_j=\frac{s_j\omega}{2}Z,
 \qquad N_\phi=\cos\phi\,X+\sin\phi\,Y.
 ```
 
-The master equation is $`\dot\rho=-i[H_j,\rho]+L_j\rho L_j^\dagger-\{L_j^\dagger L_j,\rho\}/2`$. In the main rate-only case, $`s_j=1`$ and $`\gamma_j\in[a,b]`$, where $`0<a<b<\infty`$. The finite-setting extension permits real known $`s_j`$ and positive known $`\gamma_j`$.
+The master equation is $`\dot\rho=-i[H_j,\rho]+L_j\rho L_j^\dagger-\{L_j^\dagger L_j,\rho\}/2`$. In the main rate-only case, $`s_j=1`$ and the controller can select $`\gamma(t)\in[a,b]`$ classically, where $`0<a<b<\infty`$. The converse covers the full interval; the endpoint menu $`\{a,b\}`$ suffices for attainment. The finite-setting extension permits real known $`s_j`$ and positive known $`\gamma_j`$.
 
 The target $`\omega`$ has units of inverse time. The angle $`\phi`$ is a fixed unknown point on a circle of period $`\pi`$ for the dissipator; a local coordinate suffices for its derivative. It is not redrawn at each jump or promised to lie in a finite set. The same $`\phi`$ applies to every setting and every trial pooled in the statistical experiment. All fixed constants, including $`a,b`$, are independent of the time budget.
 
@@ -36,7 +36,7 @@ $`T`$ is a hard physical exposure budget for one sensor, including calibration, 
 
 When a logical output is ready, a parameter-independent decoding transfers it to the noiseless ancilla. Remaining noise on the now-discarded sensor is irrelevant. An unfinished run at the deadline is retained as an explicit failure. Assigning it a parameter-independent output can only reduce information and is legitimate for a lower bound.
 
-A stopping time and its mean are not interchangeable with a hard deadline. The [stopped protocol](stopped_sensing.md) first solves the exact duration law and then imposes a deadline. For a preset randomized interrogation, every branch lasts $`T`$; $`\nu`$ repetitions cost $`\nu T`$, rather than providing $`\nu`$ samples for the price of one.
+A stopping time and its mean are not interchangeable with a hard deadline. The [stopped protocol](stopped_sensing.md) first solves the exact duration law and then imposes a deadline. For a preset randomized interrogation, every branch lasts $`T`$; $`N_{\rm rep}`$ repetitions cost $`N_{\rm rep}T`$, rather than providing $`N_{\rm rep}`$ samples for the price of one.
 
 ## Information in the presence of a nuisance
 
@@ -78,8 +78,8 @@ For a flagged successful pure Ramsey operation of known signed time $`D`$, equat
 Hold a candidate protocol fixed and restrict its unknown parameters to
 
 ```math
-\omega(u)=\omega_0+u,
-\qquad \phi(u)=\phi_0+cu.
+\omega(u)=\omega_c+u,
+\qquad \phi(u)=\phi_c+cu.
 ```
 
 For every chosen $`c`$, efficient target information is no greater than the classical information along this path, which is no greater than its output quantum Fisher information $`F_u`$. Equivalently, a locally unbiased target estimator remains locally unbiased for $`u`$ along the path.

@@ -12,13 +12,13 @@ The common anchor supplies channels, generators and microscopic reduction. The s
 
 ## 1. One qubit, one likelihood, one clock
 
-Prepare $`|+\rangle=(|0\rangle+|1\rangle)/\sqrt2`$. A frequency $`\omega`$ acts through $`H=\omega Z/2`$ for physical time $`t`$. In units with $`\hbar=1`$, the rotation is $`U_\omega(t)=e^{-i\omega tZ/2}`$. Read out in an equatorial basis with a known angle $`\zeta`$. The two outcome probabilities are
+Prepare $`|+\rangle=(|0\rangle+|1\rangle)/\sqrt2`$. A frequency $`\omega`$ acts through $`H=\omega Z/2`$ for physical time $`t`$. In units with $`\hbar=1`$, the rotation is $`U_\omega(t)=e^{-i\omega tZ/2}`$. Read out in an equatorial basis with a known angle $`\vartheta`$. The two outcome probabilities are
 
 ```math
-p_\pm(\omega\mid t,\zeta)=\frac{1\pm\cos(\omega t-\zeta)}2.
+p_\pm(\omega\mid t,\vartheta)=\frac{1\pm\cos(\omega t-\vartheta)}2.
 ```
 
-These probabilities, together with the chosen controls, form the **likelihood**: a rule assigning a probability to each possible data record for each candidate frequency. The phase $`\vartheta=\omega t`$ is dimensionless. Throughout this repository, $`\phi`$ is reserved for the unknown *noise direction*, not for $`\vartheta`$.
+These probabilities, together with the chosen controls, form the **likelihood**: a rule assigning a probability to each possible data record for each candidate frequency. The accumulated signal phase $`\omega t`$ is dimensionless. Throughout this repository, $`\phi`$ denotes the unknown *noise direction*, while $`\vartheta`$ is a known readout angle.
 
 The classical Fisher information of this measurement is
 
@@ -26,9 +26,9 @@ The classical Fisher information of this measurement is
 F_{\rm cl}(t)=\sum_{y\in\{+,-\}}\frac{(\partial_\omega p_y)^2}{p_y}=t^2
 ```
 
-at regular readout points. It measures local distinguishability of nearby frequencies, not the amount by which one experimental outcome determines the frequency. Drawing and retaining a uniform angle $`\zeta`$ avoids exceptional zero-probability points for any fixed phase. The qubit's quantum Fisher information also equals $`t^2`$ here; for a general state a particular measurement need not attain the quantum bound.
+at regular readout points. It measures local distinguishability of nearby frequencies, not the amount by which one experimental outcome determines the frequency. Drawing and retaining a uniform angle $`\vartheta`$ avoids exceptional zero-probability points for any fixed phase. The qubit's quantum Fisher information also equals $`t^2`$ here; for a general state a particular measurement need not attain the quantum bound.
 
-For $`\nu`$ independent repetitions of duration $`t`$, information adds to $`\nu t^2`$ and time adds to $`\nu t`$. With a total budget $`T=\nu t`$, this is $`Tt`$. One cannot simultaneously claim a single coherent interrogation of duration $`T`$ and $`\nu`$ free copies of its output. The ideal costs of preparation and readout are specified in the [model](../science/model.md).
+For $`N_{\rm rep}`$ independent repetitions of duration $`t`$, information adds to $`N_{\rm rep} t^2`$ and time adds to $`N_{\rm rep} t`$. With a total budget $`T=N_{\rm rep} t`$, this is $`Tt`$. One cannot simultaneously claim a single coherent interrogation of duration $`T`$ and $`N_{\rm rep}`$ free copies of its output. The ideal costs of preparation and readout are specified in the [model](../science/model.md).
 
 ## 2. Detect an error without reading the signal
 
@@ -64,10 +64,10 @@ If $`\phi`$ were known, applying $`N_\phi`$ after an error would undo it. A fixe
 XN_\phi=e^{i\phi Z}.
 ```
 
-After duration $`t`$ and $`n`$ detected errors, the logical phase is therefore
+After duration $`t`$ and $`N`$ detected errors, the logical phase is therefore
 
 ```math
-\Theta=\omega t-2\phi n.
+\Theta=\omega t-2\phi N.
 ```
 
 The state is back in the code, but its phase is not independent of the error direction. This fixed-recovery building block is attributed to the primary predecessor in [preset protocols](../science/preset_protocols.md); it is not a new general correction method.
@@ -92,7 +92,7 @@ Scores say how the likelihood changes under small parameter shifts. If a target 
 
 when $`J_{\phi\phi}>0`$. The minimizing coefficient is $`c=-J_{\omega\phi}/J_{\phi\phi}`$. The first expression also covers a singular nuisance block. This is the ordinary projection of the target score away from the nuisance score, not a new definition of quantum Fisher information.
 
-For the fixed-recovery phase $`\Theta=\omega t-2\phi n`$, the derivative vector is $`(t,-2n)`$. Averaging its outer product over $`n\sim\mathrm{Poisson}(\gamma t)`$ gives
+For the fixed-recovery phase $`\Theta=\omega t-2\phi N`$, the derivative vector is $`(t,-2N)`$. Averaging its outer product over $`N\sim\mathrm{Poisson}(\gamma t)`$ gives
 
 ```math
 J=\begin{pmatrix}
@@ -109,13 +109,13 @@ This calculation evaluates one protocol. Only the separate [converse](../science
 
 ## 4. A complete rate-diversity example
 
-Set $`a=1`$ and $`b=3`$ in inverse-time units and use an interrogation of duration $`t=10`$. Choose rate $`a`$ with probability $`3/4`$ and rate $`b`$ with probability $`1/4`$. Keep that rate fixed within the interrogation. Prepare $`|+_L\rangle`$, monitor parity, apply sensor $`X`$ after each detected error, and record the count $`n`$. At the end, draw and record $`\zeta`$ and measure the equatorial logical basis.
+Set $`a=1`$ and $`b=3`$ in inverse-time units and use an interrogation of duration $`t=10`$. Choose rate $`a`$ with probability $`3/4`$ and rate $`b`$ with probability $`1/4`$. Keep that rate fixed within the interrogation. Prepare $`|+_L\rangle`$, monitor parity, apply sensor $`X`$ after each detected error, and record the count $`N`$. At the end, draw and record $`\vartheta`$ and measure the equatorial logical basis.
 
-The complete data are the setting label $`j`$, count $`n`$, readout angle $`\zeta`$, and outcome $`y`$. Conditional on $`j`$, the count is Poisson with mean $`\gamma_jt`$ and the phase remains $`\omega t-2\phi n`$. For this example,
+The complete data are the setting label $`j`$, count $`N`$, readout angle $`\vartheta`$, and outcome $`y`$. Conditional on $`j`$, the count is Poisson with mean $`\gamma_jt`$ and the phase remains $`\omega t-2\phi N`$. For this example,
 
 ```math
-\mathbb E[n]=15,\qquad
-\mathbb E[n^2]=315,
+\mathbb E[N]=15,\qquad
+\mathbb E[N^2]=315,
 \qquad
 J=\begin{pmatrix}100&-300\\-300&1260\end{pmatrix}.
 ```
@@ -130,7 +130,7 @@ The universal fixed-rate $`a`$ bound at the same physical duration is $`t/a=10`$
 
 The shared direction allows the two types of labelled data to constrain the same nuisance. Form their full Fisher matrices and combine them **before** eliminating that nuisance. Eliminating an independent direction in each branch would be a different experiment. A label supplies no target information on its own; it identifies which likelihood generated the observation.
 
-For any two distinct positive rates, the optimal leading coefficient is $`r^2`$, where $`r=(b-a)/(b+a)`$. A fair recorded choice needs no numerical rate calibration in the design and has coefficient $`(b-a)^2/[2(a^2+b^2)]`$, at least half the optimum. For $`a=1,b=3`$, these coefficients are $`1/5`$ and $`1/4`$. Treating the rates as additional unknowns does not change the phase-information block when the complete counts are used; [preset protocols](../science/preset_protocols.md) derives that statement.
+For classical rate selection from $`[a,b]`$, its two distinct positive endpoints attain the optimal leading coefficient $`r^2`$, where $`r=(b-a)/(b+a)`$. A fair recorded choice needs no numerical rate calibration in the design and has coefficient $`(b-a)^2/[2(a^2+b^2)]`$, at least half the optimum. For $`a=1,b=3`$, these coefficients are $`1/5`$ and $`1/4`$. Treating the rates as additional unknowns does not change the phase-information block when the complete counts are used; [preset protocols](../science/preset_protocols.md) derives that statement.
 
 Three repetitions of the example cost 30 time units and have information $`3(200/7)=600/7`$, not three free interrogations at total cost 10. The direction must remain shared across the pooled data. No within-run rate feedback is used, but the recovery pulses still follow detected errors.
 
@@ -139,12 +139,12 @@ Three repetitions of the example cost 30 time units and have information $`3(200
 An alternative uses two timed blocks and a logical echo between them. With fixed recovery after each error, its phase is
 
 ```math
-\Theta=\omega(t_a-t_b)-2\phi(n_a-n_b).
+\Theta=\omega(t_a-t_b)-2\phi(N_a-N_b).
 ```
 
 For $`a=1,b=3,T=10`$, choose $`t_a=7.5`$ and $`t_b=2.5`$. The expected counts are equal, so the mean signed count vanishes. With signed time $`D=5`$ and signed-count variance $`V=15`$, the Fisher matrix is $`\mathrm{diag}(25,60)`$ and the efficient information is 25.
 
-This is statistical orthogonality: $`J_{\omega\phi}=0`$. It does not say that $`n_a=n_b`$ on each run or that its output is direction-independent. For general durations the exact information is
+This is statistical orthogonality: $`J_{\omega\phi}=0`$. It does not say that $`N_a=N_b`$ on each run or that its output is direction-independent. For general durations the exact information is
 
 ```math
 \mathcal I_{\rm echo}=\frac{D^2V}{V+\mu^2},
@@ -164,7 +164,7 @@ N_\phi^2=I,\qquad N_\phi ZN_\phi=-Z
 mean that two errors cancel, while the signal accumulates with reversed sign between them. On an even-count trajectory, the logical rotation depends only on
 
 ```math
-D(t)=\int_0^t(-1)^{n(u)}du,
+D(t)=\int_0^t(-1)^{N(u)}du,
 \qquad U_L(t)=e^{-i\omega D(t)Z_L/2}.
 ```
 
@@ -211,11 +211,11 @@ A single Ramsey likelihood is periodic. Frequencies separated by $`2\pi/t`$ can 
 
 The repository's global task fixes a frequency interval independently of $`T`$, permits biased estimators, and maximizes the mean-square error over the unknown frequency and direction. The [global proof](../science/global_precision.md) applies the uniform nuisance-path bound to a smooth prior using the van Trees argument. It proves a fixed-rate lower scaling $`\Omega(T^{-1})`$; paid, short no-error trials provide the matching upper scaling.
 
-For rate access, several prescribed effective times of the exact stopped channel resolve the phase ambiguity. Their physical durations and deadline failures are all counted. Together with a global lower bound this gives
+For interval rate access $`\gamma(t)\in[a,b]`$, the endpoint menu $`\{a,b\}`$ is enough: several prescribed effective times of the exact stopped channel resolve the phase ambiguity. Their physical durations and deadline failures are all counted. Together with a global lower bound this gives
 
 ```math
-R_{\rm fixed}(T;\Omega)=\Theta(T^{-1}),\qquad
-R_{[a,b]}(T;\Omega)=\Theta(T^{-2}).
+R_{\mathrm{fixed}}^*(T;\Omega)=\Theta(T^{-1}),\qquad
+R_{[a,b]}^*(T;\Omega)=\Theta(T^{-2}).
 ```
 
 Here $`\Omega`$ inside $`R`$ denotes the fixed frequency interval; $`\Omega(T^{-1})`$ in a scaling statement denotes an asymptotic lower bound. The exact optimal global constant is not supplied by the local coefficient $`r^2`$. The preset random-rate calculation is not substituted for the stopped-channel global proof.
@@ -277,14 +277,14 @@ This is an exact finite-strength statement. A no-flip cell generally accumulates
 
 The [microscopic theorem](../science/microscopic_global_precision.md) fixes one positive-width identifiable interval $`\Omega=[\omega_0-E,\omega_0+E]`$ for the entire experiment. It does not shrink with $`n`$. The risk is the worst-case mean-square frequency error over that interval and every shared direction. The same fixed coupling must be used in all pooled trials of the single-coupling benchmark.
 
-A simple one-cell calibration already gives a uniform inverse-linear upper bound. Measure $`Y_L`$ after an even parity result, assigning the score $`Z=\pm1`$, and assign $`Z=0`$ after an odd result. Here $`Z`$ is a classical variable. Its mean is
+A simple one-cell calibration already gives a uniform inverse-linear upper bound. Measure $`Y_L`$ after an even parity result, assigning the score $`W=\pm1`$, and assign $`W=0`$ after an odd result. Here $`W`$ is a classical variable. Its mean is
 
 ```math
-F(\epsilon)=\mathbb E Z
+f(\epsilon)=\mathbb E W
 =\frac{\epsilon\sin(2Rh)}{2R}.
 ```
 
-This likelihood is independent of $`\phi`$. On a sufficient band, $`F'(\epsilon)\ge\kappa>0`$. Thus clip the empirical mean to $`F([-E,E])`$ and invert $`F`$. The inverse is Lipschitz and the score is bounded, yielding mean-square error at most $`1/(n\kappa^2)`$. The [calibration proof](../science/microscopic_identifiability.md) also supplies exponential confidence bounds. Every odd outcome and every reset consumes a cell and its applicable contact.
+This likelihood is independent of $`\phi`$. On a sufficient band, $`f'(\epsilon)\ge\kappa>0`$. Thus clip the empirical mean to $`f([-E,E])`$ and invert $`f`$. The inverse is Lipschitz and the score is bounded, yielding mean-square error at most $`1/(n\kappa^2)`$. The [calibration proof](../science/microscopic_identifiability.md) also supplies exponential confidence bounds. Every odd outcome and every reset consumes a cell and its applicable contact.
 
 Why can no more elaborate boundary controller improve the fixed-coupling order? Write $`K_0=aI-ibZ_S`$, $`K_1=-icN_\phi`$ and $`p=c^2`$. Along the mathematical nuisance curve
 
@@ -310,7 +310,7 @@ A steep phase can wind around the circle many times. The estimator must determin
 At each stage let $`c`$ be the center of the current residual-frequency interval. For an accepted record, choose the terminal logical observable
 
 ```math
-\cos(\Phi_{\mathcal R}(c))Y_L
+O_{\mathcal R}=\cos(\Phi_{\mathcal R}(c))Y_L
 -\sin(\Phi_{\mathcal R}(c))X_L.
 ```
 

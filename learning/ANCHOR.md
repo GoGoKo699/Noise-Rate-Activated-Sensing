@@ -31,12 +31,14 @@ The common foundational route is channels and dilations → generators and rate 
 | In the anchor or this tutorial | Convention used in the research |
 |---|---|
 | System and environment $`A,B`$ | $`S,E`$; protected ancillary storage is accessible, while bath cells are not. |
-| Dynamical map $`\mathcal E_{(t,s)}`$ and generator $`\mathcal L_t`$ | The Markovian counterpart uses a homogeneous generator; the microscopic comparison uses an exact Hamiltonian in every cell. |
+| Dynamical map $`\mathcal E_{(t,s)}`$ and generator $`\mathcal L_t`$ | The Markovian counterpart uses a scalar rate $`\gamma(t)\in[a,b]`$ in its specified generator; the microscopic comparison uses an exact Hamiltonian in every cell. |
 | Rates $`\gamma_k`$ and jump operators $`V_k`$ in Eq. (46) | Absorb a nonnegative rate into $`L_k=\sqrt{\gamma_k}V_k`$. Here $`L=\sqrt\gamma N_\phi`$ in the Markovian model. |
 | Kraus operators $`K_\alpha`$ in §4.2 | $`K_0,K_1`$ denote exact no-flip and flip cell operators. A Kraus decomposition is not itself permission to observe the bath; parity encoding makes the stated branches accessible. |
-| Time derivatives in evolution equations | Primes in the microscopic converse differentiate residual frequency along a nuisance curve; they are not time derivatives. |
-| Tutorial readout angle $`\zeta`$ | A known terminal measurement setting, distinct from the unknown noise angle $`\phi`$ and the cell action $`\chi=gh`$. |
+| Time derivatives in evolution equations | Primes differentiate residual frequency at fixed $`\phi`$; dots in the converse denote total derivatives along its nuisance curve. Physical-time derivatives are written $`d/dt`$. |
+| Terminal readout angle $`\vartheta`$ | A known terminal measurement setting, distinct from the unknown noise angle $`\phi`$ and the cell action $`\chi=gh`$. |
 | Fixed nominal compensation $`\omega_0`$ | The microscopic target enters as $`\epsilon=\omega-\omega_0`$. Updating an estimate or readout basis does not change this Hamiltonian. |
+
+The continuous-time rate-only model permits classical selection throughout $`[a,b]`$; the endpoint menu $`\{a,b\}`$ attains the same leading local coefficient and global risk order. The two finite-time minimax risks remain distinct, as defined in the [global task](../science/global_precision.md#statistical-task-and-theorem). Calibration uses the classical score $`W`$ and mean response $`f`$; neither is a Pauli operator or quantum Fisher information.
 
 The global microscopic comparison fixes two distinct positive couplings, the cell length $`h`$ and a nonshrinking frequency interval. The budget is $`n`$ physical cells and at most $`n-1`$ nonterminal boundary contacts. Repetition, calibration, failed blocks and an early readout are charged. Protected storage contributes no extra signal generator. These conventions belong to the [statistical task](../science/microscopic_global_precision.md#statistical-task-and-resources), not to a substitution of time for the probe number in another metrology model.
 

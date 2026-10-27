@@ -216,7 +216,7 @@ independent blocks of length $`L_k`$. For each accepted record, measure the equa
 \qquad Y_i\in\{-1,+1\}.
 ```
 
-For example, the observable is $`\cos(\Phi_{\mathcal R_i}(c))Y_L-\sin(\Phi_{\mathcal R_i}(c))X_L`$. This is a classical choice of the terminal measurement basis from the observed record and earlier estimate. It neither changes the Hamiltonian during a cell nor retunes the nominal compensation.
+Explicitly, the observable is $`O_i=\cos(\Phi_{\mathcal R_i}(c))Y_L-\sin(\Phi_{\mathcal R_i}(c))X_L`$. This is a classical choice of the terminal measurement basis from the observed record and earlier estimate. It neither changes the Hamiltonian during a cell nor retunes the nominal compensation.
 
 Let $`G`$ be the number of accepted blocks. If $`G<p_0r_k/2`$, set $`\widetilde u_k=c`$. Otherwise compute the known function
 

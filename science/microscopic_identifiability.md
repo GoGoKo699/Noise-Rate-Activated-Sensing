@@ -37,7 +37,7 @@ Prepare the even-parity logical state
 |+_L\rangle=\frac{|00\rangle+|11\rangle}{\sqrt2}.
 ```
 
-After one complete cell, measure parity. On an even result measure $`Y_L`$ and record its value $`Z\in\{-1,+1\}`$; on an odd result record $`Z=0`$. Here $`Z`$ denotes the classical score, not the sensor Pauli operator $`Z_S`$. The odd outcome remains in the likelihood and consumes the same cell duration.
+After one complete cell, measure parity. On an even result measure $`Y_L`$ and record its value $`W\in\{-1,+1\}`$; on an odd result record $`W=0`$. Here $`W`$ denotes the classical score, not the sensor Pauli operator $`Z_S`$. The odd outcome remains in the likelihood and consumes the same cell duration.
 
 Put $`R=\sqrt{g^2+\epsilon^2/4}`$ and $`r=Rh`$. The [exact collision instrument](microscopic_sensing.md#exact-parity-conditioned-cell-channel) has Kraus operators
 
@@ -47,32 +47,32 @@ K_0=\cos r\,I-i\frac{\epsilon}{2R}\sin r\,Z_S,
 K_1=-i\frac gR\sin r\,N_\phi.
 ```
 
-Writing $`\alpha=\epsilon\sin r/(2R)`$, the three probabilities are
+Writing $`a=\cos r`$ and $`b=\epsilon\sin r/(2R)`$, the three probabilities are
 
 ```math
-p(\epsilon)=\Pr\{Z=0\}=\frac{g^2}{R^2}\sin^2 r,
+p(\epsilon)=\Pr\{W=0\}=\frac{g^2}{R^2}\sin^2 r,
 \qquad q(\epsilon)=1-p(\epsilon),
 ```
 
 ```math
-\Pr\{Z=\pm1\}
-=\frac12(\cos r\pm\alpha)^2
-=\frac{q(\epsilon)\pm F(\epsilon)}2,
+\Pr\{W=\pm1\}
+=\frac12(a\pm b)^2
+=\frac{q(\epsilon)\pm f(\epsilon)}2,
 \qquad
-F(\epsilon)=\mathbb E Z
+f(\epsilon)=\mathbb E W
 =\frac{\epsilon\sin(2Rh)}{2R}.
 ```
 
 All three probabilities are independent of $`\phi`$ for every residual frequency. The even Kraus branch contains no angle, and the odd branch is used only through its probability. Thus the experiment eliminates the nuisance without estimating it or conditioning away an outcome.
 
-On the promised band, $`\chi\le r\le r_*<\pi/4`$. All three probabilities are strictly positive: $`p>0`$ and $`|\alpha|<\sin r<\cos r`$. In particular, this likelihood has no zero-probability singularity on the band.
+On the promised band, $`\chi\le r\le r_*<\pi/4`$. All three probabilities are strictly positive: $`p>0`$ and $`|b|<\sin r<a`$. In particular, this likelihood has no zero-probability singularity on the band.
 
 ## A uniform inverse for the signal
 
 Direct differentiation gives
 
 ```math
-F'(\epsilon)
+f'(\epsilon)
 =h\left[
 \frac{g^2}{R^2}\frac{\sin(2r)}{2r}
 +\frac{\epsilon^2}{4R^2}\cos(2r)
@@ -82,15 +82,15 @@ F'(\epsilon)
 The two weights in brackets are nonnegative and sum to one. For $`0<x<\pi/2`$, the inequality $`\sin x/x\ge\cos x`$ follows because $`\sin x-x\cos x`$ vanishes at zero and has derivative $`x\sin x\ge0`$. Both functions being averaged are therefore at least $`\cos(2r_*)`$ and at most one. Consequently
 
 ```math
-\kappa\le F'(\epsilon)\le h
+\kappa\le f'(\epsilon)\le h
 \qquad (|\epsilon|\le E).
 ```
 
-The odd function $`F`$ is strictly increasing on $`[-E,E]`$, with
+The odd function $`f`$ is strictly increasing on $`[-E,E]`$, with
 
 ```math
 \kappa|\epsilon_1-\epsilon_2|
-\le |F(\epsilon_1)-F(\epsilon_2)|
+\le |f(\epsilon_1)-f(\epsilon_2)|
 \le h|\epsilon_1-\epsilon_2|.
 ```
 
@@ -98,22 +98,21 @@ Thus this single quadrature identifies frequency throughout the promised band, u
 
 ## Repetition, risk and confidence
 
-Repeat the same preparation and readout for $`N\ge1`$ cells. Fresh bath partners and a complete sensor–ancilla re-preparation make the scores $`Z_1,\ldots,Z_N`$ independent with the likelihood above. Let $`\overline Z=N^{-1}\sum_jZ_j`$, project it onto $`[F(-E),F(E)]`$, and define
+Repeat the same preparation and readout for $`N\ge1`$ cells. Fresh bath partners and a complete sensor–ancilla re-preparation make the scores $`W_1,\ldots,W_N`$ independent with the likelihood above. Let $`\overline W=N^{-1}\sum_jW_j`$, project it onto $`[f(-E),f(E)]`$, and define
 
 ```math
-\widehat\omega
-=\omega_0+
-F^{-1}\!\left(\mathrm{clip}_{[F(-E),F(E)]}(\overline Z)\right).
+\widehat\epsilon_N
+=f^{-1}\!\left(\mathrm{clip}_{[f(-E),f(E)]}(\overline W)\right).
 ```
 
-Projection onto the interval cannot increase the distance to $`F(\epsilon)`$. The inverse bound therefore implies
+The physical-frequency estimate is $`\widehat\omega=\omega_0+\widehat\epsilon_N`$. Projection onto the interval cannot increase the distance to $`f(\epsilon)`$. The inverse bound therefore implies
 
 ```math
 |\widehat\omega-\omega|
-\le\frac{|\overline Z-F(\epsilon)|}{\kappa}.
+\le\frac{|\overline W-f(\epsilon)|}{\kappa}.
 ```
 
-Since $`Z\in[-1,1]`$, its variance is $`q-F^2\le1`$. Hence the exact uniform mean-square-error guarantee is
+Since $`W\in[-1,1]`$, its variance is $`q-f^2\le1`$. Hence the exact uniform mean-square-error guarantee is
 
 ```math
 \sup_{\omega\in\Omega,\,\phi}

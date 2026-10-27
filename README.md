@@ -44,21 +44,21 @@ At a fixed rate $`\gamma>0`$,
 \lim_{T\to\infty}\frac{\mathcal I_\omega^*(T)}{T}=\frac1\gamma.
 ```
 
-With classical access to the same error operator at rates $`0<a<b`$,
+With classical selection $`\gamma(t)\in[a,b]`$ for the same error operator, where $`0<a<b`$,
 
 ```math
 \lim_{T\to\infty}\frac{\mathcal I_\omega^*(T)}{T^2}
 =\left(\frac{b-a}{b+a}\right)^2.
 ```
 
-The same bounds permit arbitrary parameter-independent adaptive system–ancilla controls. The extra resource in the positive result is rate diversity, not access to the bath or a coherent drive about the unknown axis. For global minimax mean-square error $`R(T;\Omega)`$ over a fixed interval $`\Omega`$,
+The same bounds permit arbitrary parameter-independent adaptive system–ancilla controls. The extra resource in the positive result is rate diversity, not access to the bath or a coherent drive about the unknown axis. For global minimax mean-square error $`R_{\mathcal A}^*(T;\Omega)`$ over a fixed interval $`\Omega`$,
 
 ```math
-R_{\mathrm{fixed}}(T;\Omega)=\Theta(T^{-1}),
-\qquad R_{[a,b]}(T;\Omega)=\Theta(T^{-2}).
+R_{\mathrm{fixed}}^*(T;\Omega)=\Theta(T^{-1}),
+\qquad R_{[a,b]}^*(T;\Omega)=\Theta(T^{-2}).
 ```
 
-The [global-risk proof](science/global_precision.md) does not infer this result from a local Cramér–Rao bound. It supplies lower bounds valid for biased estimators and matching upper scalings. Optimal global constants are not asserted.
+The endpoint menu $`\{a,b\}`$ suffices for attainment; its finite-time risk and the interval-menu risk are distinguished in the [global-risk proof](science/global_precision.md). That proof does not infer this result from a local Cramér–Rao bound. It supplies lower bounds valid for biased estimators and matching upper scalings. Optimal global constants are not asserted.
 
 ## Local precision and exact sensing are different guarantees
 
